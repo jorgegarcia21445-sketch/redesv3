@@ -1,0 +1,5618 @@
+{
+  "categoria": "66964",
+  "cantidad": 168,
+  "productos": [
+    {
+      "producto_id": "38012",
+      "modelo": "JR-52",
+      "titulo": "Adaptador de Alimentación DC / Conector Jack Macho 3.5 mm / Terminales de Tornillo / 12 Vcc Polarizado / Para CCTV",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/38012/portada_0S400.PNG",
+      "link": "/producto/JR-52-EPCOM-POWERLINE-38012.html",
+      "total_existencia": 500,
+      "precios": {
+        "precio_1": "1.03",
+        "precio_especial": "0.44",
+        "precio_descuento": "0.28",
+        "volumen": {
+          "10": "0.27",
+          "30": "0.27",
+          "50": "0.27",
+          "100": "0.25"
+        },
+        "precio_map": "0.35",
+        "precio_lista": "1.03"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "38013",
+      "modelo": "JR-53",
+      "titulo": "Adaptador de Alimentación DC / Jack Hembra 3.5 mm / Terminales Tornillo / Polarizado 12 Vcc / Pin Cobre 2.1 mm / Calibre 18 AWG",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/38013/portada_0S400.PNG",
+      "link": "/producto/JR-53-EPCOM-POWERLINE-38013.html",
+      "total_existencia": 500,
+      "precios": {
+        "precio_1": "0.88",
+        "precio_especial": "0.54",
+        "precio_descuento": "0.34",
+        "volumen": {
+          "10": "0.33",
+          "30": "0.33",
+          "50": "0.33",
+          "100": "0.31",
+          "200": "0.29"
+        },
+        "precio_map": "0.43",
+        "precio_lista": "0.88"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "236560",
+      "modelo": "KIT2CBLPV10RB/50",
+      "titulo": "Cable Fotovoltaico / 6 mm² (10 AWG) / 1000/2000 V / 120°C / 50 m (164 ft) / Rojo y Negro / XLPE Resistente a UV",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/236560/portada_0S400.PNG",
+      "link": "/producto/KIT2CBLPV10RB-50-EPCOM-POWERLINE-236560.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "272.88",
+        "precio_especial": "233.30",
+        "precio_descuento": "149.31",
+        "precio_map": "186.64",
+        "precio_lista": "272.88"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "220903",
+      "modelo": "2114-1101/1000",
+      "titulo": "Cable para Alarma / 2x18 AWG / 305 m (1000 ft) / Riser / Blanco",
+      "marca": "GENESIS",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/HONEYWELLHOMERESIDEO/21141101_1000/21141101_1000-p.PNG",
+      "link": "/producto/2114-1101-1000-GENESIS-220903.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "266.28",
+        "precio_especial": "254.45",
+        "precio_descuento": "162.84",
+        "precio_map": "203.56",
+        "precio_lista": "266.28"
+      },
+      "categorias": [
+        {
+          "id": "22",
+          "nombre": "Videovigilancia",
+          "nivel": 1
+        },
+        {
+          "id": "206",
+          "nombre": "Cables y Conectores",
+          "nivel": 2
+        },
+        {
+          "id": "65867",
+          "nombre": "Cables A/V (HDMI / VGA / DVI / RCA / Audio)",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "213894",
+      "modelo": "CBL-PV-10B/100",
+      "titulo": "Cable Fotovoltaico / 6 mm² (10 AWG) / Cobre Suave / 2000V / -40°C a 120°C / Rollo 100 m",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/213894/portada_0S400.PNG",
+      "link": "/producto/CBL-PV-10B-100-EPCOM-POWERLINE-213894.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "290.61",
+        "precio_especial": "251.85",
+        "precio_descuento": "161.18",
+        "precio_map": "201.48",
+        "precio_lista": "290.61"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "155377",
+      "modelo": "RQ38/100M",
+      "titulo": "Cable de Uso Rudo / 3 Conductores / Calibre 12 AWG / 600 V / Rollo 100 m (328 ft)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/155377/portada_0S400.PNG",
+      "link": "/producto/RQ38-100M-INDIANA-155377.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "636.65",
+        "precio_especial": "547.52",
+        "precio_descuento": "350.41",
+        "precio_map": "438.01",
+        "precio_lista": "636.65"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "236608",
+      "modelo": "KIT2CBLPV10RB/100",
+      "titulo": "Kit Cable Fotovoltaico / 2 Rollos de 100 m (328 ft) / Calibre 10 AWG (6 mm²) / Cobre Tipo PV / 1000/2000 V / -40°C a 120°C",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/236608/portada_0S400.PNG",
+      "link": "/producto/KIT2CBLPV10RB-100-EPCOM-POWERLINE-236608.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "581.22",
+        "precio_especial": "488.60",
+        "precio_descuento": "312.70",
+        "precio_map": "390.88",
+        "precio_lista": "581.22"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "236609",
+      "modelo": "KIT2CBLPV10RB/25",
+      "titulo": "Kit Cable Fotovoltaico / 2 Rollos 25 m (82 ft) / 10 AWG 6 mm² / 1000/2000 V / -40°C a 120°C / Rojo/Negro",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/236609/portada_0S400.PNG",
+      "link": "/producto/KIT2CBLPV10RB-25-EPCOM-POWERLINE-236609.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "112.62",
+        "precio_especial": "100.42",
+        "precio_descuento": "64.26",
+        "precio_map": "80.33",
+        "precio_lista": "112.62"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "162897",
+      "modelo": "AC-CORD-1.8M",
+      "titulo": "Cable de Alimentación / 120-240 Vca / 18 AWG / IEC 320C13 a NEMA 5-15P / 1.8 m (5.91 ft) / 3 Conductores con Tierra",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/162897/portada_0S400.PNG",
+      "link": "/producto/AC-CORD-1.8M-EPCOM-POWERLINE-162897.html",
+      "total_existencia": 500,
+      "precios": {
+        "precio_1": "6.88",
+        "precio_especial": "4.50",
+        "precio_descuento": "2.88",
+        "volumen": {
+          "10": "2.79",
+          "50": "2.73"
+        },
+        "precio_map": "3.60",
+        "precio_lista": "6.88"
+      },
+      "categorias": [
+        {
+          "id": "22",
+          "nombre": "Videovigilancia",
+          "nivel": 1
+        },
+        {
+          "id": "208",
+          "nombre": "Energía",
+          "nivel": 2
+        },
+        {
+          "id": "2975",
+          "nombre": "Fuentes de Alimentación",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "223093",
+      "modelo": "CBL-PV-10B/50",
+      "titulo": "Cable Fotovoltaico / 6 mm² (10 AWG) / Cobre Flexible / 2000 V / Rollo 50 m (164 ft) / Negro / -40°C a 120°C",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/223093/portada_0S400.PNG",
+      "link": "/producto/CBL-PV-10B-50-EPCOM-POWERLINE-223093.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "146.14",
+        "precio_especial": "131.39",
+        "precio_descuento": "81.98",
+        "precio_map": "105.11",
+        "precio_lista": "146.14"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187637",
+      "modelo": "SLY-308-RED/100",
+      "titulo": "Cable THW-LS / Calibre 12 AWG / 19 Hilos / 90°C Seco / 75°C Mojado / Bobina 100 m (328 ft)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/INDIANA/SLY308RED/100/portada_0S400.PNG?v=1787157732",
+      "link": "/producto/SLY-308-RED-100-INDIANA-187637.html",
+      "total_existencia": 28,
+      "precios": {
+        "precio_1": "165.78",
+        "precio_especial": "142.57",
+        "precio_descuento": "91.24",
+        "precio_map": "114.05",
+        "precio_lista": "165.78"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "193778",
+      "modelo": "VD63/100M",
+      "titulo": "Cable de Uso Rudo / 2 Conductores / Calibre 18 AWG / 600 V / Rollo 100 m (328 ft)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/193778/portada_0S400.PNG",
+      "link": "/producto/VD63-100M-INDIANA-193778.html",
+      "total_existencia": 54,
+      "precios": {
+        "precio_1": "157.09",
+        "precio_especial": "135.10",
+        "precio_descuento": "86.46",
+        "precio_map": "108.08",
+        "precio_lista": "157.09"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187638",
+      "modelo": "SLY-308-WHT/100",
+      "titulo": "Cable THW-LS / 12 AWG / 19 Hilos / 100 m (328 ft) / Blanco / 90 °C Seco",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/INDIANA/SLY308WHT/100/portada_0S400.PNG?v=1787156374",
+      "link": "/producto/SLY-308-WHT-100-INDIANA-187638.html",
+      "total_existencia": 68,
+      "precios": {
+        "precio_1": "172.41",
+        "precio_especial": "131.03",
+        "precio_descuento": "83.85",
+        "precio_map": "104.82",
+        "precio_lista": "172.41"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "223061",
+      "modelo": "CBL-PV-10R/50",
+      "titulo": "Cable Fotovoltaico / 6 mm² (10 AWG) / Conductor Cobre / 2000 V DC / Rollo 50 m (164 ft) / -40°C a 120°C / XLPE Resistente UV",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/223061/portada_0S400.PNG",
+      "link": "/producto/CBL-PV-10R-50-EPCOM-POWERLINE-223061.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "146.14",
+        "precio_especial": "131.39",
+        "precio_descuento": "81.98",
+        "precio_map": "105.11",
+        "precio_lista": "146.14"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "174862",
+      "modelo": "RQ37/100M",
+      "titulo": "Cable de Uso Rudo / 3 Conductores / Calibre 14 AWG / 600 V / Rollo 100 m (328 ft)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/174862/portada_0S400.PNG",
+      "link": "/producto/RQ37-100M-INDIANA-174862.html",
+      "total_existencia": 54,
+      "precios": {
+        "precio_1": "429.96",
+        "precio_especial": "369.76",
+        "precio_descuento": "236.64",
+        "precio_map": "295.80",
+        "precio_lista": "429.96"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "213895",
+      "modelo": "CBL-PV-10R/100",
+      "titulo": "Cable Fotovoltaico / 6 mm² (10 AWG) / Cobre / 2000V / Rango -40°C a 120°C / Rojo / Rollo 100 m (328.1 ft)",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/213895/portada_0S400.PNG",
+      "link": "/producto/CBL-PV-10R-100-EPCOM-POWERLINE-213895.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "290.61",
+        "precio_especial": "251.85",
+        "precio_descuento": "161.18",
+        "precio_map": "201.48",
+        "precio_lista": "290.61"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "194472",
+      "modelo": "HIK-ACCORD",
+      "titulo": "Cable de Alimentación Eléctrica / 110-240 VCA / 1.5 m (4.92 ft) / IEC 320C13 / NEMA 5-15P / Trifásico con Tierra",
+      "marca": "HIKVISION",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/194472/portada_0S400.PNG",
+      "link": "/producto/HIK-ACCORD-HIKVISION-194472.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "5.00",
+        "precio_especial": "4.96",
+        "precio_descuento": "3.17",
+        "precio_map": "3.96",
+        "precio_lista": "5.00"
+      },
+      "categorias": [
+        {
+          "id": "22",
+          "nombre": "Videovigilancia",
+          "nivel": 1
+        },
+        {
+          "id": "208",
+          "nombre": "Energía",
+          "nivel": 2
+        },
+        {
+          "id": "2975",
+          "nombre": "Fuentes de Alimentación",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "223748",
+      "modelo": "LMC4XT60I2.5M",
+      "titulo": "Cable Fotovoltaico / 2.5 m (8.2 ft) / 12 AWG / MC4 Macho-Hembra + XT60 / Negro",
+      "marca": "ECOFLOW",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/223748/portada_0S400.PNG",
+      "link": "/producto/LMC4XT60I2.5M-ECOFLOW-223748.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "39.31",
+        "precio_especial": "32.10",
+        "precio_descuento": "20.54",
+        "volumen": {
+          "10": "20.33",
+          "20": "20.13",
+          "30": "19.92"
+        },
+        "precio_map": "25.68",
+        "precio_lista": "39.31"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66404",
+          "nombre": "Baterías y Cargadores",
+          "nivel": 2
+        },
+        {
+          "id": "66408",
+          "nombre": "Terminales y Accesorios",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187635",
+      "modelo": "SLY-308-BLK/100",
+      "titulo": "Cable THW-LS / Calibre 12 AWG / 19 Hilos / 100 m (328 ft) / PVC Autoextinguible / 90°C / NMX-J-010-ANCE",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/INDIANA/SLY308BLK_100/SLY308BLK_100-p.PNG",
+      "link": "/producto/SLY-308-BLK-100-INDIANA-187635.html",
+      "total_existencia": 105,
+      "precios": {
+        "precio_1": "165.78",
+        "precio_especial": "142.57",
+        "precio_descuento": "91.24",
+        "precio_map": "114.05",
+        "precio_lista": "165.78"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "161226",
+      "modelo": "CBL-AWG2-1B",
+      "titulo": "Cable para Baterías / Calibre 2 AWG / 1 m (3.3 ft) / Terminales de Ojo Doble / Aislante PVC Resistente a UV / Negro",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/161226/portada_0S400.PNG",
+      "link": "/producto/CBL-AWG2-1B-EPCOM-POWERLINE-161226.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "19.73",
+        "precio_especial": "16.30",
+        "precio_descuento": "10.43",
+        "volumen": {
+          "15": "9.91"
+        },
+        "precio_map": "13.04",
+        "precio_lista": "19.73"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66404",
+          "nombre": "Baterías y Cargadores",
+          "nivel": 2
+        },
+        {
+          "id": "66408",
+          "nombre": "Terminales y Accesorios",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "161225",
+      "modelo": "CBL-AWG2-1R",
+      "titulo": "Cable Jumper para Baterías / 1 m (3.3 ft) / Calibre 2 AWG / Terminales de Ojo Doble / Uso en Serie y Paralelo / Color Rojo",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/161225/portada_0S400.PNG",
+      "link": "/producto/CBL-AWG2-1R-EPCOM-POWERLINE-161225.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "20.71",
+        "precio_especial": "17.09",
+        "precio_descuento": "10.93",
+        "volumen": {
+          "15": "10.39"
+        },
+        "precio_map": "13.67",
+        "precio_lista": "20.71"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66404",
+          "nombre": "Baterías y Cargadores",
+          "nivel": 2
+        },
+        {
+          "id": "66408",
+          "nombre": "Terminales y Accesorios",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "174861",
+      "modelo": "RQ33/100M",
+      "titulo": "Cable Eléctrico de Uso Rudo / 2 Conductores 14 AWG / 19 Hilos / 600 V / 100 m (328 ft) / 90 °C Seco / LSZH-FV2 / NMX-J-010-ANCE",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/174861/portada_0S400.PNG",
+      "link": "/producto/RQ33-100M-INDIANA-174861.html",
+      "total_existencia": 2,
+      "precios": {
+        "precio_1": "308.05",
+        "precio_especial": "264.92",
+        "precio_descuento": "169.54",
+        "precio_map": "211.93",
+        "precio_lista": "308.05"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "217578",
+      "modelo": "RQ39/100M",
+      "titulo": "Cable de Uso Rudo / 3 Conductores / Calibre 10 AWG / 600 V / Rollo 100 m (328 ft)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/217578/portada_0S400.PNG",
+      "link": "/producto/RQ39-100M-INDIANA-217578.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "913.67",
+        "precio_especial": "913.67",
+        "precio_descuento": "584.74",
+        "precio_map": "730.93",
+        "precio_lista": "913.67"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "176879",
+      "modelo": "SLY-304-GRN/100",
+      "titulo": "Cable THW-LS / Calibre 10 AWG / 19 Hilos / Verde / Bobina 100 m (328 ft)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/176879/portada_0S400.PNG",
+      "link": "/producto/SLY-304-GRN-100-INDIANA-176879.html",
+      "total_existencia": 1,
+      "precios": {
+        "precio_1": "273.08",
+        "precio_especial": "207.54",
+        "precio_descuento": "132.82",
+        "precio_map": "166.03",
+        "precio_lista": "273.08"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "239629",
+      "modelo": "PC02",
+      "titulo": "Cable SPT POT / 2 Conductores / Calibre 18 AWG / 100 m (328.08 ft) / 300 V / 60 °C / NOM-063-SCFI / Blanco",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/INDIANA/PC02/portada_0S400.PNG?v=1787158570",
+      "link": "/producto/PC02-INDIANA-239629.html",
+      "total_existencia": 61,
+      "precios": {
+        "precio_1": "97.66",
+        "precio_especial": "83.99",
+        "precio_descuento": "52.40",
+        "precio_map": "67.19",
+        "precio_lista": "97.66"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "81247",
+      "modelo": "JR53X",
+      "titulo": "Adaptador de Alimentación DC / Jack 3.5 mm Hembra Polarizado / 12 Vcc / Terminales Push / Calibre 18",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/81247/portada_0S400.PNG",
+      "link": "/producto/JR53X-EPCOM-POWERLINE-81247.html",
+      "total_existencia": 500,
+      "precios": {
+        "precio_1": "1.29",
+        "precio_especial": "1.10",
+        "precio_descuento": "0.70",
+        "volumen": {
+          "10": "0.63",
+          "50": "0.57",
+          "100": "0.56"
+        },
+        "precio_map": "0.88",
+        "precio_lista": "1.29"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "161222",
+      "modelo": "CBL-8AWG-3R",
+      "titulo": "Cable de Controlador a Batería / 3.0 m (9.8 ft) / 8 AWG / Terminal de Ojo / Rojo",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/161222/portada_0S400.PNG",
+      "link": "/producto/CBL-8AWG-3R-EPCOM-POWERLINE-161222.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "14.95",
+        "precio_especial": "12.96",
+        "precio_descuento": "8.29",
+        "volumen": {
+          "15": "7.87"
+        },
+        "precio_map": "10.36",
+        "precio_lista": "14.95"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66404",
+          "nombre": "Baterías y Cargadores",
+          "nivel": 2
+        },
+        {
+          "id": "66408",
+          "nombre": "Terminales y Accesorios",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "193780",
+      "modelo": "VD66/100M",
+      "titulo": "Cable de Uso Rudo / 4 Conductores / Calibre 18 AWG / 600 V / Rollo 100 m (328.1 ft)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/193780/portada_0S400.PNG",
+      "link": "/producto/VD66-100M-INDIANA-193780.html",
+      "total_existencia": 30,
+      "precios": {
+        "precio_1": "257.56",
+        "precio_especial": "257.56",
+        "precio_descuento": "164.83",
+        "precio_map": "206.04",
+        "precio_lista": "257.56"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "193777",
+      "modelo": "VD62/100M",
+      "titulo": "Cable de Uso Rudo / 2 Conductores / Calibre 16 AWG / 600 V / Rollo 100 m (328 ft)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/193777/portada_0S400.PNG",
+      "link": "/producto/VD62-100M-INDIANA-193777.html",
+      "total_existencia": 22,
+      "precios": {
+        "precio_1": "215.42",
+        "precio_especial": "185.26",
+        "precio_descuento": "118.56",
+        "precio_map": "148.20",
+        "precio_lista": "215.42"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187636",
+      "modelo": "SLY-308-GRN/100",
+      "titulo": "Cable THW-LS / Calibre 12 AWG / 19 Hilos / Verde / Bobina 100 m (328 ft)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/INDIANA/SLY308GRN/100/portada_0S400.PNG?v=1787157638",
+      "link": "/producto/SLY-308-GRN-100-INDIANA-187636.html",
+      "total_existencia": 41,
+      "precios": {
+        "precio_1": "172.41",
+        "precio_especial": "131.03",
+        "precio_descuento": "83.85",
+        "precio_map": "104.82",
+        "precio_lista": "172.41"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "176930",
+      "modelo": "SLY-304-BLK/100",
+      "titulo": "Cable Eléctrico THW-LS / Calibre 10 AWG / 19 Hilos / 90°C Seco / 75°C Mojado / Bobina 100 m (328 ft)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/176930/portada_0S400.PNG",
+      "link": "/producto/SLY-304-BLK-100-INDIANA-176930.html",
+      "total_existencia": 30,
+      "precios": {
+        "precio_1": "273.08",
+        "precio_especial": "207.54",
+        "precio_descuento": "132.82",
+        "precio_map": "166.03",
+        "precio_lista": "273.08"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "221977",
+      "modelo": "CBL-UT-10R/100",
+      "titulo": "Cable Fotovoltaico / 6 mm² (10 AWG) / 1000/2000 V / Rango -40°C a 120°C / Rollo 100 m / UL 4703 y TUV",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/221977/portada_0S400.PNG",
+      "link": "/producto/CBL-UT-10R-100-EPCOM-POWERLINE-221977.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "230.29",
+        "precio_especial": "203.06",
+        "precio_descuento": "129.95",
+        "precio_map": "162.44",
+        "precio_lista": "230.29"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "87685",
+      "modelo": "SLY-346-BLK/100",
+      "titulo": "Cable THW-LS / Calibre 2/0 AWG / 19 Hilos / Bobina 100 m (328 ft) / PVC Autoextinguible / 90°C Seco / 75°C Mojado",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/87685/portada_0S400.PNG",
+      "link": "/producto/SLY-346-BLK-100-INDIANA-87685.html",
+      "total_existencia": 30,
+      "precios": {
+        "precio_1": "3389.64",
+        "precio_especial": "2576.12",
+        "precio_descuento": "1648.71",
+        "precio_map": "2060.89",
+        "precio_lista": "3389.64"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66424",
+          "nombre": "Calidad de la Energía",
+          "nivel": 2
+        },
+        {
+          "id": "66427",
+          "nombre": "Accesorios para Tierra Física",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "213893",
+      "modelo": "CBL-PV-10B/500",
+      "titulo": "Cable Fotovoltaico / 6 mm² (10 AWG) / 500 m (1640.4 ft) / Cobre Suave / 2000 Vcc / Resistencia UV-Ozono / -40°C a 120°C",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/213893/portada_0S400.PNG",
+      "link": "/producto/CBL-PV-10B-500-EPCOM-POWERLINE-213893.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "1210.89",
+        "precio_especial": "1076.35",
+        "precio_descuento": "671.64",
+        "volumen": {
+          "15": "638.06"
+        },
+        "precio_map": "861.08",
+        "precio_lista": "1210.89"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "176929",
+      "modelo": "SLY-296-BLK/100",
+      "titulo": "Cable THW-LS / Calibre 8 AWG / 19 Hilos / 90°C Seco / 75°C Húmedo / Bobina 100 m (328 ft) / Color Negro",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/176929/portada_0S400.PNG",
+      "link": "/producto/SLY-296-BLK-100-INDIANA-176929.html",
+      "total_existencia": 14,
+      "precios": {
+        "precio_1": "421.83",
+        "precio_especial": "362.77",
+        "precio_descuento": "226.36",
+        "precio_map": "290.21",
+        "precio_lista": "421.83"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "88934",
+      "modelo": "TELUS80481.5M",
+      "titulo": "Cable Telefónico RJ11 / Plano / UTP Cat5e / 2 Pares / 1.5 m (4.92 ft) / Blanco",
+      "marca": "LINKEDPRO BY EPCOM",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/88934/portada_0S400.PNG",
+      "link": "/producto/TELUS80481.5M-LINKEDPRO-BY-EPCOM-88934.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "2.24",
+        "precio_especial": "1.29",
+        "precio_descuento": "0.84",
+        "volumen": {
+          "10": "0.82"
+        },
+        "precio_map": "1.03",
+        "precio_lista": "2.24"
+      },
+      "categorias": [
+        {
+          "id": "65811",
+          "nombre": "Cableado Estructurado",
+          "nivel": 1
+        },
+        {
+          "id": "65813",
+          "nombre": "Cableado de Cobre",
+          "nivel": 2
+        },
+        {
+          "id": "65824",
+          "nombre": "Patch Cords",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "165576",
+      "modelo": "ACCESS-CABLE/500",
+      "titulo": "Cable Compuesto para Control de Acceso / 152 m (500 ft) / 6+4 Conductores AWG22 + 2 Conductores AWG18 / 300V / -20°C a 60°C",
+      "marca": "ACCESSPRO",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/165576/portada_0S400.PNG",
+      "link": "/producto/ACCESS-CABLE-500-ACCESSPRO-165576.html",
+      "total_existencia": 7,
+      "precios": {
+        "precio_1": "313.40",
+        "precio_especial": "286.94",
+        "precio_descuento": "183.64",
+        "precio_map": "229.55",
+        "precio_lista": "313.40"
+      },
+      "categorias": [
+        {
+          "id": "37",
+          "nombre": "Control  de Acceso",
+          "nivel": 1
+        },
+        {
+          "id": "415",
+          "nombre": "Accesorios",
+          "nivel": 2
+        },
+        {
+          "id": "2521",
+          "nombre": "Cables para Control de Acceso",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187583",
+      "modelo": "SLY-312-BLK/100",
+      "titulo": "Cable Eléctrico THW-LS / 14 AWG / 19 Hilos / 90 °C Seco / 75 °C Mojado / Bobina 100 m (328 ft)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187583/portada_0S400.PNG",
+      "link": "/producto/SLY-312-BLK-100-INDIANA-187583.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "122.74",
+        "precio_especial": "93.28",
+        "precio_descuento": "58.20",
+        "precio_map": "74.62",
+        "precio_lista": "122.74"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "87721",
+      "modelo": "SLY-291-GRN/100",
+      "titulo": "Cable THW-LS / Calibre 6 AWG / 19 Hilos / 90°C Seco / 75°C Mojado / Bobina 100 m (328 ft)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/87721/portada_0S400.PNG",
+      "link": "/producto/SLY-291-GRN-100-INDIANA-87721.html",
+      "total_existencia": 67,
+      "precios": {
+        "precio_1": "700.49",
+        "precio_especial": "532.37",
+        "precio_descuento": "340.71",
+        "precio_map": "425.89",
+        "precio_lista": "700.49"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66424",
+          "nombre": "Calidad de la Energía",
+          "nivel": 2
+        },
+        {
+          "id": "66427",
+          "nombre": "Accesorios para Tierra Física",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "87683",
+      "modelo": "SLY-343-BLK/100",
+      "titulo": "Cable Eléctrico THW-LS / Cobre 1/0 AWG / 19 Hilos / 100 m (328.1 ft) / 90 °C Seco / 75 °C Mojado / LS-FV2 / Negro",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/87683/portada_0S400.PNG",
+      "link": "/producto/SLY-343-BLK-100-INDIANA-87683.html",
+      "total_existencia": 12,
+      "precios": {
+        "precio_1": "2705.83",
+        "precio_especial": "2056.43",
+        "precio_descuento": "1316.11",
+        "precio_map": "1645.14",
+        "precio_lista": "2705.83"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66424",
+          "nombre": "Calidad de la Energía",
+          "nivel": 2
+        },
+        {
+          "id": "66427",
+          "nombre": "Accesorios para Tierra Física",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "223094",
+      "modelo": "CBL-PV-8B/50",
+      "titulo": "Cable Fotovoltaico / 10 mm² (8 AWG) / 2000 V DC / Rango de Temperatura -40°C a 120°C / 50 m (164 ft) / XLPE Resistente a UV",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/223094/portada_0S400.PNG",
+      "link": "/producto/CBL-PV-8B-50-EPCOM-POWERLINE-223094.html",
+      "total_existencia": 128,
+      "precios": {
+        "precio_1": "234.25",
+        "precio_especial": "173.06",
+        "precio_descuento": "110.75",
+        "precio_map": "138.44",
+        "precio_lista": "234.25"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "161228",
+      "modelo": "CBL-AWG2-0.2B",
+      "titulo": "Cable de Batería / Calibre 2 AWG / 0.2 m (0.66 ft) / Terminales de Ojo Doble / Serie o Paralelo / Negro",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/161228/portada_0S400.PNG",
+      "link": "/producto/CBL-AWG2-0.2B-EPCOM-POWERLINE-161228.html",
+      "total_existencia": 500,
+      "precios": {
+        "precio_1": "6.40",
+        "precio_especial": "5.01",
+        "precio_descuento": "3.20",
+        "volumen": {
+          "15": "3.04"
+        },
+        "precio_map": "4.00",
+        "precio_lista": "6.40"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66404",
+          "nombre": "Baterías y Cargadores",
+          "nivel": 2
+        },
+        {
+          "id": "66408",
+          "nombre": "Terminales y Accesorios",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "221976",
+      "modelo": "CBL-UT-10B/100",
+      "titulo": "Cable Fotovoltaico / 6 mm² (10 AWG) / 2000V / Rango Térmico -40°C a 120°C / Resistencia UV y Ozono / Rollo 100 m (328.1 ft) / UL 4703 y TUV",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/221976/portada_0S400.PNG",
+      "link": "/producto/CBL-UT-10B-100-EPCOM-POWERLINE-221976.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "230.27",
+        "precio_especial": "203.03",
+        "precio_descuento": "129.93",
+        "precio_map": "162.42",
+        "precio_lista": "230.27"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "235166",
+      "modelo": "FJ66/100",
+      "titulo": "Cable Fotovoltaico / 4 mm² (12 AWG) / 1,800 Vcc / XLPE 120°C / Bobina 100 m (328 ft) / H1Z2Z2-K / Libre de Halógenos",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/235166/portada_0S400.PNG",
+      "link": "/producto/FJ66-100-VIAKON-235166.html",
+      "total_existencia": 19,
+      "precios": {
+        "precio_1": "179.86",
+        "precio_especial": "154.68",
+        "precio_descuento": "96.52",
+        "precio_map": "123.74",
+        "precio_lista": "179.86"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187904",
+      "modelo": "A083/100",
+      "titulo": "Cable Eléctrico de Cobre Desnudo / 1/0 AWG / 100 m (328.1 ft) / Semiduro / 7 Hilos Concéntricos / NOM-063-SCFI",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187904/portada_0S400.PNG",
+      "link": "/producto/A083-100-VIAKON-187904.html",
+      "total_existencia": 2,
+      "precios": {
+        "precio_1": "2004.58",
+        "precio_especial": "1723.94",
+        "precio_descuento": "1075.73",
+        "precio_map": "1379.15",
+        "precio_lista": "2004.58"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "176877",
+      "modelo": "SLY-304-RED/100",
+      "titulo": "Cable Eléctrico / 10 AWG / 19 Hilos / Cobre Suave / PVC Autoextinguible / 100 m (328.08 pies)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/176877/portada_0S400.PNG",
+      "link": "/producto/SLY-304-RED-100-INDIANA-176877.html",
+      "total_existencia": 42,
+      "precios": {
+        "precio_1": "273.08",
+        "precio_especial": "207.54",
+        "precio_descuento": "132.82",
+        "precio_map": "166.03",
+        "precio_lista": "273.08"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "213892",
+      "modelo": "CBL-PV-10R/500",
+      "titulo": "Cable Fotovoltaico / Conductor Cobre 6 mm² (10 AWG) / 2000 Vcc / Rango -40°C a 120°C / Resistencia UV y Ozono / Carrete 500 m (1640.4 ft)",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/213892/portada_0S400.PNG",
+      "link": "/producto/CBL-PV-10R-500-EPCOM-POWERLINE-213892.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "1210.89",
+        "precio_especial": "1076.35",
+        "precio_descuento": "671.64",
+        "volumen": {
+          "15": "638.06"
+        },
+        "precio_map": "861.08",
+        "precio_lista": "1210.89"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "161223",
+      "modelo": "CBL-8AWG-3BLK",
+      "titulo": "Cable para Controlador de Energía Solar / 3.0 m (9.84 ft) / 8 AWG / Terminal de Ojo / Negro",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/161223/portada_0S400.PNG",
+      "link": "/producto/CBL-8AWG-3BLK-EPCOM-POWERLINE-161223.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "14.80",
+        "precio_especial": "12.83",
+        "precio_descuento": "8.21",
+        "volumen": {
+          "15": "7.80"
+        },
+        "precio_map": "10.26",
+        "precio_lista": "14.80"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66404",
+          "nombre": "Baterías y Cargadores",
+          "nivel": 2
+        },
+        {
+          "id": "66408",
+          "nombre": "Terminales y Accesorios",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "235179",
+      "modelo": "FJ69/100",
+      "titulo": "Cable Fotovoltaico / 4 mm² (12 AWG) / 1,800 Vcc / XLPE Termoestable / Bobina 100 m (328 ft) / Rojo / -20°C a 75°C",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/235179/portada_0S400.PNG",
+      "link": "/producto/FJ69-100-VIAKON-235179.html",
+      "total_existencia": 45,
+      "precios": {
+        "precio_1": "179.86",
+        "precio_especial": "154.68",
+        "precio_descuento": "96.52",
+        "precio_map": "123.74",
+        "precio_lista": "179.86"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "222979",
+      "modelo": "CBLMC42P5MBLKV2",
+      "titulo": "Cable Fotovoltaico / 2.5 m (8.2 ft) / 10 AWG / Terminales MC4 Macho-Hembra / 30A / Negro",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/222979/portada_0S400.PNG",
+      "link": "/producto/CBLMC42P5MBLKV2-EPCOM-POWERLINE-222979.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "10.45",
+        "precio_especial": "9.24",
+        "precio_descuento": "5.91",
+        "precio_map": "7.39",
+        "precio_lista": "10.45"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66404",
+          "nombre": "Baterías y Cargadores",
+          "nivel": 2
+        },
+        {
+          "id": "66408",
+          "nombre": "Terminales y Accesorios",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "231630",
+      "modelo": "ACCORD3M",
+      "titulo": "Cable de Alimentación / 100-240 VCA / Trifásico con Tierra / 3 m (9.84 ft) / IEC 320C13 / NEMA 5-15P",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/231630/portada_0S400.PNG",
+      "link": "/producto/ACCORD3M-EPCOM-POWERLINE-231630.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "8.42",
+        "precio_especial": "6.28",
+        "precio_descuento": "4.01",
+        "precio_map": "5.02",
+        "precio_lista": "8.42"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "211191",
+      "modelo": "ACCORDL-1M",
+      "titulo": "Cable de Alimentación AC / 120-240 Vca / 1 m (3.28 ft) / 18 AWG / Clavija Tipo A 2 Pines / Conector L",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/211191/portada_0S400.PNG",
+      "link": "/producto/ACCORDL-1M-EPCOM-POWERLINE-211191.html",
+      "total_existencia": 500,
+      "precios": {
+        "precio_1": "4.37",
+        "precio_especial": "3.50",
+        "precio_descuento": "2.24",
+        "precio_map": "2.80",
+        "precio_lista": "4.37"
+      },
+      "categorias": [
+        {
+          "id": "22",
+          "nombre": "Videovigilancia",
+          "nivel": 1
+        },
+        {
+          "id": "208",
+          "nombre": "Energía",
+          "nivel": 2
+        },
+        {
+          "id": "2975",
+          "nombre": "Fuentes de Alimentación",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "154595",
+      "modelo": "USBATIPOC",
+      "titulo": "Cable USB-A a USB-C / 1 m (3.28 ft) / USB 2.0 / 480 Mbps / Reversible",
+      "marca": "LINKEDPRO BY EPCOM",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/154595/portada_0S400.PNG",
+      "link": "/producto/USBATIPOC-LINKEDPRO-BY-EPCOM-154595.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "3.23",
+        "precio_especial": "1.42",
+        "precio_descuento": "0.90",
+        "volumen": {
+          "10": "0.88",
+          "50": "0.80",
+          "100": "0.78"
+        },
+        "precio_map": "1.13",
+        "precio_lista": "3.23"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "161227",
+      "modelo": "CBL-AWG2-0.2R",
+      "titulo": "Cable Jumper para Baterías / 0.2 m (0.66 ft) / Calibre 2 AWG / Terminales de Ojo / Rojo / Conexión Serie o Paralelo",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE-V2/161227/portada_0S400.PNG",
+      "link": "/producto/CBL-AWG2-0.2R-EPCOM-POWERLINE-161227.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "6.46",
+        "precio_especial": "5.33",
+        "precio_descuento": "3.41",
+        "volumen": {
+          "15": "3.24"
+        },
+        "precio_map": "4.26",
+        "precio_lista": "6.46"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66404",
+          "nombre": "Baterías y Cargadores",
+          "nivel": 2
+        },
+        {
+          "id": "66408",
+          "nombre": "Terminales y Accesorios",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "238292",
+      "modelo": "CBL-UT-10B/25",
+      "titulo": "Cable Fotovoltaico / 6 mm² (10 AWG) / Cobre Estañado / 2000V / Rango -40°C a 120°C / Rollo 25 m (82 ft) / UL 4703 y TUV",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/238292/portada_0S400.PNG",
+      "link": "/producto/CBL-UT-10B-25-EPCOM-POWERLINE-238292.html",
+      "total_existencia": 169,
+      "precios": {
+        "precio_1": "55.10",
+        "precio_especial": "55.10",
+        "precio_descuento": "34.38",
+        "precio_map": "44.08",
+        "precio_lista": "55.10"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "176928",
+      "modelo": "SLY-296-GRN/100",
+      "titulo": "Cable Eléctrico THW-LS / Calibre 8 AWG / 19 Hilos / 90°C Seco / 75°C Húmedo / Bobina 100 m (328 ft) / Verde",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/176928/portada_0S400.PNG",
+      "link": "/producto/SLY-296-GRN-100-INDIANA-176928.html",
+      "total_existencia": 7,
+      "precios": {
+        "precio_1": "438.69",
+        "precio_especial": "333.40",
+        "precio_descuento": "213.37",
+        "precio_map": "266.72",
+        "precio_lista": "438.69"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "87681",
+      "modelo": "SLY-287-GRN/100",
+      "titulo": "Cable Eléctrico THW-LS / Calibre 4 AWG / 19 Hilos / 33.6 mm² / 90°C / Bobina 100 m",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/87681/portada_0S400.PNG",
+      "link": "/producto/SLY-287-GRN-100-INDIANA-87681.html",
+      "total_existencia": 63,
+      "precios": {
+        "precio_1": "1087.75",
+        "precio_especial": "826.69",
+        "precio_descuento": "529.08",
+        "precio_map": "661.35",
+        "precio_lista": "1087.75"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66424",
+          "nombre": "Calidad de la Energía",
+          "nivel": 2
+        },
+        {
+          "id": "66427",
+          "nombre": "Accesorios para Tierra Física",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "238347",
+      "modelo": "CBLUT10R/25",
+      "titulo": "Cable Fotovoltaico / 6 mm² (10 AWG) / 2000V / Rojo / Rollo 25 m (82 ft) / UL 4703 y TUV / -40°C a 120°C",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/EPCOM POWERLINE/CBLUT10R/25/portada_0S400.PNG",
+      "link": "/producto/CBLUT10R-25-EPCOM-POWERLINE-238347.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "55.10",
+        "precio_especial": "55.10",
+        "precio_descuento": "34.38",
+        "precio_map": "44.08",
+        "precio_lista": "55.10"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187433",
+      "modelo": "SLY-291-BLK/100",
+      "titulo": "Cable Eléctrico THW-LS / Cobre 6 AWG / 19 Hilos / 100 m (328.1 ft) / 90 °C Seco / 75 °C Mojado / Autoextinguible",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187433/portada_0S400.PNG",
+      "link": "/producto/SLY-291-BLK-100-INDIANA-187433.html",
+      "total_existencia": 27,
+      "precios": {
+        "precio_1": "649.05",
+        "precio_especial": "558.18",
+        "precio_descuento": "357.23",
+        "precio_map": "446.54",
+        "precio_lista": "649.05"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66424",
+          "nombre": "Calidad de la Energía",
+          "nivel": 2
+        },
+        {
+          "id": "66427",
+          "nombre": "Accesorios para Tierra Física",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "244636",
+      "modelo": "CBLUT12R/25",
+      "titulo": "Cable Fotovoltaico / 4 mm² (12 AWG) / Cobre Estañado / 2000V / Rollo 25 m / UL 4703 y TUV / Resistencia UV y Ozono",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/244636/portada_0S400.PNG",
+      "link": "/producto/CBLUT12R-25-EPCOM-POWERLINE-244636.html",
+      "total_existencia": 192,
+      "precios": {
+        "precio_1": "37.29",
+        "precio_especial": "33.54",
+        "precio_descuento": "20.92",
+        "precio_map": "26.83",
+        "precio_lista": "37.29"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "229851",
+      "modelo": "EP1314072X100",
+      "titulo": "Cable de Alimentación con Bloqueo de Seguridad / IEC C13 a C14 / 1.8 m (5.9 ft) / Certificado UL, CE, EAC",
+      "marca": "HOFFMAN",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/229851/portada_0S400.PNG",
+      "link": "/producto/EP1314072X100-HOFFMAN-229851.html",
+      "total_existencia": 26,
+      "precios": {
+        "precio_1": "21.00",
+        "precio_especial": "18.14",
+        "precio_descuento": "11.17",
+        "precio_map": "14.51",
+        "precio_lista": "21.00"
+      },
+      "categorias": [
+        {
+          "id": "65811",
+          "nombre": "Cableado Estructurado",
+          "nivel": 1
+        },
+        {
+          "id": "66054",
+          "nombre": "PDU",
+          "nivel": 2
+        },
+        {
+          "id": "66055",
+          "nombre": "Básicos",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "232215",
+      "modelo": "101521985",
+      "titulo": "Cable de Alimentación / 110 VCA Bifásico / Conector Tipo 8 / Compatible AX Pro",
+      "marca": "HIKVISION",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/232215/portada_0S400.PNG",
+      "link": "/producto/101521985-HIKVISION-232215.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "2.61",
+        "precio_especial": "2.61",
+        "precio_descuento": "1.67",
+        "precio_map": "2.08",
+        "precio_lista": "2.61"
+      },
+      "categorias": [
+        {
+          "id": "32",
+          "nombre": "Automatización   e Intrusión",
+          "nivel": 1
+        },
+        {
+          "id": "66284",
+          "nombre": "Paneles de Alarma y Accesorios Hikvision",
+          "nivel": 2
+        },
+        {
+          "id": "66286",
+          "nombre": "AX PRO Series",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "191415",
+      "modelo": "RQ34/100M",
+      "titulo": "Cable Eléctrico de Uso Rudo / 2 x 12 AWG / 19 Hilos / 600 V / 90 °C / Rollo 100 m (328 ft)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/191415/portada_0S400.PNG",
+      "link": "/producto/RQ34-100M-INDIANA-191415.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "452.72",
+        "precio_especial": "389.34",
+        "precio_descuento": "249.17",
+        "precio_map": "311.47",
+        "precio_lista": "452.72"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "211186",
+      "modelo": "ACCORDM-1.8M",
+      "titulo": "Cable de Alimentación Eléctrica / 120-240 Vca / 1.8 m (5.91 ft) / Trifásico / Conector Tipo B / 18 AWG / UL",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/211186/portada_0S400.PNG",
+      "link": "/producto/ACCORDM-1.8M-EPCOM-POWERLINE-211186.html",
+      "total_existencia": 500,
+      "precios": {
+        "precio_1": "8.07",
+        "precio_especial": "7.27",
+        "precio_descuento": "4.65",
+        "precio_map": "5.81",
+        "precio_lista": "8.07"
+      },
+      "categorias": [
+        {
+          "id": "22",
+          "nombre": "Videovigilancia",
+          "nivel": 1
+        },
+        {
+          "id": "208",
+          "nombre": "Energía",
+          "nivel": 2
+        },
+        {
+          "id": "2975",
+          "nombre": "Fuentes de Alimentación",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "238350",
+      "modelo": "CBLUT10R/50",
+      "titulo": "Cable Fotovoltaico / 6 mm² (10 AWG) / 1000/2000 V / 50 m / Resistencia UV y Ozono / -40°C a 120°C / UL 4703 y TUV",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/238350/portada_0S400.PNG",
+      "link": "/producto/CBLUT10R-50-EPCOM-POWERLINE-238350.html",
+      "total_existencia": 147,
+      "precios": {
+        "precio_1": "109.96",
+        "precio_especial": "94.25",
+        "precio_descuento": "58.81",
+        "precio_map": "75.40",
+        "precio_lista": "109.96"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "211184",
+      "modelo": "ACCORD2-1.8M",
+      "titulo": "Cable de Alimentación CA / 120-240 Vca / 18 AWG / 2 Conductores / 1.8 m (5.91 ft) / Clavija Tipo A / UL",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/211184/portada_0S400.PNG",
+      "link": "/producto/ACCORD2-1.8M-EPCOM-POWERLINE-211184.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "6.08",
+        "precio_especial": "5.65",
+        "precio_descuento": "3.61",
+        "precio_map": "4.52",
+        "precio_lista": "6.08"
+      },
+      "categorias": [
+        {
+          "id": "22",
+          "nombre": "Videovigilancia",
+          "nivel": 1
+        },
+        {
+          "id": "208",
+          "nombre": "Energía",
+          "nivel": 2
+        },
+        {
+          "id": "2975",
+          "nombre": "Fuentes de Alimentación",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "161224",
+      "modelo": "CBL-2AWG-2.2B",
+      "titulo": "Cable Jumper para Baterías / 2.2 m (7.2 ft) / Calibre 2 AWG / Terminales de Ojo / Tornillo 6 mm / Azul",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/161224/portada_0S400.PNG",
+      "link": "/producto/CBL-2AWG-2.2B-EPCOM-POWERLINE-161224.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "57.67",
+        "precio_especial": "37.07",
+        "precio_descuento": "23.72",
+        "volumen": {
+          "15": "22.53"
+        },
+        "precio_map": "29.65",
+        "precio_lista": "57.67"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66404",
+          "nombre": "Baterías y Cargadores",
+          "nivel": 2
+        },
+        {
+          "id": "66408",
+          "nombre": "Terminales y Accesorios",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187585",
+      "modelo": "SLY-312-GRN/100",
+      "titulo": "Cable THW-LS / 14 AWG / 19 Hilos / 90°C Seco / 75°C Mojado / Verde / Bobina 100 m (328 ft)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/INDIANA/SLY312GRN/100/portada_0S400.PNG?v=1787160432",
+      "link": "/producto/SLY-312-GRN-100-INDIANA-187585.html",
+      "total_existencia": 24,
+      "precios": {
+        "precio_1": "122.74",
+        "precio_especial": "93.28",
+        "precio_descuento": "59.69",
+        "precio_map": "74.62",
+        "precio_lista": "122.74"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "161221",
+      "modelo": "CBL-MC4-1.5BLK",
+      "titulo": "Cable Fotovoltaico / 1.5 m (4.9 ft) / 10 AWG / MC4-H Macho / Negro / Doble Aislamiento",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/161221/portada_0S400.PNG",
+      "link": "/producto/CBL-MC4-1.5BLK-EPCOM-POWERLINE-161221.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "7.61",
+        "precio_especial": "6.09",
+        "precio_descuento": "3.89",
+        "volumen": {
+          "15": "3.70"
+        },
+        "precio_map": "4.87",
+        "precio_lista": "7.61"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "222978",
+      "modelo": "CBLMC42P5MREDV2",
+      "titulo": "Cable Fotovoltaico / 2.5 m (8.2 ft) / 10 AWG / MC4-M Ambos Extremos / Rojo",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/222978/portada_0S400.PNG",
+      "link": "/producto/CBLMC42P5MREDV2-EPCOM-POWERLINE-222978.html",
+      "total_existencia": 120,
+      "precios": {
+        "precio_1": "10.45",
+        "precio_especial": "10.45",
+        "precio_descuento": "6.68",
+        "precio_map": "8.36",
+        "precio_lista": "10.45"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66404",
+          "nombre": "Baterías y Cargadores",
+          "nivel": 2
+        },
+        {
+          "id": "66408",
+          "nombre": "Terminales y Accesorios",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187639",
+      "modelo": "SLY-316-BLK/100",
+      "titulo": "Cable Eléctrico / 16 AWG / 19 Hilos Cobre / PVC Auto-Extinguible / 100 m (328.08 pies)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187639/portada_0S400.PNG",
+      "link": "/producto/SLY-316-BLK-100-INDIANA-187639.html",
+      "total_existencia": 11,
+      "precios": {
+        "precio_1": "80.00",
+        "precio_especial": "60.80",
+        "precio_descuento": "38.91",
+        "precio_map": "48.64",
+        "precio_lista": "80.00"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "176876",
+      "modelo": "SLY-304-WHT/100",
+      "titulo": "Cable THW-LS / Calibre 10 AWG / 19 Hilos / 90°C Seco / 75°C Mojado / Bobina 100 m (328 ft)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/176876/portada_0S400.PNG",
+      "link": "/producto/SLY-304-WHT-100-INDIANA-176876.html",
+      "total_existencia": 15,
+      "precios": {
+        "precio_1": "273.08",
+        "precio_especial": "207.54",
+        "precio_descuento": "132.82",
+        "precio_map": "166.03",
+        "precio_lista": "273.08"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "229849",
+      "modelo": "EP1314048X125",
+      "titulo": "Cable de Alimentación con Bloqueo de Seguridad / IEC C14 a IEC C13 / 1.2 m (3.9 ft) / Doble W-Lock / Negro",
+      "marca": "HOFFMAN",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/229849/portada_0S400.PNG",
+      "link": "/producto/EP1314048X125-HOFFMAN-229849.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "15.33",
+        "precio_especial": "13.24",
+        "precio_descuento": "8.15",
+        "precio_map": "10.59",
+        "precio_lista": "15.33"
+      },
+      "categorias": [
+        {
+          "id": "65811",
+          "nombre": "Cableado Estructurado",
+          "nivel": 1
+        },
+        {
+          "id": "66054",
+          "nombre": "PDU",
+          "nivel": 2
+        },
+        {
+          "id": "66055",
+          "nombre": "Básicos",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "136820",
+      "modelo": "J015/100M",
+      "titulo": "Cable de Cobre Desnudo para Apartarrayos / 28 Hilos Clase II / 58.0 mm² / 100 m (328.1 ft) / Diámetro 13.7 mm",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/136820/portada_0S400.PNG",
+      "link": "/producto/J015-100M-VIAKON-136820.html",
+      "total_existencia": 32,
+      "precios": {
+        "precio_1": "4466.06",
+        "precio_especial": "3394.20",
+        "precio_descuento": "2172.28",
+        "precio_map": "2715.36",
+        "precio_lista": "4466.06"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "193895",
+      "modelo": "CBLMC41MBLK",
+      "titulo": "Cable Fotovoltaico / 1 m (3.28 ft) / 10 AWG / MC4 Macho-Hembra / Negro / Intemperie",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/193895/portada_0S400.PNG",
+      "link": "/producto/CBLMC41MBLK-EPCOM-POWERLINE-193895.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "5.07",
+        "precio_especial": "5.07",
+        "precio_descuento": "3.24",
+        "precio_map": "4.05",
+        "precio_lista": "5.07"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66404",
+          "nombre": "Baterías y Cargadores",
+          "nivel": 2
+        },
+        {
+          "id": "66408",
+          "nombre": "Terminales y Accesorios",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "161220",
+      "modelo": "CBL-MC4-1.5R",
+      "titulo": "Cable Fotovoltaico / 1.5 m (4.9 ft) / Calibre 10 AWG / Terminal MC4-M / Rojo",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/161220/portada_0S400.PNG",
+      "link": "/producto/CBL-MC4-1.5R-EPCOM-POWERLINE-161220.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "7.25",
+        "precio_especial": "5.75",
+        "precio_descuento": "3.68",
+        "volumen": {
+          "15": "3.49"
+        },
+        "precio_map": "4.60",
+        "precio_lista": "7.25"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66404",
+          "nombre": "Baterías y Cargadores",
+          "nivel": 2
+        },
+        {
+          "id": "66408",
+          "nombre": "Terminales y Accesorios",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "244640",
+      "modelo": "CBLUT12R/50",
+      "titulo": "Cable Fotovoltaico / 4 mm² (12 AWG) / Cobre Estañado / 2000V / Rango Térmico -40°C a 90°C / Resistencia UV / Rollo 50 m (164 ft) / UL 4703 y TUV",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/244640/portada_0S400.PNG",
+      "link": "/producto/CBLUT12R-50-EPCOM-POWERLINE-244640.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "73.53",
+        "precio_especial": "66.14",
+        "precio_descuento": "41.27",
+        "precio_map": "52.91",
+        "precio_lista": "73.53"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "193893",
+      "modelo": "CBLMC41MRED",
+      "titulo": "Cable Fotovoltaico / 1 m (3.28 ft) / 10 AWG / MC4-M / Rojo",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/193893/portada_0S400.PNG",
+      "link": "/producto/CBLMC41MRED-EPCOM-POWERLINE-193893.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "4.39",
+        "precio_especial": "4.39",
+        "precio_descuento": "2.80",
+        "precio_map": "3.51",
+        "precio_lista": "4.39"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66404",
+          "nombre": "Baterías y Cargadores",
+          "nivel": 2
+        },
+        {
+          "id": "66408",
+          "nombre": "Terminales y Accesorios",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "215611",
+      "modelo": "71-12",
+      "titulo": "Cable para Alarma / 3 Conductores 18 AWG / Blindado / Antiflama / 305 m (1000 ft) / Negro",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/215611/portada_0S400.PNG",
+      "link": "/producto/71-12-VIAKON-215611.html",
+      "total_existencia": 50,
+      "precios": {
+        "precio_1": "738.51",
+        "precio_especial": "635.12",
+        "precio_descuento": "406.47",
+        "precio_map": "508.09",
+        "precio_lista": "738.51"
+      },
+      "categorias": [
+        {
+          "id": "37",
+          "nombre": "Control  de Acceso",
+          "nivel": 1
+        },
+        {
+          "id": "415",
+          "nombre": "Accesorios",
+          "nivel": 2
+        },
+        {
+          "id": "2521",
+          "nombre": "Cables para Control de Acceso",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "252141",
+      "modelo": "ACCORD5M",
+      "titulo": "Cable de Alimentación / 100-240 Vca / 5 m (16.4 ft) / IEC 320C13 a NEMA 5-15P / Trifásico con Tierra",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/252141/portada_0S400.PNG",
+      "link": "/producto/ACCORD5M-EPCOM-POWERLINE-252141.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "8.75",
+        "precio_especial": "8.37",
+        "precio_descuento": "5.35",
+        "precio_map": "6.69",
+        "precio_lista": "8.75"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "240929",
+      "modelo": "TXL-16-19-2",
+      "titulo": "Cable Automotriz TXL / 16 AWG / 304.8 m (1000 pies) / Rojo / Conductor 19/29 Cobre Desnudo / Aislamiento XLPE / -51°C a 125°C / Ford y Chrysler",
+      "marca": "COBRA WIRE & CABLE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/240929/portada_0S400.PNG",
+      "link": "/producto/TXL-16-19-2-COBRA-WIRE-&-CABLE-240929.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "228.25",
+        "precio_especial": "228.25",
+        "precio_descuento": "146.08",
+        "precio_map": "182.60",
+        "precio_lista": "228.25"
+      },
+      "categorias": [
+        {
+          "id": "25",
+          "nombre": "Radiocomunicación",
+          "nivel": 1
+        },
+        {
+          "id": "331",
+          "nombre": "Cables",
+          "nivel": 2
+        },
+        {
+          "id": "65538",
+          "nombre": "Accesorios",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "244628",
+      "modelo": "CBLUT12B/25",
+      "titulo": "Cable Fotovoltaico / 4 mm² (12 AWG) / Cobre Estañado / 2000V / Rollo 25 m (82 ft) / UL 4703 y TUV / -40°C a 90°C",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/244628/portada_0S400.PNG",
+      "link": "/producto/CBLUT12B-25-EPCOM-POWERLINE-244628.html",
+      "total_existencia": 175,
+      "precios": {
+        "precio_1": "37.29",
+        "precio_especial": "33.54",
+        "precio_descuento": "20.92",
+        "precio_map": "26.83",
+        "precio_lista": "37.29"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "257046",
+      "modelo": "PC03",
+      "titulo": "Cable Flexible SPT / 2 x 16 AWG / 300V 60°C / 100 m (328.08 ft) / PVC Autoextinguible / NOM-001-SEDE / Blanco",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/INDIANA/PC03/portada_0S400.PNG?v=1785254783",
+      "link": "/producto/PC03-INDIANA-257046.html",
+      "total_existencia": 61,
+      "precios": {
+        "precio_1": "211.94",
+        "precio_especial": "182.27",
+        "precio_descuento": "113.73",
+        "precio_map": "145.81",
+        "precio_lista": "211.94"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "235860",
+      "modelo": "CBRNF1P30D",
+      "titulo": "Cable Dual Polarizado / Calibre 18 AWG / 30 cm (0.98 pies) / Terminal F1 y Puntas Libres / Conexión a Baterías de Respaldo",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/235860/portada_0S400.PNG",
+      "link": "/producto/CBRNF1P30D-EPCOM-POWERLINE-235860.html",
+      "total_existencia": 500,
+      "precios": {
+        "precio_1": "4.87",
+        "precio_especial": "3.94",
+        "precio_descuento": "2.45",
+        "precio_map": "3.15",
+        "precio_lista": "4.87"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66404",
+          "nombre": "Baterías y Cargadores",
+          "nivel": 2
+        },
+        {
+          "id": "66407",
+          "nombre": "Baterías",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "244661",
+      "modelo": "CBLUT12B/100",
+      "titulo": "Cable Fotovoltaico / 4 mm² (12 AWG) / Cobre Estañado / 2000V / Resistencia UV / Rollo 100 m / UL 4703 y TUV",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/244661/portada_0S400.PNG",
+      "link": "/producto/CBLUT12B-100-EPCOM-POWERLINE-244661.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "145.66",
+        "precio_especial": "131.09",
+        "precio_descuento": "81.80",
+        "precio_map": "104.87",
+        "precio_lista": "145.66"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "176892",
+      "modelo": "SLY-296-WHT/100",
+      "titulo": "Cable Eléctrico THW-LS / 8 AWG / 19 Hilos / 90°C / 100 m (328 ft) / Blanco",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/INDIANA/SLY296WHT/100/portada_0S400.PNG?v=1787158026",
+      "link": "/producto/SLY-296-WHT-100-INDIANA-176892.html",
+      "total_existencia": 11,
+      "precios": {
+        "precio_1": "438.69",
+        "precio_especial": "333.40",
+        "precio_descuento": "213.37",
+        "precio_map": "266.72",
+        "precio_lista": "438.69"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "136812",
+      "modelo": "A084/100M",
+      "titulo": "Cable Eléctrico de Cobre Semiduro / 7 Hilos Concéntricos / Calibre 2/0 AWG (67.4 mm²) / Rollo 100 m (328 ft) / Alta Conductividad",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/136812/portada_0S400.PNG",
+      "link": "/producto/A084-100M-VIAKON-136812.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "2528.27",
+        "precio_especial": "2174.31",
+        "precio_descuento": "1391.55",
+        "precio_map": "1739.44",
+        "precio_lista": "2528.27"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "193889",
+      "modelo": "WZ12",
+      "titulo": "Bobina de Cable / 8 Conductores / 22 AWG / 305 m (1000 pies) / CMR / Blindado / -20°C a 60°C / 3.7 mm",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/193889/portada_0S400.PNG",
+      "link": "/producto/WZ12-VIAKON-193889.html",
+      "total_existencia": 64,
+      "precios": {
+        "precio_1": "868.11",
+        "precio_especial": "746.58",
+        "precio_descuento": "477.81",
+        "precio_map": "597.26",
+        "precio_lista": "868.11"
+      },
+      "categorias": [
+        {
+          "id": "22",
+          "nombre": "Videovigilancia",
+          "nivel": 1
+        },
+        {
+          "id": "206",
+          "nombre": "Cables y Conectores",
+          "nivel": 2
+        },
+        {
+          "id": "65867",
+          "nombre": "Cables A/V (HDMI / VGA / DVI / RCA / Audio)",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "244809",
+      "modelo": "LPUPSCABLE",
+      "titulo": "Cable de Alimentación para UPS / Trifásico 3 Pines con Tierra / 1.8 m (5.9 ft) / 120-240 VCA / 18 AWG / IEC 320C13 a NEMA 5-15P",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/EPCOMPOWERLINE/LPUPSCABLE/portada_0S400.PNG?v=1788880867246",
+      "link": "/producto/LPUPSCABLE-EPCOM-POWERLINE-244809.html",
+      "total_existencia": 2,
+      "precios": {
+        "precio_1": "115.95",
+        "precio_especial": "102.50",
+        "precio_descuento": "65.60",
+        "precio_map": "82.00",
+        "precio_lista": "115.95"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187584",
+      "modelo": "SLY-312-RED/100",
+      "titulo": "Cable THW-LS / Calibre 14 AWG / 19 Hilos / 90°C Seco / 75°C Húmedo / Bobina 100 m (328 ft) / Rojo",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187584/portada_0S400.PNG",
+      "link": "/producto/SLY-312-RED-100-INDIANA-187584.html",
+      "total_existencia": 3,
+      "precios": {
+        "precio_1": "122.74",
+        "precio_especial": "101.50",
+        "precio_descuento": "64.96",
+        "precio_map": "81.20",
+        "precio_lista": "122.74"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187435",
+      "modelo": "SLY-291-WHT/100",
+      "titulo": "Cable Eléctrico THW-LS / Calibre 6 AWG / 19 Hilos / 100 m (328.1 ft) / Cobre Suave / 90°C / Blanco",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187435/portada_0S400.PNG",
+      "link": "/producto/SLY-291-WHT-100-INDIANA-187435.html",
+      "total_existencia": 2,
+      "precios": {
+        "precio_1": "558.40",
+        "precio_especial": "558.40",
+        "precio_descuento": "357.37",
+        "precio_map": "446.72",
+        "precio_lista": "558.40"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66424",
+          "nombre": "Calidad de la Energía",
+          "nivel": 2
+        },
+        {
+          "id": "66427",
+          "nombre": "Accesorios para Tierra Física",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "244648",
+      "modelo": "CBLUT12R/100",
+      "titulo": "Cable Fotovoltaico / 4 mm² (12 AWG) / Cobre Estañado / 1000/2000 V / Rojo / Rollo 100 m / UL 4703 y TUV / -40°C a 90°C",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/244648/portada_0S400.PNG",
+      "link": "/producto/CBLUT12R-100-EPCOM-POWERLINE-244648.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "145.66",
+        "precio_especial": "131.09",
+        "precio_descuento": "81.80",
+        "precio_map": "104.87",
+        "precio_lista": "145.66"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187642",
+      "modelo": "SLY-328-BLK/100",
+      "titulo": "Cable Eléctrico THW-LS / 18 AWG / 19 Hilos / 100 m (328.08 Pies) / PVC Autoextinguible / 90°C",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187642/portada_0S400.PNG",
+      "link": "/producto/SLY-328-BLK-100-INDIANA-187642.html",
+      "total_existencia": 16,
+      "precios": {
+        "precio_1": "54.08",
+        "precio_especial": "41.10",
+        "precio_descuento": "26.30",
+        "precio_map": "32.88",
+        "precio_lista": "54.08"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187645",
+      "modelo": "SLY-328-WHT/100",
+      "titulo": "Cable Eléctrico THW-LS / 18 AWG / Conductor Cobre 33.6 mm² / Aislamiento PVC Autoextinguible 1.52 mm / 100 m (328.08 ft) / Blanco / 90°C / Aprobado CT",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187645/portada_0S400.PNG",
+      "link": "/producto/SLY-328-WHT-100-INDIANA-187645.html",
+      "total_existencia": 9,
+      "precios": {
+        "precio_1": "54.08",
+        "precio_especial": "41.10",
+        "precio_descuento": "26.30",
+        "precio_map": "32.88",
+        "precio_lista": "54.08"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "244656",
+      "modelo": "CBLUT12B/50",
+      "titulo": "Cable Fotovoltaico / 4 mm² (12 AWG) / Cobre Estañado / 2000V / Rollo 50 m / Resistente UV / UL 4703 y TÜV",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/244656/portada_0S400.PNG",
+      "link": "/producto/CBLUT12B-50-EPCOM-POWERLINE-244656.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "73.53",
+        "precio_especial": "66.15",
+        "precio_descuento": "41.27",
+        "precio_map": "52.92",
+        "precio_lista": "73.53"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "87700",
+      "modelo": "SLY-286-BLK/100",
+      "titulo": "Cable Eléctrico THW-LS / Cobre 2 AWG / 19 Hilos / 100 m (328 ft) / 90°C / PVC Autoextinguible / Color Negro",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/INDIANA/SLY286BLK/100/portada_0S400.PNG?v=1791589262",
+      "link": "/producto/SLY-286-BLK-100-INDIANA-87700.html",
+      "total_existencia": 1,
+      "precios": {
+        "precio_1": "1505.68",
+        "precio_especial": "1243.82",
+        "precio_descuento": "776.14",
+        "precio_map": "995.05",
+        "precio_lista": "1505.68"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66424",
+          "nombre": "Calidad de la Energía",
+          "nivel": 2
+        },
+        {
+          "id": "66427",
+          "nombre": "Accesorios para Tierra Física",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "244372",
+      "modelo": "PXUOR316BBL-UQ",
+      "titulo": "Cable de Cobre Clase 4 / 3 Pares / 16 AWG / CMR Riser / Interior-Exterior / 609 m (1998 ft) / Sin Blindaje",
+      "marca": "PANDUIT",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/244372/portada_0S400.PNG",
+      "link": "/producto/PXUOR316BBL-UQ-PANDUIT-244372.html",
+      "total_existencia": 13,
+      "precios": {
+        "precio_1": "16868.21",
+        "precio_especial": "13749.18",
+        "precio_descuento": "8029.52",
+        "precio_map": "10999.34",
+        "precio_lista": "16868.21"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "166384",
+      "modelo": "SYS-136042",
+      "titulo": "Extensión Eléctrica de Uso Rudo / 6 m (19.7 ft) / 127 VCA / 10 A / Calibre 16 AWG / Doble Aislamiento",
+      "marca": "SURTEK",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/166384/portada_0S400.PNG",
+      "link": "/producto/SYS-136042-SURTEK-166384.html",
+      "total_existencia": 35,
+      "precios": {
+        "precio_1": "9.07",
+        "precio_especial": "6.27",
+        "precio_descuento": "4.01",
+        "precio_map": "5.01",
+        "precio_lista": "9.07"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "250101",
+      "modelo": "PLD04BL",
+      "titulo": "Cable de Alimentación con Bloqueo Doble / IEC C13-C14 / 17 AWG / 10A / 1.2 m (3.9 ft) / Paquete 10 Piezas",
+      "marca": "PANDUIT",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/250101/portada_0S400.PNG",
+      "link": "/producto/PLD04BL-PANDUIT-250101.html",
+      "total_existencia": 19,
+      "precios": {
+        "precio_1": "326.52",
+        "precio_especial": "266.15",
+        "precio_descuento": "155.43",
+        "precio_map": "212.92",
+        "precio_lista": "326.52"
+      },
+      "categorias": [
+        {
+          "id": "65811",
+          "nombre": "Cableado Estructurado",
+          "nivel": 1
+        },
+        {
+          "id": "66054",
+          "nombre": "PDU",
+          "nivel": 2
+        },
+        {
+          "id": "66056",
+          "nombre": "Medibles",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "37550",
+      "modelo": "DS-5WAYC",
+      "titulo": "Cable de Distribución de Alimentación / 5 Vías / 4 Cámaras TurboHD / 12 VCC / 500 mA por Canal / Conector Plug 2.5'",
+      "marca": "HIKVISION",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/37550/portada_0S400.PNG",
+      "link": "/producto/DS-5WAYC-HIKVISION-37550.html",
+      "total_existencia": 69,
+      "precios": {
+        "precio_1": "15.90",
+        "precio_especial": "15.69",
+        "precio_descuento": "10.04",
+        "precio_map": "12.55",
+        "precio_lista": "15.90"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "213437",
+      "modelo": "FJ81/500",
+      "titulo": "Cable Fotovoltaico / 6 mm² 10 AWG / 1,800 Vcc / XLPE / 500 m (1,640 ft) / Libre de Halógenos / -20°C a 75°C",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/213437/portada_0S400.PNG",
+      "link": "/producto/FJ81-500-VIAKON-213437.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "1304.14",
+        "precio_especial": "1121.56",
+        "precio_descuento": "699.85",
+        "precio_map": "897.24",
+        "precio_lista": "1304.14"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "238346",
+      "modelo": "CBL-UT-10B/500",
+      "titulo": "Cable Fotovoltaico / 6 mm² (10 AWG) / 2000V / Rango Térmico -40°C a 120°C / Rollo 500 m / UL 4703 y TUV",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/238346/portada_0S400.PNG",
+      "link": "/producto/CBL-UT-10B-500-EPCOM-POWERLINE-238346.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "1147.90",
+        "precio_especial": "1036.19",
+        "precio_descuento": "646.58",
+        "precio_map": "828.95",
+        "precio_lista": "1147.90"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187640",
+      "modelo": "SLY-316-RED/100",
+      "titulo": "Cable Eléctrico THW-LS / 16 AWG / 19 Hilos Trenzados / Cobre Suave / PVC Autoextinguible / 100 m (328.08 pies) / Rojo",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187640/portada_0S400.PNG",
+      "link": "/producto/SLY-316-RED-100-INDIANA-187640.html",
+      "total_existencia": 21,
+      "precios": {
+        "precio_1": "74.12",
+        "precio_especial": "63.74",
+        "precio_descuento": "40.79",
+        "precio_map": "50.99",
+        "precio_lista": "74.12"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "213431",
+      "modelo": "FJ66/500",
+      "titulo": "Cable Fotovoltaico / 500 m (1640.4 ft) / 4 mm² 12 AWG / 1800 Vcc / XLPE / -20°C a 75°C / Libre de Halógenos",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/213431/portada_0S400.PNG",
+      "link": "/producto/FJ66-500-VIAKON-213431.html",
+      "total_existencia": 14,
+      "precios": {
+        "precio_1": "899.31",
+        "precio_especial": "839.39",
+        "precio_descuento": "523.77",
+        "precio_map": "671.51",
+        "precio_lista": "899.31"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "185663",
+      "modelo": "H-482/100",
+      "titulo": "Cable Eléctrico de Cobre Desnudo / Calibre 2/0 AWG / 19 Hilos / 100 m (328 pies) / 360 A / 67.43 mm²",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/185663/portada_0S400.PNG",
+      "link": "/producto/H-482-100-VIAKON-185663.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "2085.68",
+        "precio_especial": "2085.68",
+        "precio_descuento": "1334.83",
+        "precio_map": "1668.54",
+        "precio_lista": "2085.68"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "176921",
+      "modelo": "SLY-296-RED/100",
+      "titulo": "Cable Eléctrico THW-LS / Calibre 8 AWG / 19 Hilos / 100 m (328.1 ft) / PVC Autoextinguible / 90 °C / Rojo",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/176921/portada_0S400.PNG",
+      "link": "/producto/SLY-296-RED-100-INDIANA-176921.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "388.07",
+        "precio_especial": "320.58",
+        "precio_descuento": "200.04",
+        "precio_map": "256.46",
+        "precio_lista": "388.07"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "213438",
+      "modelo": "FJ86/500",
+      "titulo": "Cable Fotovoltaico / 6 mm² 10 AWG / 1,800 Vcc / XLPE Doble Aislamiento / Rojo / Carrete 500 m (1,640 ft)",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/213438/portada_0S400.PNG",
+      "link": "/producto/FJ86-500-VIAKON-213438.html",
+      "total_existencia": 1,
+      "precios": {
+        "precio_1": "1246.18",
+        "precio_especial": "1071.72",
+        "precio_descuento": "668.75",
+        "precio_map": "857.37",
+        "precio_lista": "1246.18"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "175030",
+      "modelo": "VD65/100M",
+      "titulo": "Cable Eléctrico de Uso Rudo / 4 Conductores / 16 AWG / 100 m (328 pies) / 600 V / THW-LS / PVC Autoextinguible",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/175030/portada_0S400.PNG",
+      "link": "/producto/VD65-100M-INDIANA-175030.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "349.23",
+        "precio_especial": "349.23",
+        "precio_descuento": "223.50",
+        "precio_map": "279.38",
+        "precio_lista": "349.23"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "167594",
+      "modelo": "SLY-287-BLK/100",
+      "titulo": "Cable Eléctrico THW-LS / 4 AWG / 19 Hilos / 100 m (328 ft) / Cobre Suave / Negro / Intemperie",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/167594/portada_0S400.PNG",
+      "link": "/producto/SLY-287-BLK-100-INDIANA-167594.html",
+      "total_existencia": 20,
+      "precios": {
+        "precio_1": "1007.85",
+        "precio_especial": "866.75",
+        "precio_descuento": "554.72",
+        "precio_map": "693.40",
+        "precio_lista": "1007.85"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66424",
+          "nombre": "Calidad de la Energía",
+          "nivel": 2
+        },
+        {
+          "id": "66427",
+          "nombre": "Accesorios para Tierra Física",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187948",
+      "modelo": "A081/100M",
+      "titulo": "Cable de Cobre Desnudo Semiduro / Cal. 6 AWG / 7 Hilos / 100 m / 130 A / 328 pies",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187948/portada_0S400.PNG",
+      "link": "/producto/A081-100M-VIAKON-187948.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "458.78",
+        "precio_especial": "458.78",
+        "precio_descuento": "293.61",
+        "precio_map": "367.02",
+        "precio_lista": "458.78"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "193783",
+      "modelo": "RQ42/100M",
+      "titulo": "Cable de uso rudo / 4 conductores / 10 AWG / 600 V / 100 m (328 ft)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/193783/portada_0S400.PNG",
+      "link": "/producto/RQ42-100M-INDIANA-193783.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "1199.24",
+        "precio_especial": "1199.24",
+        "precio_descuento": "767.51",
+        "precio_map": "959.39",
+        "precio_lista": "1199.24"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "192341",
+      "modelo": "RQ36/100M",
+      "titulo": "Cable Eléctrico de Uso Rudo / 3 x 16 AWG / 600 V / 100 m (328 ft) / THW-LS / NMX-J-010-ANCE",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/192341/portada_0S400.PNG",
+      "link": "/producto/RQ36-100M-INDIANA-192341.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "272.23",
+        "precio_especial": "272.23",
+        "precio_descuento": "174.22",
+        "precio_map": "217.78",
+        "precio_lista": "272.23"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "213435",
+      "modelo": "FJ69/500",
+      "titulo": "Cable Fotovoltaico / 4 mm² (12 AWG) / 500 m (1640.4 ft) / 1.8 kV CC / XLPE / Rojo / H1Z2Z2-K",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/213435/portada_0S400.PNG",
+      "link": "/producto/FJ69-500-VIAKON-213435.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "941.13",
+        "precio_especial": "809.38",
+        "precio_descuento": "505.05",
+        "precio_map": "647.50",
+        "precio_lista": "941.13"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "229867",
+      "modelo": "EP1920072X50",
+      "titulo": "Cable de Alimentación Eléctrico / Doble Bloqueo W-Lock / IEC C19 a C20 / 1.8 m (6 ft) / Certificado UL-CE-EAC",
+      "marca": "HOFFMAN",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/229867/portada_0S400.PNG",
+      "link": "/producto/EP1920072X50-HOFFMAN-229867.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "28.40",
+        "precio_especial": "24.54",
+        "precio_descuento": "15.11",
+        "precio_map": "19.63",
+        "precio_lista": "28.40"
+      },
+      "categorias": [
+        {
+          "id": "65811",
+          "nombre": "Cableado Estructurado",
+          "nivel": 1
+        },
+        {
+          "id": "66054",
+          "nombre": "PDU",
+          "nivel": 2
+        },
+        {
+          "id": "66055",
+          "nombre": "Básicos",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187426",
+      "modelo": "SLY-287-WHT/100",
+      "titulo": "Cable THW-LS / Calibre 4 AWG / 19 Hilos / 90°C Seco / 75°C Mojado / Bobina 100 m (328 ft)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187426/portada_0S400.PNG",
+      "link": "/producto/SLY-287-WHT-100-INDIANA-187426.html",
+      "total_existencia": 26,
+      "precios": {
+        "precio_1": "1007.85",
+        "precio_especial": "866.75",
+        "precio_descuento": "554.72",
+        "precio_map": "693.40",
+        "precio_lista": "1007.85"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66424",
+          "nombre": "Calidad de la Energía",
+          "nivel": 2
+        },
+        {
+          "id": "66427",
+          "nombre": "Accesorios para Tierra Física",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "238351",
+      "modelo": "CBL-UT-10R/500",
+      "titulo": "Cable Fotovoltaico / 6 mm² (10 AWG) / 2000V / Rango Térmico -40°C a 120°C / Resistente a UV y Ozono / Rollo 500 m (1640.4 ft) / UL 4703 y TUV",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/EPCOM POWERLINE/CBLUT10R/500/portada_0S400.PNG",
+      "link": "/producto/CBL-UT-10R-500-EPCOM-POWERLINE-238351.html",
+      "total_existencia": 151,
+      "precios": {
+        "precio_1": "1149.30",
+        "precio_especial": "1034.37",
+        "precio_descuento": "645.44",
+        "precio_map": "827.49",
+        "precio_lista": "1149.30"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187586",
+      "modelo": "SLY-312-WHT/100",
+      "titulo": "Cable THW-LS / Calibre 14 AWG / 19 Hilos / 90°C Seco / 75°C Mojado / Bobina 100 m (328 ft) / Blanco",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187586/portada_0S400.PNG",
+      "link": "/producto/SLY-312-WHT-100-INDIANA-187586.html",
+      "total_existencia": 11,
+      "precios": {
+        "precio_1": "122.74",
+        "precio_especial": "93.28",
+        "precio_descuento": "59.69",
+        "precio_map": "74.62",
+        "precio_lista": "122.74"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "226070",
+      "modelo": "SLY-291-GRN/300",
+      "titulo": "Cable Eléctrico / 6 AWG / 1 Conductor / Cobre / THW-LS / 19 Hilos / Verde / 300 m / 984 pies",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/226070/portada_0S400.PNG",
+      "link": "/producto/SLY-291-GRN-300-INDIANA-226070.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "1675.21",
+        "precio_especial": "1675.21",
+        "precio_descuento": "1072.13",
+        "precio_map": "1340.16",
+        "precio_lista": "1675.21"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "252257",
+      "modelo": "101517778",
+      "titulo": "Cable de Alimentación / 15 cm (5.9 in) / Conectores Estándar / Codificación por Color / Tierra / Accesorio",
+      "marca": "HIKVISION",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/252257/portada_0S400.PNG",
+      "link": "/producto/101517778-HIKVISION-252257.html",
+      "total_existencia": 28,
+      "precios": {
+        "precio_1": "4.63",
+        "precio_especial": "4.63",
+        "precio_descuento": "2.96",
+        "precio_map": "3.70",
+        "precio_lista": "4.63"
+      },
+      "categorias": [
+        {
+          "id": "22",
+          "nombre": "Videovigilancia",
+          "nivel": 1
+        },
+        {
+          "id": "208",
+          "nombre": "Energía",
+          "nivel": 2
+        },
+        {
+          "id": "2975",
+          "nombre": "Fuentes de Alimentación",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "136816",
+      "modelo": "A086/100M",
+      "titulo": "Cable Eléctrico de Cobre Desnudo Semiduro / 7 Hilos Concéntricos / Cal. 4/0 AWG (211,6 mm²) / Rollo 100 m (328 pies)",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/136816/portada_0S400.PNG",
+      "link": "/producto/A086-100M-VIAKON-136816.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "3696.87",
+        "precio_especial": "3696.87",
+        "precio_descuento": "2365.99",
+        "precio_map": "2957.49",
+        "precio_lista": "3696.87"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "193784",
+      "modelo": "RQ41/100M",
+      "titulo": "Cable de uso rudo / 4 conductores / Calibre 12 AWG / 100 m / 328 pies / Hasta 600 V",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/193784/portada_0S400.PNG",
+      "link": "/producto/RQ41-100M-INDIANA-193784.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "758.74",
+        "precio_especial": "758.74",
+        "precio_descuento": "485.59",
+        "precio_map": "606.99",
+        "precio_lista": "758.74"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "193779",
+      "modelo": "VD64/100M",
+      "titulo": "Cable Eléctrico de Uso Rudo / 3 Conductores 18 AWG / 19 Hilos / 100 m (328 pies) / 600 V / 90°C",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/193779/portada_0S400.PNG",
+      "link": "/producto/VD64-100M-INDIANA-193779.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "193.35",
+        "precio_especial": "193.35",
+        "precio_descuento": "123.74",
+        "precio_map": "154.68",
+        "precio_lista": "193.35"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "244662",
+      "modelo": "CBLUT12B/500",
+      "titulo": "Cable Fotovoltaico / 4 mm² (12 AWG) / Cobre Estañado / 2000V / Rollo 500 m / UL 4703 y TUV / -40°C a 90°C",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/EPCOMPOWERLINE/CBLUT12B/500/portada_0S400.PNG",
+      "link": "/producto/CBLUT12B-500-EPCOM-POWERLINE-244662.html",
+      "total_existencia": 18,
+      "precios": {
+        "precio_1": "705.61",
+        "precio_especial": "635.05",
+        "precio_descuento": "396.27",
+        "precio_map": "508.04",
+        "precio_lista": "705.61"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "250796",
+      "modelo": "PLD06BL",
+      "titulo": "Cable de Alimentación con Bloqueo / IEC C13 a C14 / 17 AWG / 10A / 1.8 m (6 ft) / Paquete 10 Piezas",
+      "marca": "PANDUIT",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/250796/portada_0S400.PNG",
+      "link": "/producto/PLD06BL-PANDUIT-250796.html",
+      "total_existencia": 20,
+      "precios": {
+        "precio_1": "427.10",
+        "precio_especial": "348.12",
+        "precio_descuento": "203.30",
+        "precio_map": "278.49",
+        "precio_lista": "427.10"
+      },
+      "categorias": [
+        {
+          "id": "65811",
+          "nombre": "Cableado Estructurado",
+          "nivel": 1
+        },
+        {
+          "id": "66054",
+          "nombre": "PDU",
+          "nivel": 2
+        },
+        {
+          "id": "66056",
+          "nombre": "Medibles",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187907",
+      "modelo": "A083/50",
+      "titulo": "Cable de Cobre Desnudo Semiduro / 7 Hilos / Cal. 1/0 AWG / 50 m (164 pies)",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187907/portada_0S400.PNG",
+      "link": "/producto/A083-50-VIAKON-187907.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "892.55",
+        "precio_especial": "892.55",
+        "precio_descuento": "571.23",
+        "precio_map": "714.04",
+        "precio_lista": "892.55"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "193785",
+      "modelo": "RQ40/100M",
+      "titulo": "Cable Eléctrico de Uso Rudo / 4 Hilos / 14 AWG / 600 V / 100 m / 328 pies",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/193785/portada_0S400.PNG",
+      "link": "/producto/RQ40-100M-INDIANA-193785.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "506.24",
+        "precio_especial": "506.24",
+        "precio_descuento": "323.99",
+        "precio_map": "404.99",
+        "precio_lista": "506.24"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187950",
+      "modelo": "A079/100M",
+      "titulo": "Cable Eléctrico de Cobre Desnudo Semiduro 7 Hilos / Cal. 2 AWG / 100 m / 328 pies",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187950/portada_0S400.PNG",
+      "link": "/producto/A079-100M-VIAKON-187950.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "1159.87",
+        "precio_especial": "1159.87",
+        "precio_descuento": "742.31",
+        "precio_map": "927.89",
+        "precio_lista": "1159.87"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "87687",
+      "modelo": "SLY-349-BLK/100",
+      "titulo": "Cable Eléctrico THW-LS / Cobre 4/0 AWG / 19 Hilos / 100 m (328.1 ft) / Autoextinguible / 90 °C / Negro",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/87687/portada_0S400.PNG",
+      "link": "/producto/SLY-349-BLK-100-INDIANA-87687.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "4704.13",
+        "precio_especial": "3886.02",
+        "precio_descuento": "2424.87",
+        "precio_map": "3108.81",
+        "precio_lista": "4704.13"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66424",
+          "nombre": "Calidad de la Energía",
+          "nivel": 2
+        },
+        {
+          "id": "66427",
+          "nombre": "Accesorios para Tierra Física",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "160825",
+      "modelo": "DS-9WAYC",
+      "titulo": "Cable de alimentación multivía / 9 vías / 8 cámaras TurboHD / 12 VCC / 500 mA por canal / Conector plug 3.5 mm",
+      "marca": "HIKVISION",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/160825/portada_0S400.PNG",
+      "link": "/producto/DS-9WAYC-HIKVISION-160825.html",
+      "total_existencia": 57,
+      "precios": {
+        "precio_1": "26.46",
+        "precio_especial": "26.46",
+        "precio_descuento": "16.93",
+        "precio_map": "21.16",
+        "precio_lista": "26.46"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "244650",
+      "modelo": "CBLUT12R/500",
+      "titulo": "Cable Fotovoltaico / 4 mm² (12 AWG) / Cobre Estañado / 1000/2000 V / Rojo / Rollo 500 m / UL 4703 y TUV / -40°C a 90°C",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/EPCOMPOWERLINE/CBLUT12R/500/portada_0S400.PNG",
+      "link": "/producto/CBLUT12R-500-EPCOM-POWERLINE-244650.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "705.61",
+        "precio_especial": "635.05",
+        "precio_descuento": "396.27",
+        "precio_map": "508.04",
+        "precio_lista": "705.61"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187644",
+      "modelo": "SLY-328-RED/100",
+      "titulo": "Cable Eléctrico THW-LS / 18 AWG / 19 Hilos / 100 m (328.08 ft) / Rojo / PVC Autoextinguible",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187644/portada_0S400.PNG",
+      "link": "/producto/SLY-328-RED-100-INDIANA-187644.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "54.08",
+        "precio_especial": "41.10",
+        "precio_descuento": "26.30",
+        "precio_map": "32.88",
+        "precio_lista": "54.08"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187599",
+      "modelo": "SLY-316-GRN/100",
+      "titulo": "Cable Eléctrico / 16 AWG / 19 Hilos / Cobre Suave / PVC Auto-Extinguible / 100 m (328.08 pies)",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187599/portada_0S400.PNG",
+      "link": "/producto/SLY-316-GRN-100-INDIANA-187599.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "63.80",
+        "precio_especial": "63.80",
+        "precio_descuento": "40.83",
+        "precio_map": "51.04",
+        "precio_lista": "63.80"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187434",
+      "modelo": "SLY-291-RED/100",
+      "titulo": "Cable Eléctrico THW-LS / Calibre 6 AWG / 19 Hilos / 100 m / 328 pies / Rojo",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187434/portada_0S400.PNG",
+      "link": "/producto/SLY-291-RED-100-INDIANA-187434.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "558.40",
+        "precio_especial": "558.40",
+        "precio_descuento": "357.37",
+        "precio_map": "446.72",
+        "precio_lista": "558.40"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66424",
+          "nombre": "Calidad de la Energía",
+          "nivel": 2
+        },
+        {
+          "id": "66427",
+          "nombre": "Accesorios para Tierra Física",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187641",
+      "modelo": "SLY-316-WHT/100",
+      "titulo": "Cable Eléctrico / 16 AWG / 19 Hilos / Cobre Suave / PVC Auto-Extinguible / 100 m (328.08 pies) / Blanco",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187641/portada_0S400.PNG",
+      "link": "/producto/SLY-316-WHT-100-INDIANA-187641.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "63.80",
+        "precio_especial": "63.80",
+        "precio_descuento": "40.83",
+        "precio_map": "51.04",
+        "precio_lista": "63.80"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "191966",
+      "modelo": "SLY-347-BLK/100",
+      "titulo": "Cable Eléctrico THW-LS / Cobre 3/0 AWG / 19 Hilos / 33.6 mm² / 100 m (328 pies) / Negro",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/191966/portada_0S400.PNG",
+      "link": "/producto/SLY-347-BLK-100-INDIANA-191966.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "3754.77",
+        "precio_especial": "3101.77",
+        "precio_descuento": "1985.13",
+        "precio_map": "2481.41",
+        "precio_lista": "3754.77"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66424",
+          "nombre": "Calidad de la Energía",
+          "nivel": 2
+        },
+        {
+          "id": "66427",
+          "nombre": "Accesorios para Tierra Física",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "226650",
+      "modelo": "LPCB11-X",
+      "titulo": "Cable de Alimentación / IEC C20 a C19 / Bloqueo Dual / 15 AWG / 16A 250V / 60 cm (2 pies) / Paquete 10 pzas",
+      "marca": "PANDUIT",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/226650/portada_0S400.PNG",
+      "link": "/producto/LPCB11-X-PANDUIT-226650.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "272.12",
+        "precio_especial": "221.81",
+        "precio_descuento": "129.53",
+        "precio_map": "177.44",
+        "precio_lista": "272.12"
+      },
+      "categorias": [
+        {
+          "id": "65811",
+          "nombre": "Cableado Estructurado",
+          "nivel": 1
+        },
+        {
+          "id": "66054",
+          "nombre": "PDU",
+          "nivel": 2
+        },
+        {
+          "id": "66055",
+          "nombre": "Básicos",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187425",
+      "modelo": "SLY-287-RED/100",
+      "titulo": "Cable Eléctrico THW-LS / Calibre 4 AWG / 19 Hilos de Cobre / Aislamiento 1.52 mm / 100 m (328.1 ft) / Color Rojo / 90 °C Seco / Aprobado CT",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187425/portada_0S400.PNG",
+      "link": "/producto/SLY-287-RED-100-INDIANA-187425.html",
+      "total_existencia": 5,
+      "precios": {
+        "precio_1": "927.22",
+        "precio_especial": "927.22",
+        "precio_descuento": "593.42",
+        "precio_map": "741.77",
+        "precio_lista": "927.22"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66424",
+          "nombre": "Calidad de la Energía",
+          "nivel": 2
+        },
+        {
+          "id": "66427",
+          "nombre": "Accesorios para Tierra Física",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "216100",
+      "modelo": "CBLMC42P5MBLK1",
+      "titulo": "Cable Fotovoltaico / 2.5 m (8.2 ft) / 10 AWG / Terminales MC4 Macho-Hembra / Negro UV",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/216100/portada_0S400.PNG",
+      "link": "/producto/CBLMC42P5MBLK1-EPCOM-POWERLINE-216100.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "13.98",
+        "precio_especial": "13.98",
+        "precio_descuento": "8.94",
+        "precio_map": "11.18",
+        "precio_lista": "13.98"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66404",
+          "nombre": "Baterías y Cargadores",
+          "nivel": 2
+        },
+        {
+          "id": "66408",
+          "nombre": "Terminales y Accesorios",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "216104",
+      "modelo": "CBLMC42P5MRED1",
+      "titulo": "Cable Fotovoltaico / 2.5 m (8.2 ft) / 10 AWG / MC4-M en Ambos Extremos / 1500 V / Rojo",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/216104/portada_0S400.PNG",
+      "link": "/producto/CBLMC42P5MRED1-EPCOM-POWERLINE-216104.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "12.24",
+        "precio_especial": "12.24",
+        "precio_descuento": "7.83",
+        "precio_map": "9.79",
+        "precio_lista": "12.24"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66404",
+          "nombre": "Baterías y Cargadores",
+          "nivel": 2
+        },
+        {
+          "id": "66408",
+          "nombre": "Terminales y Accesorios",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187643",
+      "modelo": "SLY-328-GRN/100",
+      "titulo": "Cable Eléctrico / 18 AWG / 19 Hilos / Cobre Suave / PVC Auto-Extensible / 100 m (328.08 pies) / Verde / THW-LS / 90°C",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187643/portada_0S400.PNG",
+      "link": "/producto/SLY-328-GRN-100-INDIANA-187643.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "49.76",
+        "precio_especial": "41.10",
+        "precio_descuento": "26.30",
+        "precio_map": "32.88",
+        "precio_lista": "49.76"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187424",
+      "modelo": "SLY-286-WHT/100",
+      "titulo": "Cable Eléctrico THW-LS / Cobre 2 AWG / 19 Hilos / 100 m / 328 pies / Blanco",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187424/portada_0S400.PNG",
+      "link": "/producto/SLY-286-WHT-100-INDIANA-187424.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "1356.87",
+        "precio_especial": "1356.87",
+        "precio_descuento": "868.39",
+        "precio_map": "1085.49",
+        "precio_lista": "1356.87"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66424",
+          "nombre": "Calidad de la Energía",
+          "nivel": 2
+        },
+        {
+          "id": "66427",
+          "nombre": "Accesorios para Tierra Física",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "193720",
+      "modelo": "KPS-050-2",
+      "titulo": "Guía Jalacables / 406 mm (16 pulgadas) / Cable 0,50'' a 0,61'' / Carga 508 kg (1120 lb)",
+      "marca": "TULMEX",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/193720/portada_0S400.PNG",
+      "link": "/producto/KPS-050-2-TULMEX-193720.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "765.06",
+        "precio_especial": "573.80",
+        "precio_descuento": "367.23",
+        "precio_map": "459.04",
+        "precio_lista": "765.06"
+      },
+      "categorias": [
+        {
+          "id": "65811",
+          "nombre": "Cableado Estructurado",
+          "nivel": 1
+        },
+        {
+          "id": "65813",
+          "nombre": "Cableado de Cobre",
+          "nivel": 2
+        },
+        {
+          "id": "65848",
+          "nombre": "Herramientas",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "237553",
+      "modelo": "DGJ",
+      "titulo": "Kit de Puente de Tierra / Cable de Cobre 6 AWG / Aislamiento THW / Terminales de Dos Orificios / 30 cm (11.8 in)",
+      "marca": "HOFFMAN",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/HOFFMAN/DGJ/portada_0S400.PNG",
+      "link": "/producto/DGJ-HOFFMAN-237553.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "95.35",
+        "precio_especial": "82.38",
+        "precio_descuento": "50.74",
+        "precio_map": "65.90",
+        "precio_lista": "95.35"
+      },
+      "categorias": [
+        {
+          "id": "65811",
+          "nombre": "Cableado Estructurado",
+          "nivel": 1
+        },
+        {
+          "id": "65843",
+          "nombre": "Charola",
+          "nivel": 2
+        },
+        {
+          "id": "65844",
+          "nombre": "Accesorios",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "195135",
+      "modelo": "14-N15",
+      "titulo": "Guía Jalacables / Nylon 3 mm / 15 m (49.21 ft) / Puntera Flexible y Bronce / Cubierta ABS",
+      "marca": "TULMEX",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/195135/portada_0S400.PNG",
+      "link": "/producto/14-N15-TULMEX-195135.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "59.82",
+        "precio_especial": "44.89",
+        "precio_descuento": "28.72",
+        "precio_map": "35.91",
+        "precio_lista": "59.82"
+      },
+      "categorias": [
+        {
+          "id": "65811",
+          "nombre": "Cableado Estructurado",
+          "nivel": 1
+        },
+        {
+          "id": "65813",
+          "nombre": "Cableado de Cobre",
+          "nivel": 2
+        },
+        {
+          "id": "65848",
+          "nombre": "Herramientas",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "211286",
+      "modelo": "RQ39/300M",
+      "titulo": "Cable Eléctrico de Uso Rudo / 3 Conductores / Calibre 10 AWG / 600 V / 300 m (984 pies)",
+      "marca": "INDIANA",
+      "img_portada": "",
+      "link": "/producto/RQ39-300M-INDIANA-211286.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "2809.53",
+        "precio_especial": "2809.53",
+        "precio_descuento": "1798.09",
+        "precio_map": "2247.62",
+        "precio_lista": "2809.53"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "196477",
+      "modelo": "ACCORDT8",
+      "titulo": "Cable de Corriente Bifásico / Conector Tipo 8 / Adaptador Clavija Euro / 1 m (3.28 ft)",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/196477/portada_0S400.PNG",
+      "link": "/producto/ACCORDT8-EPCOM-POWERLINE-196477.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "6.50",
+        "precio_especial": "6.50",
+        "precio_descuento": "4.16",
+        "precio_map": "5.20",
+        "precio_lista": "6.50"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "251495",
+      "modelo": "PXUP316AWH-CQ",
+      "titulo": "Cable de Cobre Clase 4 / 3 Pares / 16/19 AWG / CMP Plenum / 609 m (1998 ft) / -20°C a 75°C / FMPS UL 1400-2",
+      "marca": "PANDUIT",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/PANDUIT/PXUP316AWHCQ/portada_0S400.PNG?v=1788819357142",
+      "link": "/producto/PXUP316AWH-CQ-PANDUIT-251495.html",
+      "total_existencia": 2,
+      "precios": {
+        "precio_1": "5997.55",
+        "precio_especial": "4888.57",
+        "precio_descuento": "2854.92",
+        "precio_map": "3910.85",
+        "precio_lista": "5997.55"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "84919",
+      "modelo": "SLY-304-RED",
+      "titulo": "Cable Eléctrico THW-LS / Calibre 10 AWG / 19 Hilos / 90°C Seco / 75°C Mojado / Rojo / Venta por Metro",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/84919/portada_0S400.PNG",
+      "link": "/producto/SLY-304-RED-INDIANA-84919.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "2.40",
+        "precio_especial": "2.40",
+        "precio_descuento": "1.53",
+        "precio_map": "1.92",
+        "precio_lista": "2.40"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "224098",
+      "modelo": "J015",
+      "titulo": "Cable Eléctrico de Cobre / 58.0 mm² / 28 Hilos Clase II / 13.7 mm Diámetro / 532.6 kg/km / UL 96A / Aplicación Apartarrayos",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/224098/portada_0S400.PNG",
+      "link": "/producto/J015-VIAKON-224098.html",
+      "total_existencia": 3,
+      "precios": {
+        "precio_1": "39.31",
+        "precio_especial": "39.31",
+        "precio_descuento": "25.15",
+        "precio_map": "31.44",
+        "precio_lista": "39.31"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "223100",
+      "modelo": "CBLPV6B/50",
+      "titulo": "Cable Fotovoltaico / 16 mm² (6 AWG) / Cobre 106 Hilos / 2000 V DC / Rango -40°C a 120°C / Resistencia UV y Ozono / Rollo 50 m (164 ft)",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/223100/portada_0S400.PNG",
+      "link": "/producto/CBLPV6B-50-EPCOM-POWERLINE-223100.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "229.00",
+        "precio_especial": "113.12",
+        "precio_descuento": "72.39",
+        "precio_map": "90.49",
+        "precio_lista": "229.00"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "223101",
+      "modelo": "CBL-PV-6R/50",
+      "titulo": "Cable Fotovoltaico / 16 mm² (6 AWG) / Cobre / 2000V / Rojo / Rollo 50 m (164 ft)",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/223101/portada_0S400.PNG",
+      "link": "/producto/CBL-PV-6R-50-EPCOM-POWERLINE-223101.html",
+      "total_existencia": 200,
+      "precios": {
+        "precio_1": "229.00",
+        "precio_especial": "113.12",
+        "precio_descuento": "72.39",
+        "precio_map": "90.49",
+        "precio_lista": "229.00"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "176872",
+      "modelo": "SLY-346-BLK",
+      "titulo": "Cable THW-LS / Calibre 2/0 AWG / 19 Hilos / 90°C Seco / 75°C Húmedo / Venta por Metro",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/176872/portada_0S400.PNG",
+      "link": "/producto/SLY-346-BLK-INDIANA-176872.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "29.83",
+        "precio_especial": "29.83",
+        "precio_descuento": "19.09",
+        "precio_map": "23.86",
+        "precio_lista": "29.83"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66424",
+          "nombre": "Calidad de la Energía",
+          "nivel": 2
+        },
+        {
+          "id": "66427",
+          "nombre": "Accesorios para Tierra Física",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "221889",
+      "modelo": "CBL-PV-6B/100",
+      "titulo": "Cable Fotovoltaico / 16 mm² (6 AWG) / 2000 V DC / Rollo 100 m / Cobre Desnudo / XLPE Resistente UV / -40°C a 120°C",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/221889/portada_0S400.PNG",
+      "link": "/producto/CBL-PV-6B-100-EPCOM-POWERLINE-221889.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "413.00",
+        "precio_especial": "413.00",
+        "precio_descuento": "264.32",
+        "precio_map": "330.40",
+        "precio_lista": "413.00"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "221890",
+      "modelo": "CBL-PV-6R/100",
+      "titulo": "Cable Fotovoltaico / 16 mm² (6 AWG) / Cobre Tipo PV / 2000V DC / Rango -40°C a 120°C / Rollo 100 m",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/221890/portada_0S400.PNG",
+      "link": "/producto/CBL-PV-6R-100-EPCOM-POWERLINE-221890.html",
+      "total_existencia": 41,
+      "precios": {
+        "precio_1": "413.00",
+        "precio_especial": "205.47",
+        "precio_descuento": "131.50",
+        "precio_map": "164.37",
+        "precio_lista": "413.00"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "84920",
+      "modelo": "SLY-304-WHT",
+      "titulo": "Cable Eléctrico THW-LS / Calibre 10 AWG / 19 Hilos / 90°C Seco / 75°C Mojado / Venta por Metro / Blanco",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/84920/portada_0S400.PNG",
+      "link": "/producto/SLY-304-WHT-INDIANA-84920.html",
+      "total_existencia": 1,
+      "precios": {
+        "precio_1": "2.40",
+        "precio_especial": "2.40",
+        "precio_descuento": "1.53",
+        "precio_map": "1.92",
+        "precio_lista": "2.40"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "221891",
+      "modelo": "CBL-PV-6B/500",
+      "titulo": "Cable Fotovoltaico / 16 mm² (6 AWG) / 2000 Vcc / 500 m (1640.4 ft) / Resistencia UV / -40°C a 120°C",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/221891/portada_0S400.PNG",
+      "link": "/producto/CBL-PV-6B-500-EPCOM-POWERLINE-221891.html",
+      "total_existencia": 27,
+      "precios": {
+        "precio_1": "2035.00",
+        "precio_especial": "1009.40",
+        "precio_descuento": "646.01",
+        "precio_map": "807.52",
+        "precio_lista": "2035.00"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "188861",
+      "modelo": "RQ35/100M",
+      "titulo": "Cable Eléctrico de Uso Rudo 2 Hilos Calibre 10 AWG, Hasta 600 V. Rollo de 100 m.",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/188861/portada_0S400.PNG",
+      "link": "/producto/RQ35-100M-INDIANA-188861.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "705.92",
+        "precio_especial": "705.92",
+        "precio_descuento": "451.78",
+        "precio_map": "564.73",
+        "precio_lista": "705.92"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "176869",
+      "modelo": "SLY-349-BLK",
+      "titulo": "Cable de Cobre Recubierto THW-LS Calibre 4/0 AWG 19 Hilos Color Negro (Venta por Metro).",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/176869/portada_0S400.PNG",
+      "link": "/producto/SLY-349-BLK-INDIANA-176869.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "46.80",
+        "precio_especial": "46.80",
+        "precio_descuento": "29.95",
+        "precio_map": "37.44",
+        "precio_lista": "46.80"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66424",
+          "nombre": "Calidad de la Energía",
+          "nivel": 2
+        },
+        {
+          "id": "66427",
+          "nombre": "Accesorios para Tierra Física",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "84708",
+      "modelo": "SM-YC-P4",
+      "titulo": "Cable Troncal Y / 4 Conductores 12 AWG / 1030 mm (3.38 ft) x 500 mm (1.64 ft) / 0.37 kg (0.82 lb) / Microinversores y Monitoreo",
+      "marca": "UBIQUITI",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/84708/portada_0S400.PNG",
+      "link": "/producto/SM-YC-P4-UBIQUITI-84708.html",
+      "total_existencia": 7,
+      "precios": {
+        "precio_1": "51.00",
+        "precio_especial": "51.00",
+        "precio_descuento": "32.64",
+        "precio_map": "40.80",
+        "precio_lista": "51.00"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "87682",
+      "modelo": "SLY-287-GRN/50",
+      "titulo": "Cable THW-LS / Calibre 4 AWG / 19 Hilos / 90°C Seco / 50 m (164 ft) / Verde",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/87682/portada_0S400.PNG",
+      "link": "/producto/SLY-287-GRN-50-INDIANA-87682.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "359.21",
+        "precio_especial": "359.21",
+        "precio_descuento": "229.89",
+        "precio_map": "287.36",
+        "precio_lista": "359.21"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "193744",
+      "modelo": "FE7632PC63",
+      "titulo": "Protección Térmica/ Interruptor 2P, 63 A,  Corriente Alterna  400 Vca para Aplicación Fotovoltaica Montaje Riel DIN",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/193744/portada_0S400.PNG",
+      "link": "/producto/FE7632PC63-EPCOM-POWERLINE-193744.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "22.44",
+        "precio_especial": "22.44",
+        "precio_descuento": "14.00",
+        "precio_map": "17.95",
+        "precio_lista": "22.44"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "211926",
+      "modelo": "SLY346BLK*25MTS",
+      "titulo": "Cable Eléctrico THW-LS / Calibre 2/0 AWG / 19 Hilos / 25 m (82 ft) / Cobre Suave / 90°C Seco / 75°C Húmedo",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/INDIANA/SLY346BLK25MTS/SLY346BLK25MTS-p.PNG",
+      "link": "/producto/SLY346BLK*25MTS-INDIANA-211926.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "777.73",
+        "precio_especial": "777.73",
+        "precio_descuento": "497.74",
+        "precio_map": "622.18",
+        "precio_lista": "777.73"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "211939",
+      "modelo": "SLY312WHT",
+      "titulo": "Cable Eléctrico THW-LS / 14 AWG / 19 Hilos / 90°C Seco / 75°C Mojado / Venta por Metro",
+      "marca": "INDIANA",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/211939/portada_0S400.PNG",
+      "link": "/producto/SLY312WHT-INDIANA-211939.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "1.08",
+        "precio_especial": "1.08",
+        "precio_descuento": "0.69",
+        "precio_map": "0.86",
+        "precio_lista": "1.08"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "72045",
+      "modelo": "PAQ48JR53",
+      "titulo": "Kit de Jumpers / 48 Unidades / Hembra / 12 VCC / Industrial y Doméstico",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE-V2/72045/portada_0S400.PNG",
+      "link": "/producto/PAQ48JR53-EPCOM-POWERLINE-72045.html",
+      "total_existencia": 500,
+      "precios": {
+        "precio_1": "42.24",
+        "precio_especial": "25.44",
+        "precio_descuento": "16.28",
+        "precio_map": "20.35",
+        "precio_lista": "42.24"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "187949",
+      "modelo": "A080/100M",
+      "titulo": " QV74 / Cable  Cobre desnudo / 4 AWG /  Semiduro 7 Hilos / Rollo de 100 m.",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/187949/portada_0S400.PNG",
+      "link": "/producto/A080-100M-VIAKON-187949.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "793.09",
+        "precio_especial": "793.09",
+        "precio_descuento": "507.57",
+        "precio_map": "634.47",
+        "precio_lista": "793.09"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "198243",
+      "modelo": "CBLMC42P5MRED",
+      "titulo": "Cable Fotovoltaico, 2.5 m, Rojo, Calibre 10 AWG con Terminal MC4-M en Ambos Extremos",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/198243/portada_0S400.PNG",
+      "link": "/producto/CBLMC42P5MRED-EPCOM-POWERLINE-198243.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "17.46",
+        "precio_especial": "17.46",
+        "precio_descuento": "11.17",
+        "precio_map": "13.96",
+        "precio_lista": "17.46"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66404",
+          "nombre": "Baterías y Cargadores",
+          "nivel": 2
+        },
+        {
+          "id": "66408",
+          "nombre": "Terminales y Accesorios",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "222478",
+      "modelo": "AFN1/100M",
+      "titulo": "8 AWG / Bobina de 100 metros / Cobre desnudo ",
+      "marca": "VIAKON",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/222478/portada_0S400.PNG",
+      "link": "/producto/AFN1-100M-VIAKON-222478.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "285.87",
+        "precio_especial": "285.87",
+        "precio_descuento": "182.95",
+        "precio_map": "228.69",
+        "precio_lista": "285.87"
+      },
+      "categorias": [
+        {
+          "id": "42",
+          "nombre": "Herramientas, Ferretería y Material Eléctrico",
+          "nivel": 1
+        },
+        {
+          "id": "66963",
+          "nombre": "Material Eléctrico (Casa Eléctrica)",
+          "nivel": 2
+        },
+        {
+          "id": "66964",
+          "nombre": "Cable y Alambre Eléctrico",
+          "nivel": 3
+        }
+      ]
+    },
+    {
+      "producto_id": "221892",
+      "modelo": "CBLPV6R/500",
+      "titulo": "Carrete de 500 Metros / Cable Fotovoltaico / Rojo / 16 mm²  ( 6 AWG) / 2000 Vcc",
+      "marca": "EPCOM POWERLINE",
+      "img_portada": "https://ftp3.syscom.mx/usuarios/fotos/BancoFotografiasSyscom/AI/UPSCALE/221892/portada_0S400.PNG",
+      "link": "/producto/CBLPV6R-500-EPCOM-POWERLINE-221892.html",
+      "total_existencia": 0,
+      "precios": {
+        "precio_1": "2035.00",
+        "precio_especial": "2035.00",
+        "precio_descuento": "1302.40",
+        "precio_map": "1628.00",
+        "precio_lista": "2035.00"
+      },
+      "categorias": [
+        {
+          "id": "30",
+          "nombre": "Energía y Climatización",
+          "nivel": 1
+        },
+        {
+          "id": "66409",
+          "nombre": "Energía Solar",
+          "nivel": 2
+        },
+        {
+          "id": "66410",
+          "nombre": "Accesorios / Cables / Jumpers",
+          "nivel": 3
+        }
+      ]
+    }
+  ]
+}

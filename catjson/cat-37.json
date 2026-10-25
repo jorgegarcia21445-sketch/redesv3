@@ -1,0 +1,113 @@
+{
+    "id": "37",
+    "nombre": "Control  de Acceso",
+    "nivel": "1",
+    "origen": [],
+    "subcategorias": [
+        {
+            "id": "415",
+            "nombre": "Accesorios",
+            "nivel": "2"
+        },
+        {
+            "id": "417",
+            "nombre": "Cerraduras",
+            "nivel": "2"
+        },
+        {
+            "id": "418",
+            "nombre": "Administración de  Hoteles",
+            "nivel": "2"
+        },
+        {
+            "id": "422",
+            "nombre": "Control de Rondas Para Vigilantes",
+            "nivel": "2"
+        },
+        {
+            "id": "423",
+            "nombre": "Teclados Autónomos",
+            "nivel": "2"
+        },
+        {
+            "id": "424",
+            "nombre": "Paneles de Control de Acceso",
+            "nivel": "2"
+        },
+        {
+            "id": "425",
+            "nombre": "Detectores de Metal",
+            "nivel": "2"
+        },
+        {
+            "id": "426",
+            "nombre": "Equipo Blindado",
+            "nivel": "2"
+        },
+        {
+            "id": "427",
+            "nombre": "Fuentes de Alimentación",
+            "nivel": "2"
+        },
+        {
+            "id": "429",
+            "nombre": "Biométricos",
+            "nivel": "2"
+        },
+        {
+            "id": "434",
+            "nombre": "Identificación y Credencialización",
+            "nivel": "2"
+        },
+        {
+            "id": "435",
+            "nombre": "Protección de Mercancía (EAS)",
+            "nivel": "2"
+        },
+        {
+            "id": "465",
+            "nombre": "Inspección por Rayos X y Explosivos",
+            "nivel": "2"
+        },
+        {
+            "id": "469",
+            "nombre": "Videoporteros e Interfonos",
+            "nivel": "2"
+        },
+        {
+            "id": "499",
+            "nombre": "Acceso vehicular",
+            "nivel": "2"
+        },
+        {
+            "id": "529",
+            "nombre": "Protección Contra Descargas",
+            "nivel": "2"
+        },
+        {
+            "id": "540",
+            "nombre": "Sistemas de Emergencia",
+            "nivel": "2"
+        },
+        {
+            "id": "65672",
+            "nombre": "Software de Asistencia",
+            "nivel": "2"
+        },
+        {
+            "id": "65723",
+            "nombre": "Refacciones",
+            "nivel": "2"
+        },
+        {
+            "id": "65945",
+            "nombre": "Lectoras y Tarjetas",
+            "nivel": "2"
+        },
+        {
+            "id": "66061",
+            "nombre": "Torniquetes y Puertas de Cortesía",
+            "nivel": "2"
+        }
+    ]
+}

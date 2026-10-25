@@ -1,0 +1,30 @@
+# ---- Secrets and local-only files (never upload) ----
+.env
+node_modules/
+mercadopago/
+server.js
+
+# ---- Syscom API dumps: private account data, the site doesn't use them ----
+obtenerfacturas.json
+facturasdetalles.json
+metodos_de_pago.json
+cfdi*.json
+colonias*.json
+estados.json
+fleteras
+marcas*.json
+pa*ses.json
+productoinf.json
+productosas.json
+productosrela.json
+
+# ---- Helper scripts (may contain your Syscom token) ----
+descargar.js
+descargar-productos.js
+index2.js
+listar.js
+inspeccionar.js
+catjson/hojas.txt
+
+# NOTE: package.json, package-lock.json and catjson/prod-*.json MUST be uploaded:
+# the live site and the online server need them.

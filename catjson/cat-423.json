@@ -1,0 +1,13 @@
+{
+    "id": "423",
+    "nombre": "Teclados Autónomos",
+    "nivel": "2",
+    "origen": [
+        {
+            "id": "37",
+            "nombre": "Control  de Acceso",
+            "nivel": "1"
+        }
+    ],
+    "subcategorias": []
+}

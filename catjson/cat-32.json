@@ -1,0 +1,103 @@
+{
+    "id": "32",
+    "nombre": "Automatización   e Intrusión",
+    "nivel": "1",
+    "origen": [],
+    "subcategorias": [
+        {
+            "id": "261",
+            "nombre": "Total Connect Honeywell",
+            "nivel": "2"
+        },
+        {
+            "id": "351",
+            "nombre": "Paneles de Alarma",
+            "nivel": "2"
+        },
+        {
+            "id": "354",
+            "nombre": "Teclados",
+            "nivel": "2"
+        },
+        {
+            "id": "355",
+            "nombre": "Módulos de Expansión",
+            "nivel": "2"
+        },
+        {
+            "id": "363",
+            "nombre": "Gabinetes y Carcasas",
+            "nivel": "2"
+        },
+        {
+            "id": "365",
+            "nombre": "Cables",
+            "nivel": "2"
+        },
+        {
+            "id": "367",
+            "nombre": "Energía",
+            "nivel": "2"
+        },
+        {
+            "id": "370",
+            "nombre": "Contactos Magnéticos",
+            "nivel": "2"
+        },
+        {
+            "id": "372",
+            "nombre": "Detectores  / Sensores",
+            "nivel": "2"
+        },
+        {
+            "id": "373",
+            "nombre": "Centrales de Monitoreo",
+            "nivel": "2"
+        },
+        {
+            "id": "375",
+            "nombre": "Cercas Eléctricas",
+            "nivel": "2"
+        },
+        {
+            "id": "377",
+            "nombre": "Accesorios",
+            "nivel": "2"
+        },
+        {
+            "id": "387",
+            "nombre": "Protección Perimetral",
+            "nivel": "2"
+        },
+        {
+            "id": "450",
+            "nombre": "Generadores de Niebla",
+            "nivel": "2"
+        },
+        {
+            "id": "523",
+            "nombre": "Automatización - Casa Inteligente",
+            "nivel": "2"
+        },
+        {
+            "id": "544",
+            "nombre": "Señalamientos",
+            "nivel": "2"
+        },
+        {
+            "id": "65731",
+            "nombre": "Sistemas de Emergencia",
+            "nivel": "2"
+        },
+        {
+            "id": "65781",
+            "nombre": "Lutron",
+            "nivel": "3"
+        },
+        {
+            "id": "66284",
+            "nombre": "Paneles de Alarma y Accesorios Hikvision",
+            "nivel": "2"
+        }
+    ]
+}

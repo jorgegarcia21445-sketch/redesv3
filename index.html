@@ -2,14 +2,18 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="SoluTelecom: diseño, construcción y mantenimiento de redes de fibra óptica G-PON, CCTV y telecomunicaciones en 17 estados de México.">
   <meta name="theme-color" content="#0c0c0e">
   <title>SoluTelecom | Infraestructura de Telecomunicaciones</title>
   <link rel="icon" href="photos/favicon-32x32.png" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="photos/favicon-32x32.png">
   <link rel="apple-touch-icon" href="photos/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ftp3.syscom.mx">
   <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="modals.css">
 </head>
 <body id="top">
 
@@ -46,6 +50,14 @@
         <img class="brand-logo" src="photos/solutelecom-logo-transparent.png" alt="SoluTelecom" width="800" height="192">
       </a>
 
+      <!-- PRODUCT SEARCH (top of every page) -->
+      <form class="top-search" id="heroSearch" role="search" autocomplete="off">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="heroQ" type="search" placeholder="Busca cámaras, NVR, cable UTP o un modelo…" aria-label="Buscar productos" aria-controls="heroSug" aria-expanded="false">
+        <button type="submit" class="btn">Buscar</button>
+        <div class="hs-sug" id="heroSug" role="listbox" hidden></div>
+      </form>
+
       <ul class="nav-links">
         <li><a href="#nosotros">Nosotros</a></li>
         <li><a href="#servicios">Servicios</a></li>
@@ -59,6 +71,15 @@
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           33 21 86 58 21
         </a>
+
+        <!-- ACCOUNT: shows the photo (or initials) and name once the visitor signs in -->
+        <button type="button" class="nav-login" id="loginBtn">
+          <span class="nav-avatar" id="navAvatar" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+          </span>
+          <span id="loginLabel">Iniciar Sesión</span>
+        </button>
+
         <a href="#contacto" class="btn btn-sm">Solicitar cotización</a>
       </div>
     </nav>
@@ -67,15 +88,33 @@
   <main>
 
     <!-- HERO -->
-    <section id="hero">
-      <svg class="wave-bg" aria-hidden="true"><use href="#waves"></use></svg>
-      <div class="wrap hero-content">
-        <span class="tag">Presencia en 17 estados</span>
-        <h1>Infraestructura de telecomunicaciones para todo el país.</h1>
-        <p>Diseñamos, construimos y damos mantenimiento a redes de fibra óptica G-PON, obra civil y sistemas de videovigilancia con un mismo equipo de principio a fin.</p>
-        <div class="hero-actions">
-          <a href="#contacto" class="btn">Solicitar cotización</a>
-          <a href="#servicios" class="btn btn-outline">Ver servicios</a>
+    <section id="hero" class="hero3d">
+      <!-- 3D background: tilting waves + moving grid floor (follows the mouse) -->
+      <div class="hero-scene" aria-hidden="true">
+        <svg class="wave-bg hero-waves"><use href="#waves"></use></svg>
+        <div class="hero-floor"></div>
+      </div>
+
+      <div class="wrap hero-grid">
+        <div class="hero-content">
+          <span class="tag">Presencia en 17 estados</span>
+          <h1>Infraestructura de telecomunicaciones para todo el país.</h1>
+          <p>Diseñamos, construimos y damos mantenimiento a redes de fibra óptica G-PON, obra civil y sistemas de videovigilancia. También te vendemos el equipo, con envío a todo México.</p>
+
+          <div class="hero-actions">
+            <a href="#contacto" class="btn">Solicitar cotización</a>
+            <a href="#servicios" class="btn btn-outline">Ver servicios</a>
+          </div>
+        </div>
+
+        <!-- 3D PRODUCT CAROUSEL (filled by index.js with featured products) -->
+        <div class="hero-carousel" id="heroCarousel" aria-roledescription="carrusel" aria-label="Productos destacados" hidden>
+          <div class="hc-stage"><div class="hc-ring" id="hcRing"></div></div>
+          <div class="hc-controls">
+            <button type="button" class="hc-arrow" data-hc="-1" aria-label="Anterior">‹</button>
+            <span class="hc-label">Productos destacados</span>
+            <button type="button" class="hc-arrow" data-hc="1" aria-label="Siguiente">›</button>
+          </div>
         </div>
       </div>
     </section>
@@ -105,39 +144,39 @@
         <div class="section-head reveal">
           <span class="tag">Servicios</span>
           <h2>Soluciones integrales para cada etapa de la red.</h2>
-          <p>Del levantamiento de campo a la entrega documentada, cubrimos toda la cadena de valor de una red de telecomunicaciones.</p>
+          <p>Del levantamiento de campo a la entrega documentada, cubrimos toda la cadena de valor de una red de telecomunicaciones. Haz clic en un servicio para ver más.</p>
         </div>
         <div class="svc-grid">
-          <div class="svc-card">
+          <button type="button" class="svc-card" data-service="fibra">
             <div class="svc-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h4l2-8 4 16 2-8h4"/><circle cx="20" cy="12" r="2"/></svg></div>
             <h3>Fibra óptica</h3>
             <p>Diseño y construcción de red G-PON, enlaces troncales, fusiones y validación con pruebas .SOR y OPMT.</p>
-          </div>
-          <div class="svc-card">
+          </button>
+          <button type="button" class="svc-card" data-service="cctv">
             <div class="svc-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
             <h3>CCTV empresarial y residencial</h3>
             <p>Planeación, instalación de hardware, cableado estructurado, configuración remota y mantenimiento periódico.</p>
-          </div>
-          <div class="svc-card">
+          </button>
+          <button type="button" class="svc-card" data-service="telecom">
             <div class="svc-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h.01M8.5 16.5a5 5 0 0 1 7 0M5 13a10 10 0 0 1 14 0M2 9.5a15 15 0 0 1 20 0"/></svg></div>
             <h3>Telecomunicaciones</h3>
             <p>Instalación de OLT y equipos de comunicación, planta interna, planta externa y cableado de voz y datos.</p>
-          </div>
-          <div class="svc-card">
+          </button>
+          <button type="button" class="svc-card" data-service="mantenimiento">
             <div class="svc-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
             <h3>Instalación y mantenimiento</h3>
             <p>Obra civil, zanjado, micro zanjado y perforación direccional dirigida, además de mantenimiento correctivo y preventivo de red.</p>
-          </div>
-          <div class="svc-card">
+          </button>
+          <button type="button" class="svc-card" data-service="domotica">
             <div class="svc-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></div>
             <h3>Domótica</h3>
             <p>Sistemas inteligentes para automatizar y controlar hogar o negocio de forma eficiente y remota.</p>
-          </div>
-          <div class="svc-card">
+          </button>
+          <button type="button" class="svc-card" data-service="ti">
             <div class="svc-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
             <h3>Soluciones de TI</h3>
             <p>Transformación digital, integración en la nube, desarrollo web y consultoría tecnológica para tu operación.</p>
-          </div>
+          </button>
         </div>
       </div>
     </section>
@@ -225,13 +264,16 @@
           <span class="tag">Clientes</span>
           <h2>Empresas que confían en nosotros.</h2>
         </div>
+        <!-- LOGOS DE CLIENTES: guarda el logo oficial de cada cliente en photos/clientes/
+             con el nombre de abajo (SVG o PNG con fondo transparente). Se muestran en blanco.
+             Mientras no exista el archivo, se ve el nombre en texto. -->
         <ul class="client-grid">
-          <li class="client">Megacable</li>
-          <li class="client">CFE</li>
-          <li class="client">MetroCarrier</li>
-          <li class="client">Red Jalisco</li>
-          <li class="client">ZTE</li>
-          <li class="client">Axtel</li>
+          <li class="client"><img src="photos/clientes/megacable.svg" alt="Megacable" loading="lazy" onerror="this.replaceWith(this.alt)"></li>
+          <li class="client"><img src="photos/clientes/cfe.svg" alt="CFE" loading="lazy" onerror="this.replaceWith(this.alt)"></li>
+          <li class="client"><img src="photos/clientes/metrocarrier.svg" alt="MetroCarrier" loading="lazy" onerror="this.replaceWith(this.alt)"></li>
+          <li class="client"><img src="photos/clientes/red-jalisco.svg" alt="Red Jalisco" loading="lazy" onerror="this.replaceWith(this.alt)"></li>
+          <li class="client"><img src="photos/clientes/zte.svg" alt="ZTE" loading="lazy" onerror="this.replaceWith(this.alt)"></li>
+          <li class="client"><img src="photos/clientes/axtel.svg" alt="Axtel" loading="lazy" onerror="this.replaceWith(this.alt)"></li>
         </ul>
       </div>
     </section>
@@ -245,7 +287,7 @@
         </div>
         <div class="record-grid">
           <div><h3>23,384.32 km</h3><p>Levantados y digitalizados</p></div>
-          <div><h3>12,227.60 km</h3><p>Diseñados (G-PON)</p></div>
+          <div><h3>12,227.6 km</h3><p>Diseñados (G-PON)</p></div>
           <div><h3>5,678.53 km</h3><p>Construidos (G-PON)</p></div>
           <div><h3>116</h3><p>OLT's instaladas</p></div>
         </div>
@@ -259,6 +301,50 @@
         <h2>¿Tienes un proyecto de red en mente?</h2>
         <p>Cuéntanos la ubicación y el alcance. Te respondemos con una propuesta técnica y económica.</p>
         <a href="#contacto" class="btn">Solicitar cotización</a>
+      </div>
+    </section>
+
+    <!-- FACTURACIÓN -->
+    <section class="billing" id="facturacion">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="tag">Facturación</span>
+          <h2>Tu factura CFDI 4.0, automática.</h2>
+          <p>Si la necesitas, pídela al pagar. En cuanto se aprueba tu pago te enviamos el PDF y el XML a tu correo, sin trámites extra.</p>
+        </div>
+        <div class="billing-grid">
+          <div class="billing-step">
+            <span class="billing-num">1</span>
+            <h3>Marca “Necesito factura”</h3>
+            <p>En los datos de entrega activa la casilla y captura tus datos fiscales.</p>
+          </div>
+          <div class="billing-step">
+            <span class="billing-num">2</span>
+            <h3>Paga tu pedido</h3>
+            <p>Con tarjeta, efectivo o transferencia SPEI por Mercado Pago.</p>
+          </div>
+          <div class="billing-step">
+            <span class="billing-num">3</span>
+            <h3>Recíbela en tu correo</h3>
+            <p>Tu CFDI 4.0 (PDF y XML) llega al correo que capturaste, en minutos.</p>
+          </div>
+        </div>
+        <div class="billing-info">
+          <div>
+            <h4>Datos que te pediremos</h4>
+            <ul>
+              <li>RFC</li>
+              <li>Nombre o razón social, exactamente como aparece en tu Constancia de Situación Fiscal (sin “S.A. de C.V.”)</li>
+              <li>Código postal fiscal</li>
+              <li>Régimen fiscal y uso de CFDI</li>
+            </ul>
+          </div>
+          <div>
+            <h4>¿Olvidaste pedirla?</h4>
+            <p>Escríbenos dentro del mismo mes de tu compra con tu número de pedido y tus datos fiscales, y te la emitimos.</p>
+            <a href="#contacto" class="btn btn-outline btn-sm">Contactar</a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -340,6 +426,7 @@
           <a href="#nosotros">Nosotros</a>
           <a href="#servicios">Servicios</a>
           <a href="#cobertura">Cobertura</a>
+          <a href="#facturacion">Facturación</a>
           <a href="#contacto">Contacto</a>
         </div>
         <div class="footer-col">
@@ -369,6 +456,410 @@
     <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.001 3.2c-7.07 0-12.8 5.73-12.8 12.8 0 2.256.596 4.37 1.634 6.2L3.2 28.8l6.77-1.6a12.74 12.74 0 0 0 6.03 1.53c7.07 0 12.8-5.73 12.8-12.8s-5.73-12.73-12.8-12.73zm0 23.2a10.34 10.34 0 0 1-5.27-1.44l-.378-.224-4.02.95.958-3.9-.246-.4a10.35 10.35 0 0 1-1.6-5.482c0-5.73 4.67-10.4 10.4-10.4s10.4 4.67 10.4 10.4-4.67 10.5-10.244 10.5zm5.7-7.79c-.31-.156-1.84-.907-2.125-1.01-.285-.104-.492-.156-.7.156-.207.31-.804 1.01-.986 1.218-.182.208-.363.234-.674.078-.31-.156-1.31-.483-2.494-1.54-.922-.822-1.546-1.837-1.727-2.148-.182-.31-.02-.478.137-.633.14-.14.31-.363.466-.545.156-.182.207-.31.31-.52.104-.208.052-.39-.026-.545-.078-.156-.7-1.688-.96-2.31-.253-.606-.51-.524-.7-.534l-.6-.01c-.207 0-.545.078-.83.39-.284.31-1.09 1.065-1.09 2.598s1.116 3.013 1.27 3.222c.156.208 2.196 3.354 5.32 4.703.744.32 1.324.512 1.777.655.746.238 1.425.204 1.962.124.6-.09 1.84-.752 2.1-1.478.26-.727.26-1.35.182-1.478-.078-.13-.285-.208-.596-.364z"/></svg>
   </a>
 
+  <!-- =====================================================
+       VENTANA EMERGENTE A PANTALLA COMPLETA DE SERVICIOS
+       Cada servicio tiene su bloque <article> con comentarios.
+       ===================================================== -->
+  <dialog id="svcModal" class="modal modal-lg" aria-label="Detalle del servicio">
+    <button type="button" class="modal-close" aria-label="Cerrar">&times;</button>
+
+    <!-- =====================================================
+         SERVICIO: FIBRA ÓPTICA   (id="svc-fibra")
+         Aquí editas TODO lo que aparece al hacer clic en esta tarjeta
+         ===================================================== -->
+    <article class="svc-detail" id="svc-fibra" hidden>
+      <div class="svc-modal-grid">
+
+        <!-- FOTO PRINCIPAL GRANDE: cambia el nombre en src (la foto va en la carpeta photos/) -->
+        <div class="svc-modal-media">
+          <img src="photos/fibra-principal.jpg" alt="Fibra óptica" onerror="this.closest('.svc-modal-grid').classList.add('no-media')">
+        </div>
+
+        <div class="modal-body">
+          <span class="modal-kicker">Servicio</span>
+
+          <!-- TÍTULO -->
+          <h3>Fibra óptica</h3>
+
+          <!-- DESCRIPCIÓN CORTA -->
+          <p>Diseñamos y construimos redes G-PON completas, desde el feeder hasta la última milla.</p>
+
+          <h4>Qué incluye</h4>
+          <!-- LISTA: un <li> por cada punto; agrega o borra los que quieras -->
+          <ul>
+            <li>Enlaces troncales y de distribución</li>
+            <li>Fusiones y empalmes</li>
+            <li>Pruebas .SOR y OPMT</li>
+            <li>Entrega de ATP y as built</li>
+          </ul>
+
+          <h4>Más información</h4>
+          <!-- INFORMACIÓN EXTRA: escribe aquí los párrafos largos (puedes agregar más <p>) -->
+          <p>Garantiza la máxima velocidad y estabilidad en tu transmisión de datos con nuestra infraestructura de fibra óptica. Realizamos fusiones, tendidos y conectorización de alta precisión para redes empresariales y residenciales, ofreciendo ancho de banda ilimitado, baja latencia e inmunidad total ante interferencias electromagnéticas.</p>
+
+          <a href="#contacto" class="btn svc-cta">Solicitar cotización</a>
+        </div>
+      </div>
+
+      <!-- GALERÍA DE FOTOS: agrega o borra líneas <img>; cada una es una foto -->
+      <div class="modal-section">
+        <h4>Galería de proyectos</h4>
+        <div class="modal-gallery">
+          <img src="photos/fibra.jpg" alt="Fibra óptica, proyecto 1" loading="lazy" onerror="this.remove()">
+          <img src="photos/fibra2.jpg" alt="Fibra óptica, proyecto 2" loading="lazy" onerror="this.remove()">
+          <img src="photos/fibra3.jpg" alt="Fibra óptica, proyecto 3" loading="lazy" onerror="this.remove()">
+        </div>
+      </div>
+    </article>
+
+    <!-- =====================================================
+         SERVICIO: CCTV EMPRESARIAL Y RESIDENCIAL   (id="svc-cctv")
+         Aquí editas TODO lo que aparece al hacer clic en esta tarjeta
+         ===================================================== -->
+    <article class="svc-detail" id="svc-cctv" hidden>
+      <div class="svc-modal-grid">
+
+        <!-- FOTO PRINCIPAL GRANDE: cambia el nombre en src (la foto va en la carpeta photos/) -->
+        <div class="svc-modal-media">
+          <img src="photos/cctv-principal.jpg" alt="CCTV empresarial y residencial" onerror="this.closest('.svc-modal-grid').classList.add('no-media')">
+        </div>
+
+        <div class="modal-body">
+          <span class="modal-kicker">Servicio</span>
+
+          <!-- TÍTULO -->
+          <h3>CCTV empresarial y residencial</h3>
+
+          <!-- DESCRIPCIÓN CORTA -->
+          <p>Proyectos de videovigilancia llave en mano.</p>
+
+          <h4>Qué incluye</h4>
+          <!-- LISTA: un <li> por cada punto; agrega o borra los que quieras -->
+          <ul>
+            <li>Planeación y diseño</li>
+            <li>Cableado estructurado</li>
+            <li>Configuración remota</li>
+            <li>Mantenimiento periódico</li>
+          </ul>
+
+          <h4>Más información</h4>
+          <!-- INFORMACIÓN EXTRA: escribe aquí los párrafos largos (puedes agregar más <p>) -->
+          <p>Protege lo que más importa con nuestros sistemas de videovigilancia de alta definición. Diseñamos e instalamos soluciones de CCTV adaptadas tanto a residencias como a empresas, integrando cámaras IP, visión nocturna, detección de movimiento y monitoreo en tiempo real desde tu dispositivo móvil para brindarte tranquilidad las 24 horas.</p>
+
+          <a href="#contacto" class="btn svc-cta">Solicitar cotización</a>
+        </div>
+      </div>
+
+      <!-- GALERÍA DE FOTOS: agrega o borra líneas <img>; cada una es una foto -->
+      <div class="modal-section">
+        <h4>Galería de proyectos</h4>
+        <div class="modal-gallery">
+          <img src="photos/cctv.jpg" alt="CCTV empresarial y residencial, proyecto 1" loading="lazy" onerror="this.remove()">
+          <img src="photos/cctv2.jpg" alt="CCTV empresarial y residencial, proyecto 2" loading="lazy" onerror="this.remove()">
+          <img src="photos/cctv3.png" alt="CCTV empresarial y residencial, proyecto 3" loading="lazy" onerror="this.remove()">
+          <img src="photos/cctv5.jpg" alt="CCTV empresarial y residencial, proyecto 3" loading="lazy" onerror="this.remove()">
+        </div>
+      </div>
+    </article>
+
+    <!-- =====================================================
+         SERVICIO: TELECOMUNICACIONES   (id="svc-telecom")
+         Aquí editas TODO lo que aparece al hacer clic en esta tarjeta
+         ===================================================== -->
+    <article class="svc-detail" id="svc-telecom" hidden>
+      <div class="svc-modal-grid">
+
+        <!-- FOTO PRINCIPAL GRANDE: cambia el nombre en src (la foto va en la carpeta photos/) -->
+        <div class="svc-modal-media">
+          <img src="photos/telecom-principal.jpg" alt="Telecomunicaciones" onerror="this.closest('.svc-modal-grid').classList.add('no-media')">
+        </div>
+
+        <div class="modal-body">
+          <span class="modal-kicker">Servicio</span>
+
+          <!-- TÍTULO -->
+          <h3>Telecomunicaciones</h3>
+
+          <!-- DESCRIPCIÓN CORTA -->
+          <p>Instalación de OLT y equipos de comunicación.</p>
+
+          <h4>Qué incluye</h4>
+          <!-- LISTA: un <li> por cada punto; agrega o borra los que quieras -->
+          <ul>
+            <li>Planta interna y externa</li>
+            <li>Cableado de voz y datos</li>
+          </ul>
+
+          <h4>Más información</h4>
+          <!-- INFORMACIÓN EXTRA: escribe aquí los párrafos largos (puedes agregar más <p>) -->
+          <p>"Conectamos tu hogar o empresa con soluciones de red robustas, rápidas y confiables. Diseñamos e implementamos redes locales (LAN/Wi-Fi), cableado estructurado y enlaces de comunicación de alto rendimiento para garantizar una conectividad fluida, sin interrupciones y preparada para un alto tráfico de datos.</p>
+
+          <a href="#contacto" class="btn svc-cta">Solicitar cotización</a>
+        </div>
+      </div>
+
+      <!-- GALERÍA DE FOTOS: agrega o borra líneas <img>; cada una es una foto -->
+      <div class="modal-section">
+        <h4>Galería de proyectos</h4>
+        <div class="modal-gallery">
+          <img src="photos/tele.jpg" alt="Telecomunicaciones, proyecto 1" loading="lazy" onerror="this.remove()">
+          <img src="photos/telecom-2.jpg" alt="Telecomunicaciones, proyecto 2" loading="lazy" onerror="this.remove()">
+          <img src="photos/telecom-3.jpg" alt="Telecomunicaciones, proyecto 3" loading="lazy" onerror="this.remove()">
+        </div>
+      </div>
+    </article>
+
+    <!-- =====================================================
+         SERVICIO: INSTALACIÓN Y MANTENIMIENTO   (id="svc-mantenimiento")
+         Aquí editas TODO lo que aparece al hacer clic en esta tarjeta
+         ===================================================== -->
+    <article class="svc-detail" id="svc-mantenimiento" hidden>
+      <div class="svc-modal-grid">
+
+        <!-- FOTO PRINCIPAL GRANDE: cambia el nombre en src (la foto va en la carpeta photos/) -->
+        <div class="svc-modal-media">
+          <img src="photos/mantenimiento-principal.jpg" alt="Instalación y mantenimiento" onerror="this.closest('.svc-modal-grid').classList.add('no-media')">
+        </div>
+
+        <div class="modal-body">
+          <span class="modal-kicker">Servicio</span>
+
+          <!-- TÍTULO -->
+          <h3>Instalación y mantenimiento</h3>
+
+          <!-- DESCRIPCIÓN CORTA -->
+          <p>Obra civil y mantenimiento de red.</p>
+
+          <h4>Qué incluye</h4>
+          <!-- LISTA: un <li> por cada punto; agrega o borra los que quieras -->
+          <ul>
+            <li>Zanjado y micro zanjado</li>
+            <li>Perforación direccional</li>
+            <li>Mantenimiento preventivo y correctivo</li>
+          </ul>
+
+          <h4>Más información</h4>
+          <!-- INFORMACIÓN EXTRA: escribe aquí los párrafos largos (puedes agregar más <p>) -->
+          <p>Nos encargamos del diseño, montaje y configuración integral de todos tus sistemas tecnológicos y de seguridad. Contamos con técnicos capacitados que garantizan instalaciones limpias, seguras y bajo norma, además de ofrecer planes de mantenimiento preventivo y correctivo para asegurar el rendimiento óptimo y la durabilidad de tus equipos sin interrupciones.</p>
+
+          <a href="#contacto" class="btn svc-cta">Solicitar cotización</a>
+        </div>
+      </div>
+
+      <!-- GALERÍA DE FOTOS: agrega o borra líneas <img>; cada una es una foto -->
+      <div class="modal-section">
+        <h4>Galería de proyectos</h4>
+        <div class="modal-gallery">
+          <img src="photos/insta.jpg" alt="Instalación y mantenimiento, proyecto 1" loading="lazy" onerror="this.remove()">
+          <img src="photos/insta2.jpg" alt="Instalación y mantenimiento, proyecto 2" loading="lazy" onerror="this.remove()">
+          <img src="photos/insta4.png" alt="Instalación y mantenimiento, proyecto 3" loading="lazy" onerror="this.remove()">
+          <img src="photos/inata3.png" alt="Instalación y mantenimiento, proyecto 3" loading="lazy" onerror="this.remove()">
+        </div>
+      </div>
+    </article>
+
+    <!-- =====================================================
+         SERVICIO: DOMÓTICA   (id="svc-domotica")
+         Aquí editas TODO lo que aparece al hacer clic en esta tarjeta
+         ===================================================== -->
+    <article class="svc-detail" id="svc-domotica" hidden>
+      <div class="svc-modal-grid">
+
+        <!-- FOTO PRINCIPAL GRANDE: cambia el nombre en src (la foto va en la carpeta photos/) -->
+        <div class="svc-modal-media">
+          <img src="photos/domotica-principal.jpg" alt="Domótica" onerror="this.closest('.svc-modal-grid').classList.add('no-media')">
+        </div>
+
+        <div class="modal-body">
+          <span class="modal-kicker">Servicio</span>
+
+          <!-- TÍTULO -->
+          <h3>Domótica</h3>
+
+          <!-- DESCRIPCIÓN CORTA -->
+          <p>Automatiza y controla tu hogar o negocio de forma remota.</p>
+
+          <h4>Qué incluye</h4>
+          <!-- LISTA: un <li> por cada punto; agrega o borra los que quieras -->
+          <ul>
+            <li>Iluminación y accesos</li>
+            <li>Control desde el celular</li>
+          </ul>
+
+          <h4>Más información</h4>
+          <!-- INFORMACIÓN EXTRA: escribe aquí los párrafos largos (puedes agregar más <p>) -->
+          <p>Transforma tus espacios en entornos inteligentes, eficientes y seguros. Con nuestros sistemas de domótica, puedes gestionar la iluminación, climatización, persianas y puntos de acceso desde tu smartphone o mediante comandos de voz. Optimiza el consumo energético de tu hogar o negocio y disfruta del máximo confort y control estés donde estés.</p>
+
+          <a href="#contacto" class="btn svc-cta">Solicitar cotización</a>
+        </div>
+      </div>
+
+      <!-- GALERÍA DE FOTOS: agrega o borra líneas <img>; cada una es una foto -->
+      <div class="modal-section">
+        <h4>Galería de proyectos</h4>
+        <div class="modal-gallery">
+          <img src="photos/domotica.jpg" alt="Domótica, proyecto 1" loading="lazy" onerror="this.remove()">
+          <img src="photos/domotica-2.jpg" alt="Domótica, proyecto 2" loading="lazy" onerror="this.remove()">
+          <img src="photos/domotica-3.jpg" alt="Domótica, proyecto 3" loading="lazy" onerror="this.remove()">
+        </div>
+      </div>
+    </article>
+
+    <!-- =====================================================
+         SERVICIO: SOLUCIONES DE TI   (id="svc-ti")
+         Aquí editas TODO lo que aparece al hacer clic en esta tarjeta
+         ===================================================== -->
+    <article class="svc-detail" id="svc-ti" hidden>
+      <div class="svc-modal-grid">
+
+        <!-- FOTO PRINCIPAL GRANDE: cambia el nombre en src (la foto va en la carpeta photos/) -->
+        <div class="svc-modal-media">
+          <img src="photos/ti-principal.jpg" alt="Soluciones de TI" onerror="this.closest('.svc-modal-grid').classList.add('no-media')">
+        </div>
+
+        <div class="modal-body">
+          <span class="modal-kicker">Servicio</span>
+
+          <!-- TÍTULO -->
+          <h3>Soluciones de TI</h3>
+
+          <!-- DESCRIPCIÓN CORTA -->
+          <p>Transformación digital y consultoría tecnológica.</p>
+
+          <h4>Qué incluye</h4>
+          <!-- LISTA: un <li> por cada punto; agrega o borra los que quieras -->
+          <ul>
+            <li>Integración en la nube</li>
+            <li>Desarrollo web</li>
+            <li>Consultoría</li>
+          </ul>
+
+          <h4>Más información</h4>
+          <!-- INFORMACIÓN EXTRA: escribe aquí los párrafos largos (puedes agregar más <p>) -->
+          <p>Impulsamos la transformación digital de tu negocio con soluciones integrales de tecnología de la información. Ofrecemos desde la administración de servidores, seguridad informática y virtualización, hasta el respaldo automatizado de datos y soporte técnico especializado, garantizando la continuidad operativa y la eficiencia de tus sistemas.</p>
+
+          <a href="#contacto" class="btn svc-cta">Solicitar cotización</a>
+        </div>
+      </div>
+
+      <!-- GALERÍA DE FOTOS: agrega o borra líneas <img>; cada una es una foto -->
+      <div class="modal-section">
+        <h4>Galería de proyectos</h4>
+        <div class="modal-gallery">
+          <img src="photos/ti-1.jpg" alt="Soluciones de TI, proyecto 1" loading="lazy" onerror="this.remove()">
+          <img src="photos/ti-2.jpg" alt="Soluciones de TI, proyecto 2" loading="lazy" onerror="this.remove()">
+          <img src="photos/ti-3.jpg" alt="Soluciones de TI, proyecto 3" loading="lazy" onerror="this.remove()">
+        </div>
+      </div>
+    </article>
+  </dialog>
+
+  <!-- =====================================================
+       VENTANA DE INICIAR SESIÓN
+       ===================================================== -->
+  <dialog id="loginModal" class="modal login-modal" aria-labelledby="loginTitle">
+    <button type="button" class="modal-close" aria-label="Cerrar">&times;</button>
+
+    <div class="login-layout">
+    <!-- ========== LADO IZQUIERDO: FORMULARIO ========== -->
+    <div class="login-pane">
+    <!-- LOGO: cambia el archivo en src si quieres otro -->
+    <img class="brand-logo login-logo" src="photos/solutelecom-logo-transparent.png" alt="SoluTelecom" width="800" height="192">
+    <h3 id="loginTitle">Bienvenido de nuevo</h3>
+    <p class="login-sub">Ingrese con su número de cliente o correo electrónico.</p>
+
+    <form id="loginForm">
+      <div id="signupNameWrap" hidden>
+        <label for="signupName">Nombre</label>
+        <div class="field"><input type="text" id="signupName" placeholder="Su nombre" autocomplete="name" style="padding-left:14px"></div>
+      </div>
+      <label for="loginUser">Número de Cliente o email</label>
+      <div class="field">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4.5"/><path d="M3.5 21a8.5 8.5 0 0 1 17 0z"/></svg>
+        <input type="text" id="loginUser" placeholder="Usuario" autocomplete="username" required>
+      </div>
+
+      <label for="loginPass">Contraseña</label>
+      <div class="field">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10V8a6 6 0 0 1 12 0v2h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1zm2 0h8V8a4 4 0 0 0-8 0z"/></svg>
+        <input type="password" id="loginPass" placeholder="Contraseña" autocomplete="current-password" required>
+        <button type="button" class="pw-toggle" id="pwToggle" aria-label="Mostrar contraseña">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5C6.5 5 2.7 9.2 1.5 12c1.2 2.8 5 7 10.5 7s9.3-4.2 10.5-7C21.3 9.2 17.5 5 12 5zm0 11.5A4.5 4.5 0 1 1 12 7.5a4.5 4.5 0 0 1 0 9zm0-2.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+        </button>
+      </div>
+
+      <button type="submit" class="btn btn-block" id="loginSubmit">Acceder</button>
+      <p class="login-msg" id="loginMsg" role="status"></p>
+      <button type="button" class="login-switch" id="loginSwitch">¿No tiene cuenta? Cree una</button>
+    </form>
+
+    <a href="#" class="login-forgot" id="loginForgot">¿Olvidó su contraseña?</a>
+
+    <div class="login-divider">O CONTINUAR CON</div>
+
+    <div class="social-grid">
+      <button type="button" class="social-btn" data-provider="Google">
+        <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Google
+      </button>
+      <button type="button" class="social-btn" data-provider="Facebook">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#1877F2"/><path fill="#fff" d="M13 21v-7h2.3l.4-2.8H13V9.5c0-.8.3-1.3 1.4-1.3h1.4V5.7c-.3 0-1.1-.1-2.1-.1-2.1 0-3.5 1.3-3.5 3.6v2H8v2.8h2.2v7z"/></svg>Facebook
+      </button>
+    </div>
+
+    <div class="login-help">
+      <p>Contacte a su ejecutivo de cuenta si necesita ayuda con sus credenciales de acceso.</p>
+    </div>
+    </div>
+
+    <!-- ========== LADO DERECHO: FOTO ==========
+         PON AQUÍ TU FOTO: guarda la imagen como photos/login.jpg
+         (o cambia el nombre en src). Si no existe, se oculta sola. -->
+    <div class="login-art">
+      <img src="photos/login.jpg" alt="" onerror="this.closest('.login-layout').classList.add('no-art')">
+    </div>
+    </div>
+    </dialog>
+
+  <!-- =====================================================
+       DISPONIBILIDAD POR SUCURSAL (lo llena index.js)
+       ===================================================== -->
+  <dialog id="dispModal" class="modal disp-modal" aria-labelledby="dispTitle">
+    <div class="disp-head">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+      <h3 id="dispTitle">Disponibilidad</h3>
+      <button type="button" class="disp-close" aria-label="Cerrar">&times;</button>
+    </div>
+    <div class="disp-total"><span>Stock total nuevo</span><strong id="dispTotal">—</strong></div>
+    <input type="search" id="dispFiltro" class="disp-filter" placeholder="Buscar estado o ciudad…" aria-label="Filtrar sucursales">
+    <div class="disp-table" role="table" aria-label="Existencias por sucursal">
+      <div class="disp-row disp-th" role="row">
+        <span role="columnheader">Sucursal</span>
+        <span role="columnheader">Nuevo</span>
+        <span role="columnheader">En tránsito</span>
+        <span role="columnheader">Caja abierta</span>
+      </div>
+      <div id="dispFilas"></div>
+    </div>
+    <p class="disp-note">Existencias de nuestro proveedor en tiempo real. El envío sale de la sucursal más cercana con stock.</p>
+  </dialog>
+
+  <section id="catalogo" class="pc-section">
+  <nav id="catMigas" class="pc-crumbs"></nav>
+  <h2 id="catalogoTitulo">Productos</h2>
+  <div class="pc-toolbar">
+    <input id="buscarProducto" class="pc-search" type="search" placeholder="Buscar en esta categoría">
+    <select id="ordenProducto" class="pc-select">
+      <option value="">Ordenar: relevancia</option>
+      <option value="asc">Precio: menor a mayor</option>
+      <option value="desc">Precio: mayor a menor</option>
+    </select>
+  </div>
+  <p id="catalogoInfo" class="pc-info"></p>
+  <div id="productosGrid" class="pc-grid"></div>
+  <div id="paginacion" class="pc-pager"></div>
+</section>
+
   <script src="index.js"></script>
+  <script type="module" src="auth.js"></script>
 </body>
 </html>

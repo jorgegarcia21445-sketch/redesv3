@@ -1,0 +1,88 @@
+{
+    "id": "66523",
+    "nombre": "Audio y Video Profesional",
+    "nivel": "1",
+    "origen": [],
+    "subcategorias": [
+        {
+            "id": "66524",
+            "nombre": "Audio IP",
+            "nivel": "2"
+        },
+        {
+            "id": "66525",
+            "nombre": "Audio Profesional / PA",
+            "nivel": "2"
+        },
+        {
+            "id": "66526",
+            "nombre": "Audio Residencial/Comercial",
+            "nivel": "2"
+        },
+        {
+            "id": "66528",
+            "nombre": "Microfonía",
+            "nivel": "2"
+        },
+        {
+            "id": "66530",
+            "nombre": "Pantallas/Monitores",
+            "nivel": "2"
+        },
+        {
+            "id": "66533",
+            "nombre": "Videowall LED",
+            "nivel": "2"
+        },
+        {
+            "id": "66578",
+            "nombre": "Streaming / Creación de Contenido",
+            "nivel": "2"
+        },
+        {
+            "id": "66824",
+            "nombre": "Distribución de Video",
+            "nivel": "2"
+        },
+        {
+            "id": "66835",
+            "nombre": "Iluminación Escénica",
+            "nivel": "2"
+        },
+        {
+            "id": "66841",
+            "nombre": "KVM",
+            "nivel": "2"
+        },
+        {
+            "id": "66850",
+            "nombre": "Producción / Escenarios",
+            "nivel": "2"
+        },
+        {
+            "id": "66859",
+            "nombre": "Salas Inteligentes / Videoconferencia",
+            "nivel": "2"
+        },
+        {
+            "id": "66870",
+            "nombre": "Publicidad Digital / Digital Signage",
+            "nivel": "2"
+        },
+        {
+            "id": "66882",
+            "nombre": "Videowall LCD",
+            "nivel": "2"
+        },
+        {
+            "id": "67029",
+            "nombre": "Sonido Automotriz | Car Audio",
+            "nivel": "2"
+        },
+        {
+            "id": "67034",
+            "nombre": "Audio Marino",
+            "nivel": "2"
+        }
+    ]
+}

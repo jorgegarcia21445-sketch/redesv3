@@ -1,0 +1,93 @@
+{
+    "id": "27",
+    "nombre": "GPS, Telemática y Equipamiento Vehicular",
+    "nivel": "1",
+    "origen": [],
+    "subcategorias": [
+        {
+            "id": "501",
+            "nombre": "Barras de Luz / Torretas Vehiculares",
+            "nivel": "2"
+        },
+        {
+            "id": "502",
+            "nombre": "Mini Barras Vehiculares",
+            "nivel": "2"
+        },
+        {
+            "id": "503",
+            "nombre": "Estrobos / Burbujas Vehiculares",
+            "nivel": "2"
+        },
+        {
+            "id": "504",
+            "nombre": "Luces Auxiliares Vehiculares",
+            "nivel": "2"
+        },
+        {
+            "id": "505",
+            "nombre": "Luces Auxiliares para Motocicletas",
+            "nivel": "2"
+        },
+        {
+            "id": "506",
+            "nombre": "Barras de Luz para Interior Vehiculares",
+            "nivel": "2"
+        },
+        {
+            "id": "507",
+            "nombre": "Barras Directoras de Tráfico Vehiculares",
+            "nivel": "2"
+        },
+        {
+            "id": "508",
+            "nombre": "Sirenas / Bocinas y Controladores Vehiculares",
+            "nivel": "2"
+        },
+        {
+            "id": "550",
+            "nombre": "IoT, GPS y Telemática",
+            "nivel": "2"
+        },
+        {
+            "id": "552",
+            "nombre": "Video Móvil y Cámaras Vehiculares",
+            "nivel": "2"
+        },
+        {
+            "id": "66336",
+            "nombre": "Luces Auxiliares para Ambulancias",
+            "nivel": "2"
+        },
+        {
+            "id": "66345",
+            "nombre": "LoRaWAN",
+            "nivel": "2"
+        },
+        {
+            "id": "66350",
+            "nombre": "Luces para Montacargas y Grúas",
+            "nivel": "2"
+        },
+        {
+            "id": "66351",
+            "nombre": "Luces Auxiliares para Vehículos Todo Terreno",
+            "nivel": "2"
+        },
+        {
+            "id": "66359",
+            "nombre": "Señalización y Alerta Industrial",
+            "nivel": "2"
+        },
+        {
+            "id": "66362",
+            "nombre": "Luces Auxiliares para Bicicletas",
+            "nivel": "2"
+        },
+        {
+            "id": "66512",
+            "nombre": "Accesorios Vehiculares",
+            "nivel": "2"
+        }
+    ]
+}

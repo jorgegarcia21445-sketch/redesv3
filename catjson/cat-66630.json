@@ -1,0 +1,78 @@
+{
+    "id": "66630",
+    "nombre": "Industria / BMS/ Robots",
+    "nivel": "1",
+    "origen": [],
+    "subcategorias": [
+        {
+            "id": "66631",
+            "nombre": "Controladores",
+            "nivel": "2"
+        },
+        {
+            "id": "66635",
+            "nombre": "Accesorios",
+            "nivel": "2"
+        },
+        {
+            "id": "66641",
+            "nombre": "Robots",
+            "nivel": "2"
+        },
+        {
+            "id": "66647",
+            "nombre": "Visión y Lectores",
+            "nivel": "2"
+        },
+        {
+            "id": "66660",
+            "nombre": "Detección Honeywell",
+            "nivel": "2"
+        },
+        {
+            "id": "66740",
+            "nombre": "Cámaras de Aplicación Industrial",
+            "nivel": "2"
+        },
+        {
+            "id": "66762",
+            "nombre": "Instrumentación Industrial",
+            "nivel": "2"
+        },
+        {
+            "id": "66769",
+            "nombre": "Honeywell BMS",
+            "nivel": "2"
+        },
+        {
+            "id": "66776",
+            "nombre": "Vykon",
+            "nivel": "2"
+        },
+        {
+            "id": "66782",
+            "nombre": "Alerton",
+            "nivel": "2"
+        },
+        {
+            "id": "66788",
+            "nombre": "Inncom",
+            "nivel": "2"
+        },
+        {
+            "id": "66792",
+            "nombre": "Instrumentación BMS",
+            "nivel": "2"
+        },
+        {
+            "id": "66809",
+            "nombre": "Redes de Datos",
+            "nivel": "2"
+        },
+        {
+            "id": "66918",
+            "nombre": "Señalización y Alerta Industrial",
+            "nivel": "2"
+        }
+    ]
+}

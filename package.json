@@ -1,0 +1,26 @@
+{
+  "name": "webpage_redes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node pagos-server.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jorgegarcia21445-sketch/redesv3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jorgegarcia21445-sketch/redesv3/issues"
+  },
+  "homepage": "https://github.com/jorgegarcia21445-sketch/redesv3#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.3.0"
+  }
+}

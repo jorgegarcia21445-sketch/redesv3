@@ -1,0 +1,72 @@
+[
+    {
+        "id": "22",
+        "nombre": "Videovigilancia",
+        "nivel": 1
+    },
+    {
+        "id": "25",
+        "nombre": "Radiocomunicación",
+        "nivel": 1
+    },
+    {
+        "id": "26",
+        "nombre": "Redes e IT",
+        "nivel": 1
+    },
+    {
+        "id": "27",
+        "nombre": "GPS, Telemática y Equipamiento Vehicular",
+        "nivel": 1
+    },
+    {
+        "id": "30",
+        "nombre": "Energía y Climatización",
+        "nivel": 1
+    },
+    {
+        "id": "32",
+        "nombre": "Automatización   e Intrusión",
+        "nivel": 1
+    },
+    {
+        "id": "37",
+        "nombre": "Control  de Acceso",
+        "nivel": 1
+    },
+    {
+        "id": "38",
+        "nombre": "Detección de Fuego",
+        "nivel": 1
+    },
+    {
+        "id": "42",
+        "nombre": "Herramientas, Ferretería y Material Eléctrico",
+        "nivel": 1
+    },
+    {
+        "id": "65747",
+        "nombre": "Marketing",
+        "nivel": 1
+    },
+    {
+        "id": "65811",
+        "nombre": "Cableado Estructurado",
+        "nivel": 1
+    },
+    {
+        "id": "66523",
+        "nombre": "Audio y Video Profesional",
+        "nivel": 1
+    },
+    {
+        "id": "66630",
+        "nombre": "Industria / BMS/ Robots",
+        "nivel": 1
+    },
+    {
+        "id": "67040",
+        "nombre": "Retail y Punto de Venta",
+        "nivel": 1
+    }
+]

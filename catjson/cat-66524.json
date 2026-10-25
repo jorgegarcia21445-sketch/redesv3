@@ -1,0 +1,34 @@
+{
+    "id": "66524",
+    "nombre": "Audio IP",
+    "nivel": "2",
+    "origen": [
+        {
+            "id": "66523",
+            "nombre": "Audio y Video Profesional",
+            "nivel": "1"
+        }
+    ],
+    "subcategorias": [
+        {
+            "id": "66534",
+            "nombre": "Amplificadores",
+            "nivel": "3"
+        },
+        {
+            "id": "66535",
+            "nombre": "Bocinas",
+            "nivel": "3"
+        },
+        {
+            "id": "66536",
+            "nombre": "Interfaces",
+            "nivel": "3"
+        },
+        {
+            "id": "66537",
+            "nombre": "Accesorios",
+            "nivel": "3"
+        }
+    ]
+}

@@ -1,0 +1,58 @@
+{
+    "id": "67040",
+    "nombre": "Retail y Punto de Venta",
+    "nivel": "1",
+    "origen": [],
+    "subcategorias": [
+        {
+            "id": "67041",
+            "nombre": "Punto de Venta (POS)",
+            "nivel": "2"
+        },
+        {
+            "id": "67048",
+            "nombre": "Kioscos de Autoservicio",
+            "nivel": "2"
+        },
+        {
+            "id": "67051",
+            "nombre": "Etiquetas Electrónicas (ESL)",
+            "nivel": "2"
+        },
+        {
+            "id": "67055",
+            "nombre": "Señalización Digital (Digital Signage)",
+            "nivel": "2"
+        },
+        {
+            "id": "67062",
+            "nombre": "Interactividad en Tienda (Nexmosphere)",
+            "nivel": "2"
+        },
+        {
+            "id": "67065",
+            "nombre": "Conteo de Personas (People Counting) y Mapa de Calor (Heatmap)",
+            "nivel": "2"
+        },
+        {
+            "id": "67069",
+            "nombre": "Protección de Mercancía (EAS)",
+            "nivel": "2"
+        },
+        {
+            "id": "67074",
+            "nombre": "Restaurantes y Hospitalidad",
+            "nivel": "2"
+        },
+        {
+            "id": "67078",
+            "nombre": "Ambientación Comercial",
+            "nivel": "2"
+        },
+        {
+            "id": "67081",
+            "nombre": "Radios para Tiendas y Restaurantes",
+            "nivel": "2"
+        }
+    ]
+}

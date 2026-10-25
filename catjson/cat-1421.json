@@ -1,0 +1,18 @@
+{
+    "id": "1295",
+    "nombre": "Para Alimentación y Electricidad",
+    "nivel": "3",
+    "origen": [
+        {
+            "id": "22",
+            "nombre": "Videovigilancia",
+            "nivel": "1"
+        },
+        {
+            "id": "206",
+            "nombre": "Cables y Conectores",
+            "nivel": "2"
+        }
+    ],
+    "subcategorias": []
+}

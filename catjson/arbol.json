@@ -1,0 +1,6114 @@
+[
+  {
+    "id": "22",
+    "nombre": "Videovigilancia",
+    "nivel": "1",
+    "subcategorias": [
+      {
+        "id": "206",
+        "nombre": "Cables y Conectores",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "1295",
+            "nombre": "Para Alimentación y Electricidad",
+            "nivel": "3"
+          },
+          {
+            "id": "1421",
+            "nombre": "Cable de Red UTP (Cat5e / 6 / 6A)",
+            "nivel": "3"
+          },
+          {
+            "id": "65804",
+            "nombre": "Fibra Óptica",
+            "nivel": "3"
+          },
+          {
+            "id": "65867",
+            "nombre": "Cables A/V (HDMI / VGA / DVI / RCA / Audio)",
+            "nivel": "3"
+          },
+          {
+            "id": "65869",
+            "nombre": "Cable Coaxial y Conectores",
+            "nivel": "3"
+          },
+          {
+            "id": "65925",
+            "nombre": "Telefónico",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "208",
+        "nombre": "Energía",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2975",
+            "nombre": "Fuentes de Alimentación",
+            "nivel": "3"
+          },
+          {
+            "id": "2976",
+            "nombre": "UPS - No Break",
+            "nivel": "3"
+          },
+          {
+            "id": "3020",
+            "nombre": "Protección de Líneas (Red / Coaxial)",
+            "nivel": "3"
+          },
+          {
+            "id": "3021",
+            "nombre": "Supresores / Corriente AC-DC",
+            "nivel": "3"
+          },
+          {
+            "id": "66014",
+            "nombre": "Baterías",
+            "nivel": "3"
+          },
+          {
+            "id": "66040",
+            "nombre": "PDU",
+            "nivel": "3"
+          },
+          {
+            "id": "66170",
+            "nombre": "PoE: Inyectores y Largo Alcance",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "214",
+        "nombre": "Cámaras IP y NVRs",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "1320",
+            "nombre": "Fisheye y Hemisféricas",
+            "nivel": "3"
+          },
+          {
+            "id": "1321",
+            "nombre": "Profesionales - Caja",
+            "nivel": "3"
+          },
+          {
+            "id": "1323",
+            "nombre": "Bala",
+            "nivel": "3"
+          },
+          {
+            "id": "1324",
+            "nombre": "Cubo",
+            "nivel": "3"
+          },
+          {
+            "id": "1325",
+            "nombre": "Domo / Eyeball / Turret",
+            "nivel": "3"
+          },
+          {
+            "id": "1326",
+            "nombre": "PTZ",
+            "nivel": "3"
+          },
+          {
+            "id": "1379",
+            "nombre": "Codificadores y Decodificadores de Video",
+            "nivel": "3"
+          },
+          {
+            "id": "1383",
+            "nombre": "NVRs Network Video Recorders",
+            "nivel": "3"
+          },
+          {
+            "id": "2672",
+            "nombre": "Ocultas - Pinhole",
+            "nivel": "3"
+          },
+          {
+            "id": "65610",
+            "nombre": "Térmicas",
+            "nivel": "3"
+          },
+          {
+            "id": "65851",
+            "nombre": "Lente Motorizado",
+            "nivel": "3"
+          },
+          {
+            "id": "65870",
+            "nombre": "Ambientes Salinos  (Anticorrosión)",
+            "nivel": "3"
+          },
+          {
+            "id": "65940",
+            "nombre": "Antiexplosión",
+            "nivel": "3"
+          },
+          {
+            "id": "66891",
+            "nombre": "WiFi",
+            "nivel": "3"
+          },
+          {
+            "id": "66892",
+            "nombre": "4G",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "218",
+        "nombre": "Accesorios Generales",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "1349",
+            "nombre": "Gabinetes para Cámaras / DVR / NVR",
+            "nivel": "3"
+          },
+          {
+            "id": "1350",
+            "nombre": "Iluminadores IR y de Luz Blanca",
+            "nivel": "3"
+          },
+          {
+            "id": "1365",
+            "nombre": "Montajes y Brackets para Cámaras",
+            "nivel": "3"
+          },
+          {
+            "id": "1976",
+            "nombre": "Cajas de Interconexión",
+            "nivel": "3"
+          },
+          {
+            "id": "66015",
+            "nombre": "Lentes",
+            "nivel": "3"
+          },
+          {
+            "id": "66016",
+            "nombre": "Micrófonos",
+            "nivel": "3"
+          },
+          {
+            "id": "66018",
+            "nombre": "Kits Extensores, Convertidores , Divisores, HDMI, VGA, DVI",
+            "nivel": "3"
+          },
+          {
+            "id": "66238",
+            "nombre": "Partes o Refacciones",
+            "nivel": "3"
+          },
+          {
+            "id": "66375",
+            "nombre": "Accesorios para Computadora y Smartphones",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "219",
+        "nombre": "Kits- Sistemas Completos",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "1354",
+            "nombre": "TurboHD  de 16 Canales",
+            "nivel": "3"
+          },
+          {
+            "id": "1355",
+            "nombre": "TurboHD de 8 Canales",
+            "nivel": "3"
+          },
+          {
+            "id": "1356",
+            "nombre": "TurboHD de 4 Canales",
+            "nivel": "3"
+          },
+          {
+            "id": "1380",
+            "nombre": "IP Megapixel",
+            "nivel": "3"
+          },
+          {
+            "id": "2910",
+            "nombre": "Móviles (Para Vehículos)",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "226",
+        "nombre": "Videoporteros e Interfonos",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "1410",
+            "nombre": "Videoporteros Analógicos",
+            "nivel": "3"
+          },
+          {
+            "id": "1411",
+            "nombre": "Interfones",
+            "nivel": "3"
+          },
+          {
+            "id": "1412",
+            "nombre": "Multiapartamentos",
+            "nivel": "3"
+          },
+          {
+            "id": "1413",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "1414",
+            "nombre": "Intercomunicadores",
+            "nivel": "3"
+          },
+          {
+            "id": "65958",
+            "nombre": "Videoporteros IP",
+            "nivel": "3"
+          },
+          {
+            "id": "66299",
+            "nombre": "Videoporteros IP Doorbell",
+            "nivel": "3"
+          },
+          {
+            "id": "66914",
+            "nombre": "Intercomunicadores por Radio",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "476",
+        "nombre": "Cámaras y DVRs HD TurboHD / AHD / HD-TVI",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2809",
+            "nombre": "Videograbadoras Analógicas - TurboHD TVI / AHD / CVI",
+            "nivel": "3"
+          },
+          {
+            "id": "65775",
+            "nombre": "Domo / Eyeball / Turret",
+            "nivel": "3"
+          },
+          {
+            "id": "65776",
+            "nombre": "Bala",
+            "nivel": "3"
+          },
+          {
+            "id": "65777",
+            "nombre": "Profesionales - Caja",
+            "nivel": "3"
+          },
+          {
+            "id": "65778",
+            "nombre": "Ocultas - Pinhole",
+            "nivel": "3"
+          },
+          {
+            "id": "65779",
+            "nombre": "PTZ",
+            "nivel": "3"
+          },
+          {
+            "id": "65850",
+            "nombre": "Lente Motorizado",
+            "nivel": "3"
+          },
+          {
+            "id": "65975",
+            "nombre": "Antiexplosión",
+            "nivel": "3"
+          },
+          {
+            "id": "65976",
+            "nombre": "Ambientes Salinos",
+            "nivel": "3"
+          },
+          {
+            "id": "66255",
+            "nombre": "Especiales",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "525",
+        "nombre": "Videograbadoras Móviles, Dash Cams y Body Cams",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65665",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "65810",
+            "nombre": "Cámaras Móviles",
+            "nivel": "3"
+          },
+          {
+            "id": "66490",
+            "nombre": "MDVR / MNVR",
+            "nivel": "3"
+          },
+          {
+            "id": "66491",
+            "nombre": "Dash Cams",
+            "nivel": "3"
+          },
+          {
+            "id": "66492",
+            "nombre": "Body Cams (Portátiles)",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65963",
+        "nombre": "Servidores / Almacenamiento",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "1340",
+            "nombre": "Discos Duros Mecánicos (HDD)",
+            "nivel": "3"
+          },
+          {
+            "id": "65964",
+            "nombre": "Servidores de Aplicación",
+            "nivel": "3"
+          },
+          {
+            "id": "65965",
+            "nombre": "Almacenamiento NAS / SAN / eSATA",
+            "nivel": "3"
+          },
+          {
+            "id": "65966",
+            "nombre": "Estaciones de Trabajo (Workstation)",
+            "nivel": "3"
+          },
+          {
+            "id": "65967",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "65973",
+            "nombre": "Memorias SD / Memorias Micro SD",
+            "nivel": "3"
+          },
+          {
+            "id": "66268",
+            "nombre": "Unidades de Estado Sólido (SSD)",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65968",
+        "nombre": "Monitores Pantallas y Mobiliario",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65969",
+            "nombre": "Videowall Seguridad",
+            "nivel": "3"
+          },
+          {
+            "id": "65970",
+            "nombre": "Consolas y Mobiliario de Monitoreo",
+            "nivel": "3"
+          },
+          {
+            "id": "65971",
+            "nombre": "Pantallas / Monitores",
+            "nivel": "3"
+          },
+          {
+            "id": "65972",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65982",
+        "nombre": "Software VMS y Analíticas",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65983",
+            "nombre": "ISS",
+            "nivel": "3"
+          },
+          {
+            "id": "65984",
+            "nombre": "Digifort",
+            "nivel": "3"
+          },
+          {
+            "id": "65985",
+            "nombre": "Milestone",
+            "nivel": "3"
+          },
+          {
+            "id": "65987",
+            "nombre": "IDIS",
+            "nivel": "3"
+          },
+          {
+            "id": "65988",
+            "nombre": "HIKVISION",
+            "nivel": "3"
+          },
+          {
+            "id": "65990",
+            "nombre": "Wisenet Wave",
+            "nivel": "3"
+          },
+          {
+            "id": "65992",
+            "nombre": "Honeywell",
+            "nivel": "3"
+          },
+          {
+            "id": "66004",
+            "nombre": "EPCOM Cloud",
+            "nivel": "3"
+          },
+          {
+            "id": "66005",
+            "nombre": "XMR CEIBAII / KAPOK",
+            "nivel": "3"
+          },
+          {
+            "id": "66738",
+            "nombre": "SYNOLOGY",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66369",
+        "nombre": "Drones, Robots e Industrial",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66370",
+            "nombre": "Cámaras Industriales",
+            "nivel": "3"
+          },
+          {
+            "id": "66473",
+            "nombre": "Drones",
+            "nivel": "3"
+          },
+          {
+            "id": "66474",
+            "nombre": "Robots",
+            "nivel": "3"
+          },
+          {
+            "id": "66758",
+            "nombre": "Geosolución",
+            "nivel": "3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "25",
+    "nombre": "Radiocomunicación",
+    "nivel": "1",
+    "subcategorias": [
+      {
+        "id": "262",
+        "nombre": "Accesorios para Motorola",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65568",
+            "nombre": "Baterías y Cargadores",
+            "nivel": "3"
+          },
+          {
+            "id": "65570",
+            "nombre": "Fundas y Clips",
+            "nivel": "3"
+          },
+          {
+            "id": "65572",
+            "nombre": "Antenas",
+            "nivel": "3"
+          },
+          {
+            "id": "65574",
+            "nombre": "Accesorios Generales",
+            "nivel": "3"
+          },
+          {
+            "id": "65794",
+            "nombre": "Micrófonos y Diademas",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "263",
+        "nombre": "Accesorios para ICOM",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65559",
+            "nombre": "Baterías y Cargadores",
+            "nivel": "3"
+          },
+          {
+            "id": "65561",
+            "nombre": "Fundas y Clips",
+            "nivel": "3"
+          },
+          {
+            "id": "65563",
+            "nombre": "Antenas",
+            "nivel": "3"
+          },
+          {
+            "id": "65565",
+            "nombre": "Programación y Software",
+            "nivel": "3"
+          },
+          {
+            "id": "65566",
+            "nombre": "Accesorios Generales",
+            "nivel": "3"
+          },
+          {
+            "id": "65786",
+            "nombre": "Micrófonos y Diademas",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "264",
+        "nombre": "Accesorios para KENWOOD",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65550",
+            "nombre": "Baterías y Cargadores",
+            "nivel": "3"
+          },
+          {
+            "id": "65552",
+            "nombre": "Fundas y Clips",
+            "nivel": "3"
+          },
+          {
+            "id": "65554",
+            "nombre": "Antenas",
+            "nivel": "3"
+          },
+          {
+            "id": "65556",
+            "nombre": "Programación y Software",
+            "nivel": "3"
+          },
+          {
+            "id": "65557",
+            "nombre": "Accesorios Generales",
+            "nivel": "3"
+          },
+          {
+            "id": "65790",
+            "nombre": "Micrófonos y Diademas",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "266",
+        "nombre": "Accesorios para Hytera (HYT)",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65541",
+            "nombre": "Baterías y Cargadores",
+            "nivel": "3"
+          },
+          {
+            "id": "65543",
+            "nombre": "Fundas y Clips",
+            "nivel": "3"
+          },
+          {
+            "id": "65548",
+            "nombre": "Accesorios Generales",
+            "nivel": "3"
+          },
+          {
+            "id": "65782",
+            "nombre": "Micrófonos y Diademas",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "267",
+        "nombre": "Accesorios para Otras Marcas",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65576",
+            "nombre": "Baterías y Cargadores",
+            "nivel": "3"
+          },
+          {
+            "id": "65578",
+            "nombre": "Fundas y Clips",
+            "nivel": "3"
+          },
+          {
+            "id": "65580",
+            "nombre": "Antenas",
+            "nivel": "3"
+          },
+          {
+            "id": "65582",
+            "nombre": "Accesorios Generales",
+            "nivel": "3"
+          },
+          {
+            "id": "65799",
+            "nombre": "Micrófonos y Diademas",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "271",
+        "nombre": "Radios ICOM Aéreos",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "1697",
+            "nombre": "Portátiles",
+            "nivel": "3"
+          },
+          {
+            "id": "1698",
+            "nombre": "Móviles",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "281",
+        "nombre": "Aplicaciones y Soluciones",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "1787",
+            "nombre": "Telemetría y Transmisión de Datos",
+            "nivel": "3"
+          },
+          {
+            "id": "65583",
+            "nombre": "Sistemas de Despacho y Control",
+            "nivel": "3"
+          },
+          {
+            "id": "65607",
+            "nombre": "Voceo / Monitoreo Remoto",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "283",
+        "nombre": "Antenas",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "1807",
+            "nombre": "Móviles",
+            "nivel": "3"
+          },
+          {
+            "id": "1814",
+            "nombre": "Marinas",
+            "nivel": "3"
+          },
+          {
+            "id": "1830",
+            "nombre": "Para Cobertura Celular",
+            "nivel": "3"
+          },
+          {
+            "id": "1838",
+            "nombre": "Radios Portátiles",
+            "nivel": "3"
+          },
+          {
+            "id": "3110",
+            "nombre": "Otras Antenas (CB, GPS, Aéreas, TV)",
+            "nivel": "3"
+          },
+          {
+            "id": "3111",
+            "nombre": "Estaciones Base y Repetidores",
+            "nivel": "3"
+          },
+          {
+            "id": "3113",
+            "nombre": "Montajes, Mástiles y Accesorios de Antena",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "291",
+        "nombre": "Energía y Protección Eléctrica",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "1893",
+            "nombre": "Convertidores Industriales de CD a CD",
+            "nivel": "3"
+          },
+          {
+            "id": "1895",
+            "nombre": "Fuentes Industriales de CD",
+            "nivel": "3"
+          },
+          {
+            "id": "66041",
+            "nombre": "PDU",
+            "nivel": "3"
+          },
+          {
+            "id": "66911",
+            "nombre": "Protección Contra Descarga y Aterrizaje",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "331",
+        "nombre": "Cables",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2177",
+            "nombre": "Jumpers",
+            "nivel": "3"
+          },
+          {
+            "id": "65536",
+            "nombre": "Coaxiales",
+            "nivel": "3"
+          },
+          {
+            "id": "65538",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "65866",
+            "nombre": "Retazos",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "404",
+        "nombre": "Torres y Mástiles",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2471",
+            "nombre": "Accesorios para Torres Arriostradas",
+            "nivel": "3"
+          },
+          {
+            "id": "2473",
+            "nombre": "Torres Arriostradas (Kits)",
+            "nivel": "3"
+          },
+          {
+            "id": "2480",
+            "nombre": "Lámparas de Obstrucción",
+            "nivel": "3"
+          },
+          {
+            "id": "2483",
+            "nombre": "Mástiles y Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "2484",
+            "nombre": "Montajes de Techo/ Pared",
+            "nivel": "3"
+          },
+          {
+            "id": "2485",
+            "nombre": "Herramientas de Instalación",
+            "nivel": "3"
+          },
+          {
+            "id": "2674",
+            "nombre": "Accesorios para Torres Autosoportadas",
+            "nivel": "3"
+          },
+          {
+            "id": "3096",
+            "nombre": "Torres Autosoportadas",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "531",
+        "nombre": "Radios Amateur",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "3066",
+            "nombre": "Todos",
+            "nivel": "3"
+          },
+          {
+            "id": "65639",
+            "nombre": "Moviles",
+            "nivel": "3"
+          },
+          {
+            "id": "65640",
+            "nombre": "Portátiles",
+            "nivel": "3"
+          },
+          {
+            "id": "65642",
+            "nombre": "HF",
+            "nivel": "3"
+          },
+          {
+            "id": "65753",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "533",
+        "nombre": "Radios Comerciales",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "3073",
+            "nombre": "Móviles UHF",
+            "nivel": "3"
+          },
+          {
+            "id": "3074",
+            "nombre": "Móviles VHF",
+            "nivel": "3"
+          },
+          {
+            "id": "3075",
+            "nombre": "Portátiles UHF",
+            "nivel": "3"
+          },
+          {
+            "id": "3076",
+            "nombre": "Portátiles VHF",
+            "nivel": "3"
+          },
+          {
+            "id": "3077",
+            "nombre": "Móviles Digitales UHF",
+            "nivel": "3"
+          },
+          {
+            "id": "3078",
+            "nombre": "Móviles Digitales VHF",
+            "nivel": "3"
+          },
+          {
+            "id": "3079",
+            "nombre": "Portátiles Digitales UHF",
+            "nivel": "3"
+          },
+          {
+            "id": "3080",
+            "nombre": "Portátiles Digitales VHF",
+            "nivel": "3"
+          },
+          {
+            "id": "3081",
+            "nombre": "Portátiles y Móviles 800/900Mhz",
+            "nivel": "3"
+          },
+          {
+            "id": "3082",
+            "nombre": "Intrínsecamente Seguros",
+            "nivel": "3"
+          },
+          {
+            "id": "3083",
+            "nombre": "Repetidores",
+            "nivel": "3"
+          },
+          {
+            "id": "3084",
+            "nombre": "Estaciones Base",
+            "nivel": "3"
+          },
+          {
+            "id": "66904",
+            "nombre": "Portátiles/Móviles Digitales - Doble Banda",
+            "nivel": "3"
+          },
+          {
+            "id": "66905",
+            "nombre": "Sistemas Troncalizados (P25 / NXDN / TETRA)",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "549",
+        "nombre": "Racks y Gabinetes",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65650",
+            "nombre": "Racks Abiertos",
+            "nivel": "3"
+          },
+          {
+            "id": "65651",
+            "nombre": "Gabinetes Uso Múltiple",
+            "nivel": "3"
+          },
+          {
+            "id": "65652",
+            "nombre": "Accesorios para Racks y Gabinetes",
+            "nivel": "3"
+          },
+          {
+            "id": "65653",
+            "nombre": "Racks Cerrados",
+            "nivel": "3"
+          },
+          {
+            "id": "65654",
+            "nombre": "Gabinetes para Intemperie",
+            "nivel": "3"
+          },
+          {
+            "id": "65655",
+            "nombre": "Montajes Varios",
+            "nivel": "3"
+          },
+          {
+            "id": "65759",
+            "nombre": "Equipo Móvil de Resguardo",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65713",
+        "nombre": "Filtros y Sistemas en RF",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "1887",
+            "nombre": "Combinadores",
+            "nivel": "3"
+          },
+          {
+            "id": "1888",
+            "nombre": "Duplexers",
+            "nivel": "3"
+          },
+          {
+            "id": "1890",
+            "nombre": "TTA y Multiacopladores",
+            "nivel": "3"
+          },
+          {
+            "id": "65720",
+            "nombre": "Preselectores",
+            "nivel": "3"
+          },
+          {
+            "id": "66298",
+            "nombre": "Amplificadores de RF",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65718",
+        "nombre": "Conectores y Adaptadores",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65705",
+            "nombre": "RG-58/U, RG-142/U, LMR-195",
+            "nivel": "3"
+          },
+          {
+            "id": "65707",
+            "nombre": "RG-59, RG-6/U RG-11/U",
+            "nivel": "3"
+          },
+          {
+            "id": "65708",
+            "nombre": "RG-174/U, RG-316/U, LMR-100A",
+            "nivel": "3"
+          },
+          {
+            "id": "65709",
+            "nombre": "RG-8/U, RG-213/214, RF-600, 9913, CNT-400, LMR-400/600",
+            "nivel": "3"
+          },
+          {
+            "id": "65712",
+            "nombre": "Wattmetros",
+            "nivel": "3"
+          },
+          {
+            "id": "65719",
+            "nombre": "Chasís",
+            "nivel": "3"
+          },
+          {
+            "id": "65746",
+            "nombre": "RG-8/X, 9258, LMR-240",
+            "nivel": "3"
+          },
+          {
+            "id": "65762",
+            "nombre": "Heliax",
+            "nivel": "3"
+          },
+          {
+            "id": "66909",
+            "nombre": "Adaptadores RF (BNC, N, UHF, SMA, TNC, FME)",
+            "nivel": "3"
+          },
+          {
+            "id": "66910",
+            "nombre": "Kits de Adaptadores",
+            "nivel": "3"
+          },
+          {
+            "id": "66912",
+            "nombre": "UNIDAPT",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65772",
+        "nombre": "Refacciones",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65773",
+            "nombre": "KENWOOD / ICOM / TXPRO",
+            "nivel": "3"
+          },
+          {
+            "id": "65805",
+            "nombre": "OTTO / PRYME",
+            "nivel": "3"
+          },
+          {
+            "id": "66302",
+            "nombre": "Misceláneo",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65921",
+        "nombre": "Cobertura Celular 5G, 4G, 3G y Voz",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65922",
+            "nombre": "Amplificadores de Señal Celular (AdSC)",
+            "nivel": "3"
+          },
+          {
+            "id": "65923",
+            "nombre": "Antenas, Cables y Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66397",
+            "nombre": "Sistemas de Antenas Distribuidas (DAS)",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66088",
+        "nombre": "Radios LTE, IP/WiFi y Satelitales",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66263",
+            "nombre": "Radios 4G",
+            "nivel": "3"
+          },
+          {
+            "id": "66264",
+            "nombre": "Plataforma NXRadio",
+            "nivel": "3"
+          },
+          {
+            "id": "66265",
+            "nombre": "SIMS de Datos",
+            "nivel": "3"
+          },
+          {
+            "id": "66342",
+            "nombre": "Accesorios y Refacciones",
+            "nivel": "3"
+          },
+          {
+            "id": "66484",
+            "nombre": "Plataforma TASSTA",
+            "nivel": "3"
+          },
+          {
+            "id": "66906",
+            "nombre": "WiFi / IP (ICOM IP100 / IP110)",
+            "nivel": "3"
+          },
+          {
+            "id": "66907",
+            "nombre": "Satelitales",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66113",
+        "nombre": "Soluciones Marinas",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66119",
+            "nombre": "Antenas VHF / HF / TV",
+            "nivel": "3"
+          },
+          {
+            "id": "66303",
+            "nombre": "Brújulas Magnéticas",
+            "nivel": "3"
+          },
+          {
+            "id": "66304",
+            "nombre": "Electrónica de Navegación",
+            "nivel": "3"
+          },
+          {
+            "id": "66305",
+            "nombre": "Bombas de Achique, Carnada, Maceradoras, Switches y Sopladores",
+            "nivel": "3"
+          },
+          {
+            "id": "66306",
+            "nombre": "Cables y Accesorios de Navegación",
+            "nivel": "3"
+          },
+          {
+            "id": "66307",
+            "nombre": "GPS de Mano para Uso al Aire Libre y Marino",
+            "nivel": "3"
+          },
+          {
+            "id": "66394",
+            "nombre": "Fuentes - Cargadores",
+            "nivel": "3"
+          },
+          {
+            "id": "66714",
+            "nombre": "JL AUDIO, Fusion y JVC Kenwood",
+            "nivel": "3"
+          },
+          {
+            "id": "66715",
+            "nombre": "Iluminación Sumergible y de Navegación",
+            "nivel": "3"
+          },
+          {
+            "id": "66894",
+            "nombre": "Cableado Eléctrico",
+            "nivel": "3"
+          },
+          {
+            "id": "66908",
+            "nombre": "Radios Marinos (VHF / HF / GMDSS)",
+            "nivel": "3"
+          },
+          {
+            "id": "66924",
+            "nombre": "Girocompás",
+            "nivel": "3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "26",
+    "nombre": "Redes e IT",
+    "nivel": "1",
+    "subcategorias": [
+      {
+        "id": "287",
+        "nombre": "Herramientas",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2888",
+            "nombre": "Herramientas Eléctricas",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "294",
+        "nombre": "Networking",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "1915",
+            "nombre": "Convertidores de Medios",
+            "nivel": "3"
+          },
+          {
+            "id": "1918",
+            "nombre": "Inyectores PoE",
+            "nivel": "3"
+          },
+          {
+            "id": "1926",
+            "nombre": "Switches",
+            "nivel": "3"
+          },
+          {
+            "id": "1927",
+            "nombre": "Switches PoE",
+            "nivel": "3"
+          },
+          {
+            "id": "1928",
+            "nombre": "Transceptores de Fibra",
+            "nivel": "3"
+          },
+          {
+            "id": "2915",
+            "nombre": "Industrial",
+            "nivel": "3"
+          },
+          {
+            "id": "3045",
+            "nombre": "Routers / Balanceadores",
+            "nivel": "3"
+          },
+          {
+            "id": "65609",
+            "nombre": "PoE de Largo Alcance",
+            "nivel": "3"
+          },
+          {
+            "id": "66167",
+            "nombre": "Firewalls",
+            "nivel": "3"
+          },
+          {
+            "id": "66314",
+            "nombre": "Licencias / Suscripciones",
+            "nivel": "3"
+          },
+          {
+            "id": "66318",
+            "nombre": "Pólizas de Garantía",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "301",
+        "nombre": "VoIP - Telefonía IP - Videoconferencia",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "3092",
+            "nombre": "Conmutadores IP",
+            "nivel": "3"
+          },
+          {
+            "id": "3094",
+            "nombre": "Teléfonos IP",
+            "nivel": "3"
+          },
+          {
+            "id": "66029",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66031",
+            "nombre": "Auriculares",
+            "nivel": "3"
+          },
+          {
+            "id": "66032",
+            "nombre": "Audio/Video Conferencia",
+            "nivel": "3"
+          },
+          {
+            "id": "66033",
+            "nombre": "Audio/Video Porteros IP",
+            "nivel": "3"
+          },
+          {
+            "id": "66035",
+            "nombre": "Gateways y ATAs",
+            "nivel": "3"
+          },
+          {
+            "id": "66036",
+            "nombre": "Sesion Border Controllers",
+            "nivel": "3"
+          },
+          {
+            "id": "66037",
+            "nombre": "Sistemas de Voceo IP",
+            "nivel": "3"
+          },
+          {
+            "id": "66039",
+            "nombre": "Teléfonos IP para Hoteles",
+            "nivel": "3"
+          },
+          {
+            "id": "66060",
+            "nombre": "Smartphones",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "338",
+        "nombre": "Antenas",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65893",
+            "nombre": "Direccionales",
+            "nivel": "3"
+          },
+          {
+            "id": "65894",
+            "nombre": "Sectoriales",
+            "nivel": "3"
+          },
+          {
+            "id": "65895",
+            "nombre": "Omnidireccionales",
+            "nivel": "3"
+          },
+          {
+            "id": "65896",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "65959",
+            "nombre": "Jumpers",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "403",
+        "nombre": "Torres y Mástiles",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2470",
+            "nombre": "Accesorios para Torres Arriostradas",
+            "nivel": "3"
+          },
+          {
+            "id": "2472",
+            "nombre": "Torres Arriostradas (Kits)",
+            "nivel": "3"
+          },
+          {
+            "id": "2474",
+            "nombre": "Lámparas de Obstrucción",
+            "nivel": "3"
+          },
+          {
+            "id": "2477",
+            "nombre": "Mástiles y Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "2478",
+            "nombre": "Montajes de Techo/ Pared",
+            "nivel": "3"
+          },
+          {
+            "id": "2479",
+            "nombre": "Herramientas de Instalación",
+            "nivel": "3"
+          },
+          {
+            "id": "2675",
+            "nombre": "Accesorios para Torres Autosoportadas",
+            "nivel": "3"
+          },
+          {
+            "id": "3097",
+            "nombre": "Torres Autosoportadas",
+            "nivel": "3"
+          },
+          {
+            "id": "65668",
+            "nombre": "Anclas Temporales",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "509",
+        "nombre": "Racks y Gabinetes",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2977",
+            "nombre": "Racks Abiertos",
+            "nivel": "3"
+          },
+          {
+            "id": "2978",
+            "nombre": "Gabinetes Uso Múltiple",
+            "nivel": "3"
+          },
+          {
+            "id": "2979",
+            "nombre": "Accesorios para Racks y Gabinetes",
+            "nivel": "3"
+          },
+          {
+            "id": "65621",
+            "nombre": "Racks Cerrados",
+            "nivel": "3"
+          },
+          {
+            "id": "65622",
+            "nombre": "Gabinetes para Intemperie",
+            "nivel": "3"
+          },
+          {
+            "id": "65635",
+            "nombre": "Montajes Varios",
+            "nivel": "3"
+          },
+          {
+            "id": "65760",
+            "nombre": "Equipo Móvil de Resguardo",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "518",
+        "nombre": "Protección Contra Descargas",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "3016",
+            "nombre": "Redes",
+            "nivel": "3"
+          },
+          {
+            "id": "3017",
+            "nombre": "Corriente Alterna",
+            "nivel": "3"
+          },
+          {
+            "id": "3018",
+            "nombre": "Corriente Directa",
+            "nivel": "3"
+          },
+          {
+            "id": "3019",
+            "nombre": "Coaxial",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "528",
+        "nombre": "UPS / Respaldo",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "3047",
+            "nombre": "Todos",
+            "nivel": "3"
+          },
+          {
+            "id": "66174",
+            "nombre": "Plantas de Energía",
+            "nivel": "3"
+          },
+          {
+            "id": "66194",
+            "nombre": "UPS / No-Breaks",
+            "nivel": "3"
+          },
+          {
+            "id": "66278",
+            "nombre": "Generadores de Gasolina",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65877",
+        "nombre": "Enlaces PtP y PtMP",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65881",
+            "nombre": "5 y 6 GHz",
+            "nivel": "3"
+          },
+          {
+            "id": "65882",
+            "nombre": "2.4 GHz",
+            "nivel": "3"
+          },
+          {
+            "id": "65883",
+            "nombre": "900 MHz",
+            "nivel": "3"
+          },
+          {
+            "id": "65884",
+            "nombre": "Otras Bandas",
+            "nivel": "3"
+          },
+          {
+            "id": "65953",
+            "nombre": "60, 70 y 80 GHz",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65878",
+        "nombre": "Enlaces de Backhaul",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65885",
+            "nombre": "Bandas 5 Ghz / 2.4 GHz",
+            "nivel": "3"
+          },
+          {
+            "id": "65886",
+            "nombre": "Otras Bandas",
+            "nivel": "3"
+          },
+          {
+            "id": "65954",
+            "nombre": "60, 70 y 80 GHz",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65879",
+        "nombre": "Redes WiFi",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65887",
+            "nombre": "Puntos de Acceso",
+            "nivel": "3"
+          },
+          {
+            "id": "65888",
+            "nombre": "Controladores",
+            "nivel": "3"
+          },
+          {
+            "id": "65889",
+            "nombre": "Repetidores de Señal",
+            "nivel": "3"
+          },
+          {
+            "id": "65890",
+            "nombre": "Routers Inalámbricos",
+            "nivel": "3"
+          },
+          {
+            "id": "65892",
+            "nombre": "Hotspots",
+            "nivel": "3"
+          },
+          {
+            "id": "66067",
+            "nombre": "Adaptadores Inalámbricos",
+            "nivel": "3"
+          },
+          {
+            "id": "66178",
+            "nombre": "Routers 4G (LTE)/3G",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65918",
+        "nombre": "Cobertura para Celular 4G LTE, 3G y Voz",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65919",
+            "nombre": "Amplificadores de Señal Celular (AdSC)",
+            "nivel": "3"
+          },
+          {
+            "id": "65920",
+            "nombre": "Antenas, Cables y Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66177",
+            "nombre": "Routers 4G (LTE)/3G",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66097",
+        "nombre": "Redes FTTH/PON",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66106",
+            "nombre": "Herramientas",
+            "nivel": "3"
+          },
+          {
+            "id": "66107",
+            "nombre": "Cable de Fibra Óptica",
+            "nivel": "3"
+          },
+          {
+            "id": "66108",
+            "nombre": "Splitters y Cajas de Empalme",
+            "nivel": "3"
+          },
+          {
+            "id": "66109",
+            "nombre": "Jumpers y Pigtails",
+            "nivel": "3"
+          },
+          {
+            "id": "66110",
+            "nombre": "Conectores",
+            "nivel": "3"
+          },
+          {
+            "id": "66267",
+            "nombre": "Herrajes",
+            "nivel": "3"
+          },
+          {
+            "id": "66747",
+            "nombre": "OLTs",
+            "nivel": "3"
+          },
+          {
+            "id": "66748",
+            "nombre": "ONUs / ONTs",
+            "nivel": "3"
+          },
+          {
+            "id": "66757",
+            "nombre": "CATV",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66663",
+        "nombre": "Equipo de Cómputo",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66664",
+            "nombre": "Servidores",
+            "nivel": "3"
+          },
+          {
+            "id": "66665",
+            "nombre": "Laptops",
+            "nivel": "3"
+          },
+          {
+            "id": "66666",
+            "nombre": "Estaciones de trabajo",
+            "nivel": "3"
+          },
+          {
+            "id": "66667",
+            "nombre": "Mini PC",
+            "nivel": "3"
+          },
+          {
+            "id": "66668",
+            "nombre": "Tablets",
+            "nivel": "3"
+          },
+          {
+            "id": "66669",
+            "nombre": "Monitores",
+            "nivel": "3"
+          },
+          {
+            "id": "66670",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66671",
+            "nombre": "Cámaras WEB",
+            "nivel": "3"
+          },
+          {
+            "id": "66759",
+            "nombre": "Puntos de Venta",
+            "nivel": "3"
+          },
+          {
+            "id": "66760",
+            "nombre": "Kioskos Auto-servicio",
+            "nivel": "3"
+          },
+          {
+            "id": "66761",
+            "nombre": "Handhelds",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66672",
+        "nombre": "Almacenamiento",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66673",
+            "nombre": "Discos Duros Mecánicos (HDD)",
+            "nivel": "3"
+          },
+          {
+            "id": "66674",
+            "nombre": "Unidades de Estado Sólido (SSD)",
+            "nivel": "3"
+          },
+          {
+            "id": "66675",
+            "nombre": "Unidad de Estado Sólido (SSD) Portátil",
+            "nivel": "3"
+          },
+          {
+            "id": "66676",
+            "nombre": "Memorias RAM",
+            "nivel": "3"
+          },
+          {
+            "id": "66677",
+            "nombre": "Memorias USB",
+            "nivel": "3"
+          },
+          {
+            "id": "66678",
+            "nombre": "Memorias SD / microSD",
+            "nivel": "3"
+          },
+          {
+            "id": "66679",
+            "nombre": "Servidores NAS",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66680",
+        "nombre": "Conectividad y Cables",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66681",
+            "nombre": "Cables USB y Cargadores",
+            "nivel": "3"
+          },
+          {
+            "id": "66682",
+            "nombre": "Cables de Video y Extensores",
+            "nivel": "3"
+          },
+          {
+            "id": "66683",
+            "nombre": "Licencias",
+            "nivel": "3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "27",
+    "nombre": "GPS, Telemática y Equipamiento Vehicular",
+    "nivel": "1",
+    "subcategorias": [
+      {
+        "id": "501",
+        "nombre": "Barras de Luz / Torretas Vehiculares",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2944",
+            "nombre": "Rojo-Azul",
+            "nivel": "3"
+          },
+          {
+            "id": "2945",
+            "nombre": "Ámbar",
+            "nivel": "3"
+          },
+          {
+            "id": "2946",
+            "nombre": "Accesorios y Refacciones",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "502",
+        "nombre": "Mini Barras Vehiculares",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2947",
+            "nombre": "Rojo-Azul",
+            "nivel": "3"
+          },
+          {
+            "id": "2949",
+            "nombre": "Ámbar",
+            "nivel": "3"
+          },
+          {
+            "id": "2950",
+            "nombre": "Accesorios y Refacciones",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "503",
+        "nombre": "Estrobos / Burbujas Vehiculares",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2951",
+            "nombre": "Rojo-Azul-Verde",
+            "nivel": "3"
+          },
+          {
+            "id": "2952",
+            "nombre": "Ámbar",
+            "nivel": "3"
+          },
+          {
+            "id": "2953",
+            "nombre": "Estrobos Ocultos",
+            "nivel": "3"
+          },
+          {
+            "id": "2954",
+            "nombre": "Accesorios y Refacciones",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "504",
+        "nombre": "Luces Auxiliares Vehiculares",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2955",
+            "nombre": "Rojo-Azul",
+            "nivel": "3"
+          },
+          {
+            "id": "2957",
+            "nombre": "Rojo",
+            "nivel": "3"
+          },
+          {
+            "id": "2958",
+            "nombre": "Azul",
+            "nivel": "3"
+          },
+          {
+            "id": "2959",
+            "nombre": "Ámbar",
+            "nivel": "3"
+          },
+          {
+            "id": "2960",
+            "nombre": "Blanco / Claro",
+            "nivel": "3"
+          },
+          {
+            "id": "2961",
+            "nombre": "Accesorios y Refacciones",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "505",
+        "nombre": "Luces Auxiliares para Motocicletas",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2962",
+            "nombre": "Luces Perimetrales",
+            "nivel": "3"
+          },
+          {
+            "id": "2963",
+            "nombre": "Luces Telescópicas",
+            "nivel": "3"
+          },
+          {
+            "id": "2964",
+            "nombre": "Sirenas / Bocinas y Controladores para Motocicletas",
+            "nivel": "3"
+          },
+          {
+            "id": "2965",
+            "nombre": "Accesorios y Refacciones",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "506",
+        "nombre": "Barras de Luz para Interior Vehiculares",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2966",
+            "nombre": "Barras de Luz Interiores",
+            "nivel": "3"
+          },
+          {
+            "id": "2967",
+            "nombre": "Accesorios y Refacciones",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "507",
+        "nombre": "Barras Directoras de Tráfico Vehiculares",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2968",
+            "nombre": "Rojo-Azul",
+            "nivel": "3"
+          },
+          {
+            "id": "2969",
+            "nombre": "Ámbar",
+            "nivel": "3"
+          },
+          {
+            "id": "2970",
+            "nombre": "Accesorios y Refacciones",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "508",
+        "nombre": "Sirenas / Bocinas y Controladores Vehiculares",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2971",
+            "nombre": "Sirenas",
+            "nivel": "3"
+          },
+          {
+            "id": "2972",
+            "nombre": "Bocinas",
+            "nivel": "3"
+          },
+          {
+            "id": "2973",
+            "nombre": "Controladores",
+            "nivel": "3"
+          },
+          {
+            "id": "2974",
+            "nombre": "Accesorios y Refacciones",
+            "nivel": "3"
+          },
+          {
+            "id": "66317",
+            "nombre": "Alarmas de Reversa Vehiculares",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "550",
+        "nombre": "IoT, GPS y Telemática",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65656",
+            "nombre": "Antenas",
+            "nivel": "3"
+          },
+          {
+            "id": "65657",
+            "nombre": "Trackers GPS",
+            "nivel": "3"
+          },
+          {
+            "id": "65658",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "65660",
+            "nombre": "Software",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "552",
+        "nombre": "Video Móvil y Cámaras Vehiculares",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65667",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "65809",
+            "nombre": "Cámaras Móviles",
+            "nivel": "3"
+          },
+          {
+            "id": "66915",
+            "nombre": "MDVR / MNVR",
+            "nivel": "3"
+          },
+          {
+            "id": "66916",
+            "nombre": "Dash Cams",
+            "nivel": "3"
+          },
+          {
+            "id": "66917",
+            "nombre": "Body Cams",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66336",
+        "nombre": "Luces Auxiliares para Ambulancias",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66337",
+            "nombre": "Rojo",
+            "nivel": "3"
+          },
+          {
+            "id": "66338",
+            "nombre": "Luces Perimetrales",
+            "nivel": "3"
+          },
+          {
+            "id": "66339",
+            "nombre": "Estrobos Ocultos",
+            "nivel": "3"
+          },
+          {
+            "id": "66340",
+            "nombre": "Accesorios y Refacciones",
+            "nivel": "3"
+          },
+          {
+            "id": "66341",
+            "nombre": "Plafones",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66345",
+        "nombre": "LoRaWAN",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66346",
+            "nombre": "Sensores (Tags)",
+            "nivel": "3"
+          },
+          {
+            "id": "66518",
+            "nombre": "Gateways y Routers",
+            "nivel": "3"
+          },
+          {
+            "id": "66520",
+            "nombre": "Equipos de Medición",
+            "nivel": "3"
+          },
+          {
+            "id": "66521",
+            "nombre": "Software de Gestión",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66350",
+        "nombre": "Luces para Montacargas y Grúas",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66353",
+            "nombre": "Luces Auxiliares",
+            "nivel": "3"
+          },
+          {
+            "id": "66354",
+            "nombre": "Barras de Luces",
+            "nivel": "3"
+          },
+          {
+            "id": "66355",
+            "nombre": "Accesorios y Refacciones",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66351",
+        "nombre": "Luces Auxiliares para Vehículos Todo Terreno",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66356",
+            "nombre": "Accesorios y Refacciones",
+            "nivel": "3"
+          },
+          {
+            "id": "66357",
+            "nombre": "Barras de Luces",
+            "nivel": "3"
+          },
+          {
+            "id": "66358",
+            "nombre": "Luces Auxiliares",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66359",
+        "nombre": "Señalización y Alerta Industrial",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66360",
+            "nombre": "Luces para la Industria y Edificios",
+            "nivel": "3"
+          },
+          {
+            "id": "66361",
+            "nombre": "Bocinas de Alerta y Notificación Masiva",
+            "nivel": "3"
+          },
+          {
+            "id": "66596",
+            "nombre": "Controladores",
+            "nivel": "3"
+          },
+          {
+            "id": "66597",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66598",
+            "nombre": "Indicadores de Estado",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66362",
+        "nombre": "Luces Auxiliares para Bicicletas",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66363",
+            "nombre": "Luces Auxiliares",
+            "nivel": "3"
+          },
+          {
+            "id": "66364",
+            "nombre": "Accesorios y Refacciones",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66512",
+        "nombre": "Accesorios Vehiculares",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66514",
+            "nombre": "Accesorios para Alarmas",
+            "nivel": "3"
+          },
+          {
+            "id": "66516",
+            "nombre": "Cámaras de Reversa para Vehículos",
+            "nivel": "3"
+          },
+          {
+            "id": "66522",
+            "nombre": "Alarmas Vehiculares",
+            "nivel": "3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "30",
+    "nombre": "Energía y Climatización",
+    "nivel": "1",
+    "subcategorias": [
+      {
+        "id": "66404",
+        "nombre": "Baterías y Cargadores",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66405",
+            "nombre": "Cargadores de Vehículos (EV Chargers)",
+            "nivel": "3"
+          },
+          {
+            "id": "66406",
+            "nombre": "Cargadores de Baterías",
+            "nivel": "3"
+          },
+          {
+            "id": "66407",
+            "nombre": "Baterías",
+            "nivel": "3"
+          },
+          {
+            "id": "66408",
+            "nombre": "Terminales y Accesorios",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66409",
+        "nombre": "Energía Solar",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66410",
+            "nombre": "Accesorios / Cables / Jumpers",
+            "nivel": "3"
+          },
+          {
+            "id": "66412",
+            "nombre": "Controladores de Carga MPPT/PWM",
+            "nivel": "3"
+          },
+          {
+            "id": "66416",
+            "nombre": "Módulos Solares",
+            "nivel": "3"
+          },
+          {
+            "id": "66417",
+            "nombre": "Kits Solares",
+            "nivel": "3"
+          },
+          {
+            "id": "66419",
+            "nombre": "Inversores Interconexión (On Grid)",
+            "nivel": "3"
+          },
+          {
+            "id": "66420",
+            "nombre": "Inversores Aislados (Off Grid)",
+            "nivel": "3"
+          },
+          {
+            "id": "66501",
+            "nombre": "Montajes para Módulos",
+            "nivel": "3"
+          },
+          {
+            "id": "66687",
+            "nombre": "Baterías Solares",
+            "nivel": "3"
+          },
+          {
+            "id": "66688",
+            "nombre": "Inversores Híbridos / Cargadores",
+            "nivel": "3"
+          },
+          {
+            "id": "66689",
+            "nombre": "Microinversores",
+            "nivel": "3"
+          },
+          {
+            "id": "66690",
+            "nombre": "Protecciones Vcc",
+            "nivel": "3"
+          },
+          {
+            "id": "67022",
+            "nombre": "Kits de Montajes Solares",
+            "nivel": "3"
+          },
+          {
+            "id": "67023",
+            "nombre": "Piezas Montajes Solares",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66424",
+        "nombre": "Calidad de la Energía",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66425",
+            "nombre": "Pararrayos",
+            "nivel": "3"
+          },
+          {
+            "id": "66426",
+            "nombre": "Tierras Físicas",
+            "nivel": "3"
+          },
+          {
+            "id": "66427",
+            "nombre": "Accesorios para Tierra Física",
+            "nivel": "3"
+          },
+          {
+            "id": "66429",
+            "nombre": "Supresores de Picos",
+            "nivel": "3"
+          },
+          {
+            "id": "66432",
+            "nombre": "Reguladores",
+            "nivel": "3"
+          },
+          {
+            "id": "66433",
+            "nombre": "Banco de Capacitores",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66442",
+        "nombre": "Fuentes de Poder",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66443",
+            "nombre": "Fuentes con Distribuidor",
+            "nivel": "3"
+          },
+          {
+            "id": "66444",
+            "nombre": "Fuentes de Salida Única",
+            "nivel": "3"
+          },
+          {
+            "id": "66445",
+            "nombre": "Fuentes de Uso Industrial / Riel DIN",
+            "nivel": "3"
+          },
+          {
+            "id": "66446",
+            "nombre": "Convertidores (Vcc a Vcc)",
+            "nivel": "3"
+          },
+          {
+            "id": "66695",
+            "nombre": "Accesorios / Divisores / Conectores",
+            "nivel": "3"
+          },
+          {
+            "id": "66696",
+            "nombre": "Eliminadores y Transformadores de Pared",
+            "nivel": "3"
+          },
+          {
+            "id": "67001",
+            "nombre": "Fuente de Alimentación con Respaldo",
+            "nivel": "3"
+          },
+          {
+            "id": "67002",
+            "nombre": "Fuentes en Kit",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66447",
+        "nombre": "Respaldo de Energía",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66448",
+            "nombre": "Estaciones de Energía Portables",
+            "nivel": "3"
+          },
+          {
+            "id": "66449",
+            "nombre": "UPS / No Break",
+            "nivel": "3"
+          },
+          {
+            "id": "66450",
+            "nombre": "Generadores de Gasolina",
+            "nivel": "3"
+          },
+          {
+            "id": "66711",
+            "nombre": "Remolques para Energía Solar",
+            "nivel": "3"
+          },
+          {
+            "id": "67000",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "67007",
+            "nombre": "Generadores de Diesel",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66451",
+        "nombre": "Climatización / Refrigeración",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66452",
+            "nombre": "Boilers / Refrigeradores / Congeladores",
+            "nivel": "3"
+          },
+          {
+            "id": "66455",
+            "nombre": "Minisplits y Aire Acondicionado",
+            "nivel": "3"
+          },
+          {
+            "id": "66500",
+            "nombre": "Termostatos y Control HVAC",
+            "nivel": "3"
+          },
+          {
+            "id": "66503",
+            "nombre": "Aire de Precisión (Telecom)",
+            "nivel": "3"
+          },
+          {
+            "id": "66724",
+            "nombre": "Accesorios / Herramientas",
+            "nivel": "3"
+          },
+          {
+            "id": "66754",
+            "nombre": "Refacciones",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66470",
+        "nombre": "PDU",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66471",
+            "nombre": "Básicos",
+            "nivel": "3"
+          },
+          {
+            "id": "66472",
+            "nombre": "Especializados",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66495",
+        "nombre": "Gabinetes y Cajas",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66496",
+            "nombre": "Gabinetes para Exterior / Interior",
+            "nivel": "3"
+          },
+          {
+            "id": "66497",
+            "nombre": "Gabinetes y Accesorios Antiexplosión",
+            "nivel": "3"
+          },
+          {
+            "id": "66498",
+            "nombre": "Cajas para Conexiones / Registros",
+            "nivel": "3"
+          },
+          {
+            "id": "66499",
+            "nombre": "Glándulas y Accesorios",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66691",
+        "nombre": "Bombeo",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66692",
+            "nombre": "Bombas",
+            "nivel": "3"
+          },
+          {
+            "id": "66693",
+            "nombre": "Variadores y Accesorios",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "67004",
+        "nombre": "Protectores Sobretensiones",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "67005",
+            "nombre": "Protección Térmica",
+            "nivel": "3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "32",
+    "nombre": "Automatización   e Intrusión",
+    "nivel": "1",
+    "subcategorias": [
+      {
+        "id": "261",
+        "nombre": "Total Connect Honeywell",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "1632",
+            "nombre": "Comunicadores",
+            "nivel": "3"
+          },
+          {
+            "id": "1639",
+            "nombre": "Paneles de Alarma",
+            "nivel": "3"
+          },
+          {
+            "id": "1641",
+            "nombre": "Accesorios y Servicios",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "351",
+        "nombre": "Paneles de Alarma",
+        "nivel": "2",
+        "subcategorias": []
+      },
+      {
+        "id": "354",
+        "nombre": "Teclados",
+        "nivel": "2",
+        "subcategorias": []
+      },
+      {
+        "id": "355",
+        "nombre": "Módulos de Expansión",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2331",
+            "nombre": "Receptores Inalámbricos",
+            "nivel": "3"
+          },
+          {
+            "id": "2333",
+            "nombre": "Módulos de Expansión Cableado",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "363",
+        "nombre": "Gabinetes y Carcasas",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2345",
+            "nombre": "Carcasas",
+            "nivel": "3"
+          },
+          {
+            "id": "2346",
+            "nombre": "Gabinetes para Sirena",
+            "nivel": "3"
+          },
+          {
+            "id": "2347",
+            "nombre": "Gabinetes para Paneles",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "365",
+        "nombre": "Cables",
+        "nivel": "2",
+        "subcategorias": []
+      },
+      {
+        "id": "367",
+        "nombre": "Energía",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "468",
+            "nombre": "Protección Contra Sobretensiones",
+            "nivel": "2"
+          },
+          {
+            "id": "2350",
+            "nombre": "Transformadores",
+            "nivel": "3"
+          },
+          {
+            "id": "2351",
+            "nombre": "Baterías",
+            "nivel": "3"
+          },
+          {
+            "id": "2395",
+            "nombre": "Fuentes de Poder",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "370",
+        "nombre": "Contactos Magnéticos",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2354",
+            "nombre": "Contacto Magnético Inalámbrico",
+            "nivel": "3"
+          },
+          {
+            "id": "2355",
+            "nombre": "Contacto Magnético Cableado",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "372",
+        "nombre": "Detectores  / Sensores",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2356",
+            "nombre": "Movimiento para Interior",
+            "nivel": "3"
+          },
+          {
+            "id": "2357",
+            "nombre": "Movimiento para Exterior",
+            "nivel": "3"
+          },
+          {
+            "id": "2358",
+            "nombre": "Rotura de Vidrios y Cristales",
+            "nivel": "3"
+          },
+          {
+            "id": "2362",
+            "nombre": "Temperatura",
+            "nivel": "3"
+          },
+          {
+            "id": "2364",
+            "nombre": "Vibración / Impacto / Sísmico",
+            "nivel": "3"
+          },
+          {
+            "id": "2392",
+            "nombre": "Humo",
+            "nivel": "3"
+          },
+          {
+            "id": "2401",
+            "nombre": "Fotoeléctricos y Microondas",
+            "nivel": "3"
+          },
+          {
+            "id": "66147",
+            "nombre": "Contactos Magnéticos",
+            "nivel": "3"
+          },
+          {
+            "id": "66252",
+            "nombre": "Agua / inundación",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "373",
+        "nombre": "Centrales de Monitoreo",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2366",
+            "nombre": "Receptoras de Alarmas",
+            "nivel": "3"
+          },
+          {
+            "id": "2673",
+            "nombre": "Software de Monitoreo y Automatización (PSIM): MCDI y Softguard",
+            "nivel": "3"
+          },
+          {
+            "id": "65936",
+            "nombre": "Comunicadores y Transmisores de Alarma",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "375",
+        "nombre": "Cercas Eléctricas",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2368",
+            "nombre": "Energizadores",
+            "nivel": "3"
+          },
+          {
+            "id": "2369",
+            "nombre": "Postes",
+            "nivel": "3"
+          },
+          {
+            "id": "2370",
+            "nombre": "Aisladores",
+            "nivel": "3"
+          },
+          {
+            "id": "2371",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "377",
+        "nombre": "Accesorios",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "3025",
+            "nombre": "Botones de Pánico",
+            "nivel": "3"
+          },
+          {
+            "id": "3026",
+            "nombre": "Controles Remotos",
+            "nivel": "3"
+          },
+          {
+            "id": "3027",
+            "nombre": "Estaciones de Jalón",
+            "nivel": "3"
+          },
+          {
+            "id": "3038",
+            "nombre": "Sirenas y Estrobos",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "387",
+        "nombre": "Protección Perimetral",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2402",
+            "nombre": "Sensores de Movimiento para Exterior",
+            "nivel": "3"
+          },
+          {
+            "id": "2404",
+            "nombre": "Cable Sensor Perimetral",
+            "nivel": "3"
+          },
+          {
+            "id": "2405",
+            "nombre": "Sensores Fotoeléctricos y Microondas",
+            "nivel": "3"
+          },
+          {
+            "id": "65864",
+            "nombre": "Sensores de Rayo Láser y PIRs Inteligentes",
+            "nivel": "3"
+          },
+          {
+            "id": "65927",
+            "nombre": "Transmisor RF Largo Alcance",
+            "nivel": "3"
+          },
+          {
+            "id": "66713",
+            "nombre": "Cámaras Térmicas",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "450",
+        "nombre": "Generadores de Niebla",
+        "nivel": "2",
+        "subcategorias": []
+      },
+      {
+        "id": "523",
+        "nombre": "Automatización - Casa Inteligente",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "1637",
+            "nombre": "Z-Wave",
+            "nivel": "3"
+          },
+          {
+            "id": "66028",
+            "nombre": "Persianas y Cortinas Inteligentes",
+            "nivel": "3"
+          },
+          {
+            "id": "66207",
+            "nombre": "Apagadores y Atenuadores Inteligentes",
+            "nivel": "3"
+          },
+          {
+            "id": "66208",
+            "nombre": "Cámaras Wi-Fi Inteligentes",
+            "nivel": "3"
+          },
+          {
+            "id": "66209",
+            "nombre": "Cerraduras Inteligentes",
+            "nivel": "3"
+          },
+          {
+            "id": "66211",
+            "nombre": "Sensores y Relevadores",
+            "nivel": "3"
+          },
+          {
+            "id": "66213",
+            "nombre": "Videoporteros y Timbres Inteligentes",
+            "nivel": "3"
+          },
+          {
+            "id": "66214",
+            "nombre": "Garage",
+            "nivel": "3"
+          },
+          {
+            "id": "66216",
+            "nombre": "Hubs, Gateways y Pantallas de Control",
+            "nivel": "3"
+          },
+          {
+            "id": "66315",
+            "nombre": "Climatización y Termostatos",
+            "nivel": "3"
+          },
+          {
+            "id": "66896",
+            "nombre": "Enchufes y Contactos Inteligentes",
+            "nivel": "3"
+          },
+          {
+            "id": "66897",
+            "nombre": "Focos y Tiras LED Inteligentes",
+            "nivel": "3"
+          },
+          {
+            "id": "66898",
+            "nombre": "Zigbee",
+            "nivel": "3"
+          },
+          {
+            "id": "67021",
+            "nombre": "Difusores y Aromatización Inteligente",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "544",
+        "nombre": "Señalamientos",
+        "nivel": "2",
+        "subcategorias": []
+      },
+      {
+        "id": "65731",
+        "nombre": "Sistemas de Emergencia",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65732",
+            "nombre": "Puertas de Emergencia",
+            "nivel": "3"
+          },
+          {
+            "id": "65733",
+            "nombre": "Barras para Puertas de Emergencia",
+            "nivel": "3"
+          },
+          {
+            "id": "65734",
+            "nombre": "Estaciones Manuales de Emergencia",
+            "nivel": "3"
+          },
+          {
+            "id": "65735",
+            "nombre": "Señalización",
+            "nivel": "3"
+          },
+          {
+            "id": "65935",
+            "nombre": "Accesorios para Puertas de Emergencia",
+            "nivel": "3"
+          },
+          {
+            "id": "66329",
+            "nombre": "Atención Sociosanitaria",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65781",
+        "nombre": "Lutron",
+        "nivel": "3",
+        "subcategorias": [
+          {
+            "id": "65873",
+            "nombre": "Lutron Caseta Wireless",
+            "nivel": "3"
+          },
+          {
+            "id": "65874",
+            "nombre": "Lutron RadioRa3",
+            "nivel": "3"
+          },
+          {
+            "id": "65875",
+            "nombre": "Lutron Vive",
+            "nivel": "3"
+          },
+          {
+            "id": "65876",
+            "nombre": "Lutron Maestro",
+            "nivel": "3"
+          },
+          {
+            "id": "66235",
+            "nombre": "Lutron RA2 Select",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66284",
+        "nombre": "Paneles de Alarma y Accesorios Hikvision",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66285",
+            "nombre": "AX HUB Series",
+            "nivel": "3"
+          },
+          {
+            "id": "66286",
+            "nombre": "AX PRO Series",
+            "nivel": "3"
+          },
+          {
+            "id": "66372",
+            "nombre": "AX PRO KITs",
+            "nivel": "3"
+          },
+          {
+            "id": "66400",
+            "nombre": "AX Hybrid PRO Series",
+            "nivel": "3"
+          },
+          {
+            "id": "66478",
+            "nombre": "AX Hybrid Pro KITs",
+            "nivel": "3"
+          },
+          {
+            "id": "66704",
+            "nombre": "AX HOME Series",
+            "nivel": "3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "37",
+    "nombre": "Control  de Acceso",
+    "nivel": "1",
+    "subcategorias": [
+      {
+        "id": "415",
+        "nombre": "Accesorios",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2521",
+            "nombre": "Cables para Control de Acceso",
+            "nivel": "3"
+          },
+          {
+            "id": "2522",
+            "nombre": "Cierrapuertas",
+            "nivel": "3"
+          },
+          {
+            "id": "2523",
+            "nombre": "Contactos Magnéticos",
+            "nivel": "3"
+          },
+          {
+            "id": "2524",
+            "nombre": "Bisagras y Pasacables",
+            "nivel": "3"
+          },
+          {
+            "id": "2527",
+            "nombre": "Controles Inalámbricos",
+            "nivel": "3"
+          },
+          {
+            "id": "2884",
+            "nombre": "Botones de Salida",
+            "nivel": "3"
+          },
+          {
+            "id": "2885",
+            "nombre": "Tarjetas y Tags",
+            "nivel": "3"
+          },
+          {
+            "id": "2939",
+            "nombre": "Tarjetas de Relevador",
+            "nivel": "3"
+          },
+          {
+            "id": "3115",
+            "nombre": "Mobiliario de Apoyo",
+            "nivel": "3"
+          },
+          {
+            "id": "66141",
+            "nombre": "Sensores para Puertas Automáticas",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "417",
+        "nombre": "Cerraduras",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2936",
+            "nombre": "Mecánicas y de Perno",
+            "nivel": "3"
+          },
+          {
+            "id": "3002",
+            "nombre": "Chapas y Contrachapas",
+            "nivel": "3"
+          },
+          {
+            "id": "3004",
+            "nombre": "Eléctricas",
+            "nivel": "3"
+          },
+          {
+            "id": "3005",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "3006",
+            "nombre": "Autónomas / Inteligentes",
+            "nivel": "3"
+          },
+          {
+            "id": "66234",
+            "nombre": "Cerrojos y Candados Digitales",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "418",
+        "nombre": "Administración de  Hoteles",
+        "nivel": "2",
+        "subcategorias": []
+      },
+      {
+        "id": "422",
+        "nombre": "Control de Rondas Para Vigilantes",
+        "nivel": "2",
+        "subcategorias": []
+      },
+      {
+        "id": "423",
+        "nombre": "Teclados Autónomos",
+        "nivel": "2",
+        "subcategorias": []
+      },
+      {
+        "id": "424",
+        "nombre": "Paneles de Control de Acceso",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2940",
+            "nombre": "Controladores de Acceso",
+            "nivel": "3"
+          },
+          {
+            "id": "2941",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "65669",
+            "nombre": "Licencias y Softwares",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "425",
+        "nombre": "Detectores de Metal",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2568",
+            "nombre": "Detectores de Metal",
+            "nivel": "3"
+          },
+          {
+            "id": "66094",
+            "nombre": "Accesorios y Refacciones",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "426",
+        "nombre": "Equipo Blindado",
+        "nivel": "2",
+        "subcategorias": []
+      },
+      {
+        "id": "427",
+        "nombre": "Fuentes de Alimentación",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2578",
+            "nombre": "Fuentes de Respaldo",
+            "nivel": "3"
+          },
+          {
+            "id": "2581",
+            "nombre": "Transformadores",
+            "nivel": "3"
+          },
+          {
+            "id": "2625",
+            "nombre": "Baterías",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "429",
+        "nombre": "Biométricos",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2588",
+            "nombre": "Para Tiempo y Asistencia / Checadores",
+            "nivel": "3"
+          },
+          {
+            "id": "2589",
+            "nombre": "Para Control de Acceso",
+            "nivel": "3"
+          },
+          {
+            "id": "2590",
+            "nombre": "Enroladores y Lectores USB",
+            "nivel": "3"
+          },
+          {
+            "id": "66999",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "434",
+        "nombre": "Identificación y Credencialización",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2612",
+            "nombre": "Impresoras",
+            "nivel": "3"
+          },
+          {
+            "id": "65763",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "65974",
+            "nombre": "Cintas / Ribbons",
+            "nivel": "3"
+          },
+          {
+            "id": "66192",
+            "nombre": "Kits todo Incluido",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "435",
+        "nombre": "Protección de Mercancía (EAS)",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2618",
+            "nombre": "Lectores EAS",
+            "nivel": "3"
+          },
+          {
+            "id": "2620",
+            "nombre": "Accesorios EAS",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "465",
+        "nombre": "Inspección por Rayos X y Explosivos",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66139",
+            "nombre": "Escaneo Corporal",
+            "nivel": "3"
+          },
+          {
+            "id": "66140",
+            "nombre": "Sistemas de Inspección por Rayos X",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "469",
+        "nombre": "Videoporteros e Interfonos",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2774",
+            "nombre": "Videoporteros Analógicos",
+            "nivel": "3"
+          },
+          {
+            "id": "2776",
+            "nombre": "Multiapartamentos",
+            "nivel": "3"
+          },
+          {
+            "id": "2777",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "2778",
+            "nombre": "Intercomunicadores e Interfones",
+            "nivel": "3"
+          },
+          {
+            "id": "65952",
+            "nombre": "Videoporteros IP",
+            "nivel": "3"
+          },
+          {
+            "id": "66913",
+            "nombre": "Intercomunicadores por Radio",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "499",
+        "nombre": "Acceso vehicular",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2925",
+            "nombre": "Barreras Vehiculares",
+            "nivel": "3"
+          },
+          {
+            "id": "2926",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "2929",
+            "nombre": "Topes, Picos y Reductores",
+            "nivel": "3"
+          },
+          {
+            "id": "2938",
+            "nombre": "Pilonas o Bolardos",
+            "nivel": "3"
+          },
+          {
+            "id": "66066",
+            "nombre": "Refacciones",
+            "nivel": "3"
+          },
+          {
+            "id": "66068",
+            "nombre": "Semáforos, Radares y Señalización",
+            "nivel": "3"
+          },
+          {
+            "id": "66086",
+            "nombre": "Puertas de Garage",
+            "nivel": "3"
+          },
+          {
+            "id": "66087",
+            "nombre": "Puertas Abatibles y Corredizas",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "529",
+        "nombre": "Protección Contra Descargas",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "3048",
+            "nombre": "Redes",
+            "nivel": "3"
+          },
+          {
+            "id": "3049",
+            "nombre": "Corriente Alterna y Directa",
+            "nivel": "3"
+          },
+          {
+            "id": "3051",
+            "nombre": "Coaxial",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "540",
+        "nombre": "Sistemas de Emergencia",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "3116",
+            "nombre": "Puertas de Emergencia",
+            "nivel": "3"
+          },
+          {
+            "id": "3119",
+            "nombre": "Estaciones y Señalización de Emergencia",
+            "nivel": "3"
+          },
+          {
+            "id": "65933",
+            "nombre": "Barras y Accesorios para Puertas de Emergencia",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65672",
+        "nombre": "Software de Asistencia",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65673",
+            "nombre": "Tiempo y Asistencia",
+            "nivel": "3"
+          },
+          {
+            "id": "65674",
+            "nombre": "Control de Acceso",
+            "nivel": "3"
+          },
+          {
+            "id": "65924",
+            "nombre": "Estacionamientos",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65723",
+        "nombre": "Refacciones",
+        "nivel": "2",
+        "subcategorias": []
+      },
+      {
+        "id": "65945",
+        "nombre": "Lectoras y Tarjetas",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65946",
+            "nombre": "Proximidad (125 KHz)",
+            "nivel": "3"
+          },
+          {
+            "id": "65947",
+            "nombre": "MIFARE®/iCLASS (13.56 MHz)",
+            "nivel": "3"
+          },
+          {
+            "id": "65948",
+            "nombre": "SEOS",
+            "nivel": "3"
+          },
+          {
+            "id": "65949",
+            "nombre": "UHF/ RFID",
+            "nivel": "3"
+          },
+          {
+            "id": "65978",
+            "nombre": "NFC / QR",
+            "nivel": "3"
+          },
+          {
+            "id": "66135",
+            "nombre": "Bluetooth",
+            "nivel": "3"
+          },
+          {
+            "id": "66181",
+            "nombre": "Enroladores y Lectores USB",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66061",
+        "nombre": "Torniquetes y Puertas de Cortesía",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66063",
+            "nombre": "Torniquetes (Cuerpo Completo y Medio)",
+            "nivel": "3"
+          },
+          {
+            "id": "66064",
+            "nombre": "Puertas de Cortesía",
+            "nivel": "3"
+          },
+          {
+            "id": "66065",
+            "nombre": "Refacciones",
+            "nivel": "3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "38",
+    "nombre": "Detección de Fuego",
+    "nivel": "1",
+    "subcategorias": [
+      {
+        "id": "443",
+        "nombre": "Paneles de Incendio",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66186",
+            "nombre": "Convencionales",
+            "nivel": "3"
+          },
+          {
+            "id": "66187",
+            "nombre": "Direccionables",
+            "nivel": "3"
+          },
+          {
+            "id": "66901",
+            "nombre": "INIM",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "444",
+        "nombre": "Fuentes de  Alimentación",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66183",
+            "nombre": "Convencionales",
+            "nivel": "3"
+          },
+          {
+            "id": "66184",
+            "nombre": "Direccionables",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "445",
+        "nombre": "Accesorios y Dispositivos Direccionables",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2649",
+            "nombre": "HOCHIKI",
+            "nivel": "3"
+          },
+          {
+            "id": "2650",
+            "nombre": "SILENT KNIGHT",
+            "nivel": "3"
+          },
+          {
+            "id": "2651",
+            "nombre": "Honeywell",
+            "nivel": "3"
+          },
+          {
+            "id": "65663",
+            "nombre": "Fire-Lite",
+            "nivel": "3"
+          },
+          {
+            "id": "66182",
+            "nombre": "Farenhyt",
+            "nivel": "3"
+          },
+          {
+            "id": "66312",
+            "nombre": "NOTIFIER",
+            "nivel": "3"
+          },
+          {
+            "id": "66902",
+            "nombre": "INIM",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "448",
+        "nombre": "Detectores Autónomos",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2663",
+            "nombre": "First Alert",
+            "nivel": "3"
+          },
+          {
+            "id": "66481",
+            "nombre": "Kidde",
+            "nivel": "3"
+          },
+          {
+            "id": "66903",
+            "nombre": "HikFire (Hikvision)",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "449",
+        "nombre": "Cables",
+        "nivel": "2",
+        "subcategorias": []
+      },
+      {
+        "id": "467",
+        "nombre": "Protección Contra Descargas y Sobretensiones",
+        "nivel": "2",
+        "subcategorias": []
+      },
+      {
+        "id": "475",
+        "nombre": "Aplicaciones Especiales",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "2805",
+            "nombre": "Detectores por Aspiración",
+            "nivel": "3"
+          },
+          {
+            "id": "2806",
+            "nombre": "Detección Lineal de Temperatura",
+            "nivel": "3"
+          },
+          {
+            "id": "2807",
+            "nombre": "Detectores de Flama",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "497",
+        "nombre": "Extinción de Incendio",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66402",
+            "nombre": "HOCHIKI - Detección y Supresión",
+            "nivel": "3"
+          },
+          {
+            "id": "66403",
+            "nombre": "KIDDE - Extintores y Agente Limpio",
+            "nivel": "3"
+          },
+          {
+            "id": "66482",
+            "nombre": "Extintores",
+            "nivel": "3"
+          },
+          {
+            "id": "66708",
+            "nombre": "VIKING - Supresión Oxeo (Agente Limpio)",
+            "nivel": "3"
+          },
+          {
+            "id": "66807",
+            "nombre": "Extintores VICTORY",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "517",
+        "nombre": "Panel para Aplicaciones Marinas",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "3014",
+            "nombre": "HOCHIKI",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "536",
+        "nombre": "Notificación y Voceo",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65905",
+            "nombre": "Estrobos / Sirenas / Bocinas / Campanas",
+            "nivel": "3"
+          },
+          {
+            "id": "65906",
+            "nombre": "Paneles de Voceo",
+            "nivel": "3"
+          },
+          {
+            "id": "65907",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "543",
+        "nombre": "Señalamientos",
+        "nivel": "2",
+        "subcategorias": []
+      },
+      {
+        "id": "65726",
+        "nombre": "Sistemas de Emergencia",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65727",
+            "nombre": "Puertas para Emergencia",
+            "nivel": "3"
+          },
+          {
+            "id": "65728",
+            "nombre": "Barras para Puertas de Emergencia",
+            "nivel": "3"
+          },
+          {
+            "id": "65730",
+            "nombre": "Señalización",
+            "nivel": "3"
+          },
+          {
+            "id": "66185",
+            "nombre": "Lámparas de Emergencia",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65852",
+        "nombre": "Dispositivos Convencionales",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65853",
+            "nombre": "Detectores de Humo",
+            "nivel": "3"
+          },
+          {
+            "id": "65854",
+            "nombre": "Detectores de Temperatura",
+            "nivel": "3"
+          },
+          {
+            "id": "65856",
+            "nombre": "Detectores de Tipo Beam",
+            "nivel": "3"
+          },
+          {
+            "id": "65857",
+            "nombre": "Detectores de Flujo y Presión",
+            "nivel": "3"
+          },
+          {
+            "id": "65858",
+            "nombre": "Estaciones Manuales de Emergencia",
+            "nivel": "3"
+          },
+          {
+            "id": "65859",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "65861",
+            "nombre": "Detectores de Gases",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65955",
+        "nombre": "Probadores",
+        "nivel": "2",
+        "subcategorias": []
+      },
+      {
+        "id": "66705",
+        "nombre": "HIKFIRE - Prevención de Incendio by Hikvision",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66706",
+            "nombre": "Dispositivos Standalone",
+            "nivel": "3"
+          },
+          {
+            "id": "66707",
+            "nombre": "Cámaras IP con Detección de Fuego",
+            "nivel": "3"
+          },
+          {
+            "id": "66719",
+            "nombre": "Sistema Inalámbrico LoRa",
+            "nivel": "3"
+          },
+          {
+            "id": "66720",
+            "nombre": "Sistema Direccionable",
+            "nivel": "3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "42",
+    "nombre": "Herramientas, Ferretería y Material Eléctrico",
+    "nivel": "1",
+    "subcategorias": [
+      {
+        "id": "66925",
+        "nombre": "Herramienta de Mano",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66926",
+            "nombre": "Pinzas y Cortadores",
+            "nivel": "3"
+          },
+          {
+            "id": "66927",
+            "nombre": "Desarmadores, Llaves y Brocas",
+            "nivel": "3"
+          },
+          {
+            "id": "66928",
+            "nombre": "Herramientas para Cable (Ponchado, Impacto y Pelado)",
+            "nivel": "3"
+          },
+          {
+            "id": "66929",
+            "nombre": "Herramientas Especializadas para Redes y Fibra",
+            "nivel": "3"
+          },
+          {
+            "id": "66930",
+            "nombre": "Kits y Estuches de Herramienta",
+            "nivel": "3"
+          },
+          {
+            "id": "66931",
+            "nombre": "Herramientas y Accesorios de Instalación",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66932",
+        "nombre": "Herramienta Eléctrica",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66933",
+            "nombre": "Taladros y Rotomartillos",
+            "nivel": "3"
+          },
+          {
+            "id": "66934",
+            "nombre": "Esmeriles, Sierras y Lijadoras",
+            "nivel": "3"
+          },
+          {
+            "id": "66935",
+            "nombre": "Atornilladores y Llaves de Impacto",
+            "nivel": "3"
+          },
+          {
+            "id": "66936",
+            "nombre": "Baterías, Cargadores y Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66937",
+            "nombre": "Equipo para Soldar",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66938",
+        "nombre": "Medición, Prueba e Inspección",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66939",
+            "nombre": "Multímetros, Pinzas y Medición Eléctrica",
+            "nivel": "3"
+          },
+          {
+            "id": "66940",
+            "nombre": "Cámaras Termográficas y Termómetros",
+            "nivel": "3"
+          },
+          {
+            "id": "66941",
+            "nombre": "Probadores y Verificadores de Video/CCTV",
+            "nivel": "3"
+          },
+          {
+            "id": "66942",
+            "nombre": "Herramientas y Probadores de Red / Fibra",
+            "nivel": "3"
+          },
+          {
+            "id": "66943",
+            "nombre": "Equipo de Prueba RF y Analizadores de Espectro",
+            "nivel": "3"
+          },
+          {
+            "id": "66944",
+            "nombre": "Analizadores y Probadores de Baterías",
+            "nivel": "3"
+          },
+          {
+            "id": "66945",
+            "nombre": "Óptica, Inspección y Otros Instrumentos",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66946",
+        "nombre": "Ferretería y Consumibles",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66947",
+            "nombre": "Cinchos, Corbatas y Cintas",
+            "nivel": "3"
+          },
+          {
+            "id": "66948",
+            "nombre": "Brocas, Discos y Puntas",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66949",
+        "nombre": "Tornillería y Fijación",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66951",
+            "nombre": "Tornillería, Taquetes y Anclas",
+            "nivel": "3"
+          },
+          {
+            "id": "66952",
+            "nombre": "Abrazaderas y Soportes para Tubería",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66954",
+        "nombre": "Seguridad y EPP",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66956",
+            "nombre": "Protección Personal |Guantes, Lentes, Respiratoria|",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66958",
+        "nombre": "Escaleras y Almacenamiento",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66959",
+            "nombre": "Escaleras y Almacenamiento",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66963",
+        "nombre": "Material Eléctrico (Casa Eléctrica)",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66964",
+            "nombre": "Cable y Alambre Eléctrico",
+            "nivel": "3"
+          },
+          {
+            "id": "66965",
+            "nombre": "Centros de Carga, Interruptores y Protección",
+            "nivel": "3"
+          },
+          {
+            "id": "66966",
+            "nombre": "Apagadores, Contactos y Clavijas",
+            "nivel": "3"
+          },
+          {
+            "id": "66967",
+            "nombre": "Tomacorrientes, Extensiones y Multicontactos",
+            "nivel": "3"
+          },
+          {
+            "id": "66968",
+            "nombre": "Terminales, Conectores y Bornas",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66969",
+        "nombre": "Canalización (Conduit / Tubería)",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66970",
+            "nombre": "Tubería Metálica Conduit (Pared Gruesa / EMT)",
+            "nivel": "3"
+          },
+          {
+            "id": "66971",
+            "nombre": "Tubería PVC Conduit y Tubería Flexible",
+            "nivel": "3"
+          },
+          {
+            "id": "66972",
+            "nombre": "Conexiones, Curvas y Cajas Condulet",
+            "nivel": "3"
+          },
+          {
+            "id": "66973",
+            "nombre": "Canaletas y Ductos de Superficie",
+            "nivel": "3"
+          },
+          {
+            "id": "66974",
+            "nombre": "Canalización a Prueba de Explosión",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66975",
+        "nombre": "Charolas, Canaletas y Ductos",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66976",
+            "nombre": "Charolas Portacables",
+            "nivel": "3"
+          },
+          {
+            "id": "66977",
+            "nombre": "Accesorios y Soportería para Charola",
+            "nivel": "3"
+          },
+          {
+            "id": "66978",
+            "nombre": "Canaletas y Molduras",
+            "nivel": "3"
+          },
+          {
+            "id": "66979",
+            "nombre": "Accesorios para Canaletas",
+            "nivel": "3"
+          },
+          {
+            "id": "66980",
+            "nombre": "Ductos Cuadrados",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66981",
+        "nombre": "Gabinetes y Cajas (NEMA / Registros)",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66982",
+            "nombre": "Gabinetes NEMA para Interior y Exterior",
+            "nivel": "3"
+          },
+          {
+            "id": "66983",
+            "nombre": "Gabinetes y Accesorios Antiexplosión",
+            "nivel": "3"
+          },
+          {
+            "id": "66984",
+            "nombre": "Cajas de Conexiones y Registros",
+            "nivel": "3"
+          },
+          {
+            "id": "66985",
+            "nombre": "Cajas Superficiales y de Piso",
+            "nivel": "3"
+          },
+          {
+            "id": "66986",
+            "nombre": "Glándulas, Prensaestopas y Accesorios",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66987",
+        "nombre": "Candados y Cerraduras Mecánicas",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66988",
+            "nombre": "Cerraduras y Cerrojos de Perno",
+            "nivel": "3"
+          },
+          {
+            "id": "66989",
+            "nombre": "Cierrapuertas y Brazos Hidráulicos",
+            "nivel": "3"
+          },
+          {
+            "id": "66990",
+            "nombre": "Candados y Administradores de Llaves",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66991",
+        "nombre": "Iluminación",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66992",
+            "nombre": "Luminarias LED de Interior",
+            "nivel": "3"
+          },
+          {
+            "id": "66993",
+            "nombre": "Luminarias LED Comerciales e Industriales",
+            "nivel": "3"
+          },
+          {
+            "id": "66994",
+            "nombre": "Luminarias y Reflectores de Exterior",
+            "nivel": "3"
+          },
+          {
+            "id": "66996",
+            "nombre": "Control e Iluminación Inteligente",
+            "nivel": "3"
+          },
+          {
+            "id": "66997",
+            "nombre": "Apagadores, Contactos y Dimmers",
+            "nivel": "3"
+          },
+          {
+            "id": "66998",
+            "nombre": "Iluminación de Emergencia y Señalización",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "67024",
+        "nombre": "Aplicación Vehícular",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "67025",
+            "nombre": "Herramientas Manuales",
+            "nivel": "3"
+          },
+          {
+            "id": "67026",
+            "nombre": "Herramientas Eléctricas",
+            "nivel": "3"
+          },
+          {
+            "id": "67027",
+            "nombre": "Accesorios Eléctricos",
+            "nivel": "3"
+          },
+          {
+            "id": "67028",
+            "nombre": "Equipo de Emergencia",
+            "nivel": "3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "65747",
+    "nombre": "Marketing",
+    "nivel": "1",
+    "subcategorias": [
+      {
+        "id": "65748",
+        "nombre": "Material",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65754",
+            "nombre": "Playeras y Productos",
+            "nivel": "3"
+          },
+          {
+            "id": "66712",
+            "nombre": "Medios Digitales",
+            "nivel": "3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "65811",
+    "nombre": "Cableado Estructurado",
+    "nivel": "1",
+    "subcategorias": [
+      {
+        "id": "65812",
+        "nombre": "Cable - Bobinas",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65817",
+            "nombre": "Categoría 5e",
+            "nivel": "3"
+          },
+          {
+            "id": "65818",
+            "nombre": "Categoría 6",
+            "nivel": "3"
+          },
+          {
+            "id": "65819",
+            "nombre": "Categoría 6A",
+            "nivel": "3"
+          },
+          {
+            "id": "65821",
+            "nombre": "Categoría 7A",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65813",
+        "nombre": "Cableado de Cobre",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65824",
+            "nombre": "Patch Cords",
+            "nivel": "3"
+          },
+          {
+            "id": "65826",
+            "nombre": "Patch Panels",
+            "nivel": "3"
+          },
+          {
+            "id": "65827",
+            "nombre": "Jacks / Plugs",
+            "nivel": "3"
+          },
+          {
+            "id": "65828",
+            "nombre": "Faceplates",
+            "nivel": "3"
+          },
+          {
+            "id": "65829",
+            "nombre": "Cajas Superficiales",
+            "nivel": "3"
+          },
+          {
+            "id": "65848",
+            "nombre": "Herramientas",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65814",
+        "nombre": "Fibra Óptica",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65830",
+            "nombre": "Cable",
+            "nivel": "3"
+          },
+          {
+            "id": "65831",
+            "nombre": "Jumpers y Pigtails",
+            "nivel": "3"
+          },
+          {
+            "id": "65833",
+            "nombre": "Distribuidores de Fibra Óptica",
+            "nivel": "3"
+          },
+          {
+            "id": "65834",
+            "nombre": "Conectores",
+            "nivel": "3"
+          },
+          {
+            "id": "65849",
+            "nombre": "Herramientas",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65815",
+        "nombre": "Racks y Gabinetes",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65835",
+            "nombre": "Racks Abiertos",
+            "nivel": "3"
+          },
+          {
+            "id": "65836",
+            "nombre": "Racks Cerrados",
+            "nivel": "3"
+          },
+          {
+            "id": "65837",
+            "nombre": "Gabinetes para Montaje en Pared",
+            "nivel": "3"
+          },
+          {
+            "id": "65838",
+            "nombre": "Accesorios para Rack/Gabinetes",
+            "nivel": "3"
+          },
+          {
+            "id": "65842",
+            "nombre": "Gabinetes para Exterior",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65816",
+        "nombre": "Canalización",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65839",
+            "nombre": "Canaletas",
+            "nivel": "3"
+          },
+          {
+            "id": "65841",
+            "nombre": "Fijación",
+            "nivel": "3"
+          },
+          {
+            "id": "65865",
+            "nombre": "Tubería PVC / Registros PVC",
+            "nivel": "3"
+          },
+          {
+            "id": "66024",
+            "nombre": "Cinchos / Corbatas",
+            "nivel": "3"
+          },
+          {
+            "id": "66166",
+            "nombre": "Ducto Cuadrado",
+            "nivel": "3"
+          },
+          {
+            "id": "66226",
+            "nombre": "Tubería Metálica CONDUIT / Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66483",
+            "nombre": "Accesorios para Canaletas",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65843",
+        "nombre": "Charola",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65844",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "65845",
+            "nombre": "Charolas Tipo Malla",
+            "nivel": "3"
+          },
+          {
+            "id": "65846",
+            "nombre": "Montajes",
+            "nivel": "3"
+          },
+          {
+            "id": "65847",
+            "nombre": "Uniones",
+            "nivel": "3"
+          },
+          {
+            "id": "66685",
+            "nombre": "Charolas Tipo Escalerilla",
+            "nivel": "3"
+          },
+          {
+            "id": "66703",
+            "nombre": "Curvas Pre-Fabricadas",
+            "nivel": "3"
+          },
+          {
+            "id": "66709",
+            "nombre": "Tapas para Charolas",
+            "nivel": "3"
+          },
+          {
+            "id": "66710",
+            "nombre": "Charolas Tipo Malla Bimetálica",
+            "nivel": "3"
+          },
+          {
+            "id": "66730",
+            "nombre": "Charola Mallafil",
+            "nivel": "3"
+          },
+          {
+            "id": "66732",
+            "nombre": "Charola para Fibra Óptica",
+            "nivel": "3"
+          },
+          {
+            "id": "66733",
+            "nombre": "Charola Tubular",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "65915",
+        "nombre": "Conectores",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "65916",
+            "nombre": "Para Redes RJ-45",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66054",
+        "nombre": "PDU",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66055",
+            "nombre": "Básicos",
+            "nivel": "3"
+          },
+          {
+            "id": "66056",
+            "nombre": "Medibles",
+            "nivel": "3"
+          },
+          {
+            "id": "66057",
+            "nombre": "Monitoreables",
+            "nivel": "3"
+          },
+          {
+            "id": "66058",
+            "nombre": "Switcheables",
+            "nivel": "3"
+          },
+          {
+            "id": "66059",
+            "nombre": "Fuente Redundante (ATS)",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "67008",
+        "nombre": "Transceptores de Fibra / (Mini-GBICs)",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "67009",
+            "nombre": "Cables DAC & AOC",
+            "nivel": "3"
+          },
+          {
+            "id": "67010",
+            "nombre": "RJ45 SFP",
+            "nivel": "3"
+          },
+          {
+            "id": "67011",
+            "nombre": "1G Duplex",
+            "nivel": "3"
+          },
+          {
+            "id": "67012",
+            "nombre": "10G Duplex",
+            "nivel": "3"
+          },
+          {
+            "id": "67013",
+            "nombre": "25G Duplex",
+            "nivel": "3"
+          },
+          {
+            "id": "67014",
+            "nombre": "40G Duplex",
+            "nivel": "3"
+          },
+          {
+            "id": "67015",
+            "nombre": "100G Duplex",
+            "nivel": "3"
+          },
+          {
+            "id": "67016",
+            "nombre": "200G Duplex",
+            "nivel": "3"
+          },
+          {
+            "id": "67017",
+            "nombre": "400G Duplex",
+            "nivel": "3"
+          },
+          {
+            "id": "67018",
+            "nombre": "BiDi (1G/10G)",
+            "nivel": "3"
+          },
+          {
+            "id": "67019",
+            "nombre": "Industrial Duplex",
+            "nivel": "3"
+          },
+          {
+            "id": "67020",
+            "nombre": "Industrial BiDi",
+            "nivel": "3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "66523",
+    "nombre": "Audio y Video Profesional",
+    "nivel": "1",
+    "subcategorias": [
+      {
+        "id": "66524",
+        "nombre": "Audio IP",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66534",
+            "nombre": "Amplificadores",
+            "nivel": "3"
+          },
+          {
+            "id": "66535",
+            "nombre": "Bocinas",
+            "nivel": "3"
+          },
+          {
+            "id": "66536",
+            "nombre": "Interfaces",
+            "nivel": "3"
+          },
+          {
+            "id": "66537",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66525",
+        "nombre": "Audio Profesional / PA",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66538",
+            "nombre": "Amplificadores",
+            "nivel": "3"
+          },
+          {
+            "id": "66539",
+            "nombre": "Bocinas Activas",
+            "nivel": "3"
+          },
+          {
+            "id": "66541",
+            "nombre": "Procesadores",
+            "nivel": "3"
+          },
+          {
+            "id": "66545",
+            "nombre": "Bocinas Pasivas",
+            "nivel": "3"
+          },
+          {
+            "id": "66817",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66818",
+            "nombre": "Conectores y Cableado de Audio",
+            "nivel": "3"
+          },
+          {
+            "id": "66819",
+            "nombre": "Consolas Análogas",
+            "nivel": "3"
+          },
+          {
+            "id": "66820",
+            "nombre": "Consolas Digitales",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66526",
+        "nombre": "Audio Residencial/Comercial",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66542",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66543",
+            "nombre": "Amplificadores 70/100V",
+            "nivel": "3"
+          },
+          {
+            "id": "66544",
+            "nombre": "Amplificadores Baja Impedancia",
+            "nivel": "3"
+          },
+          {
+            "id": "66547",
+            "nombre": "Bocinas para Exterior",
+            "nivel": "3"
+          },
+          {
+            "id": "66548",
+            "nombre": "Bocinas Pared",
+            "nivel": "3"
+          },
+          {
+            "id": "66549",
+            "nombre": "Bocinas Plafón",
+            "nivel": "3"
+          },
+          {
+            "id": "66550",
+            "nombre": "Bocinas Colgantes",
+            "nivel": "3"
+          },
+          {
+            "id": "66552",
+            "nombre": "Conectores",
+            "nivel": "3"
+          },
+          {
+            "id": "66553",
+            "nombre": "Control de Volumen",
+            "nivel": "3"
+          },
+          {
+            "id": "66554",
+            "nombre": "Home Theater",
+            "nivel": "3"
+          },
+          {
+            "id": "66555",
+            "nombre": "Kits",
+            "nivel": "3"
+          },
+          {
+            "id": "66556",
+            "nombre": "Subwoofer",
+            "nivel": "3"
+          },
+          {
+            "id": "66821",
+            "nombre": "Bocinas de Columna",
+            "nivel": "3"
+          },
+          {
+            "id": "66822",
+            "nombre": "Cableado para Bocina",
+            "nivel": "3"
+          },
+          {
+            "id": "66823",
+            "nombre": "Cableado de Audio",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66528",
+        "nombre": "Microfonía",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66558",
+            "nombre": "Micrófonos Alámbricos",
+            "nivel": "3"
+          },
+          {
+            "id": "66559",
+            "nombre": "Micrófonos Inalámbricos",
+            "nivel": "3"
+          },
+          {
+            "id": "66847",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66848",
+            "nombre": "Conferencia",
+            "nivel": "3"
+          },
+          {
+            "id": "66849",
+            "nombre": "Discusión / Debate",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66530",
+        "nombre": "Pantallas/Monitores",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66564",
+            "nombre": "Monitores",
+            "nivel": "3"
+          },
+          {
+            "id": "66565",
+            "nombre": "Montajes",
+            "nivel": "3"
+          },
+          {
+            "id": "66566",
+            "nombre": "Pantallas",
+            "nivel": "3"
+          },
+          {
+            "id": "66568",
+            "nombre": "Cableado y Adaptadores",
+            "nivel": "3"
+          },
+          {
+            "id": "66816",
+            "nombre": "Smart TV / Business TV",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66533",
+        "nombre": "Videowall LED",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66586",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66588",
+            "nombre": "Controladores",
+            "nivel": "3"
+          },
+          {
+            "id": "66590",
+            "nombre": "Montajes",
+            "nivel": "3"
+          },
+          {
+            "id": "66592",
+            "nombre": "Videowall Exterior Fijo",
+            "nivel": "3"
+          },
+          {
+            "id": "66593",
+            "nombre": "Videowall Interior Fijo",
+            "nivel": "3"
+          },
+          {
+            "id": "66744",
+            "nombre": "Videowall Rental (Móvil)",
+            "nivel": "3"
+          },
+          {
+            "id": "66746",
+            "nombre": "Kits",
+            "nivel": "3"
+          },
+          {
+            "id": "66756",
+            "nombre": "Refacciones",
+            "nivel": "3"
+          },
+          {
+            "id": "66890",
+            "nombre": "Cableado y Conectores",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66578",
+        "nombre": "Streaming / Creación de Contenido",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66876",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66877",
+            "nombre": "Cámaras",
+            "nivel": "3"
+          },
+          {
+            "id": "66878",
+            "nombre": "Capturadoras de Video",
+            "nivel": "3"
+          },
+          {
+            "id": "66879",
+            "nombre": "Interfaces AV",
+            "nivel": "3"
+          },
+          {
+            "id": "66880",
+            "nombre": "Monitores",
+            "nivel": "3"
+          },
+          {
+            "id": "66881",
+            "nombre": "Montajes",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66824",
+        "nombre": "Distribución de Video",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66825",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66826",
+            "nombre": "AV sobre IP",
+            "nivel": "3"
+          },
+          {
+            "id": "66827",
+            "nombre": "Cableado de Video",
+            "nivel": "3"
+          },
+          {
+            "id": "66828",
+            "nombre": "Convertidores de Video",
+            "nivel": "3"
+          },
+          {
+            "id": "66829",
+            "nombre": "Extensores de Video",
+            "nivel": "3"
+          },
+          {
+            "id": "66830",
+            "nombre": "Extensores USB",
+            "nivel": "3"
+          },
+          {
+            "id": "66831",
+            "nombre": "Extensores con KVM",
+            "nivel": "3"
+          },
+          {
+            "id": "66832",
+            "nombre": "Matriciales",
+            "nivel": "3"
+          },
+          {
+            "id": "66833",
+            "nombre": "Splitters",
+            "nivel": "3"
+          },
+          {
+            "id": "66834",
+            "nombre": "Switches de Video",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66835",
+        "nombre": "Iluminación Escénica",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66836",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66837",
+            "nombre": "Arquitectónica",
+            "nivel": "3"
+          },
+          {
+            "id": "66838",
+            "nombre": "Cableado",
+            "nivel": "3"
+          },
+          {
+            "id": "66839",
+            "nombre": "Consolas DMX",
+            "nivel": "3"
+          },
+          {
+            "id": "66840",
+            "nombre": "Iluminación Móvil",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66841",
+        "nombre": "KVM",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66842",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66843",
+            "nombre": "Consolas LCD",
+            "nivel": "3"
+          },
+          {
+            "id": "66844",
+            "nombre": "Extensores",
+            "nivel": "3"
+          },
+          {
+            "id": "66845",
+            "nombre": "Sobre IP",
+            "nivel": "3"
+          },
+          {
+            "id": "66846",
+            "nombre": "Switches KVM",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66850",
+        "nombre": "Producción / Escenarios",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66851",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66852",
+            "nombre": "Cableado",
+            "nivel": "3"
+          },
+          {
+            "id": "66853",
+            "nombre": "Centros de Carga",
+            "nivel": "3"
+          },
+          {
+            "id": "66854",
+            "nombre": "Sistemas de Andamios Modulares",
+            "nivel": "3"
+          },
+          {
+            "id": "66855",
+            "nombre": "Pantallas LED",
+            "nivel": "3"
+          },
+          {
+            "id": "66856",
+            "nombre": "Rigging",
+            "nivel": "3"
+          },
+          {
+            "id": "66857",
+            "nombre": "Tarimas",
+            "nivel": "3"
+          },
+          {
+            "id": "66858",
+            "nombre": "Truss",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66859",
+        "nombre": "Salas Inteligentes / Videoconferencia",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66860",
+            "nombre": "Audio para Salas",
+            "nivel": "3"
+          },
+          {
+            "id": "66861",
+            "nombre": "Auriculares",
+            "nivel": "3"
+          },
+          {
+            "id": "66862",
+            "nombre": "Cámaras",
+            "nivel": "3"
+          },
+          {
+            "id": "66863",
+            "nombre": "Cableado y Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66864",
+            "nombre": "Control de Salas",
+            "nivel": "3"
+          },
+          {
+            "id": "66865",
+            "nombre": "Interfaces AV",
+            "nivel": "3"
+          },
+          {
+            "id": "66866",
+            "nombre": "Microfonía",
+            "nivel": "3"
+          },
+          {
+            "id": "66867",
+            "nombre": "Montajes",
+            "nivel": "3"
+          },
+          {
+            "id": "66868",
+            "nombre": "Pantallas",
+            "nivel": "3"
+          },
+          {
+            "id": "66869",
+            "nombre": "Pantallas Interactivas",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66870",
+        "nombre": "Publicidad Digital / Digital Signage",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66871",
+            "nombre": "Cableado",
+            "nivel": "3"
+          },
+          {
+            "id": "66872",
+            "nombre": "Montajes",
+            "nivel": "3"
+          },
+          {
+            "id": "66873",
+            "nombre": "Pantallas",
+            "nivel": "3"
+          },
+          {
+            "id": "66874",
+            "nombre": "Periféricos",
+            "nivel": "3"
+          },
+          {
+            "id": "66875",
+            "nombre": "Software",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66882",
+        "nombre": "Videowall LCD",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66883",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66884",
+            "nombre": "Cableado y Conectores",
+            "nivel": "3"
+          },
+          {
+            "id": "66885",
+            "nombre": "Controladores",
+            "nivel": "3"
+          },
+          {
+            "id": "66886",
+            "nombre": "Kits",
+            "nivel": "3"
+          },
+          {
+            "id": "66887",
+            "nombre": "Montajes",
+            "nivel": "3"
+          },
+          {
+            "id": "66888",
+            "nombre": "Pantallas",
+            "nivel": "3"
+          },
+          {
+            "id": "66889",
+            "nombre": "Refacciones",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "67029",
+        "nombre": "Sonido Automotriz | Car Audio",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "67030",
+            "nombre": "Altavoces",
+            "nivel": "3"
+          },
+          {
+            "id": "67031",
+            "nombre": "Subwoofers",
+            "nivel": "3"
+          },
+          {
+            "id": "67032",
+            "nombre": "Amplificadores",
+            "nivel": "3"
+          },
+          {
+            "id": "67033",
+            "nombre": "Cableado / Terminales / Conectores",
+            "nivel": "3"
+          },
+          {
+            "id": "68049",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "67034",
+        "nombre": "Audio Marino",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "67035",
+            "nombre": "Estereos",
+            "nivel": "3"
+          },
+          {
+            "id": "67036",
+            "nombre": "Altavoces",
+            "nivel": "3"
+          },
+          {
+            "id": "67037",
+            "nombre": "Subwoofers",
+            "nivel": "3"
+          },
+          {
+            "id": "67038",
+            "nombre": "Amplificadores",
+            "nivel": "3"
+          },
+          {
+            "id": "67039",
+            "nombre": "Cableado / Terminales / Conectores",
+            "nivel": "3"
+          },
+          {
+            "id": "68050",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "66630",
+    "nombre": "Industria / BMS/ Robots",
+    "nivel": "1",
+    "subcategorias": [
+      {
+        "id": "66631",
+        "nombre": "Controladores",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66632",
+            "nombre": "PLC",
+            "nivel": "3"
+          },
+          {
+            "id": "66633",
+            "nombre": "Módulos",
+            "nivel": "3"
+          },
+          {
+            "id": "66634",
+            "nombre": "Interfaces HMI",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66635",
+        "nombre": "Accesorios",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66636",
+            "nombre": "Sensores",
+            "nivel": "3"
+          },
+          {
+            "id": "66637",
+            "nombre": "Fuentes de Poder",
+            "nivel": "3"
+          },
+          {
+            "id": "66638",
+            "nombre": "Neumática",
+            "nivel": "3"
+          },
+          {
+            "id": "66639",
+            "nombre": "Actuadores Neumáticos",
+            "nivel": "3"
+          },
+          {
+            "id": "66640",
+            "nombre": "Misceláneos",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66641",
+        "nombre": "Robots",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66642",
+            "nombre": "Servicio",
+            "nivel": "3"
+          },
+          {
+            "id": "66643",
+            "nombre": "Cobots",
+            "nivel": "3"
+          },
+          {
+            "id": "66645",
+            "nombre": "Robots Biónicos",
+            "nivel": "3"
+          },
+          {
+            "id": "66646",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66647",
+        "nombre": "Visión y Lectores",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66648",
+            "nombre": "Cámaras 3D",
+            "nivel": "3"
+          },
+          {
+            "id": "66649",
+            "nombre": "Control de Calidad",
+            "nivel": "3"
+          },
+          {
+            "id": "66650",
+            "nombre": "Lectores de Códigos",
+            "nivel": "3"
+          },
+          {
+            "id": "66651",
+            "nombre": "Lectores Portátiles",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66660",
+        "nombre": "Detección Honeywell",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66661",
+            "nombre": "Detectores de Flama",
+            "nivel": "3"
+          },
+          {
+            "id": "66662",
+            "nombre": "Detectores de Gas",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66740",
+        "nombre": "Cámaras de Aplicación Industrial",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66741",
+            "nombre": "Cámaras Ópticas",
+            "nivel": "3"
+          },
+          {
+            "id": "66742",
+            "nombre": "Cámaras Térmicas",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66762",
+        "nombre": "Instrumentación Industrial",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66763",
+            "nombre": "Caudalímetro",
+            "nivel": "3"
+          },
+          {
+            "id": "66764",
+            "nombre": "Transmisor de Presión",
+            "nivel": "3"
+          },
+          {
+            "id": "66765",
+            "nombre": "Pirómetro",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66769",
+        "nombre": "Honeywell BMS",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66770",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66771",
+            "nombre": "Controladores",
+            "nivel": "3"
+          },
+          {
+            "id": "66772",
+            "nombre": "Supervisory Hardware",
+            "nivel": "3"
+          },
+          {
+            "id": "66773",
+            "nombre": "Supervisory Software",
+            "nivel": "3"
+          },
+          {
+            "id": "66774",
+            "nombre": "Termostatos",
+            "nivel": "3"
+          },
+          {
+            "id": "66775",
+            "nombre": "Certificaciones",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66776",
+        "nombre": "Vykon",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66777",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66778",
+            "nombre": "Drivers",
+            "nivel": "3"
+          },
+          {
+            "id": "66779",
+            "nombre": "Supervisory Hardware",
+            "nivel": "3"
+          },
+          {
+            "id": "66780",
+            "nombre": "Supervisory Software",
+            "nivel": "3"
+          },
+          {
+            "id": "66781",
+            "nombre": "Niagara Cloud Suite",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66782",
+        "nombre": "Alerton",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66783",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66784",
+            "nombre": "Controladores",
+            "nivel": "3"
+          },
+          {
+            "id": "66785",
+            "nombre": "Software Ascent Compass",
+            "nivel": "3"
+          },
+          {
+            "id": "66786",
+            "nombre": "Termostatos",
+            "nivel": "3"
+          },
+          {
+            "id": "66787",
+            "nombre": "Certificaciones",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66788",
+        "nombre": "Inncom",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66789",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66790",
+            "nombre": "Microcontroladores",
+            "nivel": "3"
+          },
+          {
+            "id": "66791",
+            "nombre": "Termostatos",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66792",
+        "nombre": "Instrumentación BMS",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66793",
+            "nombre": "Actuadores",
+            "nivel": "3"
+          },
+          {
+            "id": "66794",
+            "nombre": "Sensores de Humedad",
+            "nivel": "3"
+          },
+          {
+            "id": "66795",
+            "nombre": "Sensores de Temperatura",
+            "nivel": "3"
+          },
+          {
+            "id": "66796",
+            "nombre": "Válvulas y Actuadores",
+            "nivel": "3"
+          },
+          {
+            "id": "66797",
+            "nombre": "Sensores y Medidores de Corriente Eléctrica",
+            "nivel": "3"
+          },
+          {
+            "id": "66798",
+            "nombre": "Sensores de Presión",
+            "nivel": "3"
+          },
+          {
+            "id": "66799",
+            "nombre": "Sensor de Flujo y Niveles",
+            "nivel": "3"
+          },
+          {
+            "id": "66800",
+            "nombre": "Variador de Frecuencia",
+            "nivel": "3"
+          },
+          {
+            "id": "66808",
+            "nombre": "Gas y Sensores Especiales",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66809",
+        "nombre": "Redes de Datos",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66810",
+            "nombre": "Cableado Estructurado",
+            "nivel": "3"
+          },
+          {
+            "id": "66811",
+            "nombre": "Gabinetes",
+            "nivel": "3"
+          },
+          {
+            "id": "66812",
+            "nombre": "Climatización",
+            "nivel": "3"
+          },
+          {
+            "id": "66813",
+            "nombre": "Fuentes de Poder",
+            "nivel": "3"
+          },
+          {
+            "id": "66814",
+            "nombre": "Switches y Routers",
+            "nivel": "3"
+          },
+          {
+            "id": "66815",
+            "nombre": "Redes Wi-Fi",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "66918",
+        "nombre": "Señalización y Alerta Industrial",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "66919",
+            "nombre": "Luces para la Industria y Edificios",
+            "nivel": "3"
+          },
+          {
+            "id": "66920",
+            "nombre": "Bocinas de Alerta y Notificación Masiva",
+            "nivel": "3"
+          },
+          {
+            "id": "66921",
+            "nombre": "Controladores",
+            "nivel": "3"
+          },
+          {
+            "id": "66922",
+            "nombre": "Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "66923",
+            "nombre": "Indicadores de Estado",
+            "nivel": "3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "67040",
+    "nombre": "Retail y Punto de Venta",
+    "nivel": "1",
+    "subcategorias": [
+      {
+        "id": "67041",
+        "nombre": "Punto de Venta (POS)",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "67042",
+            "nombre": "Terminales Punto de Venta",
+            "nivel": "3"
+          },
+          {
+            "id": "67043",
+            "nombre": "Tablets y Handhelds Comerciales",
+            "nivel": "3"
+          },
+          {
+            "id": "67044",
+            "nombre": "Impresoras de Tickets y Etiquetas",
+            "nivel": "3"
+          },
+          {
+            "id": "67045",
+            "nombre": "Lectores de Código de Barras",
+            "nivel": "3"
+          },
+          {
+            "id": "67046",
+            "nombre": "Cajones de Efectivo",
+            "nivel": "3"
+          },
+          {
+            "id": "67047",
+            "nombre": "Contadoras y Detectoras de Billetes",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "67048",
+        "nombre": "Kioscos de Autoservicio",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "67049",
+            "nombre": "Kioscos de Autopedido",
+            "nivel": "3"
+          },
+          {
+            "id": "67050",
+            "nombre": "Tótems Publicitarios y Kioscos Digitales",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "67051",
+        "nombre": "Etiquetas Electrónicas (ESL)",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "67052",
+            "nombre": "Etiquetas ESL",
+            "nivel": "3"
+          },
+          {
+            "id": "67053",
+            "nombre": "Displays de Anaquel",
+            "nivel": "3"
+          },
+          {
+            "id": "67054",
+            "nombre": "Gateways, Rieles y Accesorios ESL",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "67055",
+        "nombre": "Señalización Digital (Digital Signage)",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "67056",
+            "nombre": "Pantallas para Publicidad",
+            "nivel": "3"
+          },
+          {
+            "id": "67057",
+            "nombre": "Reproductores y Cajas de Signage",
+            "nivel": "3"
+          },
+          {
+            "id": "67058",
+            "nombre": "Posters LED",
+            "nivel": "3"
+          },
+          {
+            "id": "67059",
+            "nombre": "Smart TV para Negocios",
+            "nivel": "3"
+          },
+          {
+            "id": "67060",
+            "nombre": "Montajes y Soportes",
+            "nivel": "3"
+          },
+          {
+            "id": "67061",
+            "nombre": "Software y Licencias de Signage",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "67062",
+        "nombre": "Interactividad en Tienda (Nexmosphere)",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "68045",
+            "nombre": "Controladores",
+            "nivel": "3"
+          },
+          {
+            "id": "68046",
+            "nombre": "Kits y Accesorios",
+            "nivel": "3"
+          },
+          {
+            "id": "68047",
+            "nombre": "PDU NEO",
+            "nivel": "3"
+          },
+          {
+            "id": "68048",
+            "nombre": "Sensores",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "67065",
+        "nombre": "Conteo de Personas (People Counting) y Mapa de Calor (Heatmap)",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "67066",
+            "nombre": "Sensores de Conteo de Personas",
+            "nivel": "3"
+          },
+          {
+            "id": "67067",
+            "nombre": "Cámaras de Conteo de Personas",
+            "nivel": "3"
+          },
+          {
+            "id": "67068",
+            "nombre": "Cámaras y Software de Mapa de Calor (Heatmap)",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "67069",
+        "nombre": "Protección de Mercancía (EAS)",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "67070",
+            "nombre": "Antenas y Arcos EAS",
+            "nivel": "3"
+          },
+          {
+            "id": "67071",
+            "nombre": "Etiquetas y Tags EAS",
+            "nivel": "3"
+          },
+          {
+            "id": "67072",
+            "nombre": "Desactivadores y Removedores",
+            "nivel": "3"
+          },
+          {
+            "id": "67073",
+            "nombre": "Accesorios EAS",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "67074",
+        "nombre": "Restaurantes y Hospitalidad",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "67075",
+            "nombre": "Llamado de Meseros y Buscapersonas",
+            "nivel": "3"
+          },
+          {
+            "id": "67076",
+            "nombre": "Guía Turística e Intercom",
+            "nivel": "3"
+          },
+          {
+            "id": "67077",
+            "nombre": "Robots de Servicio",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "67078",
+        "nombre": "Ambientación Comercial",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "67079",
+            "nombre": "Difusores de Aromas",
+            "nivel": "3"
+          },
+          {
+            "id": "67080",
+            "nombre": "Audio Ambiental (Kits y Amplificadores Bluetooth)",
+            "nivel": "3"
+          }
+        ]
+      },
+      {
+        "id": "67081",
+        "nombre": "Radios para Tiendas y Restaurantes",
+        "nivel": "2",
+        "subcategorias": [
+          {
+            "id": "67082",
+            "nombre": "Radios Portátiles Compactos (Analógicos y DMR)",
+            "nivel": "3"
+          },
+          {
+            "id": "67083",
+            "nombre": "Diademas, Micrófonos y Cargadores",
+            "nivel": "3"
+          }
+        ]
+      }
+    ]
+  }
+]

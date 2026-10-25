@@ -1,0 +1,78 @@
+{
+    "id": "42",
+    "nombre": "Herramientas, Ferretería y Material Eléctrico",
+    "nivel": "1",
+    "origen": [],
+    "subcategorias": [
+        {
+            "id": "66925",
+            "nombre": "Herramienta de Mano",
+            "nivel": "2"
+        },
+        {
+            "id": "66932",
+            "nombre": "Herramienta Eléctrica",
+            "nivel": "2"
+        },
+        {
+            "id": "66938",
+            "nombre": "Medición, Prueba e Inspección",
+            "nivel": "2"
+        },
+        {
+            "id": "66946",
+            "nombre": "Ferretería y Consumibles",
+            "nivel": "2"
+        },
+        {
+            "id": "66949",
+            "nombre": "Tornillería y Fijación",
+            "nivel": "2"
+        },
+        {
+            "id": "66954",
+            "nombre": "Seguridad y EPP",
+            "nivel": "2"
+        },
+        {
+            "id": "66958",
+            "nombre": "Escaleras y Almacenamiento",
+            "nivel": "2"
+        },
+        {
+            "id": "66963",
+            "nombre": "Material Eléctrico (Casa Eléctrica)",
+            "nivel": "2"
+        },
+        {
+            "id": "66969",
+            "nombre": "Canalización (Conduit / Tubería)",
+            "nivel": "2"
+        },
+        {
+            "id": "66975",
+            "nombre": "Charolas, Canaletas y Ductos",
+            "nivel": "2"
+        },
+        {
+            "id": "66981",
+            "nombre": "Gabinetes y Cajas (NEMA / Registros)",
+            "nivel": "2"
+        },
+        {
+            "id": "66987",
+            "nombre": "Candados y Cerraduras Mecánicas",
+            "nivel": "2"
+        },
+        {
+            "id": "66991",
+            "nombre": "Iluminación",
+            "nivel": "2"
+        },
+        {
+            "id": "67024",
+            "nombre": "Aplicación Vehícular",
+            "nivel": "2"
+        }
+    ]
+}

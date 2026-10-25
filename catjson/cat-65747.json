@@ -1,0 +1,13 @@
+{
+    "id": "65747",
+    "nombre": "Marketing",
+    "nivel": "1",
+    "origen": [],
+    "subcategorias": [
+        {
+            "id": "65748",
+            "nombre": "Material",
+            "nivel": "2"
+        }
+    ]
+}

@@ -1,0 +1,83 @@
+{
+    "id": "38",
+    "nombre": "Detección de Fuego",
+    "nivel": "1",
+    "origen": [],
+    "subcategorias": [
+        {
+            "id": "443",
+            "nombre": "Paneles de Incendio",
+            "nivel": "2"
+        },
+        {
+            "id": "444",
+            "nombre": "Fuentes de  Alimentación",
+            "nivel": "2"
+        },
+        {
+            "id": "445",
+            "nombre": "Accesorios y Dispositivos Direccionables",
+            "nivel": "2"
+        },
+        {
+            "id": "448",
+            "nombre": "Detectores Autónomos",
+            "nivel": "2"
+        },
+        {
+            "id": "449",
+            "nombre": "Cables",
+            "nivel": "2"
+        },
+        {
+            "id": "467",
+            "nombre": "Protección Contra Descargas y Sobretensiones",
+            "nivel": "2"
+        },
+        {
+            "id": "475",
+            "nombre": "Aplicaciones Especiales",
+            "nivel": "2"
+        },
+        {
+            "id": "497",
+            "nombre": "Extinción de Incendio",
+            "nivel": "2"
+        },
+        {
+            "id": "517",
+            "nombre": "Panel para Aplicaciones Marinas",
+            "nivel": "2"
+        },
+        {
+            "id": "536",
+            "nombre": "Notificación y Voceo",
+            "nivel": "2"
+        },
+        {
+            "id": "543",
+            "nombre": "Señalamientos",
+            "nivel": "2"
+        },
+        {
+            "id": "65726",
+            "nombre": "Sistemas de Emergencia",
+            "nivel": "2"
+        },
+        {
+            "id": "65852",
+            "nombre": "Dispositivos Convencionales",
+            "nivel": "2"
+        },
+        {
+            "id": "65955",
+            "nombre": "Probadores",
+            "nivel": "2"
+        },
+        {
+            "id": "66705",
+            "nombre": "HIKFIRE - Prevención de Incendio by Hikvision",
+            "nivel": "2"
+        }
+    ]
+}

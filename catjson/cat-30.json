@@ -1,0 +1,58 @@
+{
+    "id": "30",
+    "nombre": "Energía y Climatización",
+    "nivel": "1",
+    "origen": [],
+    "subcategorias": [
+        {
+            "id": "66404",
+            "nombre": "Baterías y Cargadores",
+            "nivel": "2"
+        },
+        {
+            "id": "66409",
+            "nombre": "Energía Solar",
+            "nivel": "2"
+        },
+        {
+            "id": "66424",
+            "nombre": "Calidad de la Energía",
+            "nivel": "2"
+        },
+        {
+            "id": "66442",
+            "nombre": "Fuentes de Poder",
+            "nivel": "2"
+        },
+        {
+            "id": "66447",
+            "nombre": "Respaldo de Energía",
+            "nivel": "2"
+        },
+        {
+            "id": "66451",
+            "nombre": "Climatización / Refrigeración",
+            "nivel": "2"
+        },
+        {
+            "id": "66470",
+            "nombre": "PDU",
+            "nivel": "2"
+        },
+        {
+            "id": "66495",
+            "nombre": "Gabinetes y Cajas",
+            "nivel": "2"
+        },
+        {
+            "id": "66691",
+            "nombre": "Bombeo",
+            "nivel": "2"
+        },
+        {
+            "id": "67004",
+            "nombre": "Protectores Sobretensiones",
+            "nivel": "2"
+        }
+    ]
+}

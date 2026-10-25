@@ -1,0 +1,49 @@
+{
+    "id": "283",
+    "nombre": "Antenas",
+    "nivel": "2",
+    "origen": [
+        {
+            "id": "25",
+            "nombre": "Radiocomunicación",
+            "nivel": "1"
+        }
+    ],
+    "subcategorias": [
+        {
+            "id": "1807",
+            "nombre": "Móviles",
+            "nivel": "3"
+        },
+        {
+            "id": "1814",
+            "nombre": "Marinas",
+            "nivel": "3"
+        },
+        {
+            "id": "1830",
+            "nombre": "Para Cobertura Celular",
+            "nivel": "3"
+        },
+        {
+            "id": "1838",
+            "nombre": "Radios Portátiles",
+            "nivel": "3"
+        },
+        {
+            "id": "3110",
+            "nombre": "Otras Antenas (CB, GPS, Aéreas, TV)",
+            "nivel": "3"
+        },
+        {
+            "id": "3111",
+            "nombre": "Estaciones Base y Repetidores",
+            "nivel": "3"
+        },
+        {
+            "id": "3113",
+            "nombre": "Montajes, Mástiles y Accesorios de Antena",
+            "nivel": "3"
+        }
+    ]
+}

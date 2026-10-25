@@ -1,0 +1,88 @@
+{
+    "id": "26",
+    "nombre": "Redes e IT",
+    "nivel": "1",
+    "origen": [],
+    "subcategorias": [
+        {
+            "id": "287",
+            "nombre": "Herramientas",
+            "nivel": "2"
+        },
+        {
+            "id": "294",
+            "nombre": "Networking",
+            "nivel": "2"
+        },
+        {
+            "id": "301",
+            "nombre": "VoIP - Telefonía IP - Videoconferencia",
+            "nivel": "2"
+        },
+        {
+            "id": "338",
+            "nombre": "Antenas",
+            "nivel": "2"
+        },
+        {
+            "id": "403",
+            "nombre": "Torres y Mástiles",
+            "nivel": "2"
+        },
+        {
+            "id": "509",
+            "nombre": "Racks y Gabinetes",
+            "nivel": "2"
+        },
+        {
+            "id": "518",
+            "nombre": "Protección Contra Descargas",
+            "nivel": "2"
+        },
+        {
+            "id": "528",
+            "nombre": "UPS / Respaldo",
+            "nivel": "2"
+        },
+        {
+            "id": "65877",
+            "nombre": "Enlaces PtP y PtMP",
+            "nivel": "2"
+        },
+        {
+            "id": "65878",
+            "nombre": "Enlaces de Backhaul",
+            "nivel": "2"
+        },
+        {
+            "id": "65879",
+            "nombre": "Redes WiFi",
+            "nivel": "2"
+        },
+        {
+            "id": "65918",
+            "nombre": "Cobertura para Celular 4G LTE, 3G y Voz",
+            "nivel": "2"
+        },
+        {
+            "id": "66097",
+            "nombre": "Redes FTTH/PON",
+            "nivel": "2"
+        },
+        {
+            "id": "66663",
+            "nombre": "Equipo de Cómputo",
+            "nivel": "2"
+        },
+        {
+            "id": "66672",
+            "nombre": "Almacenamiento",
+            "nivel": "2"
+        },
+        {
+            "id": "66680",
+            "nombre": "Conectividad y Cables",
+            "nivel": "2"
+        }
+    ]
+}

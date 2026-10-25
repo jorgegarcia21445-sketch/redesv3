@@ -1,0 +1,108 @@
+{
+    "id": "25",
+    "nombre": "Radiocomunicación",
+    "nivel": "1",
+    "origen": [],
+    "subcategorias": [
+        {
+            "id": "262",
+            "nombre": "Accesorios para Motorola",
+            "nivel": "2"
+        },
+        {
+            "id": "263",
+            "nombre": "Accesorios para ICOM",
+            "nivel": "2"
+        },
+        {
+            "id": "264",
+            "nombre": "Accesorios para KENWOOD",
+            "nivel": "2"
+        },
+        {
+            "id": "266",
+            "nombre": "Accesorios para Hytera (HYT)",
+            "nivel": "2"
+        },
+        {
+            "id": "267",
+            "nombre": "Accesorios para Otras Marcas",
+            "nivel": "2"
+        },
+        {
+            "id": "271",
+            "nombre": "Radios ICOM Aéreos",
+            "nivel": "2"
+        },
+        {
+            "id": "281",
+            "nombre": "Aplicaciones y Soluciones",
+            "nivel": "2"
+        },
+        {
+            "id": "283",
+            "nombre": "Antenas",
+            "nivel": "2"
+        },
+        {
+            "id": "291",
+            "nombre": "Energía y Protección Eléctrica",
+            "nivel": "2"
+        },
+        {
+            "id": "331",
+            "nombre": "Cables",
+            "nivel": "2"
+        },
+        {
+            "id": "404",
+            "nombre": "Torres y Mástiles",
+            "nivel": "2"
+        },
+        {
+            "id": "531",
+            "nombre": "Radios Amateur",
+            "nivel": "2"
+        },
+        {
+            "id": "533",
+            "nombre": "Radios Comerciales",
+            "nivel": "2"
+        },
+        {
+            "id": "549",
+            "nombre": "Racks y Gabinetes",
+            "nivel": "2"
+        },
+        {
+            "id": "65713",
+            "nombre": "Filtros y Sistemas en RF",
+            "nivel": "2"
+        },
+        {
+            "id": "65718",
+            "nombre": "Conectores y Adaptadores",
+            "nivel": "2"
+        },
+        {
+            "id": "65772",
+            "nombre": "Refacciones",
+            "nivel": "2"
+        },
+        {
+            "id": "65921",
+            "nombre": "Cobertura Celular 5G, 4G, 3G y Voz",
+            "nivel": "2"
+        },
+        {
+            "id": "66088",
+            "nombre": "Radios LTE, IP/WiFi y Satelitales",
+            "nivel": "2"
+        },
+        {
+            "id": "66113",
+            "nombre": "Soluciones Marinas",
+            "nivel": "2"
+        }
+    ]
+}

@@ -1,0 +1,53 @@
+{
+    "id": "65811",
+    "nombre": "Cableado Estructurado",
+    "nivel": "1",
+    "origen": [],
+    "subcategorias": [
+        {
+            "id": "65812",
+            "nombre": "Cable - Bobinas",
+            "nivel": "2"
+        },
+        {
+            "id": "65813",
+            "nombre": "Cableado de Cobre",
+            "nivel": "2"
+        },
+        {
+            "id": "65814",
+            "nombre": "Fibra Óptica",
+            "nivel": "2"
+        },
+        {
+            "id": "65815",
+            "nombre": "Racks y Gabinetes",
+            "nivel": "2"
+        },
+        {
+            "id": "65816",
+            "nombre": "Canalización",
+            "nivel": "2"
+        },
+        {
+            "id": "65843",
+            "nombre": "Charola",
+            "nivel": "2"
+        },
+        {
+            "id": "65915",
+            "nombre": "Conectores",
+            "nivel": "2"
+        },
+        {
+            "id": "66054",
+            "nombre": "PDU",
+            "nivel": "2"
+        },
+        {
+            "id": "67008",
+            "nombre": "Transceptores de Fibra / (Mini-GBICs)",
+            "nivel": "2"
+        }
+    ]
+}
