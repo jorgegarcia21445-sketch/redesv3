@@ -695,6 +695,59 @@ function productosFiltrados() {
   return lista;
 }
 
+// Products shown anywhere on the page, so "Comprar" and "Poner al carrito" find them
+const productosMostrados = new Map();
+function recordarProducto(p) {
+  if (p && p.producto_id != null) productosMostrados.set(String(p.producto_id), p);
+}
+function buscarProductoMostrado(id) {
+  return (
+    productosMostrados.get(String(id)) ||
+    (vista.productos || []).find((x) => String(x.producto_id) === String(id)) ||
+    null
+  );
+}
+
+// One product card (used by the catalog, the search and the home page)
+function htmlTarjeta(p) {
+  recordarProducto(p);
+      const precio = htmlPrecio(p);
+  const stock = Number(p.total_existencia) || 0;
+  const asunto = "Cotización: " + (p.modelo || "") + " " + (p.marca || "");
+  const cuerpo =
+    "Hola, quisiera cotizar:\n" + (p.titulo || "") +
+    "\nModelo: " + (p.modelo || "") +
+    "\nMarca: " + (p.marca || "");
+  const mailto =
+    "mailto:" + CORREO_VENTAS +
+    "?subject=" + encodeURIComponent(asunto) +
+    "&body=" + encodeURIComponent(cuerpo);
+
+  return `
+    <article class="pc-card">
+      <div class="pc-img">
+        <img src="${esc(p.img_portada)}" alt="${esc(p.titulo)}" loading="lazy" decoding="async" onerror="this.style.visibility='hidden'">
+        ${precio.descuento > 0 ? `<span class="pc-badge">Promoción -${precio.descuento}%</span>` : ""}
+      </div>
+      <div class="pc-body">
+        <span class="pc-brand">${esc(p.marca)}</span>
+        <h3 class="pc-title">${esc(p.titulo)}</h3>
+        <span class="pc-model">Modelo: ${esc(p.modelo)}</span>
+        <strong class="pc-price">${precio.html}</strong>
+        <span class="pc-stock ${stock > 0 ? "ok" : "no"}">${
+          stock > 0 ? "En existencia: " + stock : "Sin existencia"
+        }</span>
+        ${stock > 0 ? `<div class="pc-suc" data-suc="${esc(p.producto_id)}"><span class="pc-suc-cargando">Consultando sucursales…</span></div>
+        <button type="button" class="pc-disp" data-disp="${esc(p.producto_id)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Ver todas las sucursales</button>` : ""}
+                ${stock > 0 ? `<div class="pc-actions">
+      <button type="button" class="pc-btn pc-buy" data-buy="${esc(p.producto_id)}">Comprar</button>
+      <button type="button" class="pc-btn pc-add" data-add="${esc(p.producto_id)}">Poner al carrito</button>
+    </div>` : ""}
+    <a class="pc-quote-link" href="${mailto}">Cotizar por correo</a>
+      </div>
+    </article>`;
+}
+
 function pintarCatalogo() {
   const grid = document.getElementById("productosGrid");
   const info = document.getElementById("catalogoInfo");
@@ -721,44 +774,8 @@ function pintarCatalogo() {
     return;
   }
 
-  grid.innerHTML = pagina
-    .map((p) => {
-      const precio = htmlPrecio(p);
-      const stock = Number(p.total_existencia) || 0;
-      const asunto = "Cotización: " + (p.modelo || "") + " " + (p.marca || "");
-      const cuerpo =
-        "Hola, quisiera cotizar:\n" + (p.titulo || "") +
-        "\nModelo: " + (p.modelo || "") +
-        "\nMarca: " + (p.marca || "");
-      const mailto =
-        "mailto:" + CORREO_VENTAS +
-        "?subject=" + encodeURIComponent(asunto) +
-        "&body=" + encodeURIComponent(cuerpo);
-
-      return `
-        <article class="pc-card">
-          <div class="pc-img">
-            <img src="${esc(p.img_portada)}" alt="${esc(p.titulo)}" loading="lazy" decoding="async" onerror="this.style.visibility='hidden'">
-            ${precio.descuento > 0 ? `<span class="pc-badge">Promoción -${precio.descuento}%</span>` : ""}
-          </div>
-          <div class="pc-body">
-            <span class="pc-brand">${esc(p.marca)}</span>
-            <h3 class="pc-title">${esc(p.titulo)}</h3>
-            <span class="pc-model">Modelo: ${esc(p.modelo)}</span>
-            <strong class="pc-price">${precio.html}</strong>
-            <span class="pc-stock ${stock > 0 ? "ok" : "no"}">${
-              stock > 0 ? "En existencia: " + stock : "Sin existencia"
-            }</span>
-            ${stock > 0 ? `<button type="button" class="pc-disp" data-disp="${esc(p.producto_id)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Ver disponibilidad por estado</button>` : ""}
-                    ${stock > 0 ? `<div class="pc-actions">
-          <button type="button" class="pc-btn pc-buy" data-buy="${esc(p.producto_id)}">Comprar</button>
-          <button type="button" class="pc-btn pc-add" data-add="${esc(p.producto_id)}">Poner al carrito</button>
-        </div>` : ""}
-        <a class="pc-quote-link" href="${mailto}">Cotizar por correo</a>
-          </div>
-        </article>`;
-    })
-    .join("");
+  grid.innerHTML = pagina.map(htmlTarjeta).join("");
+  cargarSucursales(grid);
 
   pager.innerHTML =
     paginas > 1
@@ -1042,12 +1059,42 @@ function cfSelect(nombre, etiqueta, opciones) {
   return `<label class="cf-field"><span>${etiqueta}</span><select name="${nombre}" required><option value="">Selecciona…</option>${ops}</select></label>`;
 }
 
+// Signed-in customers: fill in empty fields from "Mi cuenta"
+function aplicarCuenta() {
+  const c = window.cuentaCliente;
+  if (!c) return;
+  const d = leerDatos();
+  const dir = (c.direcciones || [])[0];
+  if (dir && !d.calle) Object.assign(d, dir);
+  if (!d.email && c.email) d.email = c.email;
+  if (!d.telefono && c.telefono) d.telefono = c.telefono;
+  if (c.fiscal && c.fiscal.rfc && !d.rfc) Object.assign(d, c.fiscal);
+  guardarDatos(d);
+}
+
+function htmlDireccionesGuardadas() {
+  const c = window.cuentaCliente;
+  const lista = (c && c.direcciones) || [];
+  if (!lista.length) {
+    return c
+      ? `<p class="cf-guardadas-nota">¿Compras seguido? Guarda tus direcciones en <a href="#" data-cuenta-dir>Mi cuenta</a>.</p>`
+      : "";
+  }
+  return `<label class="cf-field cf-full cf-guardadas"><span>Usar una dirección guardada</span>
+      <select id="dirGuardada">
+        <option value="">Elegir…</option>
+        ${lista.map((d, i) => `<option value="${i}">${esc(d.nombre)} · ${esc(d.calle)} ${esc(d.numero)}, ${esc(d.ciudad)}</option>`).join("")}
+      </select></label>`;
+}
+
 function htmlFormulario() {
+  aplicarCuenta();
   const d = leerDatos();
   const fact = !!d.factura;
   return `
     <form id="datosForm" class="cp-card cf-card" autocomplete="on">
       <h3>Datos de entrega</h3>
+      ${htmlDireccionesGuardadas()}
       <div class="cf-grid">
         ${cfCampo("nombre", "Nombre completo", { cls: "cf-full", attrs: 'autocomplete="name"' })}
         ${cfCampo("telefono", "Teléfono (10 dígitos)", { tipo: "tel", attrs: 'minlength="10" autocomplete="tel"' })}
@@ -1281,7 +1328,7 @@ document.addEventListener("click", async (e) => {
   const id = boton.dataset.add || boton.dataset.buy;
   
   // Ensure we search using the correct property key (producto_id)
-  const p = (vista.productos || []).find((x) => String(x.producto_id) === String(id));
+  const p = buscarProductoMostrado(id);
   if (!p) return;
 
   if (add) {
@@ -1939,16 +1986,16 @@ async function abrirBusqueda(q) {
     }
     if (!lista.length) {
       await datosListos;
-      // without the server: also a different set every 2 days
-      const periodo = Math.floor((Date.now() - 6 * 3600000) / (2 * 86400000));
+      // without the server: also a different set every 6 hours
+      const periodo = Math.floor((Date.now() - 6 * 3600000) / (6 * 3600000));
       const buenos = listaProductos.filter(
         (p) => (Number(p.total_existencia) || 0) >= 5 && p.img_portada && !isNaN(precioBase(p).usd)
       );
-      const inicio = buenos.length ? (periodo * 8) % buenos.length : 0;
-      lista = buenos.slice(inicio, inicio + 8);
-      if (lista.length < 8) lista = lista.concat(buenos.slice(0, 8 - lista.length));
+      const inicio = buenos.length ? (periodo * 10) % buenos.length : 0;
+      lista = buenos.slice(inicio, inicio + 10);
+      if (lista.length < 10) lista = lista.concat(buenos.slice(0, 10 - lista.length));
     }
-    productos = lista.slice(0, 8);
+    productos = lista.slice(0, 10);
     if (productos.length < 4) return; // not enough to make a ring
     pintar();
     cont.hidden = false;
@@ -2096,7 +2143,7 @@ async function abrirBusqueda(q) {
   }
 
   async function abrir(id) {
-    const p = (vista.productos || []).find((x) => String(x.producto_id) === String(id));
+    const p = buscarProductoMostrado(id);
     titulo.textContent = "Disponibilidad" + (p && p.modelo ? " · " + p.modelo : "");
     total.textContent = p ? (Number(p.total_existencia) || 0) + " unidades" : "—";
     filtro.value = "";
@@ -2208,7 +2255,7 @@ async function abrirBusqueda(q) {
 
     if (!conSesion) {
       avatar.innerHTML = ICONO;
-      if (label.textContent.trim() !== "Iniciar Sesión" && !u.nombre) label.textContent = "Iniciar Sesión";
+      if (label.textContent.trim() !== "Iniciar Sesión") label.textContent = "Iniciar Sesión";
       document.getElementById("loginBtn").title = "";
     } else {
       const textoActual = label.textContent.trim();
@@ -2247,3 +2294,159 @@ async function abrirBusqueda(q) {
   new MutationObserver(pintar).observe(label, { childList: true, characterData: true, subtree: true });
   pintar();
 })();
+
+// =========================================================
+// Branch stock shown on each card, without clicking
+// Cards ask the server in groups when they come into view.
+// =========================================================
+const sucursalesCache = new Map(); // id -> { total, sucursales }
+const sucursalesPendientes = new Set();
+let sucursalesTimer = null;
+
+function pintarSucursalesEn(caja, info) {
+  const con = (info.sucursales || []).filter((s) => s.nuevo > 0).sort((a, b) => b.nuevo - a.nuevo);
+  if (!con.length) {
+    caja.innerHTML = '<span class="pc-suc-cargando">Stock en tránsito o bajo pedido</span>';
+    return;
+  }
+  const top = con.slice(0, 3);
+  caja.innerHTML =
+    top
+      .map((s) => `<span class="pc-suc-item" title="${esc(s.estado || s.sucursal)}">${esc(s.sucursal)} <b>${s.nuevo.toLocaleString("es-MX")}</b></span>`)
+      .join("") +
+    (con.length > 3 ? `<span class="pc-suc-mas">+${con.length - 3} sucursales</span>` : "");
+}
+
+async function pedirSucursales() {
+  sucursalesTimer = null;
+  const ids = Array.from(sucursalesPendientes).slice(0, 60);
+  ids.forEach((id) => sucursalesPendientes.delete(id));
+  if (!ids.length) return;
+  let datos = {};
+  try {
+    const r = await fetch(API_PAGOS + "/existencias-lote?ids=" + ids.join(","));
+    if (r.ok) datos = await r.json();
+  } catch (e) {
+    // server not reachable: the cards keep the total only
+  }
+  ids.forEach((id) => {
+    if (datos[id]) sucursalesCache.set(id, datos[id]);
+    document.querySelectorAll(`.pc-suc[data-suc="${id}"]`).forEach((caja) => {
+      if (datos[id]) pintarSucursalesEn(caja, datos[id]);
+      else caja.remove(); // no breakdown available: the "Ver todas" button still works
+    });
+  });
+  if (sucursalesPendientes.size) pedirSucursales();
+}
+
+const observadorSucursales =
+  "IntersectionObserver" in window
+    ? new IntersectionObserver(
+        (entradas) => {
+          entradas.forEach((e) => {
+            if (!e.isIntersecting) return;
+            observadorSucursales.unobserve(e.target);
+            const id = e.target.dataset.suc;
+            if (sucursalesCache.has(id)) return pintarSucursalesEn(e.target, sucursalesCache.get(id));
+            sucursalesPendientes.add(id);
+            if (!sucursalesTimer) sucursalesTimer = setTimeout(pedirSucursales, 150);
+          });
+        },
+        { rootMargin: "300px 0px" }
+      )
+    : null;
+
+function cargarSucursales(contenedor) {
+  if (!contenedor) return;
+  contenedor.querySelectorAll(".pc-suc[data-suc]").forEach((caja) => {
+    if (observadorSucursales) observadorSucursales.observe(caja);
+    else {
+      sucursalesPendientes.add(caja.dataset.suc);
+      if (!sucursalesTimer) sucursalesTimer = setTimeout(pedirSucursales, 150);
+    }
+  });
+}
+
+// =========================================================
+// Home page: "Productos en existencia" (no search needed)
+// =========================================================
+(function productosInicio() {
+  const grid = document.getElementById("inicioGrid");
+  const mas = document.getElementById("inicioMas");
+  const info = document.getElementById("inicioInfo");
+  if (!grid || !mas) return;
+  let pagina = 0;
+  let paginas = 1;
+  let cargando = false;
+
+  async function cargar() {
+    if (cargando || pagina >= paginas) return;
+    cargando = true;
+    mas.disabled = true;
+    mas.textContent = "Cargando…";
+    let d = null;
+    try {
+      const r = await fetch(API_PAGOS + "/en-existencia?pagina=" + (pagina + 1));
+      if (r.ok) d = await r.json();
+    } catch (e) {
+      // server not reachable: use the local list
+    }
+    if (!d) {
+      await datosListos;
+      const buenos = listaProductos.filter(
+        (p) => (Number(p.total_existencia) || 0) >= 5 && p.img_portada && !isNaN(precioBase(p).usd)
+      );
+      const desde = pagina * 12;
+      d = { total: buenos.length, paginas: Math.max(1, Math.ceil(buenos.length / 12)), productos: buenos.slice(desde, desde + 12) };
+    }
+    pagina += 1;
+    paginas = d.paginas || 1;
+    const temp = document.createElement("div");
+    temp.innerHTML = (d.productos || []).map(htmlTarjeta).join("");
+    const nuevos = Array.from(temp.children);
+    nuevos.forEach((n) => grid.appendChild(n));
+    cargarSucursales(grid);
+    if (info && d.total) info.textContent = d.total.toLocaleString("es-MX") + " productos con existencia · se renueva cada 6 horas";
+    if (!grid.children.length) grid.innerHTML = "<p>Pronto verás aquí nuestros productos.</p>";
+    mas.hidden = pagina >= paginas;
+    mas.disabled = false;
+    mas.textContent = "Ver más productos";
+    cargando = false;
+  }
+
+  mas.addEventListener("click", cargar);
+  // load when the section gets close to the screen
+  if ("IntersectionObserver" in window) {
+    const o = new IntersectionObserver((e) => {
+      if (e[0].isIntersecting) {
+        o.disconnect();
+        cargar();
+      }
+    }, { rootMargin: "400px 0px" });
+    o.observe(grid);
+  } else cargar();
+})();
+
+
+// pick a saved address in checkout
+document.addEventListener("change", (e) => {
+  if (e.target.id !== "dirGuardada" || e.target.value === "") return;
+  const dir = ((window.cuentaCliente || {}).direcciones || [])[Number(e.target.value)];
+  const f = document.getElementById("datosForm");
+  if (!dir || !f) return;
+  ["nombre", "telefono", "calle", "numero", "colonia", "cp", "ciudad", "estado", "referencias"].forEach((k) => {
+    if (f.elements[k] && dir[k] != null) f.elements[k].value = dir[k];
+  });
+  guardarDatosForm(f);
+  if (typeof enlazarCP === "function") enlazarCP("abrir");
+  if (typeof programarCotizacion === "function") programarCotizacion(0);
+});
+document.addEventListener("click", (e) => {
+  if (!e.target.closest("[data-cuenta-dir]")) return;
+  e.preventDefault();
+  if (window.abrirMiCuenta) window.abrirMiCuenta("direcciones");
+});
+// when the account finishes loading while the delivery form is open, refresh it once
+document.addEventListener("cuenta-lista", () => {
+  if (document.body.classList.contains("vista-carrito") && pasoCarrito === "datos" && !leerDatos().calle) pintarPaginaCarrito();
+});

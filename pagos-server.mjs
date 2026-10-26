@@ -95,7 +95,8 @@ const CATALOGO_URL = (process.env.CATALOGO_URL || "").replace(/\/+$/, "");
 let productos = new Map(); // producto_id -> product
 let indice = [];      // search index: [{ p, texto, modelo }]
 let destacados = [];  // products for the home page carousel
-let periodoDestacados = -1; // which 2-day period the featured products belong to
+let periodoDestacados = -1; // which 6-hour period the featured products belong to
+let enExistencia = { periodo: -1, lista: [] }; // home page in-stock list
 let tipoCambioActual = TIPO_CAMBIO_RESPALDO;
 let catalogoListo = false;
 
@@ -559,12 +560,13 @@ function construirIndice() {
   }
 
   periodoDestacados = -1; // pick the featured products again with the new catalog
+  enExistencia = { periodo: -1, lista: [] };
 }
 
-// ----- Featured products: a new set every 2 days -----
-const DIAS_POR_ROTACION = 2;
+// ----- Featured products: a new set every 6 hours -----
+const HORAS_POR_ROTACION = 6; // the carousel shows a new set every 6 hours
 
-// the same "random" order for everyone during the same 2 days
+// the same "random" order for everyone during the same 6 hours
 function mezclar(lista, semilla) {
   let a = semilla >>> 0;
   const azar = () => {
@@ -583,8 +585,8 @@ function mezclar(lista, semilla) {
 }
 
 function elegirDestacados() {
-  // counted from midnight Mexico City time (UTC-6)
-  const periodo = Math.floor((Date.now() - 6 * 3600000) / (DIAS_POR_ROTACION * 86400000));
+  // counted from midnight Mexico City time (UTC-6): 00:00, 06:00, 12:00, 18:00
+  const periodo = Math.floor((Date.now() - 6 * 3600000) / (HORAS_POR_ROTACION * 3600000));
   if (periodo === periodoDestacados && destacados.length) return destacados;
   periodoDestacados = periodo;
 
@@ -598,13 +600,13 @@ function elegirDestacados() {
   const marcas = new Set();
   const mezclados = mezclar(candidatos, periodo);
   for (const p of mezclados) {
-    if (elegidos.length >= 8) break;
+    if (elegidos.length >= 10) break;
     if (marcas.has(p.marca)) continue;
     marcas.add(p.marca);
     elegidos.push(p);
   }
   for (const p of mezclados) {
-    if (elegidos.length >= 8) break;
+    if (elegidos.length >= 10) break;
     if (!elegidos.includes(p)) elegidos.push(p);
   }
   destacados = elegidos;
@@ -776,6 +778,67 @@ app.get("/existencias/:id", async (req, res) => {
       codigo ? `Syscom respondió ${codigo}` : "no hubo conexión con Syscom";
     res.status(502).json({ error: `No se pudo consultar el desglose: ${motivo}.` });
   }
+});
+
+// Stock per branch for many products at once (one Syscom call for the whole page)
+// GET /existencias-lote?ids=1,2,3   ->  { "1": { total, sucursales: [...] }, ... }
+app.get("/existencias-lote", async (req, res) => {
+  if (demasiadas(req, "existencias-lote", 40)) return res.status(429).json({ error: "Demasiadas consultas" });
+  if (!SYSCOM_TOKEN) return res.status(503).json({ error: "Falta SYSCOM_TOKEN en el servidor." });
+
+  const ids = Array.from(
+    new Set(String(req.query.ids || "").split(",").map((x) => x.trim()).filter((x) => /^\d{1,10}$/.test(x) && productos.has(x)))
+  ).slice(0, 60);
+  const salida = {};
+  const faltan = [];
+  for (const id of ids) {
+    const g = cacheExistencias.get(id);
+    if (g && Date.now() - g.t < 10 * 60000) salida[id] = g.d;
+    else faltan.push(id);
+  }
+
+  if (faltan.length) {
+    try {
+      let d = await syscomGet(`/productos/${faltan.join(",")}?inventarios=true`);
+      if (!Array.isArray(d)) d = [d];
+      for (const p of d) {
+        const id = String(p && p.producto_id);
+        if (!faltan.includes(id)) continue;
+        const sucursales = sucursalesDe(p.existencia);
+        const total = numero(p.total_existencia) || sucursales.reduce((s, f) => s + f.nuevo, 0);
+        const info = { id, total, sucursales };
+        cacheExistencias.set(id, { t: Date.now(), d: info });
+        salida[id] = info;
+      }
+    } catch (e) {
+      console.error("Existencias (lote) Syscom:", e.message);
+      if (!Object.keys(salida).length) return res.status(502).json({ error: "No se pudo consultar el inventario" });
+    }
+  }
+  res.json(salida);
+});
+
+// In-stock products for the home page, a different mix every 6 hours
+// GET /en-existencia?pagina=1  ->  { total, paginas, productos }
+app.get("/en-existencia", (req, res) => {
+  if (!catalogoListo) return res.status(503).json({ error: "Tienda iniciando" });
+  const POR_PAGINA = 12;
+  const periodo = Math.floor((Date.now() - 6 * 3600000) / (HORAS_POR_ROTACION * 3600000));
+  if (!enExistencia.lista.length || enExistencia.periodo !== periodo) {
+    const buenos = indice
+      .map((x) => x.p)
+      .filter((p) => (Number(p.total_existencia) || 0) >= 5 && p.img_portada && !isNaN(precioBaseUSD(p).usd));
+    enExistencia = { periodo, lista: mezclar(buenos, periodo + 7919) };
+  }
+  const total = enExistencia.lista.length;
+  const paginas = Math.max(1, Math.ceil(total / POR_PAGINA));
+  const pagina = Math.min(Math.max(parseInt(req.query.pagina, 10) || 1, 1), paginas);
+  res.json({
+    total,
+    paginas,
+    pagina,
+    productos: enExistencia.lista.slice((pagina - 1) * POR_PAGINA, pagina * POR_PAGINA).map(paraPagina),
+  });
 });
 
 // ----- Shipping quote for the checkout page -----
