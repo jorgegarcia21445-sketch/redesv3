@@ -95,7 +95,7 @@ const CATALOGO_URL = (process.env.CATALOGO_URL || "").replace(/\/+$/, "");
 let productos = new Map(); // producto_id -> product
 let indice = [];      // search index: [{ p, texto, modelo }]
 let destacados = [];  // products for the home page carousel
-let periodoDestacados = -1; // which 6-hour period the featured products belong to
+let periodoDestacados = -1; // which 30-minute period the featured products belong to
 let enExistencia = { periodo: -1, lista: [] }; // home page in-stock list
 let tipoCambioActual = TIPO_CAMBIO_RESPALDO;
 let catalogoListo = false;
@@ -563,10 +563,10 @@ function construirIndice() {
   enExistencia = { periodo: -1, lista: [] };
 }
 
-// ----- Featured products: a new set every 6 hours -----
-const HORAS_POR_ROTACION = 6; // the carousel shows a new set every 6 hours
+// ----- Featured products: a new set every 30 minutes -----
+const MINUTOS_POR_ROTACION = 30; // carousel and home products: a new random set every 30 minutes
 
-// the same "random" order for everyone during the same 6 hours
+// the same "random" order for everyone during the same 30 minutes
 function mezclar(lista, semilla) {
   let a = semilla >>> 0;
   const azar = () => {
@@ -585,8 +585,7 @@ function mezclar(lista, semilla) {
 }
 
 function elegirDestacados() {
-  // counted from midnight Mexico City time (UTC-6): 00:00, 06:00, 12:00, 18:00
-  const periodo = Math.floor((Date.now() - 6 * 3600000) / (HORAS_POR_ROTACION * 3600000));
+  const periodo = Math.floor(Date.now() / (MINUTOS_POR_ROTACION * 60000));
   if (periodo === periodoDestacados && destacados.length) return destacados;
   periodoDestacados = periodo;
 
@@ -887,12 +886,12 @@ app.get("/relacionados/:id", (req, res) => {
   res.json(salida);
 });
 
-// In-stock products for the home page, a different mix every 6 hours
+// In-stock products for the home page, a different mix every 30 minutes
 // GET /en-existencia?pagina=1  ->  { total, paginas, productos }
 app.get("/en-existencia", (req, res) => {
   if (!catalogoListo) return res.status(503).json({ error: "Tienda iniciando" });
   const POR_PAGINA = 12;
-  const periodo = Math.floor((Date.now() - 6 * 3600000) / (HORAS_POR_ROTACION * 3600000));
+  const periodo = Math.floor(Date.now() / (MINUTOS_POR_ROTACION * 60000));
   if (!enExistencia.lista.length || enExistencia.periodo !== periodo) {
     const buenos = indice
       .map((x) => x.p)

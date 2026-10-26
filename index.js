@@ -1980,8 +1980,8 @@ async function abrirBusqueda(q) {
     }
     if (!lista.length) {
       await datosListos;
-      // without the server: also a different set every 6 hours
-      const periodo = Math.floor((Date.now() - 6 * 3600000) / (6 * 3600000));
+      // without the server: also a different set every 30 minutes
+      const periodo = Math.floor(Date.now() / (30 * 60000));
       await obtenerListaProductos();
       const buenos = listaProductos.filter(
         (p) => (Number(p.total_existencia) || 0) >= 5 && p.img_portada && !isNaN(precioBase(p).usd)
@@ -2392,8 +2392,11 @@ function cargarSucursales(contenedor) {
       const buenos = listaProductos.filter(
         (p) => (Number(p.total_existencia) || 0) >= 5 && p.img_portada && !isNaN(precioBase(p).usd)
       );
+      // a different starting point every 30 minutes
+      const giro = buenos.length ? (Math.floor(Date.now() / (30 * 60000)) * 12) % buenos.length : 0;
+      const ordenados = buenos.slice(giro).concat(buenos.slice(0, giro));
       const desde = pagina * 12;
-      d = { total: buenos.length, paginas: Math.max(1, Math.ceil(buenos.length / 12)), productos: buenos.slice(desde, desde + 12) };
+      d = { total: buenos.length, paginas: Math.max(1, Math.ceil(buenos.length / 12)), productos: ordenados.slice(desde, desde + 12) };
     }
     pagina += 1;
     paginas = d.paginas || 1;
@@ -2402,7 +2405,7 @@ function cargarSucursales(contenedor) {
     temp.innerHTML = (d.productos || []).map(htmlTarjeta).join("");
     const nuevos = Array.from(temp.children);
     nuevos.forEach((n) => grid.appendChild(n));
-    if (info && d.total) info.textContent = d.total.toLocaleString("es-MX") + " productos con existencia · se renueva cada 6 horas";
+    if (info && d.total) info.textContent = d.total.toLocaleString("es-MX") + " productos con existencia";
     if (!grid.children.length) grid.innerHTML = "<p>Pronto verás aquí nuestros productos.</p>";
     mas.hidden = pagina >= paginas;
     mas.disabled = false;
