@@ -2787,3 +2787,22 @@ body > header{ position:relative !important; top:auto; }
 }
 .legal .legal-nav a{ text-decoration:none; color:var(--slate); }
 .legal .legal-nav a:hover, .legal .legal-nav a.active{ color:var(--white); }
+
+/* Client logos that come with a solid (white) background instead of a transparent one:
+   invert the colors, then "screen" makes the now-black background disappear */
+.client img.logo-con-fondo{
+  filter:grayscale(1) invert(1) contrast(1.4);
+  mix-blend-mode:screen;
+  opacity:.8;
+}
+.client:hover img.logo-con-fondo{ opacity:1; }
+
+/* Axtel: the image has a lot of empty space around the logo, so zoom it in */
+.client{ overflow:hidden; }
+.client img.logo-con-fondo{
+  max-height:none;
+  max-width:none;
+  height:42px;
+  width:auto;
+  transform:scale(3);
+}
