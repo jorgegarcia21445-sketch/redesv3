@@ -818,6 +818,75 @@ app.get("/existencias-lote", async (req, res) => {
   res.json(salida);
 });
 
+// "Va bien con…": complementary products for one product
+// Each rule: if the product's title matches "si", suggest products that match each "sugerir" pattern.
+const COMPLEMENTOS = [
+  { si: /\b(camara|bala|domo|turret|ptz|eyeball)\b/, sugerir: [/\b(nvr|dvr|xvr)\b/, /disco duro|\bhdd\b/, /fuente de (poder|alimentacion)/, /\bbalun|transceptor/, /cable utp|bobina/, /switch poe/] },
+  { si: /\b(nvr|dvr|xvr)\b/, sugerir: [/\b(camara|bala|domo|turret)\b/, /disco duro|\bhdd\b/, /switch poe/, /cable utp|bobina/, /monitor/] },
+  { si: /\bswitch\b/, sugerir: [/cable utp|bobina/, /conector rj45|plug rj45/, /patch cord/, /gabinete|rack/, /access point|punto de acceso/] },
+  { si: /access point|punto de acceso/, sugerir: [/switch poe/, /inyector poe/, /cable utp|bobina/, /conector rj45|plug rj45/] },
+  { si: /cable utp|bobina/, sugerir: [/conector rj45|plug rj45/, /pinza|ponchadora/, /\bjack\b/, /patch panel/, /probador|tester/] },
+  { si: /fibra optica|fibra/, sugerir: [/conector|fast connector/, /cleaver|cortadora/, /distribuidor|odf/, /jumper|patch cord/, /fusionadora/] },
+  { si: /panel de alarma|alarma/, sugerir: [/sensor|detector/, /contacto magnetico/, /sirena/, /teclado/, /bateria/] },
+  { si: /control de acceso|lectora|cerradura/, sugerir: [/cerradura|electroiman/, /boton de salida/, /fuente de (poder|alimentacion)/, /tarjeta|tag/] },
+];
+
+function mejorPara(patron, excluir, marca) {
+  let mejor = null;
+  let puntos = -1;
+  for (const x of indice) {
+    const p = x.p;
+    if (excluir.has(String(p.producto_id))) continue;
+    if (!patron.test(x.texto)) continue;
+    const stock = Number(p.total_existencia) || 0;
+    if (stock <= 0 || !p.img_portada || isNaN(precioBaseUSD(p).usd)) continue;
+    const pts = (p.marca === marca ? 1000 : 0) + Math.min(stock, 999);
+    if (pts > puntos) {
+      puntos = pts;
+      mejor = p;
+    }
+  }
+  return mejor;
+}
+
+const cacheRelacionados = new Map();
+app.get("/relacionados/:id", (req, res) => {
+  if (!catalogoListo) return res.status(503).json({ error: "Tienda iniciando" });
+  const id = String(req.params.id || "");
+  const p = productos.get(id);
+  if (!p) return res.status(404).json({ error: "Producto no encontrado" });
+  if (cacheRelacionados.has(id)) return res.json(cacheRelacionados.get(id));
+
+  const texto = sinAcento([p.titulo, p.modelo].join(" "));
+  const excluir = new Set([id]);
+  const lista = [];
+  const regla = COMPLEMENTOS.find((r) => r.si.test(texto));
+  for (const patron of (regla && regla.sugerir) || []) {
+    const q = mejorPara(patron, excluir, p.marca);
+    if (q) {
+      lista.push(q);
+      excluir.add(String(q.producto_id));
+    }
+    if (lista.length >= 6) break;
+  }
+  // fill with similar products of the same brand
+  if (lista.length < 4) {
+    const primera = (texto.match(/[a-z]{4,}/) || [""])[0];
+    for (const x of indice) {
+      if (lista.length >= 6) break;
+      const q = x.p;
+      if (excluir.has(String(q.producto_id)) || q.marca !== p.marca || !x.texto.includes(primera)) continue;
+      if ((Number(q.total_existencia) || 0) <= 0 || !q.img_portada) continue;
+      lista.push(q);
+      excluir.add(String(q.producto_id));
+    }
+  }
+  const salida = { productos: lista.map(paraPagina) };
+  if (cacheRelacionados.size > 5000) cacheRelacionados.clear();
+  cacheRelacionados.set(id, salida);
+  res.json(salida);
+});
+
 // In-stock products for the home page, a different mix every 6 hours
 // GET /en-existencia?pagina=1  ->  { total, paginas, productos }
 app.get("/en-existencia", (req, res) => {

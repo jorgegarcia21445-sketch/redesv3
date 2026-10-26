@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Cómo hacer válida la garantía o devolver un producto comprado en SoluTelecom.">
+  <meta name="theme-color" content="#0c0c0e">
+  <title>Garantías y devoluciones | SoluTelecom</title>
+  <link rel="icon" href="photos/favicon-32x32.png" sizes="any">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body class="legal-page">
+  <header class="legal-top">
+    <a href="index.html" class="brand" aria-label="SoluTelecom, inicio">
+      <img class="brand-logo" src="photos/solutelecom-logo-transparent.png" alt="SoluTelecom" width="800" height="192">
+    </a>
+    <a href="index.html" class="btn btn-outline btn-sm">← Volver a la tienda</a>
+  </header>
+  <main class="legal">
+    <nav class="legal-nav" aria-label="Documentos legales">
+      <a href="privacidad.html">Aviso de privacidad</a>
+      <a href="terminos.html">Términos y condiciones</a>
+      <a href="garantias.html">Garantías y devoluciones</a>
+      <a href="envios.html">Envíos</a>
+    </nav>
+    <article>
+      <span class="tag">Información legal</span>
+      <h1>Garantías y devoluciones</h1>
+      <p class="legal-fecha">Última actualización: 26 de octubre de 2026</p>
+
+      <h2>Garantía</h2>
+      <p>Todos los productos que vendemos son nuevos y originales, y tienen la <strong>garantía del fabricante</strong>. El plazo depende de cada marca y producto; nunca será menor al que establece la Ley Federal de Protección al Consumidor. <mark class="pendiente">[Indica aquí el plazo general, p. ej. “de 1 a 3 años según la marca”]</mark></p>
+      <p><strong>SoluTelecom es tu contacto para cualquier garantía:</strong> tú tratas solo con nosotros y nosotros gestionamos el trámite con nuestro proveedor y el fabricante.</p>
+
+      <h3>Qué cubre</h3>
+      <ul><li>Defectos de fabricación y fallas de funcionamiento bajo uso normal.</li></ul>
+      <h3>Qué no cubre</h3>
+      <ul>
+        <li>Daños por golpes, humedad, mal uso o instalación incorrecta.</li>
+        <li>Daños por variaciones de voltaje o descargas eléctricas.</li>
+        <li>Productos abiertos, modificados o reparados por terceros, o con sello o número de serie alterado.</li>
+        <li>Desgaste normal y consumibles.</li>
+      </ul>
+
+      <h3>Cómo hacerla válida</h3>
+      <ol>
+        <li>Escríbenos por <a href="https://wa.me/523335034338">WhatsApp</a> o a <a href="mailto:solutelecom2025@gmail.com">solutelecom2025@gmail.com</a> con tu <strong>número de pedido</strong>, el modelo y una descripción, foto o video de la falla.</li>
+        <li>Revisamos el caso contigo; muchas fallas se resuelven con soporte a distancia.</li>
+        <li>Si procede, te indicamos cómo enviar el producto. <strong>El trámite de garantía no tiene costo para ti.</strong></li>
+        <li>El producto se diagnostica y, según el caso, se repara, se reemplaza o se te reembolsa, conforme a la ley.</li>
+      </ol>
+      <p><mark class="pendiente">[Tiempo aproximado de respuesta, p. ej. “El diagnóstico tarda de 10 a 20 días hábiles”]</mark></p>
+
+      <h2>Devoluciones</h2>
+      <ul>
+        <li>Tienes <strong>5 días hábiles</strong> a partir de que recibes tu pedido para devolverlo, sin necesidad de explicar el motivo.</li>
+        <li>El producto debe estar <strong>sin usar, completo y en su empaque original</strong>, con todos sus accesorios y manuales.</li>
+        <li>Si el producto llegó dañado, incompleto o no es el que pediste, avísanos en las primeras 48 horas con fotos del paquete y del producto; nosotros cubrimos el envío de regreso y te enviamos el correcto o te reembolsamos.</li>
+        <li>En devoluciones por cambio de opinión, el costo del envío de regreso corre por tu cuenta <mark class="pendiente">[confirmar]</mark>.</li>
+        <li>El reembolso se hace por el mismo medio de pago, en un máximo de <mark class="pendiente">[10]</mark> días hábiles después de recibir y revisar el producto.</li>
+      </ul>
+
+      <div class="legal-contacto">
+        <h2>¿Dudas?</h2>
+        <p>Escríbenos a <a href="mailto:solutelecom2025@gmail.com">solutelecom2025@gmail.com</a>, por <a href="https://wa.me/523335034338">WhatsApp</a> o llámanos al 33 21 86 58 21.</p>
+      </div>
+    </article>
+  </main>
+  <footer class="legal-pie">© <span id="year">2026</span> SoluTelecom · <a href="privacidad.html">Privacidad</a> · <a href="terminos.html">Términos</a> · <a href="garantias.html">Garantías</a> · <a href="envios.html">Envíos</a></footer>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    document.querySelectorAll(".legal-nav a").forEach(function (a) {
+      if (location.pathname.endsWith(a.getAttribute("href"))) a.classList.add("active");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Condiciones de compra en la tienda en línea de SoluTelecom.">
+  <meta name="theme-color" content="#0c0c0e">
+  <title>Términos y condiciones | SoluTelecom</title>
+  <link rel="icon" href="photos/favicon-32x32.png" sizes="any">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body class="legal-page">
+  <header class="legal-top">
+    <a href="index.html" class="brand" aria-label="SoluTelecom, inicio">
+      <img class="brand-logo" src="photos/solutelecom-logo-transparent.png" alt="SoluTelecom" width="800" height="192">
+    </a>
+    <a href="index.html" class="btn btn-outline btn-sm">← Volver a la tienda</a>
+  </header>
+  <main class="legal">
+    <nav class="legal-nav" aria-label="Documentos legales">
+      <a href="privacidad.html">Aviso de privacidad</a>
+      <a href="terminos.html">Términos y condiciones</a>
+      <a href="garantias.html">Garantías y devoluciones</a>
+      <a href="envios.html">Envíos</a>
+    </nav>
+    <article>
+      <span class="tag">Información legal</span>
+      <h1>Términos y condiciones</h1>
+      <p class="legal-fecha">Última actualización: 26 de octubre de 2026</p>
+
+      <p>Estos términos regulan las compras en <strong>solutelecom.mx</strong>, operada por <mark class="pendiente">[Razón social completa, p. ej. SOLUTELECOM S.A. de C.V.]</mark> (SoluTelecom), RFC <mark class="pendiente">SOL220908QU7 (verificar)</mark>, con domicilio en Progreso, Monterrey, Nuevo León, C.P. 64420 <mark class="pendiente">[calle y número]</mark>. Al comprar aceptas estos términos, nuestro <a href="privacidad.html">aviso de privacidad</a>, la <a href="garantias.html">política de garantías y devoluciones</a> y la <a href="envios.html">política de envíos</a>.</p>
+
+      <h2>Precios</h2>
+      <ul>
+        <li>Todos los precios están en <strong>pesos mexicanos e incluyen IVA</strong>.</li>
+        <li>Muchos productos tienen precio de origen en dólares; el precio en pesos se actualiza con el tipo de cambio del día. El precio que pagas es el que aparece al confirmar tu compra.</li>
+        <li>El costo de envío se calcula con tu dirección antes de pagar y se muestra por separado.</li>
+        <li>Si un precio aparece con un error evidente, te avisaremos antes de surtir y podrás confirmar al precio correcto o cancelar con reembolso total.</li>
+      </ul>
+
+      <h2>Existencias</h2>
+      <p>Las existencias se consultan en tiempo real con nuestro proveedor mayorista, pero pueden agotarse entre que agregas un producto y pagas. Si algún producto ya no está disponible después de tu pago, te ofreceremos un producto equivalente o el <strong>reembolso total</strong> de ese producto.</p>
+
+      <h2>Pago</h2>
+      <p>Los pagos se procesan con <strong>Mercado Pago</strong> (tarjeta de crédito o débito, efectivo o transferencia SPEI; meses sin intereses cuando estén disponibles). Tu pedido se confirma cuando Mercado Pago aprueba el pago. No guardamos los datos de tu tarjeta.</p>
+
+      <h2>Facturación</h2>
+      <p>Si marcas “Necesito factura” al comprar, emitimos tu CFDI 4.0 automáticamente y lo enviamos a tu correo. Si olvidaste pedirla, solicítala dentro del mismo mes de tu compra con tu número de pedido y tus datos fiscales. Los datos fiscales deben coincidir con tu Constancia de Situación Fiscal.</p>
+
+      <h2>Cancelaciones</h2>
+      <p>Puedes cancelar sin costo mientras tu pedido no haya sido enviado; escríbenos con tu número de pedido. Una vez enviado, aplica la <a href="garantias.html">política de devoluciones</a>.</p>
+
+      <h2>Derecho a revocar tu compra</h2>
+      <p>Por tratarse de una compra a distancia, tienes <strong>5 días hábiles</strong> a partir de que recibes el producto para revocar tu compra, conforme a la Ley Federal de Protección al Consumidor. El producto debe devolverse sin usar, completo y en su empaque original. Consulta el procedimiento en <a href="garantias.html">Garantías y devoluciones</a>.</p>
+
+      <h2>Uso del sitio y cuenta</h2>
+      <p>Eres responsable de mantener segura tu contraseña. Podemos suspender cuentas usadas para fraude o abuso. Las marcas y fotografías de los productos pertenecen a sus fabricantes.</p>
+
+      <h2>Ley aplicable</h2>
+      <p>Estos términos se rigen por las leyes de los Estados Unidos Mexicanos. Ante cualquier inconformidad puedes acudir a la Procuraduría Federal del Consumidor (Profeco).</p>
+
+      <div class="legal-contacto">
+        <h2>¿Dudas?</h2>
+        <p>Escríbenos a <a href="mailto:solutelecom2025@gmail.com">solutelecom2025@gmail.com</a>, por <a href="https://wa.me/523335034338">WhatsApp</a> o llámanos al 33 21 86 58 21.</p>
+      </div>
+    </article>
+  </main>
+  <footer class="legal-pie">© <span id="year">2026</span> SoluTelecom · <a href="privacidad.html">Privacidad</a> · <a href="terminos.html">Términos</a> · <a href="garantias.html">Garantías</a> · <a href="envios.html">Envíos</a></footer>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    document.querySelectorAll(".legal-nav a").forEach(function (a) {
+      if (location.pathname.endsWith(a.getAttribute("href"))) a.classList.add("active");
+    });
+  </script>
+</body>
+</html>

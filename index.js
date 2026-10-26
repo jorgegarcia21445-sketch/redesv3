@@ -336,16 +336,21 @@ async function cargarTipoCambio() {
   return null;
 }
 
-async function cargarDatos() {
-  const [a, g, t] = await Promise.allSettled([
-    cargarJSON("arbol"),
-    leerProductos(),
-    cargarTipoCambio(),
-  ]);
-  if (a.status === "fulfilled") arbol = a.value;
-  if (g.status === "fulfilled") {
-    listaProductos = Array.isArray(g.value) ? g.value : g.value.productos || [];
+// The full product list (productos.json) is heavy, so it is only downloaded
+// when the store server can't answer. Normally the server does the searching.
+let promesaLista = null;
+function obtenerListaProductos() {
+  if (!promesaLista) {
+    promesaLista = leerProductos()
+      .then((g) => (listaProductos = Array.isArray(g) ? g : g.productos || []))
+      .catch(() => (listaProductos = []));
   }
+  return promesaLista;
+}
+
+async function cargarDatos() {
+  const [a, t] = await Promise.allSettled([cargarJSON("arbol"), cargarTipoCambio()]);
+  if (a.status === "fulfilled") arbol = a.value;
   if (t.status === "fulfilled" && t.value) {
     tipoCambio = t.value;
     tipoCambioReal = true;
@@ -660,7 +665,7 @@ async function productosDeCategoria(id, progreso) {
   }
 
   let resultado = Array.from(vistos.values());
-  if (!resultado.length) resultado = listaProductos.filter((p) => pertenece(p, id));
+  if (!resultado.length) resultado = (await obtenerListaProductos()).filter((p) => pertenece(p, id));
   return resultado;
 }
 
@@ -709,41 +714,28 @@ function buscarProductoMostrado(id) {
 }
 
 // One product card (used by the catalog, the search and the home page)
+// Simple on purpose: photo, name, price, stock and one button. The rest is in the quick view.
 function htmlTarjeta(p) {
   recordarProducto(p);
-      const precio = htmlPrecio(p);
+  const precio = htmlPrecio(p);
   const stock = Number(p.total_existencia) || 0;
-  const asunto = "Cotización: " + (p.modelo || "") + " " + (p.marca || "");
-  const cuerpo =
-    "Hola, quisiera cotizar:\n" + (p.titulo || "") +
-    "\nModelo: " + (p.modelo || "") +
-    "\nMarca: " + (p.marca || "");
-  const mailto =
-    "mailto:" + CORREO_VENTAS +
-    "?subject=" + encodeURIComponent(asunto) +
-    "&body=" + encodeURIComponent(cuerpo);
-
+  const id = esc(p.producto_id);
   return `
-    <article class="pc-card">
+    <article class="pc-card" data-vista="${id}" tabindex="0" role="button" aria-label="Ver ${esc(p.titulo)}">
       <div class="pc-img">
-        <img src="${esc(p.img_portada)}" alt="${esc(p.titulo)}" loading="lazy" decoding="async" onerror="this.style.visibility='hidden'">
-        ${precio.descuento > 0 ? `<span class="pc-badge">Promoción -${precio.descuento}%</span>` : ""}
+        <img src="${esc(p.img_portada)}" alt="" loading="lazy" decoding="async" onerror="this.style.visibility='hidden'">
+        ${precio.descuento > 0 ? `<span class="pc-badge">-${precio.descuento}%</span>` : ""}
       </div>
       <div class="pc-body">
         <span class="pc-brand">${esc(p.marca)}</span>
         <h3 class="pc-title">${esc(p.titulo)}</h3>
-        <span class="pc-model">Modelo: ${esc(p.modelo)}</span>
         <strong class="pc-price">${precio.html}</strong>
-        <span class="pc-stock ${stock > 0 ? "ok" : "no"}">${
-          stock > 0 ? "En existencia: " + stock : "Sin existencia"
-        }</span>
-        ${stock > 0 ? `<div class="pc-suc" data-suc="${esc(p.producto_id)}"><span class="pc-suc-cargando">Consultando sucursales…</span></div>
-        <button type="button" class="pc-disp" data-disp="${esc(p.producto_id)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Ver todas las sucursales</button>` : ""}
-                ${stock > 0 ? `<div class="pc-actions">
-      <button type="button" class="pc-btn pc-buy" data-buy="${esc(p.producto_id)}">Comprar</button>
-      <button type="button" class="pc-btn pc-add" data-add="${esc(p.producto_id)}">Poner al carrito</button>
-    </div>` : ""}
-    <a class="pc-quote-link" href="${mailto}">Cotizar por correo</a>
+        <span class="pc-stock ${stock > 0 ? "ok" : "no"}">${stock > 0 ? "● " + stock.toLocaleString("es-MX") + " en existencia" : "Sin existencia"}</span>
+        ${
+          stock > 0
+            ? `<button type="button" class="pc-btn pc-agregar" data-add="${id}">Agregar al carrito</button>`
+            : `<button type="button" class="pc-btn pc-agregar pc-cotizar" data-vista="${id}">Cotizar</button>`
+        }
       </div>
     </article>`;
 }
@@ -775,7 +767,6 @@ function pintarCatalogo() {
   }
 
   grid.innerHTML = pagina.map(htmlTarjeta).join("");
-  cargarSucursales(grid);
 
   pager.innerHTML =
     paginas > 1
@@ -831,7 +822,7 @@ async function abrirCatalogo(id) {
   const grid = document.getElementById("productosGrid");
   const info = document.getElementById("catalogoInfo");
   const pager = document.getElementById("paginacion");
-  if (grid) grid.innerHTML = "<p>Cargando…</p>";
+  if (grid) grid.innerHTML = htmlEsqueletos(8);
   if (pager) pager.innerHTML = "";
   window.scrollTo(0, 0);
 
@@ -974,7 +965,8 @@ function dinero(n) {
   return new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN" }).format(n);
 }
 
-function agregarAlCarrito(p) {
+function agregarAlCarrito(p, cantidad = 1) {
+  const n = Math.max(1, Math.floor(Number(cantidad) || 1));
   const usd = precioBase(p).usd;
   const max = Number(p.total_existencia) || 0;
   if (isNaN(usd) || max <= 0) return false;
@@ -982,7 +974,7 @@ function agregarAlCarrito(p) {
   const id = String(p.producto_id);
   const actual = carrito.find((i) => i.id === id);
   if (actual) {
-    actual.qty = Math.min(actual.qty + 1, max, 100);
+    actual.qty = Math.min(actual.qty + n, max, 100);
     actual.max = max;
     actual.sel = true;
   } else {
@@ -994,7 +986,7 @@ function agregarAlCarrito(p) {
       img: p.img_portada || "",
       usd,
       max,
-      qty: 1,
+      qty: Math.min(n, max, 100),
       sel: true,
     });
   }
@@ -1123,7 +1115,7 @@ function htmlFormulario() {
       }
 
       <p class="cf-note">El costo de envío se calcula con tu dirección y se suma al total.</p>
-      <label class="cp-check cf-terms"><input type="checkbox" name="acepto" required> Acepto que usen mis datos para procesar mi pedido y su entrega.</label>
+      <label class="cp-check cf-terms"><input type="checkbox" name="acepto" required> <span>Acepto los <a href="terminos.html" target="_blank">términos y condiciones</a> y el <a href="privacidad.html" target="_blank">aviso de privacidad</a>.</span></label>
     </form>`;
 }
 
@@ -1237,6 +1229,7 @@ function pintarPaginaCarrito() {
             <div class="cp-total"><span>Subtotal</span><strong>${dinero(subtotal)}</strong></div>
             <small class="cp-iva">IVA incluido</small>
             <button type="button" class="pc-btn cp-pay" data-cp="continuar" ${elegidos.length ? "" : "disabled"}>Continuar compra</button>
+            <button type="button" class="cp-linkbtn cp-cot" data-cp="cotizacion" ${elegidos.length ? "" : "disabled"}>Descargar cotización (PDF)</button>
             <p class="cp-note">Pago seguro con Mercado Pago: tarjeta, efectivo o transferencia SPEI.</p>
             <a class="cp-back" href="#top">← Seguir comprando</a>
           </aside>
@@ -1331,17 +1324,17 @@ document.addEventListener("click", async (e) => {
   const p = buscarProductoMostrado(id);
   if (!p) return;
 
+  const cantidad = Number(boton.dataset.qty) || 1;
   if (add) {
-    if (!agregarAlCarrito(p)) return;
-    add.textContent = "Agregado ✓";
-    setTimeout(() => {
-      add.textContent = "Poner al carrito";
-    }, 1200);
+    if (!agregarAlCarrito(p, cantidad)) return;
+    if (window.cerrarVistaRapida) window.cerrarVistaRapida();
+    if (window.abrirCarritoLateral) window.abrirCarritoLateral(p.producto_id);
     return;
   }
 
   // Comprar: add this product, select only it, and go to the delivery data step
-  if (!agregarAlCarrito(p)) return;
+  if (window.cerrarVistaRapida) window.cerrarVistaRapida();
+  if (!agregarAlCarrito(p, cantidad)) return;
   
   // Make sure cart item matching uses the correct property (change 'i.id' to 'i.producto_id' if needed)
   carrito.forEach((i) => {
@@ -1798,6 +1791,7 @@ async function buscarProductos(q, limite = 240) {
   }
   await datosListos;
   const palabras = sinAcentosQ(q).split(/\s+/).filter((w) => w.length >= 2);
+  await obtenerListaProductos();
   const todos = listaProductos.filter((p) => {
     const texto = sinAcentosQ([p.titulo, p.marca, p.modelo].join(" "));
     return palabras.length && palabras.every((w) => texto.includes(w));
@@ -1821,7 +1815,7 @@ async function abrirBusqueda(q) {
   const pager = document.getElementById("paginacion");
   const titulo = document.getElementById("catalogoTitulo");
   const migas = document.getElementById("catMigas");
-  if (grid) grid.innerHTML = "<p>Buscando…</p>";
+  if (grid) grid.innerHTML = htmlEsqueletos(8);
   if (pager) pager.innerHTML = "";
   if (info) info.textContent = "";
   if (titulo) titulo.textContent = `Resultados para “${q}”`;
@@ -1988,6 +1982,7 @@ async function abrirBusqueda(q) {
       await datosListos;
       // without the server: also a different set every 6 hours
       const periodo = Math.floor((Date.now() - 6 * 3600000) / (6 * 3600000));
+      await obtenerListaProductos();
       const buenos = listaProductos.filter(
         (p) => (Number(p.total_existencia) || 0) >= 5 && p.img_portada && !isNaN(precioBase(p).usd)
       );
@@ -2393,6 +2388,7 @@ function cargarSucursales(contenedor) {
     }
     if (!d) {
       await datosListos;
+      await obtenerListaProductos();
       const buenos = listaProductos.filter(
         (p) => (Number(p.total_existencia) || 0) >= 5 && p.img_portada && !isNaN(precioBase(p).usd)
       );
@@ -2401,11 +2397,11 @@ function cargarSucursales(contenedor) {
     }
     pagina += 1;
     paginas = d.paginas || 1;
+    if (pagina === 1) grid.innerHTML = "";
     const temp = document.createElement("div");
     temp.innerHTML = (d.productos || []).map(htmlTarjeta).join("");
     const nuevos = Array.from(temp.children);
     nuevos.forEach((n) => grid.appendChild(n));
-    cargarSucursales(grid);
     if (info && d.total) info.textContent = d.total.toLocaleString("es-MX") + " productos con existencia · se renueva cada 6 horas";
     if (!grid.children.length) grid.innerHTML = "<p>Pronto verás aquí nuestros productos.</p>";
     mas.hidden = pagina >= paginas;
@@ -2450,3 +2446,324 @@ document.addEventListener("click", (e) => {
 document.addEventListener("cuenta-lista", () => {
   if (document.body.classList.contains("vista-carrito") && pasoCarrito === "datos" && !leerDatos().calle) pintarPaginaCarrito();
 });
+
+// =========================================================
+// Quick view: click a card to see the product in detail
+// =========================================================
+const WHATSAPP_VENTAS = "523335034338";
+
+(function vistaRapida() {
+  const dlg = document.createElement("dialog");
+  dlg.className = "modal qv-modal";
+  dlg.setAttribute("aria-labelledby", "qvTitulo");
+  dlg.innerHTML = `
+    <button type="button" class="modal-close" aria-label="Cerrar">&times;</button>
+    <div class="qv-grid">
+      <div class="qv-foto"><img id="qvImg" alt=""></div>
+      <div class="qv-info">
+        <span class="pc-brand" id="qvMarca"></span>
+        <h3 id="qvTitulo"></h3>
+        <span class="qv-modelo" id="qvModelo"></span>
+        <strong class="pc-price qv-precio" id="qvPrecio"></strong>
+        <span class="pc-stock" id="qvStock"></span>
+        <div class="qv-comprar" id="qvComprar">
+          <div class="qv-cant">
+            <button type="button" data-qv="menos" aria-label="Menos">−</button>
+            <input type="number" id="qvCant" value="1" min="1" aria-label="Cantidad">
+            <button type="button" data-qv="mas" aria-label="Más">+</button>
+          </div>
+          <button type="button" class="btn qv-agregar" id="qvAgregar" data-add="">Agregar al carrito</button>
+          <button type="button" class="btn btn-outline" id="qvComprarYa" data-buy="">Comprar ahora</button>
+        </div>
+        <a class="qv-wa" id="qvWa" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
+        <div class="qv-suc">
+          <div class="qv-suc-head"><strong>Disponible en</strong><button type="button" class="pc-disp" id="qvTodas" data-disp="">Ver todas las sucursales</button></div>
+          <div class="pc-suc" id="qvSuc"><span class="pc-suc-cargando">Consultando sucursales…</span></div>
+        </div>
+        <ul class="qv-trust">
+          <li>Envío a todo México</li><li>Factura CFDI automática</li><li>Garantía del fabricante</li>
+        </ul>
+      </div>
+    </div>
+    <div class="qv-rel" id="qvRel" hidden>
+      <h4>Va bien con</h4>
+      <div class="qv-rel-grid" id="qvRelGrid"></div>
+    </div>`;
+  document.body.appendChild(dlg);
+
+  let actual = null;
+  const $q = (id) => document.getElementById(id);
+
+  function cantidad() {
+    const max = Math.min(Number(actual && actual.total_existencia) || 1, 100);
+    let n = Math.floor(Number($q("qvCant").value) || 1);
+    n = Math.min(Math.max(n, 1), max);
+    $q("qvCant").value = n;
+    $q("qvAgregar").dataset.qty = n;
+    $q("qvComprarYa").dataset.qty = n;
+    return n;
+  }
+
+  async function cargarSucursalesQV(id) {
+    const caja = $q("qvSuc");
+    const pintar = (info) => {
+      if (actual && String(actual.producto_id) === id) pintarSucursalesEn(caja, info);
+    };
+    if (sucursalesCache.has(id)) return pintar(sucursalesCache.get(id));
+    caja.innerHTML = '<span class="pc-suc-cargando">Consultando sucursales…</span>';
+    try {
+      const r = await fetch(API_PAGOS + "/existencias/" + encodeURIComponent(id));
+      if (!r.ok) throw new Error();
+      const d = await r.json();
+      sucursalesCache.set(id, d);
+      pintar(d);
+    } catch (e) {
+      if (actual && String(actual.producto_id) === id) caja.innerHTML = '<span class="pc-suc-cargando">Desglose no disponible en este momento.</span>';
+    }
+  }
+
+  async function cargarRelacionados(id) {
+    $q("qvRel").hidden = true;
+    try {
+      const r = await fetch(API_PAGOS + "/relacionados/" + encodeURIComponent(id));
+      if (!r.ok) return;
+      const d = await r.json();
+      if (!actual || String(actual.producto_id) !== id || !(d.productos || []).length) return;
+      $q("qvRelGrid").innerHTML = d.productos
+        .map((q) => {
+          recordarProducto(q);
+          const b = precioBase(q);
+          return `<div class="qv-rel-item" data-vista="${esc(q.producto_id)}" tabindex="0" role="button">
+              <img src="${esc(q.img_portada)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+              <span class="qv-rel-t">${esc(q.titulo)}</span>
+              <span class="qv-rel-p">${isNaN(b.usd) ? "" : dinero(precioUnitario(b.usd))}</span>
+              <button type="button" class="qv-rel-add" data-add="${esc(q.producto_id)}" aria-label="Agregar ${esc(q.titulo)}">+</button>
+            </div>`;
+        })
+        .join("");
+      $q("qvRel").hidden = false;
+    } catch (e) {
+      // server not reachable: no suggestions
+    }
+  }
+
+  function abrir(id) {
+    const p = buscarProductoMostrado(id);
+    if (!p) return;
+    actual = p;
+    const stock = Number(p.total_existencia) || 0;
+    const precio = htmlPrecio(p);
+    $q("qvImg").src = p.img_portada || "";
+    $q("qvMarca").textContent = p.marca || "";
+    $q("qvTitulo").textContent = p.titulo || "";
+    $q("qvModelo").textContent = "Modelo: " + (p.modelo || "—");
+    $q("qvPrecio").innerHTML = precio.html;
+    $q("qvStock").className = "pc-stock " + (stock > 0 ? "ok" : "no");
+    $q("qvStock").textContent = stock > 0 ? "● " + stock.toLocaleString("es-MX") + " en existencia" : "Sin existencia por ahora";
+    $q("qvComprar").hidden = stock <= 0;
+    $q("qvCant").max = Math.min(stock || 1, 100);
+    $q("qvCant").value = 1;
+    $q("qvAgregar").dataset.add = p.producto_id;
+    $q("qvComprarYa").dataset.buy = p.producto_id;
+    $q("qvTodas").dataset.disp = p.producto_id;
+    cantidad();
+    const texto = `Hola, quiero cotizar: ${p.titulo || ""} (Modelo: ${p.modelo || ""}, ${p.marca || ""})`;
+    $q("qvWa").href = "https://wa.me/" + WHATSAPP_VENTAS + "?text=" + encodeURIComponent(texto);
+    $q("qvSuc").closest(".qv-suc").hidden = stock <= 0;
+    if (stock > 0) cargarSucursalesQV(String(p.producto_id));
+    cargarRelacionados(String(p.producto_id));
+    dlg.querySelector(".qv-grid").scrollTop = 0;
+    if (!dlg.open) dlg.showModal();
+  }
+  window.abrirVistaRapida = abrir;
+  window.cerrarVistaRapida = () => dlg.open && dlg.close();
+
+  // open from a card (but not when the click was on a button inside it)
+  document.addEventListener("click", (e) => {
+    const t = e.target.closest("[data-vista]");
+    if (!t) return;
+    if (e.target.closest("button[data-add], button[data-buy]") && !e.target.closest("button[data-vista]")) return;
+    e.preventDefault();
+    abrir(t.dataset.vista);
+  });
+  document.addEventListener("keydown", (e) => {
+    if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches("[data-vista][tabindex]")) {
+      e.preventDefault();
+      abrir(e.target.dataset.vista);
+    }
+  });
+  dlg.addEventListener("click", (e) => {
+    if (e.target === dlg) dlg.close();
+    const b = e.target.closest("[data-qv]");
+    if (!b) return;
+    $q("qvCant").value = Number($q("qvCant").value || 1) + (b.dataset.qv === "mas" ? 1 : -1);
+    cantidad();
+  });
+  $q("qvCant").addEventListener("change", cantidad);
+  dlg.querySelector(".modal-close").addEventListener("click", () => dlg.close());
+})();
+
+// =========================================================
+// Slide-in cart after adding a product
+// =========================================================
+(function carritoLateral() {
+  const panel = document.createElement("aside");
+  panel.className = "cl-panel";
+  panel.setAttribute("aria-label", "Carrito");
+  panel.innerHTML = `
+    <div class="cl-head">
+      <strong>Agregado al carrito ✓</strong>
+      <button type="button" class="cl-cerrar" aria-label="Cerrar">&times;</button>
+    </div>
+    <div class="cl-items" id="clItems"></div>
+    <div class="cl-foot">
+      <div class="cl-sub"><span>Subtotal</span><strong id="clSub"></strong></div>
+      <small>IVA incluido · el envío se calcula con tu dirección</small>
+      <a href="#/carrito" class="btn cl-pagar" data-cl="pagar">Ir a pagar</a>
+      <button type="button" class="btn btn-outline" data-cl="seguir">Seguir comprando</button>
+      <button type="button" class="cl-cot" data-cl="cotizacion">Descargar cotización (PDF)</button>
+    </div>`;
+  const velo = document.createElement("div");
+  velo.className = "cl-velo";
+  document.body.append(velo, panel);
+
+  function pintar(resaltar) {
+    const items = carrito.filter((i) => i.qty > 0);
+    let sub = 0;
+    document.getElementById("clItems").innerHTML = items.length
+      ? items
+          .map((i) => {
+            const unit = precioUnitario(i.usd);
+            sub += Math.round(unit * i.qty * 100) / 100;
+            return `<div class="cl-item${String(i.id) === String(resaltar) ? " nuevo" : ""}">
+                <img src="${esc(i.img)}" alt="" onerror="this.style.visibility='hidden'">
+                <div><span class="cl-t">${esc(i.titulo)}</span><span class="cl-q">${i.qty} × ${dinero(unit)}</span></div>
+                <strong>${dinero(Math.round(unit * i.qty * 100) / 100)}</strong>
+              </div>`;
+          })
+          .join("")
+      : "<p>Tu carrito está vacío.</p>";
+    document.getElementById("clSub").textContent = dinero(sub);
+  }
+
+  function abrir(resaltar) {
+    pintar(resaltar);
+    panel.classList.add("open");
+    velo.classList.add("open");
+  }
+  function cerrar() {
+    panel.classList.remove("open");
+    velo.classList.remove("open");
+  }
+  window.abrirCarritoLateral = abrir;
+
+  velo.addEventListener("click", cerrar);
+  panel.querySelector(".cl-cerrar").addEventListener("click", cerrar);
+  document.addEventListener("keydown", (e) => e.key === "Escape" && cerrar());
+  panel.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-cl]");
+    if (!b) return;
+    if (b.dataset.cl === "seguir") cerrar();
+    if (b.dataset.cl === "pagar") cerrar();
+    if (b.dataset.cl === "cotizacion") generarCotizacion();
+  });
+})();
+
+// =========================================================
+// PDF quote (opens a printable page; "Guardar como PDF")
+// =========================================================
+function generarCotizacion() {
+  const items = carrito.filter((i) => i.qty > 0 && i.sel !== false);
+  if (!items.length) return alert("Agrega productos al carrito para generar la cotización.");
+  const ahora = new Date();
+  const dos = (n) => String(n).padStart(2, "0");
+  const folio = `COT-${ahora.getFullYear()}${dos(ahora.getMonth() + 1)}${dos(ahora.getDate())}-${dos(ahora.getHours())}${dos(ahora.getMinutes())}`;
+  const vigencia = new Date(ahora.getTime() + 7 * 86400000);
+  const fecha = (d) => d.toLocaleDateString("es-MX", { day: "2-digit", month: "long", year: "numeric" });
+  const c = window.cuentaCliente || {};
+  const d = leerDatos();
+  const cliente = {
+    nombre: d.razon || d.nombre || c.nombre || "",
+    rfc: d.rfc || (c.fiscal && c.fiscal.rfc) || "",
+    email: d.email || c.email || "",
+    tel: d.telefono || c.telefono || "",
+  };
+  const fIVA = 1 + (typeof IVA === "number" ? IVA : 0.16);
+  let subtotal = 0;
+  const filas = items
+    .map((i, n) => {
+      const unit = precioUnitario(i.usd) / fIVA;
+      const imp = unit * i.qty;
+      subtotal += imp;
+      return `<tr><td>${n + 1}</td><td>${esc(i.modelo)}</td><td>${esc(i.titulo)}<br><small>${esc(i.marca)}</small></td>
+        <td class="n">${i.qty}</td><td class="n">${dinero(unit)}</td><td class="n">${dinero(imp)}</td></tr>`;
+    })
+    .join("");
+  const iva = subtotal * (fIVA - 1);
+  const logo = new URL("photos/solutelecom-logo-transparent.png", location.href).href;
+
+  const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>${folio} · SoluTelecom</title>
+  <style>
+    *{box-sizing:border-box} body{font:13px/1.45 Arial,Helvetica,sans-serif;color:#1d1d1f;margin:0;padding:32px}
+    .top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #f5b400;padding-bottom:16px;margin-bottom:20px}
+    .top img{height:48px} h1{font-size:22px;margin:0 0 4px} .muted{color:#666}
+    .cols{display:flex;gap:24px;margin-bottom:20px} .box{flex:1;border:1px solid #ddd;border-radius:6px;padding:10px 12px}
+    .box b{display:block;font-size:11px;text-transform:uppercase;color:#888;margin-bottom:4px}
+    table{width:100%;border-collapse:collapse} th{background:#1d1d1f;color:#fff;text-align:left;padding:8px;font-size:12px}
+    td{padding:8px;border-bottom:1px solid #e5e5e5;vertical-align:top} td small{color:#888} .n{text-align:right;white-space:nowrap}
+    .tot{margin:16px 0 0 auto;width:280px} .tot div{display:flex;justify-content:space-between;padding:4px 0}
+    .tot .g{border-top:2px solid #1d1d1f;margin-top:6px;padding-top:8px;font-size:16px;font-weight:bold}
+    .notas{margin-top:28px;font-size:11.5px;color:#555} .notas li{margin-bottom:4px}
+    .pie{margin-top:28px;border-top:1px solid #ddd;padding-top:12px;font-size:11.5px;color:#666;display:flex;justify-content:space-between}
+    .btn{position:fixed;bottom:20px;right:20px;background:#f5b400;border:0;padding:12px 20px;border-radius:6px;font-weight:bold;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.25)}
+    @media print{.btn{display:none} body{padding:0}}
+  </style></head><body>
+  <button class="btn" onclick="print()">Guardar como PDF</button>
+  <div class="top">
+    <img src="${logo}" alt="SoluTelecom" onerror="this.outerHTML='<h2>SoluTelecom</h2>'">
+    <div style="text-align:right"><h1>Cotización</h1><div class="muted">Folio <b>${folio}</b></div>
+      <div class="muted">Fecha: ${fecha(ahora)}</div><div class="muted">Vigencia: ${fecha(vigencia)}</div></div>
+  </div>
+  <div class="cols">
+    <div class="box"><b>Cliente</b>${esc(cliente.nombre) || "Público en general"}${cliente.rfc ? "<br>RFC: " + esc(cliente.rfc) : ""}${cliente.email ? "<br>" + esc(cliente.email) : ""}${cliente.tel ? "<br>Tel. " + esc(cliente.tel) : ""}</div>
+    <div class="box"><b>Proveedor</b>SoluTelecom<br>Progreso, Monterrey, N.L. · C.P. 64420<br>${esc(CORREO_VENTAS)}<br>Tel. 33 21 86 58 21</div>
+  </div>
+  <table><thead><tr><th>#</th><th>Modelo</th><th>Descripción</th><th class="n">Cant.</th><th class="n">P. unitario</th><th class="n">Importe</th></tr></thead>
+  <tbody>${filas}</tbody></table>
+  <div class="tot"><div><span>Subtotal</span><span>${dinero(subtotal)}</span></div>
+    <div><span>IVA ${Math.round((fIVA - 1) * 100)}%</span><span>${dinero(iva)}</span></div>
+    <div class="g"><span>Total MXN</span><span>${dinero(subtotal + iva)}</span></div></div>
+  <ul class="notas">
+    <li>Precios en pesos mexicanos. Tipo de cambio de referencia: $${(typeof tipoCambio === "number" ? tipoCambio : 0).toFixed(2)} MXN/USD.</li>
+    <li>Precios sujetos a cambio sin previo aviso después de la fecha de vigencia y a disponibilidad de existencias.</li>
+    <li>No incluye envío ni instalación; el envío se calcula al confirmar la dirección de entrega.</li>
+    <li>Para confirmar tu pedido, compra en solutelecom.mx o responde a esta cotización por correo o WhatsApp indicando el folio.</li>
+  </ul>
+  <div class="pie"><span>SoluTelecom · solutelecom.mx</span><span>${esc(CORREO_VENTAS)} · WhatsApp 33 21 86 58 21</span></div>
+  <script>setTimeout(function(){print()},600)<\/script>
+  </body></html>`;
+
+  const w = window.open("", "_blank");
+  if (!w) return alert("Permite las ventanas emergentes para descargar la cotización.");
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+}
+document.addEventListener("click", (e) => {
+  if (e.target.closest('[data-cp="cotizacion"]')) generarCotizacion();
+});
+
+// =========================================================
+// Loading placeholders (gray cards while products load)
+// =========================================================
+function htmlEsqueletos(n = 8) {
+  return Array.from({ length: n }, () => `
+    <div class="pc-card sk-card" aria-hidden="true">
+      <div class="pc-img sk"></div>
+      <div class="pc-body"><span class="sk sk-l" style="width:40%"></span><span class="sk sk-l"></span><span class="sk sk-l" style="width:70%"></span><span class="sk sk-l sk-g" style="width:50%"></span><span class="sk sk-b"></span></div>
+    </div>`).join("");
+}
+(function esqueletosIniciales() {
+  const g = document.getElementById("inicioGrid");
+  if (g && !g.children.length) g.innerHTML = htmlEsqueletos(8);
+})();
