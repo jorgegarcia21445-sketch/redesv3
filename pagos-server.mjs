@@ -623,11 +623,23 @@ const paraPagina = (p) => ({
   total_existencia: p.total_existencia,
 });
 
+// common shorthand -> how Syscom writes it (4mp -> 4 megapixel, cat6 -> cat6 ...)
+function expandirBusqueda(t) {
+  return t
+    .replace(/(\d+(?:\.\d+)?)\s*mpx?\b/g, "$1 megapixel")
+    .replace(/\bmegapixeles\b/g, "megapixel")
+    .replace(/(\d+)\s*(tb|gb)\b/g, "$1 $2")
+    .replace(/\bcat\s*(5e|6a|6|7)\b/g, "cat$1")
+    .replace(/\bcamaras\b/g, "camara")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 app.get("/buscar", (req, res) => {
   if (demasiadas(req, "buscar", 90)) return res.status(429).json({ error: "Demasiadas consultas" });
   if (!catalogoListo) return res.status(503).json({ error: "Tienda iniciando, intenta en un minuto" });
 
-  const q = sinAcento(limpio(req.query.q, 80));
+  const q = expandirBusqueda(sinAcento(limpio(req.query.q, 80)));
   const palabras = q.split(/\s+/).filter((w) => w.length >= 2);
   if (!palabras.length) return res.json({ total: 0, productos: [] });
   const limite = Math.min(Math.max(parseInt(req.query.limit, 10) || 240, 1), 240);
@@ -642,9 +654,28 @@ app.get("/buscar", (req, res) => {
     encontrados.push({ x, puntos });
   }
   encontrados.sort((a, b) => b.puntos - a.puntos);
+
+  // most common categories among the results (deepest level, and level 2)
+  const sub = new Map();
+  const cat = new Map();
+  const sumar = (m, c) => {
+    if (!c || !c.id) return;
+    const prev = m.get(String(c.id));
+    m.set(String(c.id), { id: String(c.id), nombre: limpio(c.nombre, 80), n: (prev ? prev.n : 0) + 1 });
+  };
+  for (const { x } of encontrados) {
+    const cs = Array.isArray(x.p.categorias) ? x.p.categorias : [];
+    if (!cs.length) continue;
+    const hoja = cs.reduce((a, b) => (Number(b.nivel) > Number(a.nivel) ? b : a), cs[0]);
+    sumar(sub, hoja);
+    sumar(cat, cs.find((c) => Number(c.nivel) === 2));
+  }
+  const top = (m, k) => Array.from(m.values()).sort((a, b) => b.n - a.n).slice(0, k);
+
   res.json({
     total: encontrados.length,
     productos: encontrados.slice(0, limite).map((e) => paraPagina(e.x.p)),
+    categorias: { sub: top(sub, 6), cat: top(cat, 5) },
   });
 });
 

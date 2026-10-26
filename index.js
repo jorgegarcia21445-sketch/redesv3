@@ -341,9 +341,31 @@ async function cargarTipoCambio() {
 let promesaLista = null;
 function obtenerListaProductos() {
   if (!promesaLista) {
-    promesaLista = leerProductos()
-      .then((g) => (listaProductos = Array.isArray(g) ? g : g.productos || []))
-      .catch(() => (listaProductos = []));
+    promesaLista = fetch(`./${CARPETA}/buscador.json`)
+      .then((r) => {
+        if (!r.ok) throw new Error("sin buscador.json");
+        return r.json();
+      })
+      .then((d) => {
+        // [id, titulo, marca, modelo, precio_lista, precio_especial, existencia, foto, [categorias]]
+        listaProductos = (d.p || []).map((f) => ({
+          producto_id: f[0],
+          titulo: f[1],
+          marca: f[2],
+          modelo: f[3],
+          precios: { precio_lista: f[4], precio_especial: f[5] },
+          total_existencia: f[6],
+          img_portada: !f[7] ? "" : f[7][0] === "!" ? f[7].slice(1) : d.base + f[7],
+          _cats: f[8] || [],
+        }));
+        return listaProductos;
+      })
+      .catch(() =>
+        // older sites without buscador.json: use the small sample list
+        leerProductos()
+          .then((g) => (listaProductos = Array.isArray(g) ? g : g.productos || []))
+          .catch(() => (listaProductos = []))
+      );
   }
   return promesaLista;
 }
@@ -1779,24 +1801,76 @@ const sinAcentosQ = (t) =>
   String(t || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
 // asks the server (it has the whole catalog); if it is not reachable, searches the local list
+// asks the server (it has the whole catalog); if it is not reachable, searches catjson/buscador.json
 async function buscarProductos(q, limite = 240) {
   try {
     const r = await fetch(API_PAGOS + "/buscar?q=" + encodeURIComponent(q) + "&limit=" + limite);
     if (r.ok) {
       const d = await r.json();
-      return { total: d.total || 0, productos: d.productos || [] };
+      return { total: d.total || 0, productos: d.productos || [], categorias: d.categorias || { sub: [], cat: [] } };
     }
   } catch (e) {
-    // server not reachable: use the local list
+    // server not reachable: search locally
   }
   await datosListos;
-  const palabras = sinAcentosQ(q).split(/\s+/).filter((w) => w.length >= 2);
   await obtenerListaProductos();
-  const todos = listaProductos.filter((p) => {
-    const texto = sinAcentosQ([p.titulo, p.marca, p.modelo].join(" "));
-    return palabras.length && palabras.every((w) => texto.includes(w));
-  });
-  return { total: todos.length, productos: todos.slice(0, limite) };
+  const frase = expandirBusqueda(sinAcentosQ(q).trim());
+  const palabras = frase.split(/\s+/).filter((w) => w.length >= 2);
+  if (!palabras.length) return { total: 0, productos: [], categorias: { sub: [], cat: [] } };
+
+  const encontrados = [];
+  for (const p of listaProductos) {
+    if (!p._texto) p._texto = sinAcentosQ([p.titulo, p.marca, p.modelo].join(" "));
+    if (!palabras.every((w) => p._texto.includes(w))) continue;
+    const modelo = sinAcentosQ(p.modelo);
+    let puntos = 0;
+    if (modelo === frase) puntos += 100;
+    else if (modelo.startsWith(frase)) puntos += 40;
+    if (sinAcentosQ(p.titulo).startsWith(palabras[0])) puntos += 15;
+    if ((Number(p.total_existencia) || 0) > 0) puntos += 10;
+    encontrados.push({ p, puntos });
+  }
+  encontrados.sort((a, b) => b.puntos - a.puntos);
+  return {
+    total: encontrados.length,
+    productos: encontrados.slice(0, limite).map((e) => e.p),
+    categorias: categoriasDe(encontrados.map((e) => e.p)),
+  };
+}
+
+// common shorthand -> how Syscom writes it (4mp -> 4 megapixel, 1tb -> 1 tb, cat6 -> cat 6 ...)
+function expandirBusqueda(t) {
+  return t
+    .replace(/(\d+(?:\.\d+)?)\s*mpx?\b/g, "$1 megapixel")
+    .replace(/\bmegapixeles\b/g, "megapixel")
+    .replace(/(\d+)\s*(tb|gb)\b/g, "$1 $2")
+    .replace(/\bcat\s*(5e|6a|6|7)\b/g, "cat$1")
+    .replace(/\bcamaras\b/g, "camara")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+const rutasCache = new Map();
+// most common categories among the results (deepest level, and the level above it)
+function categoriasDe(lista) {
+  const sub = new Map();
+  const cat = new Map();
+  for (const p of lista) {
+    for (const id of p._cats || []) {
+      if (!rutasCache.has(id)) rutasCache.set(id, rutaDe(id) || []);
+      const ruta = rutasCache.get(id);
+      if (ruta.length) {
+        const hoja = ruta[ruta.length - 1];
+        sub.set(hoja.id, { id: hoja.id, nombre: hoja.nombre, n: ((sub.get(hoja.id) || {}).n || 0) + 1 });
+      }
+      if (ruta.length >= 2) {
+        const medio = ruta[1];
+        cat.set(medio.id, { id: medio.id, nombre: medio.nombre, n: ((cat.get(medio.id) || {}).n || 0) + 1 });
+      }
+    }
+  }
+  const top = (m, k) => Array.from(m.values()).sort((a, b) => b.n - a.n).slice(0, k);
+  return { sub: top(sub, 6), cat: top(cat, 5) };
 }
 
 function irABusqueda(q) {
@@ -1871,27 +1945,72 @@ async function abrirBusqueda(q) {
     const q = input.value.trim();
     if (q.length < 2) return cerrar();
     const mia = ++ultima;
-    const r = await buscarProductos(q, 6);
+    const r = await buscarProductos(q, 8);
     if (mia !== ultima) return;
 
-    caja.innerHTML = r.productos.length
+    const cats = r.categorias || { sub: [], cat: [] };
+    const lista = (t, arr) =>
+      arr.length
+        ? `<h5>${t}</h5><ul>${arr.map((c) => `<li><a href="#/categoria/${esc(c.id)}">${esc(c.nombre)}</a></li>`).join("")}</ul>`
+        : "";
+    const columna = lista("Subcategorías relevantes", cats.sub || []) + lista("Categorías", cats.cat || []);
+
+    const productosHtml = r.productos.length
       ? r.productos
           .map((p) => {
+            recordarProducto(p);
             const b = precioBase(p);
-            const precio = isNaN(b.usd) ? "" : dinero(precioUnitario(b.usd));
-            return `<a class="hs-item" role="option" href="#/buscar/${encodeURIComponent(p.modelo || p.titulo)}">
-                <img src="${esc(p.img_portada)}" alt="" loading="lazy" decoding="async" onerror="this.style.visibility='hidden'">
-                <span><span class="hs-t">${esc(p.titulo)}</span><span class="hs-m">${esc(p.marca)} · ${esc(p.modelo)}</span></span>
-                <span class="hs-p">${precio}</span>
-              </a>`;
+            const stock = Number(p.total_existencia) || 0;
+            const id = esc(p.producto_id);
+            return `<div class="hs-item" role="option" data-vista="${id}" tabindex="-1">
+                <img src="${esc(p.img_portada)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+                <div class="hs-info">
+                  <span class="hs-t">${esc(p.titulo)}</span>
+                  <span class="hs-m"><span>${esc(p.modelo)}</span><span class="hs-marca">${esc(p.marca)}</span></span>
+                  <div class="hs-fila">
+                    <span class="hs-p">${isNaN(b.usd) ? "Consultar" : "MXN " + dinero(precioUnitario(b.usd))}<small>IVA incluido</small></span>
+                    ${stock > 0 ? `<span class="hs-stock">${stock > 500 ? "500+" : stock}</span>` : `<span class="hs-stock no">Sin stock</span>`}
+                    ${
+                      stock > 0
+                        ? `<span class="hs-cant"><button type="button" data-sq="-1" aria-label="Menos">−</button><input type="number" value="1" min="1" max="${Math.min(stock, 100)}" aria-label="Cantidad"><button type="button" data-sq="1" aria-label="Más">+</button></span>
+                           <button type="button" class="hs-add" data-add="${id}" data-qty="1">Agregar</button>`
+                        : ""
+                    }
+                  </div>
+                </div>
+              </div>`;
           })
           .join("") +
-        `<a class="hs-all" href="#/buscar/${encodeURIComponent(q)}">Ver los ${r.total} resultados ›</a>`
-      : `<p class="hs-empty">Sin resultados para “${esc(q)}”.</p>`;
+        `<a class="hs-all" href="#/buscar/${encodeURIComponent(q)}">Ver los ${r.total.toLocaleString("es-MX")} resultados ›</a>`
+      : `<p class="hs-empty">Sin resultados para “${esc(q)}”. Prueba con otra palabra o el modelo.</p>`;
+
+    caja.innerHTML = `${columna ? `<div class="hs-cats">${columna}</div>` : ""}<div class="hs-prods">${productosHtml}</div>`;
+    caja.classList.toggle("con-cats", !!columna);
     caja.hidden = false;
     activo = -1;
     input.setAttribute("aria-expanded", "true");
   }
+
+  // quantity buttons inside the suggestions
+  caja.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-sq]");
+    if (!b) return;
+    e.stopPropagation();
+    const fila = b.closest(".hs-item");
+    const campo = fila.querySelector(".hs-cant input");
+    const max = Number(campo.max) || 100;
+    campo.value = Math.min(Math.max((Number(campo.value) || 1) + Number(b.dataset.sq), 1), max);
+    fila.querySelector(".hs-add").dataset.qty = campo.value;
+  });
+  caja.addEventListener("change", (e) => {
+    if (!e.target.matches(".hs-cant input")) return;
+    const max = Number(e.target.max) || 100;
+    e.target.value = Math.min(Math.max(Math.floor(Number(e.target.value) || 1), 1), max);
+    e.target.closest(".hs-item").querySelector(".hs-add").dataset.qty = e.target.value;
+  });
+  caja.addEventListener("click", (e) => {
+    if (e.target.closest(".hs-cant input")) e.stopPropagation();
+  }, true);
 
   input.addEventListener("input", () => {
     clearTimeout(timer);
@@ -1907,7 +2026,8 @@ async function abrirBusqueda(q) {
       lista.forEach((a, i) => a.classList.toggle("active", i === activo));
     } else if (e.key === "Enter" && activo >= 0) {
       e.preventDefault();
-      lista[activo].click();
+      cerrar();
+      if (window.abrirVistaRapida) window.abrirVistaRapida(lista[activo].dataset.vista);
     } else if (e.key === "Escape") {
       cerrar();
     }
@@ -1922,7 +2042,7 @@ async function abrirBusqueda(q) {
   });
 
   caja.addEventListener("click", (e) => {
-    if (e.target.closest("a")) cerrar();
+    if (e.target.closest("a, [data-add]") || (e.target.closest("[data-vista]") && !e.target.closest(".hs-cant"))) cerrar();
   });
   document.addEventListener("click", (e) => {
     if (!form.contains(e.target)) cerrar();
