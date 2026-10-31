@@ -59,10 +59,13 @@
       </form>
 
       <ul class="nav-links">
-        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#productos" class="nav-tienda">Tienda</a></li>
         <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
         <li><a href="#cobertura">Cobertura</a></li>
         <li><a href="#resultados">Trayectoria</a></li>
+        <li><a href="#facturacion">Facturación</a></li>
+        <li><a href="#preguntas">Preguntas</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
 
@@ -102,7 +105,7 @@
           <p>Diseñamos, construimos y damos mantenimiento a redes de fibra óptica G-PON, obra civil y sistemas de videovigilancia. También te vendemos el equipo, con envío a todo México.</p>
 
           <div class="hero-actions">
-            <a href="#contacto" class="btn">Solicitar cotización</a>
+            <a href="#productos" class="btn">Ver productos</a>
             <a href="#servicios" class="btn btn-outline">Ver servicios</a>
           </div>
         </div>
@@ -128,6 +131,17 @@
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.3 8 11 4.6-1.7 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg><span><b>Garantía</b>Del fabricante, con nuestro respaldo</span></li>
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"/></svg><span><b>Atención por WhatsApp</b>Te ayudamos a elegir</span></li>
       </ul>
+    </section>
+
+    <!-- VISTOS RECIENTEMENTE (lo llena index.js con lo que el visitante abrió antes) -->
+    <section class="vistos" id="vistos" hidden>
+      <div class="wrap">
+        <div class="vistos-head">
+          <h2>Vistos recientemente</h2>
+          <button type="button" class="vistos-borrar" id="vistosBorrar">Borrar historial</button>
+        </div>
+        <div class="vistos-fila" id="vistosFila"></div>
+      </div>
     </section>
 
     <!-- PRODUCTOS EN EXISTENCIA (los llena index.js; cambian cada 30 minutos) -->
@@ -307,7 +321,7 @@
       <div class="wrap">
         <div class="section-head">
           <span class="tag">Trayectoria</span>
-          <h2>Récord 2017 – 2025</h2>
+          <h2>Desde 2017</h2>
         </div>
         <div class="record-grid">
           <div><h3>23,384.32 km</h3><p>Levantados y digitalizados</p></div>
@@ -372,6 +386,44 @@
       </div>
     </section>
 
+    <!-- PREGUNTAS FRECUENTES -->
+    <section class="faq" id="preguntas">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="tag">Preguntas frecuentes</span>
+          <h2>Resolvemos tus dudas.</h2>
+        </div>
+        <div class="faq-lista">
+          <details class="faq-item">
+            <summary>¿Cuánto tarda en llegar mi pedido?</summary>
+            <p>Preparamos tu pedido después de que se aprueba el pago y suele llegar en 2 a 5 días hábiles, según tu ciudad. Las zonas extendidas pueden tardar más; te avisamos al capturar tu código postal. Cuando sale, te enviamos el número de guía por correo.</p>
+          </details>
+          <details class="faq-item">
+            <summary>¿Puedo pedir factura?</summary>
+            <p>Sí. Marca “Necesito factura (CFDI)” al capturar tus datos de entrega y te llega en PDF y XML a tu correo en cuanto se aprueba el pago. Si olvidaste pedirla, escríbenos dentro del mismo mes con tu número de pedido.</p>
+          </details>
+          <details class="faq-item">
+            <summary>¿Qué garantía tienen los productos?</summary>
+            <p>Todos son nuevos, originales y con garantía del fabricante. Si algo falla, escríbenos con tu número de pedido y nosotros hacemos el trámite por ti, sin costo. Consulta la <a href="garantias.html">política de garantías</a>.</p>
+          </details>
+          <details class="faq-item">
+            <summary>¿También hacen la instalación?</summary>
+            <p>Sí. Instalamos CCTV, redes, fibra óptica, control de acceso y más, en 17 estados. Pide tu cotización en el formulario de abajo o por WhatsApp y te enviamos una propuesta.</p>
+          </details>
+          <details class="faq-item">
+            <summary>¿Tienen precios de mayoreo o para proyectos?</summary>
+            <p>Sí. Para compras por volumen o proyectos completos, descarga la cotización desde tu carrito o escríbenos: te hacemos una propuesta especial.</p>
+          </details>
+          <details class="faq-item">
+            <summary>¿Cómo pago por transferencia o en efectivo?</summary>
+            <p>Al pagar con Mercado Pago elige transferencia SPEI o efectivo (OXXO y otras tiendas). Tu pedido se surte en cuanto Mercado Pago confirma el pago, normalmente el mismo día.</p>
+          </details>
+        </div>
+        <p class="faq-mas">¿Otra pregunta? <a href="https://wa.me/523335034338" target="_blank" rel="noopener">Escríbenos por WhatsApp</a></p>
+      </div>
+      <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Cuánto tarda en llegar mi pedido?", "acceptedAnswer": {"@type": "Answer", "text": "Preparamos tu pedido después de que se aprueba el pago y suele llegar en 2 a 5 días hábiles, según tu ciudad. Las zonas extendidas pueden tardar más; te avisamos al capturar tu código postal. Cuando sale, te enviamos el número de guía por correo."}}, {"@type": "Question", "name": "¿Puedo pedir factura?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Marca “Necesito factura (CFDI)” al capturar tus datos de entrega y te llega en PDF y XML a tu correo en cuanto se aprueba el pago. Si olvidaste pedirla, escríbenos dentro del mismo mes con tu número de pedido."}}, {"@type": "Question", "name": "¿Qué garantía tienen los productos?", "acceptedAnswer": {"@type": "Answer", "text": "Todos son nuevos, originales y con garantía del fabricante. Si algo falla, escríbenos con tu número de pedido y nosotros hacemos el trámite por ti, sin costo. Consulta la política de garantías."}}, {"@type": "Question", "name": "¿También hacen la instalación?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Instalamos CCTV, redes, fibra óptica, control de acceso y más, en 17 estados. Pide tu cotización en el formulario de abajo o por WhatsApp y te enviamos una propuesta."}}, {"@type": "Question", "name": "¿Tienen precios de mayoreo o para proyectos?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Para compras por volumen o proyectos completos, descarga la cotización desde tu carrito o escríbenos: te hacemos una propuesta especial."}}, {"@type": "Question", "name": "¿Cómo pago por transferencia o en efectivo?", "acceptedAnswer": {"@type": "Answer", "text": "Al pagar con Mercado Pago elige transferencia SPEI o efectivo (OXXO y otras tiendas). Tu pedido se surte en cuanto Mercado Pago confirma el pago, normalmente el mismo día."}}]}</script>
+    </section>
+
     <!-- CONTACTO -->
     <section class="contact" id="contacto">
       <div class="wrap contact-grid">
@@ -427,8 +479,13 @@
               <textarea id="mensaje" required placeholder="Ubicación, alcance estimado, tiempos…"></textarea>
             </div>
           </div>
-          <button type="submit" class="btn btn-block">Enviar solicitud</button>
-          <p class="form-note">Al enviar se abrirá tu cliente de correo con la solicitud ya redactada hacia solutelecom2025@gmail.com.</p>
+          <!-- trampa para bots: las personas no ven este campo -->
+          <input type="text" name="sitio" id="sitio" class="campo-trampa" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="contacto-acciones">
+            <button type="submit" class="btn" id="contactoEnviar">Enviar solicitud</button>
+            <a class="btn btn-wa" id="contactoWa" href="https://wa.me/523335034338" target="_blank" rel="noopener">¿Prefieres WhatsApp?</a>
+          </div>
+          <p class="form-note" id="contactoMsg" role="status">Te respondemos en menos de 24 horas hábiles.</p>
         </form>
       </div>
     </section>
@@ -447,6 +504,7 @@
         </div>
         <div class="footer-col">
           <h5>Enlaces</h5>
+          <a href="#productos">Tienda</a>
           <a href="#nosotros">Nosotros</a>
           <a href="#servicios">Servicios</a>
           <a href="#cobertura">Cobertura</a>
@@ -467,6 +525,7 @@
           <a href="garantias.html">Garantías y devoluciones</a>
           <a href="envios.html">Envíos</a>
           <a href="#facturacion">Facturación</a>
+          <a href="#preguntas">Preguntas frecuentes</a>
         </div>
         <div class="footer-col">
           <h5>Contacto</h5>
@@ -880,11 +939,25 @@
   <h2 id="catalogoTitulo">Productos</h2>
   <div class="pc-toolbar">
     <input id="buscarProducto" class="pc-search" type="search" placeholder="Buscar en esta categoría">
+    <button type="button" class="pc-filtros-btn" id="filtrosBtn" aria-expanded="false" aria-controls="filtros">Filtros <span id="filtrosCuenta"></span></button>
     <select id="ordenProducto" class="pc-select">
       <option value="">Ordenar: relevancia</option>
       <option value="asc">Precio: menor a mayor</option>
       <option value="desc">Precio: mayor a menor</option>
     </select>
+  </div>
+  <div class="pc-filtros" id="filtros" hidden>
+    <label class="pc-f">Marca
+      <select id="fMarca" class="pc-select"><option value="">Todas</option></select>
+    </label>
+    <label class="pc-f">Precio mínimo
+      <input id="fMin" class="pc-search" type="number" min="0" inputmode="numeric" placeholder="$0">
+    </label>
+    <label class="pc-f">Precio máximo
+      <input id="fMax" class="pc-search" type="number" min="0" inputmode="numeric" placeholder="Sin límite">
+    </label>
+    <label class="pc-f pc-f-check"><input id="fStock" type="checkbox" checked> Solo con existencia</label>
+    <button type="button" class="pc-f-limpiar" id="fLimpiar">Quitar filtros</button>
   </div>
   <p id="catalogoInfo" class="pc-info"></p>
   <div id="productosGrid" class="pc-grid"></div>

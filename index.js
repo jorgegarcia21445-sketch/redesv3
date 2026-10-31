@@ -210,32 +210,50 @@ function initLogin(){
 function initContactForm(){
   const form = document.getElementById('contactForm');
   if (!form) return;
+  const val = (id) => (document.getElementById(id)?.value || '').trim();
+  const msg = document.getElementById('contactoMsg');
+  const wa = document.getElementById('contactoWa');
+  const boton = document.getElementById('contactoEnviar');
 
-  form.addEventListener('submit', (e) => {
+  // the WhatsApp button carries whatever the visitor already typed
+  const textoWa = () => {
+    const partes = [
+      'Hola, quiero cotizar un proyecto.',
+      val('nombre') && 'Nombre: ' + val('nombre'),
+      val('empresa') && 'Empresa: ' + val('empresa'),
+      'Servicio: ' + (document.getElementById('servicio')?.value || ''),
+      val('mensaje'),
+    ].filter(Boolean);
+    return 'https://wa.me/523335034338?text=' + encodeURIComponent(partes.join('\n'));
+  };
+  form.addEventListener('input', () => { if (wa) wa.href = textoWa(); });
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    const val = (id) => document.getElementById(id)?.value.trim() || '';
-    const nombre = val('nombre');
-    const empresa = val('empresa');
-    const correo = val('correo');
-    const telefono = val('telefono');
-    const servicio = document.getElementById('servicio')?.value || '';
-    const mensaje = val('mensaje');
-
-    const subject = `Solicitud de proyecto — ${nombre || 'Sin nombre'}`;
-    const bodyLines = [
-      `Nombre: ${nombre}`,
-      empresa ? `Empresa: ${empresa}` : null,
-      `Correo: ${correo}`,
-      telefono ? `Teléfono: ${telefono}` : null,
-      `Servicio de interés: ${servicio}`,
-      '',
-      'Mensaje:',
-      mensaje
-    ].filter(line => line !== null);
-
-    window.location.href =
-      `mailto:solutelecom2025@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
+    const datos = {
+      nombre: val('nombre'), empresa: val('empresa'), correo: val('correo'),
+      telefono: val('telefono'), servicio: document.getElementById('servicio')?.value || '',
+      mensaje: val('mensaje'), sitio: val('sitio'),
+    };
+    boton.disabled = true;
+    boton.textContent = 'Enviando…';
+    msg.style.color = '';
+    try {
+      const r = await fetch(API_PAGOS + '/contacto', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(datos),
+      });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.error || 'No se pudo enviar.');
+      form.reset();
+      msg.style.color = '#7ee787';
+      msg.textContent = '¡Gracias! Recibimos tu solicitud y te enviamos una confirmación a tu correo.';
+    } catch (err) {
+      msg.style.color = '#ff9b93';
+      msg.innerHTML = 'No pudimos enviar tu mensaje en este momento. <a href="' + textoWa() + '" target="_blank" rel="noopener" style="color:#25D366;font-weight:600">Envíalo por WhatsApp</a>, ya va con lo que escribiste.';
+    } finally {
+      boton.disabled = false;
+      boton.textContent = 'Enviar solicitud';
+    }
   });
 }
 
@@ -558,6 +576,13 @@ function crearMenuProductos() {
     irABusqueda(q);
   });
 
+  // remove the bottom fade once the list is scrolled to the end
+  const scroll = sb.querySelector(".sb-scroll");
+  const revisarFinal = () =>
+    scroll.classList.toggle("al-final", scroll.scrollTop + scroll.clientHeight >= scroll.scrollHeight - 4);
+  scroll.addEventListener("scroll", revisarFinal, { passive: true });
+  datosListos.then(() => setTimeout(revisarFinal, 50));
+
   iniciar();
 }
 
@@ -573,7 +598,8 @@ function iconoCategoria(nombre) {
     [/acceso|asistencia/, '<circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 9.2-9.2M17 6l3 3M14 9l2 2"/>'],
     [/fuego|incendio|deteccion/, '<path d="M12 22a7 7 0 0 0 7-7c0-4-3-6-4-9-1 3-3 4-4 4 0-2-1-4-2-6-2 3-4 7-4 11a7 7 0 0 0 7 7z"/>'],
     [/intrusion|alarma|automatiza/, '<path d="M12 2 4 5v6c0 5 3.4 9.3 8 11 4.6-1.7 8-6 8-11V5z"/>'],
-    [/energia|solar|ups|herramienta|electric/, '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>'],
+    [/herramienta|ferreteria/, '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/>'],
+    [/energia|solar|ups|electric/, '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>'],
     [/iot|gps|telematica|rastreo/, '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>'],
     [/audio|sonido|voceo/, '<path d="M11 5 6 9H2v6h4l5 4zM15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/>'],
     [/telefon|voz/, '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>'],
@@ -702,13 +728,30 @@ function rutaDe(id, nodos = arbol, camino = []) {
   return null;
 }
 
+// filters for the product lists (brand, price, only in stock)
+let filtros = { marca: "", min: "", max: "", stock: true };
+
+function precioMXN(p) {
+  const u = precioBase(p).usd;
+  return isNaN(u) ? null : precioUnitario(u);
+}
+
 function productosFiltrados() {
   const q = vista.q.toLowerCase();
-  let lista = vista.productos.filter(
-    (p) =>
-      !q ||
-      ((p.titulo || "") + " " + (p.marca || "") + " " + (p.modelo || "")).toLowerCase().includes(q)
-  );
+  const min = filtros.min === "" ? null : Number(filtros.min);
+  const max = filtros.max === "" ? null : Number(filtros.max);
+  let lista = vista.productos.filter((p) => {
+    if (q && !((p.titulo || "") + " " + (p.marca || "") + " " + (p.modelo || "")).toLowerCase().includes(q)) return false;
+    if (filtros.marca && p.marca !== filtros.marca) return false;
+    if (filtros.stock && !((Number(p.total_existencia) || 0) > 0)) return false;
+    if (min !== null || max !== null) {
+      const precio = precioMXN(p);
+      if (precio === null) return false;
+      if (min !== null && precio < min) return false;
+      if (max !== null && precio > max) return false;
+    }
+    return true;
+  });
   if (vista.orden) {
     lista = lista.slice().sort((a, b) => {
       const pa = precioUSD(a);
@@ -783,7 +826,10 @@ function pintarCatalogo() {
     (tipoCambioReal ? "" : " (referencia)");
 
   if (!lista.length) {
-    grid.innerHTML = "<p>No hay productos guardados para esta categoría todavía.</p>";
+    const conFiltros = filtros.marca || filtros.min !== "" || filtros.max !== "" || vista.q;
+    grid.innerHTML = conFiltros
+      ? '<p>Ningún producto coincide con los filtros. <button type="button" class="pc-f-limpiar" onclick="document.getElementById(\'fLimpiar\').click()">Quitar filtros</button></p>'
+      : "<p>No hay productos con existencia en esta categoría. Desmarca “Solo con existencia” en Filtros para ver todos.</p>";
     pager.innerHTML = "";
     return;
   }
@@ -858,6 +904,7 @@ async function abrirCatalogo(id) {
   if (mia !== peticionActual) return;
 
   vista = { id, productos, pagina: 1, orden: "", q: "" };
+  prepararFiltros();
   document.getElementById("buscarProducto").value = "";
   document.getElementById("ordenProducto").value = "";
   pintarCatalogo();
@@ -896,6 +943,65 @@ async function enrutar() {
     await abrirBusqueda(q);
   } else cerrarCatalogo();
 }
+
+function prepararFiltros() {
+  filtros = { marca: "", min: "", max: "", stock: true };
+  const sel = document.getElementById("fMarca");
+  if (!sel) return;
+  const cuenta = new Map();
+  vista.productos.forEach((p) => p.marca && cuenta.set(p.marca, (cuenta.get(p.marca) || 0) + 1));
+  sel.innerHTML =
+    '<option value="">Todas</option>' +
+    Array.from(cuenta)
+      .sort((a, b) => a[0].localeCompare(b[0], "es"))
+      .map(([m, n]) => `<option value="${esc(m)}">${esc(m)} (${n})</option>`)
+      .join("");
+  document.getElementById("fMin").value = "";
+  document.getElementById("fMax").value = "";
+  document.getElementById("fStock").checked = true;
+  pintarCuentaFiltros();
+}
+
+function pintarCuentaFiltros() {
+  const n = (filtros.marca ? 1 : 0) + (filtros.min !== "" ? 1 : 0) + (filtros.max !== "" ? 1 : 0) + (filtros.stock ? 0 : 1);
+  const el = document.getElementById("filtrosCuenta");
+  if (el) el.textContent = n ? `(${n})` : "";
+}
+
+(function eventosFiltros() {
+  const caja = document.getElementById("filtros");
+  const btn = document.getElementById("filtrosBtn");
+  if (!caja || !btn) return;
+  btn.addEventListener("click", () => {
+    caja.hidden = !caja.hidden;
+    btn.setAttribute("aria-expanded", String(!caja.hidden));
+  });
+  const leer = () => {
+    filtros = {
+      marca: document.getElementById("fMarca").value,
+      min: document.getElementById("fMin").value.trim(),
+      max: document.getElementById("fMax").value.trim(),
+      stock: document.getElementById("fStock").checked,
+    };
+    vista.pagina = 1;
+    pintarCuentaFiltros();
+    pintarCatalogo();
+  };
+  let t = null;
+  caja.addEventListener("change", leer);
+  caja.addEventListener("input", (e) => {
+    if (e.target.type !== "number") return;
+    clearTimeout(t);
+    t = setTimeout(leer, 400);
+  });
+  document.getElementById("fLimpiar").addEventListener("click", () => {
+    document.getElementById("fMarca").value = "";
+    document.getElementById("fMin").value = "";
+    document.getElementById("fMax").value = "";
+    document.getElementById("fStock").checked = true;
+    leer();
+  });
+})();
 
 function iniciarEventosCatalogo() {
   const buscar = document.getElementById("buscarProducto");
@@ -951,6 +1057,7 @@ const API_PAGOS_ONLINE = "https://api.solutelecom.mx"; // your server on Railway
 const API_PAGOS = ["localhost", "127.0.0.1"].includes(location.hostname)
   ? "http://localhost:3001"
   : API_PAGOS_ONLINE;
+window.API_PAGOS = API_PAGOS;
 const CLAVE_CARRITO = "solutelecom_carrito";
 let carrito = [];
 
@@ -1270,9 +1377,12 @@ async function pagarItems(items, btn, cliente) {
   btn.textContent = "Un momento…";
 
   try {
+    const cabeceras = { "Content-Type": "application/json" };
+    const token = window.obtenerTokenCuenta ? await window.obtenerTokenCuenta() : null;
+    if (token) cabeceras.Authorization = "Bearer " + token;
     const r = await fetch(API_PAGOS + "/crear-pago", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: cabeceras,
       body: JSON.stringify({ items, cliente }),
     });
     const d = await r.json();
@@ -1807,7 +1917,7 @@ async function buscarProductos(q, limite = 240) {
     const r = await fetch(API_PAGOS + "/buscar?q=" + encodeURIComponent(q) + "&limit=" + limite);
     if (r.ok) {
       const d = await r.json();
-      return { total: d.total || 0, productos: d.productos || [], categorias: d.categorias || { sub: [], cat: [] } };
+      return { total: d.total || 0, productos: d.productos || [], categorias: d.categorias || { sub: [], cat: [] }, sugerencia: d.sugerencia || null };
     }
   } catch (e) {
     // server not reachable: search locally
@@ -1835,7 +1945,74 @@ async function buscarProductos(q, limite = 240) {
     total: encontrados.length,
     productos: encontrados.slice(0, limite).map((e) => e.p),
     categorias: categoriasDe(encontrados.map((e) => e.p)),
+    sugerencia: encontrados.length ? null : corregirLocal(frase),
   };
+}
+
+// "¿Quisiste decir…?" without the server: compares each word with the words in the catalog
+let vocabularioLocal = null;
+function distanciaPalabras(a, b, max) {
+  if (Math.abs(a.length - b.length) > max) return max + 1;
+  let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) {
+    const fila = [i];
+    let menor = i;
+    for (let j = 1; j <= b.length; j++) {
+      fila[j] = Math.min(prev[j] + 1, fila[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      if (fila[j] < menor) menor = fila[j];
+    }
+    if (menor > max) return max + 1;
+    prev = fila;
+  }
+  return prev[b.length];
+}
+function corregirLocal(q) {
+  if (!vocabularioLocal) {
+    const cuenta = new Map();
+    for (const p of listaProductos) {
+      for (const w of new Set((p._texto || sinAcentosQ([p.titulo, p.marca, p.modelo].join(" "))).split(/[^a-z0-9]+/))) {
+        if (w.length >= 3) cuenta.set(w, (cuenta.get(w) || 0) + 1);
+      }
+    }
+    vocabularioLocal = Array.from(cuenta).filter(([, n]) => n >= 2);
+  }
+  const conocidas = new Set(vocabularioLocal.map(([w]) => w));
+  let cambio = false;
+  const palabras = q.split(/\s+/).map((w) => {
+    if (w.length < 3 || conocidas.has(w) || /\d/.test(w)) return w;
+    const max = w.length <= 4 ? 1 : 2;
+    let mejor = null;
+    for (const [v, n] of vocabularioLocal) {
+      const d = distanciaPalabras(w, v, max);
+      if (d <= max && (!mejor || d < mejor.d || (d === mejor.d && n > mejor.n))) mejor = { v, d, n };
+    }
+    if (mejor) {
+      cambio = true;
+      return mejor.v;
+    }
+    return w;
+  });
+  return cambio ? palabras.join(" ") : null;
+}
+
+// recent searches (this browser only)
+const CLAVE_BUSQUEDAS = "solutelecom_busquedas";
+function busquedasRecientes() {
+  try {
+    return JSON.parse(localStorage.getItem(CLAVE_BUSQUEDAS) || "[]");
+  } catch (e) {
+    return [];
+  }
+}
+function recordarBusqueda(q) {
+  const t = String(q || "").trim();
+  if (t.length < 2) return;
+  const lista = [t].concat(busquedasRecientes().filter((x) => x.toLowerCase() !== t.toLowerCase())).slice(0, 6);
+  try {
+    localStorage.setItem(CLAVE_BUSQUEDAS, JSON.stringify(lista));
+  } catch (e) {
+    // storage not available
+  }
 }
 
 // common shorthand -> how Syscom writes it (4mp -> 4 megapixel, 1tb -> 1 tb, cat6 -> cat 6 ...)
@@ -1874,6 +2051,7 @@ function categoriasDe(lista) {
 }
 
 function irABusqueda(q) {
+  recordarBusqueda(q);
   const destino = "#/buscar/" + encodeURIComponent(q.trim());
   if (location.hash === destino) enrutar();
   else location.hash = destino;
@@ -1900,13 +2078,16 @@ async function abrirBusqueda(q) {
   if (mia !== peticionActual) return;
 
   vista = { id: null, productos: r.productos, pagina: 1, orden: "", q: "" };
+  prepararFiltros();
   const buscar = document.getElementById("buscarProducto");
   buscar.value = "";
   buscar.placeholder = "Filtrar estos resultados";
   document.getElementById("ordenProducto").value = "";
   pintarCatalogo();
   if (!r.productos.length && grid) {
-    grid.innerHTML = `<p>No encontramos productos para “${esc(q)}”. Prueba con otra palabra o con el modelo.</p>`;
+    grid.innerHTML = r.sugerencia
+      ? `<p>No encontramos productos para “${esc(q)}”. ¿Quisiste decir <a class="quisiste" href="#/buscar/${encodeURIComponent(r.sugerencia)}">${esc(r.sugerencia)}</a>?</p>`
+      : `<p>No encontramos productos para “${esc(q)}”. Prueba con otra palabra o con el modelo.</p>`;
   }
   if (info && r.total > r.productos.length) {
     info.textContent += ` · Mostrando los primeros ${r.productos.length} de ${r.total}, escribe algo más específico`;
@@ -1982,6 +2163,8 @@ async function abrirBusqueda(q) {
           })
           .join("") +
         `<a class="hs-all" href="#/buscar/${encodeURIComponent(q)}">Ver los ${r.total.toLocaleString("es-MX")} resultados ›</a>`
+      : r.sugerencia
+      ? `<p class="hs-empty">Sin resultados para “${esc(q)}”. ¿Quisiste decir <a class="quisiste" href="#" data-quisiste="${esc(r.sugerencia)}">${esc(r.sugerencia)}</a>?</p>`
       : `<p class="hs-empty">Sin resultados para “${esc(q)}”. Prueba con otra palabra o el modelo.</p>`;
 
     caja.innerHTML = `${columna ? `<div class="hs-cats">${columna}</div>` : ""}<div class="hs-prods">${productosHtml}</div>`;
@@ -2012,9 +2195,39 @@ async function abrirBusqueda(q) {
     if (e.target.closest(".hs-cant input")) e.stopPropagation();
   }, true);
 
+  function mostrarRecientes() {
+    const lista = busquedasRecientes();
+    if (input.value.trim() || !lista.length) return;
+    caja.classList.remove("con-cats");
+    caja.innerHTML = `<div class="hs-prods hs-recientes">
+        <div class="hs-rec-head"><span>Búsquedas recientes</span><button type="button" data-rec-borrar>Borrar</button></div>
+        ${lista.map((t) => `<a href="#" class="hs-rec" data-quisiste="${esc(t)}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>${esc(t)}</a>`).join("")}
+      </div>`;
+    caja.hidden = false;
+    input.setAttribute("aria-expanded", "true");
+  }
+  input.addEventListener("focus", mostrarRecientes);
   input.addEventListener("input", () => {
     clearTimeout(timer);
+    if (!input.value.trim()) return mostrarRecientes();
     timer = setTimeout(sugerir, 220);
+  });
+  // "¿Quisiste decir…?" and recent searches: run that search
+  caja.addEventListener("click", (e) => {
+    const borrar = e.target.closest("[data-rec-borrar]");
+    if (borrar) {
+      e.stopPropagation();
+      try { localStorage.removeItem(CLAVE_BUSQUEDAS); } catch (err) { /* ignore */ }
+      return cerrar();
+    }
+    const q = e.target.closest("[data-quisiste]");
+    if (!q) return;
+    e.preventDefault();
+    e.stopPropagation();
+    input.value = q.dataset.quisiste;
+    sugerir();
+    input.focus();
   });
 
   input.addEventListener("keydown", (e) => {
@@ -2042,7 +2255,11 @@ async function abrirBusqueda(q) {
   });
 
   caja.addEventListener("click", (e) => {
-    if (e.target.closest("a, [data-add]") || (e.target.closest("[data-vista]") && !e.target.closest(".hs-cant"))) cerrar();
+    if (e.target.closest("[data-quisiste], [data-rec-borrar]")) return;
+    if (e.target.closest("a, [data-add]") || (e.target.closest("[data-vista]") && !e.target.closest(".hs-cant"))) {
+      recordarBusqueda(input.value);
+      cerrar();
+    }
   });
   document.addEventListener("click", (e) => {
     if (!form.contains(e.target)) cerrar();
@@ -2889,4 +3106,134 @@ function htmlEsqueletos(n = 8) {
 (function esqueletosIniciales() {
   const g = document.getElementById("inicioGrid");
   if (g && !g.children.length) g.innerHTML = htmlEsqueletos(8);
+})();
+
+// =========================================================
+// "Vistos recientemente" (this browser only)
+// =========================================================
+const CLAVE_VISTOS = "solutelecom_vistos";
+function leerVistos() {
+  try {
+    const d = JSON.parse(localStorage.getItem(CLAVE_VISTOS) || "[]");
+    return Array.isArray(d) ? d : [];
+  } catch (e) {
+    return [];
+  }
+}
+function recordarVisto(p) {
+  if (!p || p.producto_id == null) return;
+  const corto = {
+    producto_id: String(p.producto_id),
+    titulo: p.titulo,
+    marca: p.marca,
+    modelo: p.modelo,
+    img_portada: p.img_portada,
+    precios: p.precios,
+    total_existencia: p.total_existencia,
+  };
+  const lista = [corto].concat(leerVistos().filter((x) => x.producto_id !== corto.producto_id)).slice(0, 12);
+  try {
+    localStorage.setItem(CLAVE_VISTOS, JSON.stringify(lista));
+  } catch (e) {
+    // storage not available
+  }
+  pintarVistos();
+}
+function pintarVistos() {
+  const sec = document.getElementById("vistos");
+  const fila = document.getElementById("vistosFila");
+  if (!sec || !fila) return;
+  const lista = leerVistos();
+  sec.hidden = !lista.length;
+  fila.innerHTML = lista
+    .map((p) => {
+      recordarProducto(p);
+      const b = precioBase(p);
+      return `<div class="vistos-item" data-vista="${esc(p.producto_id)}" tabindex="0" role="button" aria-label="${esc(p.titulo)}">
+          <img src="${esc(p.img_portada)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <span class="vistos-t">${esc(p.titulo)}</span>
+          <strong>${isNaN(b.usd) ? "Consultar" : dinero(precioUnitario(b.usd))}</strong>
+        </div>`;
+    })
+    .join("");
+}
+(function iniciarVistos() {
+  // remember every product opened in the quick view
+  const original = window.abrirVistaRapida;
+  if (original) {
+    window.abrirVistaRapida = (id) => {
+      original(id);
+      recordarVisto(buscarProductoMostrado(id));
+    };
+  }
+  document.addEventListener(
+    "click",
+    (e) => {
+      const t = e.target.closest("[data-vista]");
+      if (t && !e.target.closest("button[data-add], button[data-buy]")) setTimeout(() => recordarVisto(buscarProductoMostrado(t.dataset.vista)), 0);
+    },
+    true
+  );
+  const borrar = document.getElementById("vistosBorrar");
+  if (borrar)
+    borrar.addEventListener("click", () => {
+      try {
+        localStorage.removeItem(CLAVE_VISTOS);
+      } catch (e) {
+        // ignore
+      }
+      pintarVistos();
+    });
+  pintarVistos();
+})();
+
+// =========================================================
+// Bottom bar on phones: Inicio · Categorías · Buscar · Carrito · Cuenta
+// =========================================================
+(function barraInferior() {
+  const ico = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
+  const nav = document.createElement("nav");
+  nav.className = "bb";
+  nav.setAttribute("aria-label", "Navegación rápida");
+  nav.innerHTML = `
+    <a href="#top" data-bb="inicio">${ico('<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>')}<span>Inicio</span></a>
+    <button type="button" data-bb="categorias">${ico('<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>')}<span>Categorías</span></button>
+    <button type="button" data-bb="buscar">${ico('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>')}<span>Buscar</span></button>
+    <a href="#/carrito" data-bb="carrito">${ico('<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L22 8H6"/>')}<span>Carrito</span><b class="bb-num" id="bbNum"></b></a>
+    <button type="button" data-bb="cuenta">${ico('<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>')}<span>Cuenta</span></button>`;
+  document.body.appendChild(nav);
+
+  nav.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-bb]");
+    if (!b) return;
+    const que = b.dataset.bb;
+    if (que === "inicio") {
+      e.preventDefault();
+      if (location.hash.startsWith("#/")) location.hash = "#top";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    if (que === "categorias") document.querySelector(".prod-btn")?.click();
+    if (que === "buscar") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setTimeout(() => document.getElementById("heroQ")?.focus(), 250);
+    }
+    if (que === "cuenta") document.getElementById("loginBtn")?.click();
+  });
+
+  // highlight where you are, and the cart count
+  const marcar = () => {
+    const h = location.hash;
+    nav.querySelectorAll("[data-bb]").forEach((x) => x.classList.remove("on"));
+    const activo = h === "#/carrito" ? "carrito" : h.startsWith("#/") ? "" : "inicio";
+    if (activo) nav.querySelector(`[data-bb="${activo}"]`).classList.add("on");
+  };
+  window.addEventListener("hashchange", marcar);
+  marcar();
+  const contar = () => {
+    const n = (typeof carrito !== "undefined" ? carrito : []).reduce((s, i) => s + (i.qty || 0), 0);
+    document.getElementById("bbNum").textContent = n ? String(n) : "";
+  };
+  contar();
+  const sb = document.getElementById("sbCartCount");
+  if (sb) new MutationObserver(contar).observe(sb, { childList: true, characterData: true, subtree: true });
 })();

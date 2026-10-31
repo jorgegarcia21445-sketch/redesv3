@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword, createUserWithEmailAndPassword,
   sendPasswordResetEmail, signInWithPopup, sendEmailVerification,
   reauthenticateWithCredential, updatePassword, EmailAuthProvider,
+  multiFactor, getMultiFactorResolver, TotpMultiFactorGenerator,
   GoogleAuthProvider, FacebookAuthProvider, OAuthProvider
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
@@ -43,7 +44,9 @@ const ERRORS = {
   'auth/unauthorized-domain': 'Este dominio no está autorizado en Firebase.',
   'auth/too-many-requests': 'Demasiados intentos. Intente más tarde.',
   'auth/popup-blocked': 'El navegador bloqueó la ventana. Permita ventanas emergentes para este sitio.',
-  'auth/account-exists-with-different-credential': 'Ese correo ya tiene cuenta con otro método. Entre con ese método.'
+  'auth/account-exists-with-different-credential': 'Ese correo ya tiene cuenta con otro método. Entre con ese método.',
+  'auth/invalid-verification-code': 'El código no es correcto. Revise su app e intente de nuevo.',
+  'auth/totp-challenge-timeout': 'El código expiró. Escriba el código nuevo de su app.'
 };
 const fail = (e) => say(ERRORS[e.code] || 'No se pudo completar. Intente de nuevo.');
 
@@ -67,6 +70,68 @@ if (!configured) {
     say('');
   });
 
+  // ---- Second step at sign-in (accounts with 2-step verification) ----
+  // Shows a 6-digit code box inside the login window.
+  const paso2 = document.createElement('form');
+  paso2.className = 'mfa-paso';
+  paso2.hidden = true;
+  paso2.innerHTML = `
+    <h3>Verificación en dos pasos</h3>
+    <p class="login-sub">Abre tu app de autenticación (Google Authenticator, Microsoft Authenticator…) y escribe el código de 6 dígitos para <b>SoluTelecom</b>.</p>
+    <input id="mfaCodigo" class="mfa-codigo" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="000000" required>
+    <button type="submit" class="btn btn-block">Verificar</button>
+    <p class="login-msg" id="mfaMsg" role="status"></p>
+    <button type="button" class="login-switch" id="mfaCancelar">Cancelar</button>`;
+  $('loginForm').insertAdjacentElement('afterend', paso2);
+  let resolver = null;
+
+  function pedirSegundoPaso(err) {
+    resolver = getMultiFactorResolver(auth, err);
+    $('loginForm').hidden = true;
+    modal.classList.add('en-mfa');
+    paso2.hidden = false;
+    $('mfaMsg').textContent = '';
+    $('mfaCodigo').value = '';
+    setTimeout(() => $('mfaCodigo').focus(), 50);
+  }
+  function salirSegundoPaso() {
+    resolver = null;
+    paso2.hidden = true;
+    $('loginForm').hidden = false;
+    modal.classList.remove('en-mfa');
+  }
+  // every sign-in goes through here: asks for the code when needed
+  async function conSegundoPaso(intento) {
+    try {
+      await intento();
+      return true;
+    } catch (err) {
+      if (err.code === 'auth/multi-factor-auth-required') {
+        pedirSegundoPaso(err);
+        return false;
+      }
+      throw err;
+    }
+  }
+  paso2.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!resolver) return;
+    const pista = resolver.hints.find((h) => h.factorId === TotpMultiFactorGenerator.FACTOR_ID) || resolver.hints[0];
+    try {
+      $('mfaMsg').textContent = 'Verificando…';
+      const assertion = TotpMultiFactorGenerator.assertionForSignIn(pista.uid, $('mfaCodigo').value.trim());
+      await resolver.resolveSignIn(assertion);
+      salirSegundoPaso();
+      $('loginForm').reset();
+      say('');
+      modal.close();
+    } catch (err) {
+      $('mfaMsg').textContent = ERRORS[err.code] || 'No se pudo verificar. Intente de nuevo.';
+    }
+  });
+  $('mfaCancelar').addEventListener('click', () => { salirSegundoPaso(); say(''); });
+  modal.addEventListener('close', salirSegundoPaso);
+
   // Correo + contraseña
   $('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -80,7 +145,7 @@ if (!configured) {
         const name = $('signupName').value.trim();
         if (name) await updateProfile(cred.user, { displayName: name });
       } else {
-        await signInWithEmailAndPassword(auth, user, pass);
+        if (!(await conSegundoPaso(() => signInWithEmailAndPassword(auth, user, pass)))) return say('');
       }
       $('loginForm').reset();
       say('');
@@ -106,7 +171,9 @@ if (!configured) {
   };
   modal.querySelectorAll('[data-provider]').forEach(b => {
     b.addEventListener('click', async () => {
-      try { await signInWithPopup(auth, PROVIDERS[b.dataset.provider]()); modal.close(); }
+      try {
+        if (await conSegundoPaso(() => signInWithPopup(auth, PROVIDERS[b.dataset.provider]()))) modal.close();
+      }
       catch (err) { fail(err); }
     });
   });
@@ -139,6 +206,7 @@ if (!configured) {
       <span><strong id="acctMenuName"></strong><small id="acctMenuEmail"></small></span>
     </div>
     <button type="button" data-acct="perfil">Mi cuenta</button>
+    <button type="button" data-acct="pedidos">Mis pedidos</button>
     <button type="button" data-acct="direcciones">Mis direcciones</button>
     <a href="#/carrito" data-acct="carrito">Carrito</a>
     <button type="button" data-acct="salir" class="acct-out">Cerrar sesión</button>`;
@@ -195,6 +263,7 @@ if (!configured) {
     cerrarMenu();
     if (b.dataset.acct === "perfil") abrirPerfil("perfil");
     if (b.dataset.acct === "direcciones") abrirPerfil("direcciones");
+    if (b.dataset.acct === "pedidos") abrirPerfil("pedidos");
     if (b.dataset.acct === "salir") await signOut(auth);
   });
 
@@ -233,6 +302,7 @@ if (!configured) {
       <aside class="cuenta-nav">
         <h3 id="cuentaTitle">Mi cuenta</h3>
         <button type="button" data-tab="perfil" class="active">Perfil</button>
+        <button type="button" data-tab="pedidos">Mis pedidos</button>
         <button type="button" data-tab="direcciones">Direcciones</button>
         <button type="button" data-tab="fiscal">Datos fiscales</button>
         <button type="button" data-tab="seguridad">Seguridad</button>
@@ -260,6 +330,12 @@ if (!configured) {
           <p class="perfil-msg" role="status"></p>
           <button type="submit" class="btn">Guardar cambios</button>
         </form>
+
+        <div class="cuenta-tab" data-panel="pedidos" hidden>
+          <h4>Mis pedidos</h4>
+          <p class="cuenta-nota">Estado de tus compras y número de guía cuando salen.</p>
+          <div id="pedidosLista" class="ped-lista"></div>
+        </div>
 
         <div class="cuenta-tab" data-panel="direcciones" hidden>
           <h4>Direcciones de entrega</h4>
@@ -309,6 +385,28 @@ if (!configured) {
             <div><strong>Correo verificado</strong><span id="segVerif"></span></div>
             <button type="button" class="btn btn-outline btn-sm" id="segVerificar" hidden>Enviar verificación</button>
           </div>
+          <div class="seg-item seg-mfa">
+            <div><strong>Verificación en dos pasos</strong><span id="mfaEstado"></span></div>
+            <button type="button" class="btn btn-sm" id="mfaActivar">Activar</button>
+            <button type="button" class="btn btn-outline btn-sm" id="mfaQuitar" hidden>Desactivar</button>
+          </div>
+          <form id="mfaAlta" class="mfa-alta" hidden>
+            <strong>Activar verificación en dos pasos</strong>
+            <ol>
+              <li>Instala una app de autenticación en tu celular: <b>Google Authenticator</b>, <b>Microsoft Authenticator</b> o <b>Authy</b>.</li>
+              <li>En la app, toca <b>+</b> y escanea este código:</li>
+            </ol>
+            <div class="mfa-qr" id="mfaQr"></div>
+            <p class="cuenta-nota">¿No puedes escanear? Escribe esta clave en la app: <code id="mfaClave"></code></p>
+            <label>3. Escribe el código de 6 dígitos que muestra la app
+              <input id="mfaAltaCodigo" class="mfa-codigo" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="000000" required>
+            </label>
+            <p class="perfil-msg" role="status"></p>
+            <div class="perfil-acciones">
+              <button type="submit" class="btn btn-sm">Confirmar y activar</button>
+              <button type="button" class="btn btn-outline btn-sm" id="mfaAltaCancelar">Cancelar</button>
+            </div>
+          </form>
           <form id="segPassForm" class="seg-pass" hidden>
             <strong>Cambiar contraseña</strong>
             <label>Contraseña actual<input type="password" name="actual" autocomplete="current-password" required></label>
@@ -338,6 +436,56 @@ if (!configured) {
   function mostrarTab(n) {
     dlg.querySelectorAll("[data-tab]").forEach((b) => b.classList.toggle("active", b.dataset.tab === n));
     dlg.querySelectorAll("[data-panel]").forEach((p) => (p.hidden = p.dataset.panel !== n));
+    if (n === "pedidos") cargarPedidos();
+  }
+
+  // ---------- Mis pedidos ----------
+  const pesosMX = (n) => new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN" }).format(Number(n) || 0);
+  const PASOS = ["pendiente", "preparando", "enviado"];
+  async function cargarPedidos() {
+    const caja = $("pedidosLista");
+    caja.innerHTML = '<p class="cuenta-nota">Cargando tus pedidos…</p>';
+    try {
+      const token = await auth.currentUser.getIdToken();
+      const r = await conLimite(fetch((window.API_PAGOS || "") + "/mis-pedidos", { headers: { Authorization: "Bearer " + token } }), 12000);
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.error || "error");
+      const lista = d.pedidos || [];
+      if (!lista.length) {
+        caja.innerHTML = '<p class="cuenta-nota">Aún no tienes pedidos. Cuando compres, aquí verás su estado y tu número de guía.</p>';
+        return;
+      }
+      caja.innerHTML = lista
+        .map((p) => {
+          const paso = PASOS.indexOf(p.estado.clave);
+          const barra =
+            paso >= 0
+              ? `<ol class="ped-pasos">${["Pagado", "Preparando", "Enviado"]
+                  .map((t, i) => `<li class="${i <= Math.max(paso, 0) && p.estado.clave !== "pendiente" ? "ok" : ""}">${t}</li>`)
+                  .join("")}</ol>`
+              : "";
+          return `<article class="ped">
+              <header class="ped-head">
+                <div><strong>${escHtml(p.referencia)}</strong><span>${new Date(p.fecha).toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" })}</span></div>
+                <span class="ped-estado ped-${escHtml(p.estado.clave)}">${escHtml(p.estado.texto)}</span>
+              </header>
+              ${barra}
+              <ul class="ped-prods">${p.productos.map((l) => `<li><span>${l.cantidad} × ${escHtml(l.titulo)}</span><b>${pesosMX(l.precio_unitario * l.cantidad)}</b></li>`).join("")}</ul>
+              <div class="ped-total"><span>Total (con envío)</span><b>${pesosMX(p.total)}</b></div>
+              ${
+                p.guia && p.guia.numero
+                  ? `<div class="ped-guia">${escHtml(p.guia.fletera)} · Guía <b>${escHtml(p.guia.numero)}</b>${p.guia.url ? ` <a href="${escHtml(p.guia.url)}" target="_blank" rel="noopener">Rastrear</a>` : ""}</div>`
+                  : ""
+              }
+              ${p.factura ? `<div class="ped-fact">Factura ${escHtml(p.factura.folio || "emitida")}: enviada a tu correo</div>` : ""}
+            </article>`;
+        })
+        .join("");
+    } catch (err) {
+      caja.innerHTML = `<p class="cuenta-nota">${
+        err.message && err.message !== "error" && err.code !== "timeout" ? escHtml(err.message) : "No pudimos cargar tus pedidos en este momento. Intenta de nuevo en un minuto."
+      }</p>`;
+    }
   }
   dlg.querySelector(".cuenta-nav").addEventListener("click", (e) => {
     const b = e.target.closest("[data-tab]");
@@ -365,6 +513,13 @@ if (!configured) {
     if (!dlg.open) dlg.showModal();
   }
   window.abrirMiCuenta = abrirPerfil;
+  window.obtenerTokenCuenta = async () => {
+    try {
+      return auth.currentUser ? await auth.currentUser.getIdToken() : null;
+    } catch (e) {
+      return null;
+    }
+  };
 
   // la foto se reduce a 256x256 en el navegador (pesa ~20 KB)
   function reducirFoto(archivo) {
@@ -546,7 +701,105 @@ if (!configured) {
     $("segSocial").hidden = conPass;
     $("segPassForm").reset();
     aviso($("segMsg"), "");
+    pintarMfa();
   }
+
+  // ---------- Two-step verification (authenticator app) ----------
+  let secretoMfa = null;
+  function pintarMfa() {
+    const u = auth.currentUser;
+    const factores = multiFactor(u).enrolledFactors || [];
+    const activo = factores.some((f) => f.factorId === TotpMultiFactorGenerator.FACTOR_ID);
+    $("mfaEstado").textContent = activo
+      ? "Activada: al iniciar sesión te pediremos el código de tu app."
+      : (u.providerData || []).some((p) => p.providerId === "password")
+      ? "Protege tu cuenta con un código de tu celular además de tu contraseña."
+      : "Protege tu cuenta con un código de tu celular además de tu inicio de sesión con Google o Facebook.";
+    $("mfaEstado").classList.toggle("mfa-on", activo);
+    $("mfaActivar").hidden = activo;
+    $("mfaQuitar").hidden = !activo;
+    $("mfaAlta").hidden = true;
+    secretoMfa = null;
+  }
+
+  function errorMfa(err) {
+    return err.code === "auth/requires-recent-login"
+      ? "Por seguridad, cierra sesión y vuelve a entrar; luego actívala de nuevo."
+      : err.code === "auth/unverified-email"
+      ? "Primero verifica tu correo (botón “Enviar verificación” arriba)."
+      : err.code === "auth/operation-not-allowed" || err.code === "auth/admin-restricted-operation"
+      ? "La verificación en dos pasos aún no está habilitada en la tienda. Intenta más tarde."
+      : ERRORS[err.code] || "No se pudo completar. Intenta de nuevo.";
+  }
+
+  // QR code drawn with a small library loaded only when needed
+  function cargarQr() {
+    if (window.qrcode) return Promise.resolve(window.qrcode);
+    return new Promise((ok, mal) => {
+      const sc = document.createElement("script");
+      sc.src = "https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js";
+      sc.onload = () => ok(window.qrcode);
+      sc.onerror = mal;
+      document.head.appendChild(sc);
+    });
+  }
+
+  $("mfaActivar").addEventListener("click", async () => {
+    const u = auth.currentUser;
+    aviso($("segMsg"), "Preparando…", true);
+    try {
+      const sesion = await multiFactor(u).getSession();
+      secretoMfa = await TotpMultiFactorGenerator.generateSecret(sesion);
+      const url = secretoMfa.generateQrCodeUrl(u.email || "cliente", "SoluTelecom");
+      $("mfaClave").textContent = secretoMfa.secretKey;
+      $("mfaQr").innerHTML = "";
+      try {
+        const qrcode = await cargarQr();
+        const qr = qrcode(0, "M");
+        qr.addData(url);
+        qr.make();
+        $("mfaQr").innerHTML = qr.createSvgTag({ cellSize: 5, margin: 3, scalable: true });
+      } catch (e) {
+        $("mfaQr").innerHTML = `<a class="btn btn-outline btn-sm" href="${escHtml(url)}">Abrir en la app</a>`;
+      }
+      $("mfaAlta").reset();
+      $("mfaAlta").hidden = false;
+      $("mfaActivar").hidden = true;
+      aviso($("segMsg"), "");
+      $("mfaAltaCodigo").focus();
+    } catch (err) {
+      aviso($("segMsg"), errorMfa(err));
+    }
+  });
+
+  $("mfaAlta").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const msgEl = e.target.querySelector(".perfil-msg");
+    if (!secretoMfa) return;
+    try {
+      aviso(msgEl, "Verificando…", true);
+      const assertion = TotpMultiFactorGenerator.assertionForEnrollment(secretoMfa, $("mfaAltaCodigo").value.trim());
+      await multiFactor(auth.currentUser).enroll(assertion, "App de autenticación");
+      pintarMfa();
+      aviso($("segMsg"), "Verificación en dos pasos activada. Guarda tu app: la necesitarás para entrar.", true);
+    } catch (err) {
+      aviso(msgEl, errorMfa(err));
+    }
+  });
+  $("mfaAltaCancelar").addEventListener("click", pintarMfa);
+
+  $("mfaQuitar").addEventListener("click", async () => {
+    if (!confirm("¿Desactivar la verificación en dos pasos? Tu cuenta quedará protegida solo con tu contraseña.")) return;
+    const u = auth.currentUser;
+    try {
+      const f = (multiFactor(u).enrolledFactors || []).find((x) => x.factorId === TotpMultiFactorGenerator.FACTOR_ID);
+      if (f) await multiFactor(u).unenroll(f);
+      pintarMfa();
+      aviso($("segMsg"), "Verificación en dos pasos desactivada.", true);
+    } catch (err) {
+      aviso($("segMsg"), errorMfa(err));
+    }
+  });
   $("segVerificar").addEventListener("click", async () => {
     try {
       await sendEmailVerification(auth.currentUser);

@@ -4,7 +4,7 @@ import express from "express";
 import cors from "cors";
 import fs from "node:fs";
 import path from "node:path";
-import { randomUUID, createHmac, timingSafeEqual } from "node:crypto";
+import { randomUUID, createHmac, timingSafeEqual, createVerify } from "node:crypto";
 
 const TOKEN = (process.env.MP_ACCESS_TOKEN || "").replace(/["'\s]/g, "");
 const SYSCOM_TOKEN = (process.env.SYSCOM_TOKEN || "").replace(/["'\s]/g, "");
@@ -95,6 +95,7 @@ const CATALOGO_URL = (process.env.CATALOGO_URL || "").replace(/\/+$/, "");
 let productos = new Map(); // producto_id -> product
 let indice = [];      // search index: [{ p, texto, modelo }]
 let destacados = [];  // products for the home page carousel
+let vocabulario = []; // [word, how many products]
 let periodoDestacados = -1; // which 30-minute period the featured products belong to
 let enExistencia = { periodo: -1, lista: [] }; // home page in-stock list
 let tipoCambioActual = TIPO_CAMBIO_RESPALDO;
@@ -559,6 +560,10 @@ function construirIndice() {
     });
   }
 
+  // vocabulary for "¿Quisiste decir…?" (words that appear in at least 2 products)
+  const cuenta = new Map();
+  for (const x of indice) for (const w of new Set(x.texto.split(/[^a-z0-9]+/))) if (w.length >= 3) cuenta.set(w, (cuenta.get(w) || 0) + 1);
+  vocabulario = Array.from(cuenta).filter(([, n]) => n >= 2);
   periodoDestacados = -1; // pick the featured products again with the new catalog
   enExistencia = { periodo: -1, lista: [] };
 }
@@ -623,6 +628,44 @@ const paraPagina = (p) => ({
   total_existencia: p.total_existencia,
 });
 
+// edit distance between two words (for typos)
+function distancia(a, b, max) {
+  if (Math.abs(a.length - b.length) > max) return max + 1;
+  let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) {
+    const fila = [i];
+    let menor = i;
+    for (let j = 1; j <= b.length; j++) {
+      fila[j] = Math.min(prev[j] + 1, fila[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      if (fila[j] < menor) menor = fila[j];
+    }
+    if (menor > max) return max + 1;
+    prev = fila;
+  }
+  return prev[b.length];
+}
+
+// "camra hikvsion" -> "camara hikvision" (null if nothing better)
+function corregirBusqueda(q) {
+  const conocidas = new Set(vocabulario.map(([w]) => w));
+  let cambio = false;
+  const palabras = q.split(/\s+/).map((w) => {
+    if (w.length < 3 || conocidas.has(w) || /\d/.test(w)) return w;
+    const max = w.length <= 4 ? 1 : 2;
+    let mejor = null;
+    for (const [v, n] of vocabulario) {
+      const d = distancia(w, v, max);
+      if (d <= max && (!mejor || d < mejor.d || (d === mejor.d && n > mejor.n))) mejor = { v, d, n };
+    }
+    if (mejor) {
+      cambio = true;
+      return mejor.v;
+    }
+    return w;
+  });
+  return cambio ? palabras.join(" ") : null;
+}
+
 // common shorthand -> how Syscom writes it (4mp -> 4 megapixel, cat6 -> cat6 ...)
 function expandirBusqueda(t) {
   return t
@@ -676,6 +719,7 @@ app.get("/buscar", (req, res) => {
     total: encontrados.length,
     productos: encontrados.slice(0, limite).map((e) => paraPagina(e.x.p)),
     categorias: { sub: top(sub, 6), cat: top(cat, 5) },
+    sugerencia: encontrados.length ? null : corregirBusqueda(q),
   });
 });
 
@@ -1019,6 +1063,8 @@ app.post("/crear-pago", async (req, res) => {
     productos: c.lineas,
     cliente: k.cliente,
   };
+  const cuenta = await usuarioDeToken(req);
+  if (cuenta) pedido.uid = cuenta.uid;
   const archivoPedido = path.join(CARPETA_PEDIDOS, `${referencia}.json`);
   try {
     guardarPedido(archivoPedido, pedido);
@@ -1284,6 +1330,12 @@ async function procesarPagoAprobado(mpOrderId) {
     if (quiereFactura) partes.push(pedido.factura.ok ? `factura ${pedido.factura.folio || "emitida"}` : "ERROR FACTURA: revisar a mano");
     pedido.estado = partes.join(" · ");
     guardarPedido(archivo, pedido);
+
+    // 6. Confirmation email (only once)
+    if (!pedido.correo_confirmacion) {
+      pedido.correo_confirmacion = (await correoConfirmacion(pedido)) ? new Date().toISOString() : null;
+      if (pedido.correo_confirmacion) guardarPedido(archivo, pedido);
+    }
   } finally {
     enProceso.delete(referencia);
   }
@@ -1313,6 +1365,289 @@ app.get("/reintentar/:ref", async (req, res) => {
   const despues = leerPedido(req.params.ref).pedido;
   res.json({ estado: despues.estado, syscom: despues.syscom && despues.syscom.error, factura: despues.factura && (despues.factura.error || despues.factura.folio) });
 });
+
+// =========================================================
+// Email (SMTP): contact form, order confirmation, shipping notice
+// =========================================================
+// .env:
+//   SMTP_HOST=smtp.hostinger.com   SMTP_PORT=465
+//   SMTP_USER=ventas@solutelecom.mx   SMTP_PASS=...
+//   CORREO_VENTAS=ventas@solutelecom.mx   (where contact messages and order copies go)
+// With Gmail use SMTP_HOST=smtp.gmail.com and an "app password" (not your normal password).
+let transporte = null;
+try {
+  const nodemailer = (await import("nodemailer")).default;
+  if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+    const puerto = Number(process.env.SMTP_PORT) || 465;
+    transporte = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: puerto,
+      secure: puerto === 465,
+      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+    });
+  }
+} catch (e) {
+  // nodemailer not installed
+}
+const CORREO_VENTAS = process.env.CORREO_VENTAS || process.env.SMTP_USER || "";
+const REMITENTE = `SoluTelecom <${process.env.SMTP_USER || CORREO_VENTAS}>`;
+console.log(`Correo: ${transporte ? "activo (" + process.env.SMTP_USER + ")" : "apagado (falta SMTP_HOST/SMTP_USER/SMTP_PASS o 'npm install nodemailer')"}`);
+
+const escHtml = (t) =>
+  String(t == null ? "" : t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const pesos = (n) => new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN" }).format(Number(n) || 0);
+
+async function enviarCorreo({ para, asunto, html, texto, responderA }) {
+  if (!transporte || !para) return false;
+  try {
+    await transporte.sendMail({ from: REMITENTE, to: para, subject: asunto, html, text: texto, replyTo: responderA });
+    return true;
+  } catch (e) {
+    console.error("No se pudo enviar el correo:", e.message);
+    return false;
+  }
+}
+
+// one simple email layout for every message
+function plantilla(titulo, cuerpoHtml) {
+  return `<!doctype html><html><body style="margin:0;background:#f3f3f5;font-family:Arial,Helvetica,sans-serif;color:#1d1d1f">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f3f3f5;padding:24px 0"><tr><td align="center">
+  <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#fff;border-radius:10px;overflow:hidden">
+    <tr><td style="background:#0c0c0e;padding:18px 24px;border-bottom:4px solid #f5b400">
+      <img src="${SITE}/photos/solutelecom-logo-transparent.png" alt="SoluTelecom" height="36" style="display:block;height:36px"></td></tr>
+    <tr><td style="padding:28px 24px"><h1 style="font-size:21px;margin:0 0 16px">${titulo}</h1>${cuerpoHtml}</td></tr>
+    <tr><td style="padding:16px 24px;background:#fafafa;font-size:12px;color:#777">
+      SoluTelecom · ${escHtml(CORREO_VENTAS)} · WhatsApp 33 21 86 58 21 · <a href="${SITE}" style="color:#b47f00">solutelecom.mx</a></td></tr>
+  </table></td></tr></table></body></html>`;
+}
+
+function tablaProductos(pedido) {
+  const filas = (pedido.productos || [])
+    .map(
+      (l) => `<tr><td style="padding:8px 0;border-bottom:1px solid #eee">${escHtml(l.titulo)}<br><small style="color:#888">${escHtml(l.modelo)} · ${l.cantidad} × ${pesos(l.precio_unitario)}</small></td>
+        <td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;white-space:nowrap">${pesos(l.precio_unitario * l.cantidad)}</td></tr>`
+    )
+    .join("");
+  return `<table width="100%" cellpadding="0" cellspacing="0" style="font-size:14px">${filas}
+    <tr><td style="padding:8px 0">Envío</td><td style="text-align:right">${pesos(pedido.envio)}</td></tr>
+    <tr><td style="padding:8px 0;font-weight:bold;font-size:16px">Total (IVA incluido)</td><td style="text-align:right;font-weight:bold;font-size:16px">${pesos(pedido.total)}</td></tr></table>`;
+}
+
+async function correoConfirmacion(pedido) {
+  const c = pedido.cliente || {};
+  const dir = `${escHtml(c.calle)} ${escHtml(c.numero)}, ${escHtml(c.colonia)}, ${escHtml(c.ciudad)}, ${escHtml(c.estado)}, C.P. ${escHtml(c.cp)}`;
+  const html = plantilla(
+    "¡Gracias por tu compra!",
+    `<p style="font-size:15px;line-height:1.5">Hola ${escHtml((c.nombre || "").split(" ")[0])}, recibimos tu pago. Tu pedido <b>${escHtml(pedido.referencia)}</b> ya está en preparación.</p>
+     ${tablaProductos(pedido)}
+     <p style="font-size:14px;line-height:1.5;margin-top:18px"><b>Se enviará a:</b><br>${escHtml(c.nombre)}<br>${dir}</p>
+     <p style="font-size:14px;line-height:1.5">Te enviaremos otro correo con el número de guía cuando salga tu paquete. Puedes ver el estado en <a href="${SITE}" style="color:#b47f00">Mi cuenta → Mis pedidos</a>.</p>
+     ${c.factura ? '<p style="font-size:14px">Tu factura CFDI llegará en un correo aparte.</p>' : ""}`
+  );
+  const ok = await enviarCorreo({ para: c.email, asunto: `Pedido ${pedido.referencia} confirmado · SoluTelecom`, html, responderA: CORREO_VENTAS });
+  // copy for you
+  await enviarCorreo({
+    para: CORREO_VENTAS,
+    asunto: `Nuevo pedido pagado ${pedido.referencia} · ${pesos(pedido.total)}`,
+    html: plantilla(`Nuevo pedido ${escHtml(pedido.referencia)}`, `<p>Estado: <b>${escHtml(pedido.estado)}</b></p>${tablaProductos(pedido)}<p>${escHtml(c.nombre)} · ${escHtml(c.email)} · ${escHtml(c.telefono)}<br>${dir}</p>`),
+  });
+  return ok;
+}
+
+async function correoEnvio(pedido) {
+  const c = pedido.cliente || {};
+  const g = pedido.guia || {};
+  const html = plantilla(
+    "Tu pedido va en camino 🚚",
+    `<p style="font-size:15px;line-height:1.5">Hola ${escHtml((c.nombre || "").split(" ")[0])}, tu pedido <b>${escHtml(pedido.referencia)}</b> ya salió.</p>
+     <p style="font-size:15px;line-height:1.6;background:#fff7d6;border:1px solid #f5d36b;border-radius:8px;padding:12px 14px">
+       Paquetería: <b>${escHtml(g.fletera)}</b><br>Número de guía: <b style="font-size:17px">${escHtml(g.numero)}</b></p>
+     ${g.url ? `<p><a href="${escHtml(g.url)}" style="display:inline-block;background:#f5b400;color:#111;text-decoration:none;font-weight:bold;padding:12px 20px;border-radius:6px">Rastrear mi paquete</a></p>` : ""}
+     ${tablaProductos(pedido)}`
+  );
+  return enviarCorreo({ para: c.email, asunto: `Tu pedido ${pedido.referencia} va en camino · Guía ${g.numero}`, html, responderA: CORREO_VENTAS });
+}
+
+// tracking pages of each carrier
+function urlRastreo(fletera, guia) {
+  const f = sinAcento(fletera).replace(/[^a-z]/g, "");
+  const g = encodeURIComponent(guia);
+  if (f.includes("paquete")) return `https://www.paquetexpress.com.mx/rastreo/${g}`;
+  if (f.includes("fedex")) return `https://www.fedex.com/fedextrack/?trknbr=${g}`;
+  if (f.includes("estafeta")) return `https://rastreositecorp.estafeta.com/Tracking/searchByGet?wayBill=${g}&wayBillType=1&isShipmentDetail=False`;
+  if (f.includes("dhl")) return `https://www.dhl.com/mx-es/home/rastreo.html?tracking-id=${g}`;
+  return "";
+}
+
+// ---------- Contact form ----------
+app.post("/contacto", async (req, res) => {
+  if (demasiadas(req, "contacto", 5)) return res.status(429).json({ error: "Demasiados mensajes, intenta en un minuto." });
+  const d = req.body || {};
+  if (d.sitio) return res.json({ ok: true }); // hidden field: only bots fill it
+  const m = {
+    nombre: limpio(d.nombre, 100),
+    empresa: limpio(d.empresa, 120),
+    correo: limpio(d.correo, 120),
+    telefono: limpio(d.telefono, 30),
+    servicio: limpio(d.servicio, 80),
+    mensaje: String(d.mensaje == null ? "" : d.mensaje).trim().slice(0, 3000),
+  };
+  if (!m.nombre || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m.correo) || m.mensaje.length < 5) {
+    return res.status(400).json({ error: "Revisa tu nombre, correo y mensaje." });
+  }
+  if (!transporte) return res.status(503).json({ error: "El envío de mensajes no está disponible en este momento." });
+
+  const filas = [["Nombre", m.nombre], ["Empresa", m.empresa], ["Correo", m.correo], ["Teléfono", m.telefono], ["Servicio", m.servicio]]
+    .filter(([, v]) => v)
+    .map(([k, v]) => `<tr><td style="padding:4px 12px 4px 0;color:#777">${k}</td><td>${escHtml(v)}</td></tr>`)
+    .join("");
+  const ok = await enviarCorreo({
+    para: CORREO_VENTAS,
+    asunto: `Solicitud de proyecto — ${m.nombre}${m.empresa ? " (" + m.empresa + ")" : ""}`,
+    html: plantilla("Nueva solicitud desde la web", `<table style="font-size:14px">${filas}</table><p style="white-space:pre-wrap;font-size:14px;line-height:1.5;border-top:1px solid #eee;padding-top:12px">${escHtml(m.mensaje)}</p>`),
+    responderA: m.correo,
+  });
+  if (!ok) return res.status(502).json({ error: "No se pudo enviar el mensaje." });
+
+  // short acknowledgment for the visitor
+  enviarCorreo({
+    para: m.correo,
+    asunto: "Recibimos tu solicitud · SoluTelecom",
+    html: plantilla("Recibimos tu solicitud", `<p style="font-size:15px;line-height:1.5">Hola ${escHtml(m.nombre.split(" ")[0])}, gracias por escribirnos. Revisaremos tu proyecto y te responderemos en menos de 24 horas hábiles.</p>`),
+    responderA: CORREO_VENTAS,
+  });
+  res.json({ ok: true });
+});
+
+// =========================================================
+// Customer accounts: verify the Firebase sign-in token
+// =========================================================
+const FIREBASE_PROJECT = process.env.FIREBASE_PROJECT_ID || "solutelecom-66b77";
+let certsGoogle = { t: 0, certs: {} };
+
+async function certificadosFirebase() {
+  if (Date.now() - certsGoogle.t < 3600000 && Object.keys(certsGoogle.certs).length) return certsGoogle.certs;
+  const r = await fetch(process.env.FIREBASE_CERTS_URL || "https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com");
+  if (!r.ok) throw new Error("No se pudieron leer los certificados de Firebase");
+  certsGoogle = { t: Date.now(), certs: await r.json() };
+  return certsGoogle.certs;
+}
+
+const b64url = (s) => Buffer.from(s.replace(/-/g, "+").replace(/_/g, "/"), "base64");
+
+// returns { uid, email, email_verified } or null
+async function usuarioDeToken(req) {
+  const h = String(req.get("authorization") || "");
+  const token = h.startsWith("Bearer ") ? h.slice(7).trim() : "";
+  if (!token || token.split(".").length !== 3) return null;
+  try {
+    const [cab, carga, firma] = token.split(".");
+    const head = JSON.parse(b64url(cab).toString("utf8"));
+    const p = JSON.parse(b64url(carga).toString("utf8"));
+    const ahora = Math.floor(Date.now() / 1000);
+    if (head.alg !== "RS256" || p.aud !== FIREBASE_PROJECT || p.iss !== `https://securetoken.google.com/${FIREBASE_PROJECT}`) return null;
+    if (!p.sub || p.exp < ahora || p.iat > ahora + 300) return null;
+    const cert = (await certificadosFirebase())[head.kid];
+    if (!cert) return null;
+    const v = createVerify("RSA-SHA256");
+    v.update(`${cab}.${carga}`);
+    if (!v.verify(cert, b64url(firma))) return null;
+    return { uid: p.sub, email: String(p.email || "").toLowerCase(), email_verified: !!p.email_verified };
+  } catch (e) {
+    return null;
+  }
+}
+
+// friendly status for the customer
+function estadoCliente(p) {
+  if (p.guia && p.guia.numero) return { clave: "enviado", texto: "Enviado" };
+  if (String(p.estado).startsWith("pagado")) {
+    if (p.syscom && p.syscom.ok) return { clave: "preparando", texto: "Preparando envío" };
+    return { clave: "revision", texto: "En revisión: te contactaremos" };
+  }
+  if (/rejected|cancel|failed/.test(String(p.estado))) return { clave: "cancelado", texto: "Pago no completado" };
+  return { clave: "pendiente", texto: "Pago pendiente" };
+}
+
+app.get("/mis-pedidos", async (req, res) => {
+  if (demasiadas(req, "mis-pedidos", 30)) return res.status(429).json({ error: "Demasiadas consultas" });
+  const u = await usuarioDeToken(req);
+  if (!u) return res.status(401).json({ error: "Inicia sesión para ver tus pedidos." });
+  const lista = [];
+  for (const f of fs.readdirSync(CARPETA_PEDIDOS)) {
+    if (!/^web-\d+\.json$/.test(f)) continue;
+    let p;
+    try {
+      p = JSON.parse(fs.readFileSync(path.join(CARPETA_PEDIDOS, f), "utf8"));
+    } catch (e) {
+      continue;
+    }
+    const delUsuario =
+      p.uid === u.uid || (u.email_verified && u.email && String((p.cliente || {}).email || "").toLowerCase() === u.email);
+    if (!delUsuario) continue;
+    if (p.estado === "pago iniciado" && Date.now() - Date.parse(p.fecha) > 86400000) continue; // abandoned checkouts
+    lista.push({
+      referencia: p.referencia,
+      fecha: p.fecha,
+      total: p.total,
+      envio: p.envio,
+      estado: estadoCliente(p),
+      productos: (p.productos || []).map((l) => ({ titulo: l.titulo, modelo: l.modelo, cantidad: l.cantidad, precio_unitario: l.precio_unitario })),
+      guia: p.guia || null,
+      factura: p.factura && p.factura.ok ? { folio: p.factura.folio } : null,
+    });
+  }
+  lista.sort((a, b) => String(b.fecha).localeCompare(String(a.fecha)));
+  res.json({ pedidos: lista.slice(0, 50) });
+});
+
+// Add the tracking number by hand (emails the customer):
+//   http://localhost:3001/admin/guia/web-123...?clave=ADMIN_KEY&fletera=PAQUETEXPRESS&guia=ABC123
+app.get("/admin/guia/:ref", async (req, res) => {
+  if (!process.env.ADMIN_KEY || req.query.clave !== process.env.ADMIN_KEY) return res.sendStatus(403);
+  const encontrado = leerPedido(req.params.ref);
+  if (!encontrado) return res.status(404).json({ error: "Pedido no encontrado" });
+  const numero = limpio(req.query.guia, 40);
+  const fletera = limpio(req.query.fletera, 40) || encontrado.pedido.fletera || "";
+  if (!numero) return res.status(400).json({ error: "Falta ?guia=" });
+  const { archivo, pedido } = encontrado;
+  pedido.guia = { numero, fletera, url: urlRastreo(fletera, numero), fecha: new Date().toISOString() };
+  guardarPedido(archivo, pedido);
+  const enviado = await correoEnvio(pedido);
+  res.json({ ok: true, guia: pedido.guia, correo_enviado: enviado });
+});
+
+// Optional: look up the tracking number in Syscom by itself (SYSCOM_GUIAS_AUTO=si).
+// Off by default: check it against your first real orders before trusting it.
+// SYSCOM_FACTURAS_RUTA = the path of your "obtener facturas" request in Postman (default /facturas).
+async function buscarGuiasSyscom() {
+  if (process.env.SYSCOM_GUIAS_AUTO !== "si" || !SYSCOM_TOKEN) return;
+  try {
+    const d = await syscomGet(process.env.SYSCOM_FACTURAS_RUTA || "/facturas");
+    const facturas = d.facturas || [];
+    for (const f of fs.readdirSync(CARPETA_PEDIDOS)) {
+      if (!/^web-\d+\.json$/.test(f)) continue;
+      const enc = leerPedido(f.replace(/\.json$/, ""));
+      if (!enc) continue;
+      const p = enc.pedido;
+      const folio = p.syscom && p.syscom.folio_pedido;
+      if (!folio || (p.guia && p.guia.numero)) continue;
+      const fac = facturas.find((x) => x.folio_pedido === folio);
+      const envios = ((fac && fac.entrega && fac.entrega.proceso_entrega) || []).filter(
+        (e) => /^[A-Z0-9]{8,}$/.test(String(e.guias || "")) && !/terrestre|interno/i.test(e.fletera || "")
+      );
+      if (!envios.length) continue;
+      const e = envios[envios.length - 1];
+      p.guia = { numero: e.guias, fletera: e.fletera, url: urlRastreo(e.fletera, e.guias), fecha: new Date().toISOString(), auto: true };
+      guardarPedido(enc.archivo, p);
+      await correoEnvio(p);
+      console.log(`Guía encontrada para ${p.referencia}: ${e.fletera} ${e.guias}`);
+    }
+  } catch (e) {
+    console.error("Guías Syscom:", e.message);
+  }
+}
+setInterval(buscarGuiasSyscom, 60 * 60 * 1000);
 
 // Always answer with JSON, and print the real error in this window
 app.use((req, res) => res.status(404).json({ error: "Ruta no encontrada" }));
