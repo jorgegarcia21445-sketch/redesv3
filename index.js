@@ -1917,41 +1917,97 @@ async function buscarProductos(q, limite = 240) {
     const r = await fetch(API_PAGOS + "/buscar?q=" + encodeURIComponent(q) + "&limit=" + limite);
     if (r.ok) {
       const d = await r.json();
-      return { total: d.total || 0, productos: d.productos || [], categorias: d.categorias || { sub: [], cat: [] }, sugerencia: d.sugerencia || null };
+      return { total: d.total || 0, productos: d.productos || [], categorias: d.categorias || { sub: [], cat: [] }, sugerencia: d.sugerencia || null, corregido: d.corregido || null };
     }
   } catch (e) {
     // server not reachable: search locally
   }
   await datosListos;
   await obtenerListaProductos();
-  const frase = expandirBusqueda(sinAcentosQ(q).trim());
-  const palabras = frase.split(/\s+/).filter((w) => w.length >= 2);
-  if (!palabras.length) return { total: 0, productos: [], categorias: { sub: [], cat: [] } };
-
-  const encontrados = [];
-  for (const p of listaProductos) {
-    if (!p._texto) p._texto = sinAcentosQ([p.titulo, p.marca, p.modelo].join(" "));
-    if (!palabras.every((w) => p._texto.includes(w))) continue;
-    const modelo = sinAcentosQ(p.modelo);
-    let puntos = 0;
-    if (modelo === frase) puntos += 100;
-    else if (modelo.startsWith(frase)) puntos += 40;
-    if (sinAcentosQ(p.titulo).startsWith(palabras[0])) puntos += 15;
-    if ((Number(p.total_existencia) || 0) > 0) puntos += 10;
-    encontrados.push({ p, puntos });
+  if (!motorLocal || motorLocal.lista !== listaProductos) {
+    const lista = listaProductos;
+    motorLocal = {
+      lista,
+      m: crearMotorBusqueda(lista, (p) => ({
+        titulo: p.titulo,
+        marca: p.marca,
+        modelo: p.modelo,
+        categorias: Array.from(new Set((p._cats || []).flatMap((id) => rutaCacheada(id).map((n) => n.nombre)))),
+        existencia: p.total_existencia,
+        precio: !isNaN(precioBase(p).usd),
+        foto: !!p.img_portada,
+      })),
+    };
   }
-  encontrados.sort((a, b) => b.puntos - a.puntos);
+  const r = motorLocal.m.buscar(q);
   return {
-    total: encontrados.length,
-    productos: encontrados.slice(0, limite).map((e) => e.p),
-    categorias: categoriasDe(encontrados.map((e) => e.p)),
-    sugerencia: encontrados.length ? null : corregirLocal(frase),
+    total: r.total,
+    productos: r.resultados.slice(0, limite).map((e) => e.p),
+    categorias: mbCategoriasTop(r.resultados, (p) => (p._cats || []).map(rutaCacheada)),
+    corregido: r.corregido,
+    sugerencia: null,
   };
 }
+let motorLocal = null;
+const rutasCache = new Map();
+function rutaCacheada(id) {
+  if (!rutasCache.has(id)) rutasCache.set(id, rutaDe(id) || []);
+  return rutasCache.get(id);
+}
 
-// "¿Quisiste decir…?" without the server: compares each word with the words in the catalog
-let vocabularioLocal = null;
-function distanciaPalabras(a, b, max) {
+// ---------- Search engine (the same code runs in index.js and pagos-server.mjs) ----------
+// - Matches whole words or word beginnings ("hdmi ina" finds "HDMI inalámbrico", not "máquina")
+// - Plurals and gender don't matter (cámaras = cámara, inalámbrica = inalámbrico)
+// - Also searches the category names, so "cerraduras" finds products whose title doesn't say it
+// - Fixes typos automatically when nothing matches
+// - Ranks: exact model > words in the title > brand > category, in-stock first
+const MB_SINONIMOS = {
+  inalambric: ["wifi", "wireless"],
+  wifi: ["inalambric", "wireless"],
+  chap: ["cerradur"],
+  cerradur: ["chap"],
+  bocin: ["altavoz", "parlant"],
+  altavoz: ["bocin"],
+  audifon: ["auricular", "diadem"],
+  nobreak: ["ups"],
+  ups: ["nobreak"],
+  conmutador: ["switch"],
+  switch: ["conmutador"],
+  hdd: ["disc"],
+  camer: ["camar"],
+};
+const MB_VACIAS = new Set(["de", "la", "el", "los", "las", "para", "con", "y", "en", "del", "a", "o", "un", "una", "por"]);
+
+function mbNormal(t) {
+  return String(t || "")
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/wi-?fi/g, "wifi")
+    .replace(/no[\s-]?break/g, "nobreak")
+    .replace(/(\d+(?:\.\d+)?)\s*mpx?\b/g, "$1 megapixel")
+    .replace(/\bmegapixeles\b/g, "megapixel")
+    // "4 megapixel" -> "4megapixel megapixel" so "4mp" doesn't match any other "4"
+    .replace(/(\d+(?:\.\d+)?)\s*megapixel\b/g, "$1megapixel megapixel")
+    // "1000 VA" = "1000VA", "1 TB" = "1TB", "12 V" = "12V" ...
+    .replace(/(\d)\s+(kva|va|kw|w|vca|vcc|vdc|vac|v|mah|ah|tb|gb|mb|mm|cm|m|ft|ghz|mhz|khz|hz|db|pulgadas|mts)\b/g, "$1$2")
+    .replace(/\bcat\s*(5e|6a|6|7)\b/g, "cat$1");
+}
+// light Spanish stem: drop plural (-es / -s) and the last a/e/o, so camara/camaras/camaras -> camar
+function mbRaiz(w) {
+  if (w.length <= 3 || /\d/.test(w)) return w;
+  let r = w;
+  if (r.length > 4 && r.endsWith("es")) r = r.slice(0, -2);
+  else if (r.endsWith("s")) r = r.slice(0, -1);
+  if (r.length > 3 && /[aeo]$/.test(r)) r = r.slice(0, -1);
+  return r;
+}
+function mbPalabras(t) {
+  return mbNormal(t).split(/[^a-z0-9]+/).filter((w) => w && !MB_VACIAS.has(w));
+}
+const mbCompacto = (t) => mbNormal(t).replace(/[^a-z0-9]/g, "");
+
+function mbDistancia(a, b, max) {
   if (Math.abs(a.length - b.length) > max) return max + 1;
   let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
   for (let i = 1; i <= a.length; i++) {
@@ -1966,34 +2022,205 @@ function distanciaPalabras(a, b, max) {
   }
   return prev[b.length];
 }
-function corregirLocal(q) {
-  if (!vocabularioLocal) {
-    const cuenta = new Map();
-    for (const p of listaProductos) {
-      for (const w of new Set((p._texto || sinAcentosQ([p.titulo, p.marca, p.modelo].join(" "))).split(/[^a-z0-9]+/))) {
-        if (w.length >= 3) cuenta.set(w, (cuenta.get(w) || 0) + 1);
+
+// lista: products; datosDe(p) -> { titulo, marca, modelo, categorias: [names], existencia, precio (bool), foto (bool) }
+function crearMotorBusqueda(lista, datosDe) {
+  let fichas = null;
+  let vocab = null;
+
+  function preparar() {
+    if (fichas) return;
+    fichas = lista.map((p) => {
+      const d = datosDe(p);
+      const tit = mbPalabras(d.titulo).map(mbRaiz);
+      return {
+        p,
+        tit,
+        titSet: new Set(tit),
+        marca: new Set(mbPalabras(d.marca).map(mbRaiz)),
+        cats: new Set(mbPalabras((d.categorias || []).join(" ")).map(mbRaiz)),
+        modelo: mbCompacto(d.modelo),
+        modPal: new Set(mbPalabras(d.modelo)),
+        frase: " " + mbPalabras(d.titulo).join(" ") + " ",
+        // "Compatible con radios Kenwood", "Refacción para..." -> accessory, not the product itself
+        accesorio: /\b(compatible|refaccion|repuesto|carcasa|funda|soporte|montaje|bracket|adaptador|accesorio)/.test(mbNormal(d.titulo)),
+        stock: Number(d.existencia) || 0,
+        precio: !!d.precio,
+        foto: !!d.foto,
+      };
+    });
+  }
+
+  function vocabulario() {
+    if (vocab) return vocab;
+    preparar();
+    const cuenta = new Map(); // stem -> how many products
+    const forma = new Map(); // stem -> { word: count } to show a readable word
+    for (const p of lista) {
+      const d = datosDe(p);
+      const vistas = new Set();
+      for (const w of mbPalabras([d.titulo, d.marca, (d.categorias || []).join(" ")].join(" "))) {
+        if (w.length < 3 || /\d/.test(w)) continue;
+        const r = mbRaiz(w);
+        if (!vistas.has(r)) {
+          vistas.add(r);
+          cuenta.set(r, (cuenta.get(r) || 0) + 1);
+        }
+        const m = forma.get(r) || {};
+        m[w] = (m[w] || 0) + 1;
+        forma.set(r, m);
       }
     }
-    vocabularioLocal = Array.from(cuenta).filter(([, n]) => n >= 2);
+    vocab = { lista: Array.from(cuenta).filter(([, n]) => n >= 2), cuenta, forma };
+    return vocab;
   }
-  const conocidas = new Set(vocabularioLocal.map(([w]) => w));
-  let cambio = false;
-  const palabras = q.split(/\s+/).map((w) => {
-    if (w.length < 3 || conocidas.has(w) || /\d/.test(w)) return w;
-    const max = w.length <= 4 ? 1 : 2;
-    let mejor = null;
-    for (const [v, n] of vocabularioLocal) {
-      const d = distanciaPalabras(w, v, max);
-      if (d <= max && (!mejor || d < mejor.d || (d === mejor.d && n > mejor.n))) mejor = { v, d, n };
+
+  // best score of one query word against a token set (0 = no match)
+  function enConjunto(set, w, exacto, prefijo) {
+    if (set.has(w)) return exacto;
+    if (w.length < 2) return 0;
+    for (const t of set) if (t.length > w.length && t.startsWith(w)) return prefijo;
+    return 0;
+  }
+
+  // -> [score, found in the title?]
+  function puntuarPalabra(f, w, original) {
+    let mejor = 0;
+    let titulo = false;
+    const alternativas = [w].concat((MB_SINONIMOS[w] || []).map(mbRaiz));
+    alternativas.forEach((a, i) => {
+      const k = i === 0 ? 1 : 0.8;
+      const t = k * enConjunto(f.titSet, a, 10, 6);
+      const m = k * enConjunto(f.marca, a, 9, 5);
+      if (t || m >= 9) titulo = true; // the brand counts as "in the name"
+      mejor = Math.max(mejor, t, m, k * enConjunto(f.cats, a, 3, 2));
+    });
+    if (f.modPal.has(original)) mejor = Math.max(mejor, 12);
+    // model numbers: "433" or "tt433" inside "TT-433MINI"
+    const c = original.replace(/[^a-z0-9]/g, "");
+    if (c.length >= 3 && /\d/.test(c) && f.modelo.startsWith(c)) mejor = Math.max(mejor, 14);
+    else if (c.length >= 4 && /\d/.test(c) && f.modelo.includes(c)) mejor = Math.max(mejor, 11);
+    else if (c.length >= 4 && f.modelo.startsWith(c)) mejor = Math.max(mejor, 12);
+    return [mejor, titulo || mejor >= 11];
+  }
+
+  function correr(originales, permitirFalta) {
+    const palabras = originales.map(mbRaiz);
+    const frase = " " + originales.join(" ");
+    const compacto = originales.join("");
+    const buscaAccesorio = originales.some((w) => /^(compatib|refacc|repuest|carcas|fund|soport|montaj|bracket|adaptad|accesori)/.test(w));
+    const salida = [];
+    for (const f of fichas) {
+      // the whole search is the model ("TT-433MINI", "ds2cd1043") -> always a match
+      if (compacto.length >= 4 && /\d/.test(compacto) && f.modelo.startsWith(compacto)) {
+        salida.push({ p: f.p, puntos: (f.modelo === compacto ? 300 : 150) + (f.stock > 0 ? 10 : 0) - f.modelo.length / 10 });
+        continue;
+      }
+      let puntos = 0;
+      let faltan = 0;
+      let enTitulo = 0;
+      for (let i = 0; i < palabras.length; i++) {
+        const [s, tit] = puntuarPalabra(f, palabras[i], originales[i]);
+        if (!s) {
+          if (++faltan > permitirFalta) break;
+          continue;
+        }
+        puntos += s;
+        if (tit) enTitulo++;
+      }
+      if (faltan > permitirFalta) continue;
+      if (compacto.length >= 3 && f.modelo === compacto) puntos += 200;
+      if (originales.length > 1 && f.frase.includes(frase + " ")) puntos += 8;
+      else if (originales.length > 1 && f.frase.includes(frase)) puntos += 5;
+      if (enTitulo === palabras.length) puntos += 8;
+      // the first word of the name is the kind of product ("Cámara ...", "Radio ...")
+      if (f.tit.length && palabras.some((w) => f.tit[0] === w || (w.length >= 3 && f.tit[0].startsWith(w)))) puntos += 10;
+      if (f.accesorio && !buscaAccesorio) puntos -= 8;
+      if (f.stock > 0) puntos += 10 + Math.min(5, Math.log10(f.stock + 1) * 2.5);
+      if (!f.precio) puntos -= 20;
+      if (!f.foto) puntos -= 5;
+      puntos -= faltan * 25;
+      puntos -= f.tit.length / 40; // a shorter, more specific title wins a tie
+      salida.push({ p: f.p, puntos });
     }
-    if (mejor) {
+    salida.sort((a, b) => b.puntos - a.puntos);
+    return salida;
+  }
+
+  function corregir(originales) {
+    const v = vocabulario();
+    let cambio = false;
+    const nuevas = originales.map((w) => {
+      const r = mbRaiz(w);
+      if (w.length < 3 || /\d/.test(w) || v.cuenta.has(r)) return w;
+      if (v.lista.some(([k]) => k.startsWith(r))) return w;
+      const max = r.length <= 4 ? 1 : 2;
+      let mejor = null;
+      for (const [k, n] of v.lista) {
+        const d = mbDistancia(r, k, max);
+        if (d <= max && (!mejor || d < mejor.d || (d === mejor.d && n > mejor.n))) mejor = { k, d, n };
+      }
+      if (!mejor) return w;
       cambio = true;
-      return mejor.v;
-    }
-    return w;
-  });
-  return cambio ? palabras.join(" ") : null;
+      // show a readable word: the most common full word in the catalog with that stem
+      const formas = Object.entries(v.forma.get(mejor.k) || {}).sort((a, b) => b[1] - a[1]);
+      return formas.length ? formas[0][0] : mejor.k;
+    });
+    return cambio ? nuevas : null;
+  }
+
+  return {
+    // -> { total, resultados: [{p, puntos}], corregido: "texto" | null }
+    buscar(q) {
+      preparar();
+      const originales = mbPalabras(q);
+      if (!originales.length) return { total: 0, resultados: [], corregido: null };
+      let r = correr(originales, 0);
+      let corregido = null;
+      if (!r.length) {
+        const c = corregir(originales);
+        if (c) {
+          r = correr(c, 0);
+          if (r.length) corregido = c.join(" ");
+        }
+      }
+      // long searches: if nothing has every word, show what has all but one
+      if (!r.length && originales.length >= 3) r = correr(originales, 1);
+      return { total: r.length, resultados: r, corregido };
+    },
+  };
 }
+
+// most common categories among the best results (weighted by position)
+function mbCategoriasTop(resultados, categoriasDeProducto, k1 = 6, k2 = 5) {
+  const sub = new Map();
+  const cat = new Map();
+  resultados.slice(0, 80).forEach(({ p }, i) => {
+    const peso = 1 / (1 + i / 20);
+    for (const ruta of categoriasDeProducto(p)) {
+      if (!ruta.length) continue;
+      const hoja = ruta[ruta.length - 1];
+      const a = sub.get(hoja.id) || { id: hoja.id, nombre: hoja.nombre, n: 0, w: 0 };
+      a.n++;
+      a.w += peso;
+      sub.set(hoja.id, a);
+      if (ruta.length >= 2) {
+        const m = ruta[1];
+        const b = cat.get(m.id) || { id: m.id, nombre: m.nombre, n: 0, w: 0 };
+        b.n++;
+        b.w += peso;
+        cat.set(m.id, b);
+      }
+    }
+  });
+  const top = (m, k) =>
+    Array.from(m.values())
+      .sort((a, b) => b.w - a.w)
+      .slice(0, k)
+      .map(({ id, nombre, n }) => ({ id, nombre, n }));
+  return { sub: top(sub, k1), cat: top(cat, k2) };
+}
+// ---------- end of search engine ----------
 
 // recent searches (this browser only)
 const CLAVE_BUSQUEDAS = "solutelecom_busquedas";
@@ -2013,41 +2240,6 @@ function recordarBusqueda(q) {
   } catch (e) {
     // storage not available
   }
-}
-
-// common shorthand -> how Syscom writes it (4mp -> 4 megapixel, 1tb -> 1 tb, cat6 -> cat 6 ...)
-function expandirBusqueda(t) {
-  return t
-    .replace(/(\d+(?:\.\d+)?)\s*mpx?\b/g, "$1 megapixel")
-    .replace(/\bmegapixeles\b/g, "megapixel")
-    .replace(/(\d+)\s*(tb|gb)\b/g, "$1 $2")
-    .replace(/\bcat\s*(5e|6a|6|7)\b/g, "cat$1")
-    .replace(/\bcamaras\b/g, "camara")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-const rutasCache = new Map();
-// most common categories among the results (deepest level, and the level above it)
-function categoriasDe(lista) {
-  const sub = new Map();
-  const cat = new Map();
-  for (const p of lista) {
-    for (const id of p._cats || []) {
-      if (!rutasCache.has(id)) rutasCache.set(id, rutaDe(id) || []);
-      const ruta = rutasCache.get(id);
-      if (ruta.length) {
-        const hoja = ruta[ruta.length - 1];
-        sub.set(hoja.id, { id: hoja.id, nombre: hoja.nombre, n: ((sub.get(hoja.id) || {}).n || 0) + 1 });
-      }
-      if (ruta.length >= 2) {
-        const medio = ruta[1];
-        cat.set(medio.id, { id: medio.id, nombre: medio.nombre, n: ((cat.get(medio.id) || {}).n || 0) + 1 });
-      }
-    }
-  }
-  const top = (m, k) => Array.from(m.values()).sort((a, b) => b.n - a.n).slice(0, k);
-  return { sub: top(sub, 6), cat: top(cat, 5) };
 }
 
 function irABusqueda(q) {
@@ -2088,6 +2280,9 @@ async function abrirBusqueda(q) {
     grid.innerHTML = r.sugerencia
       ? `<p>No encontramos productos para “${esc(q)}”. ¿Quisiste decir <a class="quisiste" href="#/buscar/${encodeURIComponent(r.sugerencia)}">${esc(r.sugerencia)}</a>?</p>`
       : `<p>No encontramos productos para “${esc(q)}”. Prueba con otra palabra o con el modelo.</p>`;
+  }
+  if (info && r.corregido) {
+    info.textContent = `Mostrando resultados para “${r.corregido}” · ` + info.textContent;
   }
   if (info && r.total > r.productos.length) {
     info.textContent += ` · Mostrando los primeros ${r.productos.length} de ${r.total}, escribe algo más específico`;
@@ -2137,7 +2332,8 @@ async function abrirBusqueda(q) {
     const columna = lista("Subcategorías relevantes", cats.sub || []) + lista("Categorías", cats.cat || []);
 
     const productosHtml = r.productos.length
-      ? r.productos
+      ? (r.corregido ? `<p class="hs-empty">Mostrando resultados para “${esc(r.corregido)}”</p>` : "") +
+        r.productos
           .map((p) => {
             recordarProducto(p);
             const b = precioBase(p);
