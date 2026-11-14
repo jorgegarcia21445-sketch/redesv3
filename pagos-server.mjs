@@ -4,6 +4,7 @@ import express from "express";
 import cors from "cors";
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { randomUUID, createHmac, timingSafeEqual, createVerify } from "node:crypto";
 
 const TOKEN = (process.env.MP_ACCESS_TOKEN || "").replace(/["'\s]/g, "");
@@ -21,7 +22,12 @@ if (!TOKEN.startsWith("APP_USR-")) {
 }
 if (!SYSCOM_TOKEN) console.warn("SYSCOM_TOKEN not set: the postal code lookup is disabled.");
 
-const CATJSON = process.env.CATJSON || "C:/Users/jg477/Documents/Webpage_Redes/catjson"; // your catjson folder
+// catalog folder: CATJSON if set; otherwise the catjson folder next to this file (it comes with the
+// GitHub repo, so on Hostinger the catalog is already on disk); otherwise your Windows folder
+const AQUI = path.dirname(fileURLToPath(import.meta.url));
+const CATJSON =
+  process.env.CATJSON ||
+  (fs.existsSync(path.join(AQUI, "catjson")) ? path.join(AQUI, "catjson") : "C:/Users/jg477/Documents/Webpage_Redes/catjson");
 const SITE = process.env.SITE || "http://127.0.0.1:5500";                              // your site's address
 const CARPETA_PEDIDOS = process.env.CARPETA_PEDIDOS || "C:/Users/jg477/Documents/pedidos-solutelecom"; // outside your website folder
 fs.mkdirSync(CARPETA_PEDIDOS, { recursive: true });
@@ -170,22 +176,39 @@ async function cargarCatalogoRemoto() {
   return nuevos;
 }
 
+let reintento = null;
 async function cargarCatalogo() {
   try {
-    const nuevos = CATALOGO_URL ? await cargarCatalogoRemoto() : cargarCatalogoLocal();
-    if (!nuevos.size) throw new Error("no products found");
+    let nuevos = null;
+    // 1) the catalog files on this server's disk (fast, no network)
+    if (fs.existsSync(CATJSON)) {
+      try {
+        nuevos = cargarCatalogoLocal();
+      } catch (e) {
+        console.error("Local catalog failed:", e.message);
+      }
+    }
+    // 2) otherwise download them from the website
+    if ((!nuevos || !nuevos.size) && CATALOGO_URL) nuevos = await cargarCatalogoRemoto();
+    if (!nuevos || !nuevos.size) throw new Error("no products found");
     productos = nuevos;
     construirIndice();
     catalogoListo = true;
     console.log(`${productos.size} products loaded, exchange rate ${tipoCambioActual}`);
   } catch (e) {
-    // keep the previous catalog if a refresh fails
+    // keep the previous catalog if a refresh fails; if there is none yet, try again in 1 minute
     console.error("Could not load the catalog:", e.message);
+    if (!catalogoListo && !reintento) {
+      reintento = setTimeout(() => {
+        reintento = null;
+        cargarCatalogo();
+      }, 60 * 1000);
+    }
   }
 }
 
 cargarCatalogo();
-if (CATALOGO_URL) setInterval(cargarCatalogo, 6 * 60 * 60 * 1000);
+setInterval(cargarCatalogo, 6 * 60 * 60 * 1000);
 
 const app = express();
 app.set("trust proxy", 1); // behind the host's proxy: use the visitor's real IP for the limits
