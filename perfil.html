@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!--
+  PERFIL DE EMPRESA — fuente del PDF "perfil-solutelecom.pdf"
+  Para actualizar el PDF: cambia los textos aquí, abre este archivo en Chrome,
+  Ctrl+P → Destino "Guardar como PDF" → Márgenes "Ninguno" → activa "Gráficos de fondo"
+  → guarda como perfil-solutelecom.pdf en la misma carpeta (reemplaza el anterior).
+-->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Perfil de empresa · SoluTelecom</title>
+<style>
+  @page{ size:A4; margin:0; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; font-family:'Inter', 'Segoe UI', Arial, sans-serif; color:#1b1b20; font-size:10.5pt; line-height:1.5; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .hoja{ width:210mm; height:297mm; position:relative; overflow:hidden; page-break-after:always; }
+  .hoja:last-child{ page-break-after:auto; }
+  h1, h2, h3{ margin:0; line-height:1.2; }
+  .amarillo{ color:#f5b400; }
+
+  /* page 1 */
+  .portada{ background:#0c0c0e; color:#fff; height:116mm; padding:16mm 18mm 0; position:relative; }
+  .portada::after{ content:""; position:absolute; right:-40mm; top:-30mm; width:150mm; height:150mm; border-radius:50%; background:radial-gradient(circle, rgba(245,180,0,.28), transparent 65%); }
+  .portada img{ height:15mm; }
+  .portada .etq{ margin-top:16mm; font-size:9pt; letter-spacing:.18em; text-transform:uppercase; color:#f5b400; font-weight:700; }
+  .portada h1{ font-size:24pt; font-weight:700; margin-top:5mm; max-width:150mm; }
+  .portada p{ color:#c9ccd4; max-width:150mm; margin:6mm 0 0; font-size:11pt; }
+  .franja{ height:4mm; background:linear-gradient(90deg, #f5b400, #e2a400); }
+  .cifras{ display:grid; grid-template-columns:repeat(4, 1fr); padding:7mm 18mm; border-bottom:1px solid #e6e7eb; }
+  .cifras div{ padding-right:6mm; }
+  .cifras strong{ display:block; font-size:22pt; font-weight:700; color:#0c0c0e; line-height:1.1; }
+  .cifras span{ font-size:9pt; color:#5c5f69; }
+  .cuerpo{ padding:8mm 18mm 0; }
+  .cuerpo h2{ font-size:14pt; margin-bottom:4mm; }
+  .cuerpo h2::before{ content:""; display:inline-block; width:4mm; height:4mm; background:#f5b400; border-radius:1mm; margin-right:3mm; vertical-align:-0.3mm; }
+  .servicios{ display:grid; grid-template-columns:1fr 1fr; gap:4mm 8mm; }
+  .servicios div{ border-left:2px solid #f5b400; padding-left:4mm; }
+  .servicios h3{ font-size:10.5pt; }
+  .servicios p{ margin:1mm 0 0; font-size:9.3pt; color:#4a4d57; }
+  .pie{ position:absolute; bottom:0; left:0; right:0; padding:5mm 18mm; background:#0c0c0e; color:#aeb1bb; font-size:8.5pt; display:flex; justify-content:space-between; }
+
+  /* page 2 */
+  .tope{ padding:14mm 18mm 6mm; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e6e7eb; }
+  .tope img{ height:10mm; }
+  .tope span{ font-size:9pt; color:#80838e; }
+  .proceso{ display:grid; grid-template-columns:repeat(3, 1fr); gap:4mm; }
+  .proceso div{ background:#f4f5f7; border-radius:2mm; padding:4mm; }
+  .proceso b{ display:inline-flex; width:6mm; height:6mm; border-radius:50%; background:#0c0c0e; color:#f5b400; font-size:8.5pt; align-items:center; justify-content:center; margin-bottom:2mm; }
+  .proceso h3{ font-size:10pt; }
+  .proceso p{ margin:1mm 0 0; font-size:8.8pt; color:#4a4d57; }
+  .trayectoria{ display:grid; grid-template-columns:repeat(4, 1fr); gap:4mm; background:#0c0c0e; color:#fff; border-radius:3mm; padding:6mm; }
+  .trayectoria strong{ display:block; font-size:15pt; color:#f5b400; }
+  .trayectoria span{ font-size:8.6pt; color:#c9ccd4; }
+  .dos{ display:grid; grid-template-columns:1.15fr .85fr; gap:9mm; }
+  .regiones{ display:grid; grid-template-columns:1fr 1fr; gap:3mm 6mm; font-size:9.3pt; }
+  .regiones b{ display:block; font-size:9.6pt; }
+  .regiones span{ color:#4a4d57; }
+  .clientes{ display:flex; flex-wrap:wrap; gap:2.5mm; }
+  .clientes span{ border:1px solid #d9dbe1; border-radius:10mm; padding:1.5mm 4mm; font-size:9.3pt; font-weight:600; }
+  .contacto{ display:grid; grid-template-columns:repeat(3, 1fr); gap:4mm; border:1.5px solid #f5b400; border-radius:3mm; padding:5mm 6mm; }
+  .contacto b{ display:block; font-size:8.5pt; text-transform:uppercase; letter-spacing:.08em; color:#80838e; }
+  .contacto span{ font-size:10pt; font-weight:600; }
+  .sep{ height:7mm; }
+  .tienda{ font-size:9.5pt; color:#4a4d57; margin:0; }
+</style>
+</head>
+<body>
+
+<!-- ===================== PÁGINA 1 ===================== -->
+<section class="hoja">
+  <div class="portada">
+    <img src="photos/solutelecom-logo-transparent.png" alt="SoluTelecom">
+    <div class="etq">Perfil de empresa</div>
+    <h1>Infraestructura de telecomunicaciones para todo el país.</h1>
+    <p>Diseñamos, construimos y damos mantenimiento a redes de fibra óptica G-PON, obra civil y sistemas de videovigilancia, con el mismo equipo de principio a fin. Desde 2017.</p>
+  </div>
+  <div class="franja"></div>
+  <div class="cifras">
+    <div><strong>205</strong><span>Colaboradores</span></div>
+    <div><strong>83</strong><span>Cuadrillas en operación</span></div>
+    <div><strong>17</strong><span>Estados con presencia activa</span></div>
+    <div><strong>32%</strong><span>Crecimiento anual en infraestructura</span></div>
+  </div>
+  <div class="cuerpo">
+    <h2>Quiénes somos</h2>
+    <p style="margin:0 0 7mm;color:#33363f">SoluTelecom nace para cerrar la brecha entre el diseño de red y su construcción real en calle: levantamos, digitalizamos, diseñamos y construimos redes G-PON, fibra troncal, obra civil y sistemas de videovigilancia. Atendemos zonas metropolitanas y proyectos rurales en cualquier parte del país.</p>
+    <h2>Servicios</h2>
+    <div class="servicios">
+      <div><h3>Fibra óptica</h3><p>Diseño y construcción de red G-PON, enlaces troncales, fusiones y validación con pruebas .SOR y OPMT.</p></div>
+      <div><h3>CCTV empresarial y residencial</h3><p>Planeación, instalación de hardware, cableado estructurado, configuración remota y mantenimiento periódico.</p></div>
+      <div><h3>Telecomunicaciones</h3><p>Instalación de OLT y equipos de comunicación, planta interna, planta externa y cableado de voz y datos.</p></div>
+      <div><h3>Instalación y mantenimiento</h3><p>Obra civil, zanjado, micro zanjado y perforación direccional dirigida; mantenimiento correctivo y preventivo.</p></div>
+      <div><h3>Domótica</h3><p>Sistemas inteligentes para automatizar y controlar hogar o negocio de forma eficiente y remota.</p></div>
+      <div><h3>Soluciones de TI</h3><p>Transformación digital, integración en la nube, desarrollo web y consultoría tecnológica.</p></div>
+    </div>
+  </div>
+  <div class="pie"><span>solutelecom.mx</span><span>Perfil de empresa · 1/2</span></div>
+</section>
+
+<!-- ===================== PÁGINA 2 ===================== -->
+<section class="hoja">
+  <div class="tope"><img src="photos/solutelecom-logo-light-bg.png" alt="SoluTelecom"><span>Perfil de empresa</span></div>
+  <div class="cuerpo">
+    <h2>Cómo trabajamos: de la calle al archivo entregable</h2>
+    <div class="proceso">
+      <div><b>1</b><h3>Levantamiento</h3><p>Asignación de polígono y toma de datos en campo.</p></div>
+      <div><b>2</b><h3>Digitalización</h3><p>Vaciado del kmz sobre planimetría georreferenciada.</p></div>
+      <div><b>3</b><h3>Diseño G-PON</h3><p>Splitters, feeder, distribución y niveles ópticos.</p></div>
+      <div><b>4</b><h3>Construcción</h3><p>Fibra, obra civil, postes y perforación dirigida.</p></div>
+      <div><b>5</b><h3>Validación</h3><p>Pruebas .SOR, OPMT y archivo ATP de cada enlace.</p></div>
+      <div><b>6</b><h3>Mantenimiento</h3><p>Preventivo y correctivo con evidencia fotográfica.</p></div>
+    </div>
+    <div class="sep"></div>
+    <h2>Trayectoria desde 2017</h2>
+    <div class="trayectoria">
+      <div><strong>23,384 km</strong><span>Levantados y digitalizados</span></div>
+      <div><strong>12,227 km</strong><span>Diseñados (G-PON)</span></div>
+      <div><strong>5,678 km</strong><span>Construidos (G-PON)</span></div>
+      <div><strong>116</strong><span>OLT's instaladas</span></div>
+    </div>
+    <div class="sep"></div>
+    <div class="dos">
+      <div>
+        <h2>Cobertura</h2>
+        <div class="regiones">
+          <div><b>Norte</b><span>Monterrey, Torreón, Saltillo, Durango, Tijuana</span></div>
+          <div><b>Occidente y Bajío</b><span>Guadalajara, León, Aguascalientes, San Luis Potosí, Querétaro</span></div>
+          <div><b>Centro</b><span>Ciudad de México, Puebla</span></div>
+          <div><b>Golfo y Sureste</b><span>Tampico, Veracruz, Villahermosa, Mérida</span></div>
+        </div>
+      </div>
+      <div>
+        <h2>Clientes</h2>
+        <div class="clientes"><span>Megacable</span><span>CFE</span><span>Axtel</span><span>MetroCarrier</span><span>Red Jalisco</span><span>ZTE</span></div>
+      </div>
+    </div>
+    <div class="sep"></div>
+    <h2>Tienda en línea</h2>
+    <p class="tienda">Además de los servicios, vendemos equipo de CCTV, redes, fibra óptica, energía y control de acceso con envío a todo México, pago seguro con Mercado Pago y factura CFDI 4.0 automática en <b>solutelecom.mx</b>.</p>
+    <div class="sep"></div>
+    <div class="contacto">
+      <div><b>Teléfono / WhatsApp</b><span>33 21 86 58 21</span></div>
+      <div><b>Correo</b><span>solutelecom2025@gmail.com</span></div>
+      <div><b>Oficina</b><span>Progreso, Monterrey, N.L. · C.P. 64420</span></div>
+    </div>
+  </div>
+  <div class="pie"><span>solutelecom.mx</span><span>Perfil de empresa · 2/2</span></div>
+</section>
+
+</body>
+</html>
