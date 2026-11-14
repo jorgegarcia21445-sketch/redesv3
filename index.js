@@ -1363,6 +1363,7 @@ function pintarPaginaCarrito() {
               <h3>Resumen de compra</h3>
               ${lineas}
               <div class="cp-line"><span>Envío</span><span id="cpEnvio">Completa tu dirección</span></div>
+              <p class="cp-llega" id="cpLlega" hidden></p>
               <div class="cp-total"><span>Total</span><strong id="cpTotal" data-subtotal="${subtotal}">${dinero(subtotal)}</strong></div>
               <small id="cpEnvioMsg" class="cp-envio-msg"></small>
               <small class="cp-iva">IVA incluido</small>
@@ -1871,7 +1872,20 @@ async function enlazarCP(modo) {
 
 
 // ===== Shipping quote (Syscom, through our server) =====
-let envioActual = { clave: "", envio: null, error: "" };
+let envioActual = { clave: "", envio: null, error: "", entrega: null };
+
+// "jue 20 nov" from "2026-11-20"
+function fechaEntrega(iso) {
+  try {
+    return new Date(iso + "T12:00:00Z").toLocaleDateString("es-MX", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
+  } catch (e) {
+    return iso;
+  }
+}
+function textoEntrega(e) {
+  if (!e || !e.desde) return "";
+  return e.desde === e.hasta ? `Llega el ${fechaEntrega(e.desde)}` : `Llega entre el ${fechaEntrega(e.desde)} y el ${fechaEntrega(e.hasta)}`;
+}
 let timerCotizacion = null;
 let cotizacionEnCurso = 0;
 
@@ -1892,6 +1906,12 @@ function pintarEnvio(estado, texto) {
   if (!celda || !total) return;
 
   const subtotal = parseFloat(total.dataset.subtotal) || 0;
+  const llega = document.getElementById("cpLlega");
+  if (llega) {
+    const t = estado === "ok" ? textoEntrega(envioActual.entrega) : "";
+    llega.hidden = !t;
+    llega.innerHTML = t ? `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg>${t} <small>(estimado, días hábiles)</small>` : "";
+  }
   if (estado === "ok") {
     celda.textContent = envioActual.envio > 0 ? dinero(envioActual.envio) : "Gratis";
     total.textContent = dinero(Math.round((subtotal + envioActual.envio) * 100) / 100);
@@ -1943,7 +1963,7 @@ async function cotizarEnvioPagina() {
     if (mia !== cotizacionEnCurso) return; // the address changed meanwhile
 
     if (r.ok && typeof d.envio === "number") {
-      envioActual = { clave, envio: d.envio, error: "" };
+      envioActual = { clave, envio: d.envio, error: "", entrega: d.entrega || null };
       pintarEnvio("ok");
     } else {
       envioActual = { clave, envio: null, error: d.error || "No se pudo calcular el envío" };
@@ -3707,5 +3727,163 @@ function pintarVistos() {
     })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
     fbq("init", C.metaPixel);
     fbq("track", "PageView");
+  }
+})();
+
+// =========================================================
+// Order tracking (like Mercado Libre): "Rastrear pedido" window,
+// confirmation after paying, and the shared timeline.
+// Links: #/rastreo  or  #/rastreo/web-123...
+// =========================================================
+(function () {
+  const h = (t) => String(t == null ? "" : t).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const pesos = (n) => new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN" }).format(Number(n) || 0);
+  const fechaHora = (iso) =>
+    new Date(iso).toLocaleString("es-MX", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+
+  // timeline used here and in Mi cuenta → Mis pedidos
+  window.htmlSeguimiento = function (p) {
+    const pasos = p.pasos || [];
+    const ultimo = pasos.reduce((n, x, i) => (x.fecha ? i : n), -1);
+    const iconos = {
+      pagado: '<path d="M5 12l4 4 10-10"/>',
+      preparando: '<path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>',
+      enviado: '<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/>',
+      entregado: '<path d="M4 11l8-7 8 7v9H4z"/><path d="M9 20v-6h6v6"/>',
+    };
+    const llega = p.entrega && p.estado && p.estado.clave !== "cancelado" ? textoEntrega(p.entrega) : "";
+    return `
+      ${llega ? `<p class="seg-llega">${h(llega)}<small>Estimado en días hábiles${p.fletera ? " · " + h(p.fletera) : ""}</small></p>` : ""}
+      ${p.estado && p.estado.clave === "entregado" ? '<p class="seg-llega seg-ok">¡Entregado!</p>' : ""}
+      <ol class="seg">
+        ${pasos
+          .map(
+            (x, i) => `<li class="${x.fecha ? "hecho" : ""} ${i === ultimo ? "actual" : ""}">
+              <span class="seg-ico"><svg viewBox="0 0 24 24" aria-hidden="true">${iconos[x.clave] || ""}</svg></span>
+              <div><strong>${h(x.titulo)}</strong>${x.fecha ? `<small>${h(fechaHora(x.fecha))}</small>` : ""}
+              ${x.clave === "enviado" && p.guia && p.guia.numero
+                ? `<div class="seg-guia">${h(p.guia.fletera)} · Guía <b>${h(p.guia.numero)}</b>${p.guia.url ? ` <a href="${h(p.guia.url)}" target="_blank" rel="noopener">Rastrear en la paquetería ↗</a>` : ""}</div>`
+                : ""}
+              </div></li>`
+          )
+          .join("")}
+      </ol>`;
+  };
+
+  // ---------- the "Rastrear pedido" window ----------
+  const dlg = document.createElement("dialog");
+  dlg.className = "rastreo-dlg";
+  dlg.innerHTML = `
+    <button type="button" class="rastreo-cerrar" aria-label="Cerrar">&times;</button>
+    <h2>Rastrear pedido</h2>
+    <p class="rastreo-sub">Escribe el número de pedido y el correo con el que compraste. Los encuentras en tu correo de confirmación.</p>
+    <form class="rastreo-form" id="rastreoForm">
+      <label>Número de pedido<input name="pedido" placeholder="web-1793..." required autocomplete="off"></label>
+      <label>Correo<input name="correo" type="email" placeholder="tu@correo.com" required autocomplete="email"></label>
+      <button class="btn" type="submit">Buscar</button>
+    </form>
+    <p class="rastreo-msg" id="rastreoMsg" role="status"></p>
+    <div id="rastreoRes"></div>`;
+  document.body.appendChild(dlg);
+  const form = dlg.querySelector("#rastreoForm");
+  const msg = dlg.querySelector("#rastreoMsg");
+  const res = dlg.querySelector("#rastreoRes");
+
+  function abrir(ref) {
+    if (ref) form.elements.pedido.value = ref;
+    const cuenta = window.cuentaCliente;
+    if (cuenta && cuenta.email && !form.elements.correo.value) form.elements.correo.value = cuenta.email;
+    res.innerHTML = "";
+    msg.textContent = "";
+    if (!dlg.open) dlg.showModal();
+    (ref ? form.elements.correo : form.elements.pedido).focus();
+  }
+  function cerrar() {
+    if (dlg.open) dlg.close();
+  }
+  dlg.addEventListener("close", () => {
+    if (location.hash.startsWith("#/rastreo")) history.replaceState(null, "", location.pathname + location.search);
+  });
+  dlg.addEventListener("click", (e) => {
+    if (e.target === dlg || e.target.closest(".rastreo-cerrar")) cerrar();
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const pedido = form.elements.pedido.value.trim();
+    const correo = form.elements.correo.value.trim();
+    msg.textContent = "Buscando…";
+    res.innerHTML = "";
+    try {
+      const r = await fetch(`${API_PAGOS}/rastreo?pedido=${encodeURIComponent(pedido)}&correo=${encodeURIComponent(correo)}`);
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.error || "No pudimos buscar tu pedido.");
+      const p = d.pedido;
+      msg.textContent = "";
+      res.innerHTML = `
+        <div class="rastreo-ped">
+          <header><div><strong>${h(p.referencia)}</strong><small>${new Date(p.fecha).toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" })}${p.ciudad ? " · Envío a " + h(p.ciudad) : ""}</small></div>
+          <span class="ped-estado ped-${h(p.estado.clave)}">${h(p.estado.texto)}</span></header>
+          ${window.htmlSeguimiento(p)}
+          <ul class="ped-prods">${p.productos.map((l) => `<li><span>${l.cantidad} × ${h(l.titulo)}</span><b>${pesos(l.precio_unitario * l.cantidad)}</b></li>`).join("")}</ul>
+          <div class="ped-total"><span>Total (con envío)</span><b>${pesos(p.total)}</b></div>
+        </div>`;
+    } catch (err) {
+      msg.textContent = err.message === "Failed to fetch" ? "No pudimos conectarnos. Intenta de nuevo en un minuto." : err.message;
+    }
+  });
+
+  function revisarRuta() {
+    const m = location.hash.match(/^#\/rastreo(?:\/([\w-]+))?/);
+    if (m) abrir(m[1] || "");
+  }
+  window.addEventListener("hashchange", revisarRuta);
+  revisarRuta();
+  window.abrirRastreo = abrir;
+
+  // ---------- message after coming back from Mercado Pago ----------
+  const q = new URLSearchParams(location.search);
+  const resultado = q.get("pago");
+  const ref = q.get("pedido");
+  if (!resultado) return;
+  history.replaceState(null, "", location.pathname + location.hash); // so a refresh doesn't show it again
+
+  const aviso = document.createElement("dialog");
+  aviso.className = "rastreo-dlg pago-dlg";
+  const textos = {
+    exitoso: ["¡Pago aprobado!", "Gracias por tu compra. Te enviamos la confirmación a tu correo y te avisaremos cuando salga tu paquete.", "ok"],
+    pendiente: ["Pago pendiente", "Si pagaste en efectivo o por SPEI, tu pedido se surte en cuanto Mercado Pago confirme el pago. Te avisaremos por correo.", "pend"],
+    fallido: ["No se completó el pago", "No se hizo ningún cargo. Tu carrito sigue guardado para que lo intentes de nuevo o con otro medio de pago.", "mal"],
+  };
+  const [titulo, texto, tipo] = textos[resultado] || textos.pendiente;
+  aviso.innerHTML = `
+    <button type="button" class="rastreo-cerrar" aria-label="Cerrar">&times;</button>
+    <div class="pago-ico pago-${tipo}">${tipo === "ok" ? "✓" : tipo === "mal" ? "!" : "…"}</div>
+    <h2>${titulo}</h2>
+    <p class="rastreo-sub">${texto}</p>
+    ${ref ? `<p class="pago-ref">Número de pedido: <b>${h(ref)}</b></p>` : ""}
+    <p class="seg-llega" id="pagoLlega" hidden></p>
+    <div class="pago-acciones">
+      ${resultado === "fallido" ? '<a class="btn" href="#/carrito">Volver al carrito</a>' : ref ? `<a class="btn" href="#/rastreo/${h(ref)}">Ver el estado de mi pedido</a>` : ""}
+      <button type="button" class="btn btn-outline" data-cerrar>Seguir comprando</button>
+    </div>`;
+  document.body.appendChild(aviso);
+  aviso.addEventListener("click", (e) => {
+    if (e.target === aviso || e.target.closest(".rastreo-cerrar, [data-cerrar]")) aviso.close();
+    if (e.target.closest('a[href^="#/"]')) aviso.close();
+  });
+  aviso.showModal();
+  if (ref && resultado !== "fallido") {
+    fetch(`${API_PAGOS}/pedido-resumen/${encodeURIComponent(ref)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        const t = d && textoEntrega(d.entrega);
+        const el = aviso.querySelector("#pagoLlega");
+        if (t && el) {
+          el.innerHTML = `${h(t)}<small>Estimado en días hábiles${d.fletera ? " · " + h(d.fletera) : ""}</small>`;
+          el.hidden = false;
+        }
+      })
+      .catch(() => {});
   }
 })();

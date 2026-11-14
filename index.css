@@ -3396,3 +3396,85 @@ section[hidden]{ display:none !important; }
   .mx-t text{ font-size:17px; }
   .mapa-mx{ padding:16px 12px 12px; }
 }
+
+/* =====================================================================
+   ORDER TRACKING (Nov 2026): delivery estimate, timeline, Rastrear pedido
+   ===================================================================== */
+.cp-llega{
+  display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin:-4px 0 10px;
+  font-size:13.5px; color:#7ee787; font-weight:600;
+}
+.cp-llega svg{ width:18px; height:18px; flex:none; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linejoin:round; }
+.cp-llega small{ font-weight:400; color:var(--slate-dim); font-size:12px; }
+
+.seg-llega{
+  margin:0 0 14px; padding:12px 14px; border-radius:var(--radius);
+  background:rgba(126,231,135,.08); border:1px solid rgba(126,231,135,.25);
+  color:#9be8a8; font-weight:700; font-size:15px;
+}
+.seg-llega small{ display:block; font-weight:400; font-size:12.5px; color:var(--slate); margin-top:2px; }
+.seg-llega.seg-ok{ text-align:center; }
+.seg{ list-style:none; margin:0 0 16px; padding:0; }
+.seg li{ position:relative; display:flex; gap:12px; padding-bottom:16px; color:var(--slate-dim); }
+.seg li:last-child{ padding-bottom:0; }
+.seg li::before{ content:""; position:absolute; left:15px; top:32px; bottom:0; width:2px; background:var(--ink-700); }
+.seg li:last-child::before{ display:none; }
+.seg li.hecho::before{ background:rgba(245,180,0,.55); }
+.seg-ico{
+  flex:none; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:var(--ink-800); border:1px solid var(--line); position:relative; z-index:1;
+}
+.seg-ico svg{ width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.seg li.hecho .seg-ico{ background:rgba(245,180,0,.16); border-color:rgba(245,180,0,.55); color:var(--yellow-300); }
+.seg li.actual .seg-ico{ background:var(--yellow-500); border-color:var(--yellow-500); color:var(--ink-950); box-shadow:0 0 0 5px rgba(245,180,0,.15); }
+.seg li strong{ display:block; font-size:14.5px; color:var(--slate); padding-top:5px; }
+.seg li.hecho strong{ color:var(--white); }
+.seg li small{ font-size:12.5px; color:var(--slate-dim); }
+.seg-guia{ margin-top:6px; font-size:13.5px; color:var(--paper); }
+.seg-guia a{ color:var(--yellow-500); font-weight:600; margin-left:4px; }
+.ped-entregado{ background:rgba(126,231,135,.14); color:#7ee787 !important; }
+
+/* Rastrear pedido + payment result windows */
+.rastreo-dlg{
+  width:min(560px, calc(100vw - 32px)); max-height:90vh; overflow:auto;
+  padding:28px; border:1px solid var(--line); border-radius:12px;
+  background:var(--ink-850); color:var(--white); box-shadow:var(--shadow-card);
+}
+.rastreo-dlg::backdrop{ background:rgba(0,0,0,.72); }
+.rastreo-dlg h2{ font-size:22px; margin:0 0 8px; padding-right:36px; }
+.rastreo-sub{ color:var(--slate); font-size:14px; margin:0 0 18px; }
+.rastreo-cerrar{
+  position:absolute; top:14px; right:14px; width:36px; height:36px; border-radius:50%;
+  border:0; background:var(--ink-800); color:#fff; font-size:22px; cursor:pointer;
+}
+.rastreo-cerrar:hover{ background:var(--yellow-500); color:var(--ink-950); }
+.rastreo-form{ display:grid; grid-template-columns:1fr 1fr auto; gap:10px; align-items:end; }
+.rastreo-form label{ display:flex; flex-direction:column; gap:6px; font-size:12.5px; color:var(--slate); margin:0; }
+.rastreo-form input{
+  background:var(--ink-950); border:1px solid var(--line); border-radius:var(--radius); padding:11px 12px;
+  color:#fff; font:inherit; font-size:14px; width:100%;
+}
+.rastreo-form input:focus{ outline:2px solid var(--yellow-500); outline-offset:1px; }
+.rastreo-form .btn{ height:44px; justify-content:center; }
+.rastreo-msg{ min-height:1.3em; margin:12px 0 0; font-size:13.5px; color:#ff9b93; }
+.rastreo-ped{ margin-top:6px; padding:18px; border:1px solid var(--line); border-radius:var(--radius); background:var(--ink-900); }
+.rastreo-ped header{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:14px; }
+.rastreo-ped header strong{ display:block; }
+.rastreo-ped header small{ font-size:12.5px; color:var(--slate-dim); }
+.pago-dlg{ text-align:center; }
+.pago-dlg .rastreo-sub{ margin-bottom:12px; }
+.pago-ico{
+  width:64px; height:64px; margin:4px auto 14px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; font-size:30px; font-weight:700;
+}
+.pago-ok{ background:rgba(126,231,135,.15); color:#7ee787; }
+.pago-pend{ background:rgba(245,180,0,.15); color:var(--yellow-300); }
+.pago-mal{ background:rgba(255,123,114,.15); color:#ff9b93; }
+.pago-ref{ font-size:14px; color:var(--slate); margin:0 0 14px; }
+.pago-ref b{ color:var(--white); }
+.pago-dlg .seg-llega{ text-align:left; }
+.pago-acciones{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:6px; }
+@media (max-width:560px){
+  .rastreo-dlg{ padding:22px 18px; }
+  .rastreo-form{ grid-template-columns:1fr; }
+}

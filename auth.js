@@ -457,9 +457,11 @@ if (!configured) {
       }
       caja.innerHTML = lista
         .map((p) => {
+          // same timeline as "Rastrear pedido" (index.js); simple bar if that isn't loaded
           const paso = PASOS.indexOf(p.estado.clave);
-          const barra =
-            paso >= 0
+          const barra = window.htmlSeguimiento && p.pasos
+            ? window.htmlSeguimiento(p)
+            : paso >= 0
               ? `<ol class="ped-pasos">${["Pagado", "Preparando", "Enviado"]
                   .map((t, i) => `<li class="${i <= Math.max(paso, 0) && p.estado.clave !== "pendiente" ? "ok" : ""}">${t}</li>`)
                   .join("")}</ol>`
@@ -473,7 +475,7 @@ if (!configured) {
               <ul class="ped-prods">${p.productos.map((l) => `<li><span>${l.cantidad} × ${escHtml(l.titulo)}</span><b>${pesosMX(l.precio_unitario * l.cantidad)}</b></li>`).join("")}</ul>
               <div class="ped-total"><span>Total (con envío)</span><b>${pesosMX(p.total)}</b></div>
               ${
-                p.guia && p.guia.numero
+                p.guia && p.guia.numero && !(window.htmlSeguimiento && p.pasos)
                   ? `<div class="ped-guia">${escHtml(p.guia.fletera)} · Guía <b>${escHtml(p.guia.numero)}</b>${p.guia.url ? ` <a href="${escHtml(p.guia.url)}" target="_blank" rel="noopener">Rastrear</a>` : ""}</div>`
                   : ""
               }

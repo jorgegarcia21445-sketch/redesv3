@@ -1248,7 +1248,7 @@ app.post("/cotizar-envio", async (req, res) => {
 
   const q = await cotizarEnvio(c.lineas, k.cliente, e.estadoSat);
   if (q.error) return res.status(400).json({ error: q.error });
-  res.json({ envio: q.envio });
+  res.json({ envio: q.envio, entrega: estimarEntrega(new Date(), q.fletera) });
 });
 
 // ----- Payment -----
@@ -1293,9 +1293,9 @@ app.post("/crear-pago", async (req, res) => {
     items: itemsMP,
     config: {
       online: {
-        success_url: `${SITE}/index.html?pago=exitoso`,
-        failure_url: `${SITE}/index.html?pago=fallido`,
-        pending_url: `${SITE}/index.html?pago=pendiente`,
+        success_url: `${SITE}/index.html?pago=exitoso&pedido=${referencia}`,
+        failure_url: `${SITE}/index.html?pago=fallido&pedido=${referencia}`,
+        pending_url: `${SITE}/index.html?pago=pendiente&pedido=${referencia}`,
       },
     },
   };
@@ -1656,6 +1656,9 @@ const CORREO_VENTAS = process.env.CORREO_VENTAS || process.env.SMTP_USER || "";
 const REMITENTE = `SoluTelecom <${process.env.SMTP_USER || CORREO_VENTAS}>`;
 console.log(`Correo: ${transporte ? "activo (" + process.env.SMTP_USER + ")" : "apagado (falta SMTP_HOST/SMTP_USER/SMTP_PASS o 'npm install nodemailer')"}`);
 
+const API_URL = (process.env.API_URL || "https://api.solutelecom.mx").replace(/\/+$/, "");
+const fechaCorta = (iso) =>
+  new Date(iso + "T12:00:00Z").toLocaleDateString("es-MX", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
 const escHtml = (t) =>
   String(t == null ? "" : t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const pesos = (n) => new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN" }).format(Number(n) || 0);
@@ -1704,7 +1707,12 @@ async function correoConfirmacion(pedido) {
     `<p style="font-size:15px;line-height:1.5">Hola ${escHtml((c.nombre || "").split(" ")[0])}, recibimos tu pago. Tu pedido <b>${escHtml(pedido.referencia)}</b> ya está en preparación.</p>
      ${tablaProductos(pedido)}
      <p style="font-size:14px;line-height:1.5;margin-top:18px"><b>Se enviará a:</b><br>${escHtml(c.nombre)}<br>${dir}</p>
-     <p style="font-size:14px;line-height:1.5">Te enviaremos otro correo con el número de guía cuando salga tu paquete. Puedes ver el estado en <a href="${SITE}" style="color:#b47f00">Mi cuenta → Mis pedidos</a>.</p>
+     ${(() => {
+       const e = seguimientoPedido(pedido).entrega;
+       return e ? `<p style="font-size:15px;line-height:1.5;background:#fff7d6;border:1px solid #f5d36b;border-radius:8px;padding:12px 14px">📦 Llega aproximadamente <b>${fechaCorta(e.desde)} – ${fechaCorta(e.hasta)}</b></p>` : "";
+     })()}
+     <p style="font-size:14px;line-height:1.5">Te enviaremos otro correo con el número de guía cuando salga tu paquete.</p>
+     <p><a href="${SITE}/#/rastreo/${escHtml(pedido.referencia)}" style="display:inline-block;background:#f5b400;color:#111;text-decoration:none;font-weight:bold;padding:12px 20px;border-radius:6px">Ver el estado de mi pedido</a></p>
      ${c.factura ? '<p style="font-size:14px">Tu factura CFDI llegará en un correo aparte.</p>' : ""}`
   );
   const ok = await enviarCorreo({ para: c.email, asunto: `Pedido ${pedido.referencia} confirmado · SoluTelecom`, html, responderA: CORREO_VENTAS });
@@ -1712,7 +1720,13 @@ async function correoConfirmacion(pedido) {
   await enviarCorreo({
     para: CORREO_VENTAS,
     asunto: `Nuevo pedido pagado ${pedido.referencia} · ${pesos(pedido.total)}`,
-    html: plantilla(`Nuevo pedido ${escHtml(pedido.referencia)}`, `<p>Estado: <b>${escHtml(pedido.estado)}</b></p>${tablaProductos(pedido)}<p>${escHtml(c.nombre)} · ${escHtml(c.email)} · ${escHtml(c.telefono)}<br>${dir}</p>`),
+    html: plantilla(
+      `Nuevo pedido ${escHtml(pedido.referencia)}`,
+      `<p>Estado: <b>${escHtml(pedido.estado)}</b></p>
+       ${costoSyscom(pedido) != null ? `<p style="font-size:15px;background:#fff7d6;border:1px solid #f5d36b;border-radius:8px;padding:12px 14px">Pagar a Syscom: <b>${pesos(costoSyscom(pedido))}</b> · folio <b>${escHtml((pedido.syscom && pedido.syscom.folio_pedido) || "PRUEBA")}</b></p>` : ""}
+       ${tablaProductos(pedido)}<p>${escHtml(c.nombre)} · ${escHtml(c.email)} · ${escHtml(c.telefono)}<br>${dir}</p>
+       <p><a href="${API_URL}/admin/pedidos" style="color:#b47f00">Abrir la página de pedidos</a> (agrega ?clave=tu clave al final)</p>`
+    ),
   });
   return ok;
 }
@@ -1726,6 +1740,7 @@ async function correoEnvio(pedido) {
      <p style="font-size:15px;line-height:1.6;background:#fff7d6;border:1px solid #f5d36b;border-radius:8px;padding:12px 14px">
        Paquetería: <b>${escHtml(g.fletera)}</b><br>Número de guía: <b style="font-size:17px">${escHtml(g.numero)}</b></p>
      ${g.url ? `<p><a href="${escHtml(g.url)}" style="display:inline-block;background:#f5b400;color:#111;text-decoration:none;font-weight:bold;padding:12px 20px;border-radius:6px">Rastrear mi paquete</a></p>` : ""}
+     <p style="font-size:14px">También puedes ver el estado en <a href="${SITE}/#/rastreo/${escHtml(pedido.referencia)}" style="color:#b47f00">solutelecom.mx → Rastrear pedido</a>.</p>
      ${tablaProductos(pedido)}`
   );
   return enviarCorreo({ para: c.email, asunto: `Tu pedido ${pedido.referencia} va en camino · Guía ${g.numero}`, html, responderA: CORREO_VENTAS });
@@ -1741,6 +1756,90 @@ function urlRastreo(fletera, guia) {
   if (f.includes("dhl")) return `https://www.dhl.com/mx-es/home/rastreo.html?tracking-id=${g}`;
   return "";
 }
+
+
+// =========================================================
+// Delivery estimate and order timeline (customer tracking)
+// =========================================================
+// DIAS_ENTREGA: business days from payment to delivery, e.g. "2-5" (default). Next-day services use 1-2.
+const DIAS_ENTREGA = (() => {
+  const m = String(process.env.DIAS_ENTREGA || "2-5").match(/(\d+)\s*-\s*(\d+)/);
+  return m ? [Number(m[1]), Number(m[2])] : [2, 5];
+})();
+// counts business days (Mon-Fri) in Mexico City time
+function sumarDiasHabiles(desde, dias) {
+  const d = new Date(desde.getTime() - 6 * 3600000); // UTC-6
+  let n = 0;
+  while (n < dias) {
+    d.setUTCDate(d.getUTCDate() + 1);
+    const w = d.getUTCDay();
+    if (w !== 0 && w !== 6) n++;
+  }
+  return d.toISOString().slice(0, 10);
+}
+function estimarEntrega(desde, fletera) {
+  const [min, max] = /siguiente/i.test(String(fletera || "")) ? [1, 2] : DIAS_ENTREGA;
+  return { min, max, desde: sumarDiasHabiles(desde, min), hasta: sumarDiasHabiles(desde, max) };
+}
+
+const NOMBRE_FLETERA = { fedex: "FedEx", dhl: "DHL", estafeta: "Estafeta", paquete_express: "Paquetexpress" };
+
+// steps the customer sees (like Mercado Libre): pago -> preparando -> en camino -> entregado
+function seguimientoPedido(p) {
+  const pagado = String(p.estado).startsWith("pagado");
+  const pasos = [
+    { clave: "pagado", titulo: "Pago confirmado", fecha: pagado ? p.fecha_pago || p.fecha : null },
+    { clave: "preparando", titulo: "Preparando tu pedido", fecha: pagado && p.syscom && p.syscom.ok ? p.syscom.fecha : null },
+    { clave: "enviado", titulo: "En camino", fecha: p.guia && p.guia.numero ? p.guia.fecha : null },
+    { clave: "entregado", titulo: "Entregado", fecha: p.entregado || null },
+  ];
+  const base = pagado && p.fecha_pago ? new Date(p.fecha_pago) : null;
+  return {
+    pasos,
+    entrega: base && !p.entregado ? estimarEntrega(base, p.fletera) : null,
+    fletera: NOMBRE_FLETERA[p.fletera] || p.fletera || "",
+  };
+}
+
+// what a customer may see about an order (no address, no internal notes)
+function pedidoParaCliente(p) {
+  return {
+    referencia: p.referencia,
+    fecha: p.fecha,
+    total: p.total,
+    envio: p.envio,
+    estado: estadoCliente(p),
+    ...seguimientoPedido(p),
+    ciudad: p.cliente ? [p.cliente.ciudad, p.cliente.estado].filter(Boolean).join(", ") : "",
+    productos: (p.productos || []).map((l) => ({ titulo: l.titulo, modelo: l.modelo, cantidad: l.cantidad, precio_unitario: l.precio_unitario })),
+    guia: p.guia || null,
+    factura: p.factura && p.factura.ok ? { folio: p.factura.folio } : null,
+  };
+}
+
+// Public tracking: order number + the email used to buy (no account needed)
+//   GET /rastreo?pedido=web-123&correo=cliente@mail.com
+app.get("/rastreo", (req, res) => {
+  if (demasiadas(req, "rastreo", 15)) return res.status(429).json({ error: "Demasiadas consultas, intenta en un minuto." });
+  const ref = limpio(req.query.pedido, 40).replace(/\s+/g, "");
+  const correo = limpio(req.query.correo, 120).toLowerCase();
+  const enc = leerPedido(ref);
+  const coincide = enc && correo && String((enc.pedido.cliente || {}).email || "").toLowerCase() === correo;
+  if (!coincide) return res.status(404).json({ error: "No encontramos un pedido con ese número y correo. Revisa que sean los del correo de confirmación." });
+  res.json({ pedido: pedidoParaCliente(enc.pedido) });
+});
+
+// After paying, the page shows the order (only the order number is needed, and only basic info is shown)
+app.get("/pedido-resumen/:ref", (req, res) => {
+  if (demasiadas(req, "resumen", 20)) return res.status(429).json({ error: "Demasiadas consultas" });
+  const enc = leerPedido(req.params.ref);
+  if (!enc) return res.status(404).json({ error: "Pedido no encontrado" });
+  const p = enc.pedido;
+  const s = seguimientoPedido(p);
+  // only a very recent order can be looked up without the email
+  if (Date.now() - Date.parse(p.fecha) > 2 * 86400000) return res.status(404).json({ error: "Pedido no encontrado" });
+  res.json({ referencia: p.referencia, estado: estadoCliente(p), entrega: s.entrega || estimarEntrega(new Date(), p.fletera), fletera: s.fletera, total: p.total });
+});
 
 // ---------- Contact form ----------
 app.post("/contacto", async (req, res) => {
@@ -1823,7 +1922,8 @@ async function usuarioDeToken(req) {
 
 // friendly status for the customer
 function estadoCliente(p) {
-  if (p.guia && p.guia.numero) return { clave: "enviado", texto: "Enviado" };
+  if (p.entregado) return { clave: "entregado", texto: "Entregado" };
+  if (p.guia && p.guia.numero) return { clave: "enviado", texto: "En camino" };
   if (String(p.estado).startsWith("pagado")) {
     if (p.syscom && p.syscom.ok) return { clave: "preparando", texto: "Preparando envío" };
     return { clave: "revision", texto: "En revisión: te contactaremos" };
@@ -1849,16 +1949,7 @@ app.get("/mis-pedidos", async (req, res) => {
       p.uid === u.uid || (u.email_verified && u.email && String((p.cliente || {}).email || "").toLowerCase() === u.email);
     if (!delUsuario) continue;
     if (p.estado === "pago iniciado" && Date.now() - Date.parse(p.fecha) > 86400000) continue; // abandoned checkouts
-    lista.push({
-      referencia: p.referencia,
-      fecha: p.fecha,
-      total: p.total,
-      envio: p.envio,
-      estado: estadoCliente(p),
-      productos: (p.productos || []).map((l) => ({ titulo: l.titulo, modelo: l.modelo, cantidad: l.cantidad, precio_unitario: l.precio_unitario })),
-      guia: p.guia || null,
-      factura: p.factura && p.factura.ok ? { folio: p.factura.folio } : null,
-    });
+    lista.push(pedidoParaCliente(p));
   }
   lista.sort((a, b) => String(b.fecha).localeCompare(String(a.fecha)));
   res.json({ pedidos: lista.slice(0, 50) });
@@ -1875,9 +1966,165 @@ app.get("/admin/guia/:ref", async (req, res) => {
   if (!numero) return res.status(400).json({ error: "Falta ?guia=" });
   const { archivo, pedido } = encontrado;
   pedido.guia = { numero, fletera, url: urlRastreo(fletera, numero), fecha: new Date().toISOString() };
+  if (!pedido.syscom_pagado) pedido.syscom_pagado = pedido.guia.fecha;
   guardarPedido(archivo, pedido);
   const enviado = await correoEnvio(pedido);
+  if (enviado) {
+    pedido.correo_envio = new Date().toISOString();
+    guardarPedido(archivo, pedido);
+  }
   res.json({ ok: true, guia: pedido.guia, correo_enviado: enviado });
+});
+
+
+// =========================================================
+// Admin: orders page  https://api.solutelecom.mx/admin/pedidos?clave=ADMIN_KEY
+// What to pay Syscom, tracking numbers, delivered.
+// =========================================================
+const esAdmin = (req) => !!process.env.ADMIN_KEY && (req.query.clave || (req.body && req.body.clave)) === process.env.ADMIN_KEY;
+
+// what Syscom charges you for an order (from Syscom's own answer)
+function costoSyscom(p) {
+  const t = p.syscom && p.syscom.respuesta && p.syscom.respuesta.totales;
+  const total = t ? parseFloat(t.total) : NaN;
+  return isNaN(total) ? null : total;
+}
+
+function etapaAdmin(p) {
+  const pagado = String(p.estado).startsWith("pagado");
+  if (!pagado) return /rejected|cancel|failed/.test(String(p.estado)) ? "cancelado" : "sin-pago";
+  if (!(p.syscom && p.syscom.ok)) return "revisar";
+  if (p.entregado) return "entregado";
+  if (p.guia && p.guia.numero) return "camino";
+  if (!p.syscom_pagado) return "pagar";
+  return "guia";
+}
+const ETAPAS = [
+  ["pagar", "Por pagar a Syscom"],
+  ["guia", "Esperando guía"],
+  ["camino", "En camino"],
+  ["entregado", "Entregados"],
+  ["revisar", "Revisar"],
+  ["todos", "Todos"],
+];
+
+function leerTodosLosPedidos() {
+  const lista = [];
+  for (const f of fs.readdirSync(CARPETA_PEDIDOS)) {
+    if (!/^web-\d+\.json$/.test(f)) continue;
+    try {
+      lista.push(JSON.parse(fs.readFileSync(path.join(CARPETA_PEDIDOS, f), "utf8")));
+    } catch (e) {
+      // unreadable file: skip
+    }
+  }
+  return lista.sort((a, b) => String(b.fecha).localeCompare(String(a.fecha)));
+}
+
+function paginaAdmin(req, aviso) {
+  const clave = escHtml(req.query.clave || req.body.clave || "");
+  const ver = ETAPAS.some(([k]) => k === req.query.ver) ? req.query.ver : "pagar";
+  const todos = leerTodosLosPedidos().filter((p) => etapaAdmin(p) !== "sin-pago" || Date.now() - Date.parse(p.fecha) < 86400000);
+  const cuenta = Object.fromEntries(ETAPAS.map(([k]) => [k, k === "todos" ? todos.length : todos.filter((p) => etapaAdmin(p) === k).length]));
+  const lista = ver === "todos" ? todos : todos.filter((p) => etapaAdmin(p) === ver);
+  const fecha = (iso) => (iso ? new Date(iso).toLocaleString("es-MX", { timeZone: "America/Mexico_City", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "");
+  const opcionesFletera = (sel) =>
+    ["fedex", "paquete_express", "estafeta", "dhl", "otra"].map((f) => `<option value="${f}"${f === sel ? " selected" : ""}>${NOMBRE_FLETERA[f] || "Otra"}</option>`).join("");
+
+  const tarjetas = lista
+    .map((p) => {
+      const c = p.cliente || {};
+      const costo = costoSyscom(p);
+      const cobrado = parseFloat(p.total) || 0;
+      const etapa = etapaAdmin(p);
+      const folio = (p.syscom && p.syscom.folio_pedido) || (p.syscom && p.syscom.prueba ? "PRUEBA" : "—");
+      const form = (accion, contenido, boton, extra = "") =>
+        `<form method="post" action="/admin/pedidos/${escHtml(p.referencia)}?ver=${ver}" ${extra}><input type="hidden" name="clave" value="${clave}"><input type="hidden" name="accion" value="${accion}">${contenido}<button>${boton}</button></form>`;
+      return `<article class="p e-${etapa}">
+        <header><div><b>${escHtml(p.referencia)}</b><small>${fecha(p.fecha_pago || p.fecha)}</small></div><span class="tag">${escHtml((ETAPAS.find(([k]) => k === etapa) || [, etapa])[1])}</span></header>
+        <div class="grid">
+          <div><small>Cliente</small>${escHtml(c.nombre)}<br><a href="mailto:${escHtml(c.email)}">${escHtml(c.email)}</a> · ${escHtml(c.telefono)}<br>${escHtml(c.ciudad)}, ${escHtml(c.estado)} · C.P. ${escHtml(c.cp)}</div>
+          <div><small>Productos</small>${(p.productos || []).map((l) => `${l.cantidad} × ${escHtml(l.modelo)}`).join("<br>")}</div>
+          <div><small>Cobrado al cliente</small><b>${pesos(cobrado)}</b><br><small>Envío ${pesos(p.envio)} · ${escHtml(NOMBRE_FLETERA[p.fletera] || p.fletera || "")}</small></div>
+          <div class="pagar"><small>Pagar a Syscom</small><b>${costo != null ? pesos(costo) : "—"}</b><br><small>Folio <b>${escHtml(folio)}</b>${costo != null ? ` · margen aprox. ${pesos(cobrado - costo)} antes de comisión MP` : ""}</small></div>
+        </div>
+        ${p.syscom && p.syscom.error ? `<p class="err">Syscom: ${escHtml(p.syscom.error.mensaje || JSON.stringify(p.syscom.error))} · <a href="/reintentar/${escHtml(p.referencia)}?clave=${clave}">Reintentar pedido a Syscom</a></p>` : ""}
+        ${p.guia && p.guia.numero ? `<p>Guía: <b>${escHtml(p.guia.fletera)} ${escHtml(p.guia.numero)}</b> ${p.guia.url ? `<a href="${escHtml(p.guia.url)}" target="_blank" rel="noopener">rastrear</a>` : ""} · ${p.correo_envio ? "correo enviado al cliente" : "<span class=err>correo NO enviado</span>"}</p>` : ""}
+        <div class="acciones">
+          ${etapa === "pagar" ? form("pagado_syscom", "", "✔ Ya le pagué a Syscom") : ""}
+          ${["pagar", "guia", "camino"].includes(etapa)
+            ? form("guia", `<select name="fletera">${opcionesFletera((p.guia && p.guia.fletera) || p.fletera)}</select><input name="guia" placeholder="Número de guía" value="${escHtml((p.guia && p.guia.numero) || "")}" required>`, p.guia ? "Cambiar guía y reenviar correo" : "Guardar guía y avisar al cliente", 'class="fguia"')
+            : ""}
+          ${etapa === "camino" ? form("entregado", "", "✔ Marcar entregado") : ""}
+        </div>
+      </article>`;
+    })
+    .join("");
+
+  return `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Pedidos · SoluTelecom</title><style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0c0c0e;color:#e9e9ee;font:14px/1.45 system-ui,Segoe UI,Arial,sans-serif;padding:20px 16px 60px}
+h1{font-size:22px;margin:0 0 4px}.sub{color:#9a9aa5;margin:0 0 18px}a{color:#f5b400}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}nav a{padding:8px 12px;border-radius:99px;border:1px solid #2c2c33;color:#cfd0d6;text-decoration:none}nav a.on{background:#f5b400;color:#111;border-color:#f5b400;font-weight:700}nav a i{font-style:normal;opacity:.7;margin-left:4px}
+.aviso{background:#16331d;border:1px solid #2e6b3c;color:#9be8a8;padding:10px 14px;border-radius:8px;margin-bottom:16px}.aviso.mal{background:#3a1717;border-color:#7a2d2d;color:#ffb3ad}
+.p{background:#17171b;border:1px solid #2a2a31;border-radius:10px;padding:16px;margin-bottom:14px;max-width:1100px}.p header{display:flex;justify-content:space-between;gap:10px;margin-bottom:12px}.p header small{display:block;color:#8e8e99}
+.tag{font-size:12px;padding:4px 10px;border-radius:99px;background:#2a2a31;white-space:nowrap;align-self:flex-start}.e-pagar .tag{background:#f5b400;color:#111}.e-revisar .tag{background:#7a2d2d}.e-camino .tag{background:#1f4f8a}.e-entregado .tag{background:#2e6b3c}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}.grid small{display:block;color:#8e8e99;font-size:12px}.pagar b{font-size:18px;color:#f5b400}
+.err{color:#ff9b93}.acciones{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid #2a2a31}
+form{display:flex;flex-wrap:wrap;gap:8px;margin:0}input,select{background:#0c0c0e;color:#fff;border:1px solid #33333b;border-radius:6px;padding:8px 10px;font:inherit}input{min-width:200px}
+button{background:#f5b400;color:#111;border:0;border-radius:6px;padding:9px 14px;font-weight:700;cursor:pointer}.vacio{color:#8e8e99}
+</style></head><body>
+<h1>Pedidos</h1><p class="sub">Syscom en modo ${SYSCOM_PRUEBA ? "<b>PRUEBA</b> (no compra nada)" : "<b>REAL</b>"} · No compartas este enlace: contiene tu clave.</p>
+${aviso ? `<div class="aviso ${aviso.startsWith("Error") ? "mal" : ""}">${escHtml(aviso)}</div>` : ""}
+<nav>${ETAPAS.map(([k, t]) => `<a href="?clave=${clave}&ver=${k}" class="${k === ver ? "on" : ""}">${t}<i>${cuenta[k]}</i></a>`).join("")}</nav>
+${tarjetas || '<p class="vacio">No hay pedidos en esta lista.</p>'}
+</body></html>`;
+}
+
+function responderAdmin(res, html) {
+  res.setHeader("Cache-Control", "no-store");
+  res.setHeader("X-Robots-Tag", "noindex");
+  res.setHeader("Referrer-Policy", "no-referrer");
+  res.setHeader("Content-Type", "text/html; charset=utf-8");
+  res.end(html);
+}
+
+app.get("/admin/pedidos", (req, res) => {
+  if (!esAdmin(req)) return res.sendStatus(403);
+  responderAdmin(res, paginaAdmin(req));
+});
+
+app.post("/admin/pedidos/:ref", async (req, res) => {
+  if (!esAdmin(req)) return res.sendStatus(403);
+  const enc = leerPedido(req.params.ref);
+  req.query.clave = req.body.clave;
+  if (!enc) return responderAdmin(res, paginaAdmin(req, "Error: pedido no encontrado"));
+  const { archivo, pedido } = enc;
+  let aviso = "";
+  const accion = req.body.accion;
+  if (accion === "pagado_syscom") {
+    pedido.syscom_pagado = new Date().toISOString();
+    aviso = `${pedido.referencia}: marcado como pagado a Syscom.`;
+  } else if (accion === "guia") {
+    const numero = limpio(req.body.guia, 40).replace(/\s+/g, "");
+    const fletera = limpio(req.body.fletera, 40);
+    if (!numero) return responderAdmin(res, paginaAdmin(req, "Error: escribe el número de guía"));
+    const nombre = NOMBRE_FLETERA[fletera] || fletera;
+    pedido.guia = { numero, fletera: nombre, url: urlRastreo(nombre, numero), fecha: new Date().toISOString() };
+    if (!pedido.syscom_pagado) pedido.syscom_pagado = pedido.guia.fecha; // Syscom only ships paid orders
+    guardarPedido(archivo, pedido);
+    pedido.correo_envio = (await correoEnvio(pedido)) ? new Date().toISOString() : null;
+    aviso = pedido.correo_envio
+      ? `${pedido.referencia}: guía guardada y correo enviado a ${pedido.cliente.email}.`
+      : `${pedido.referencia}: guía guardada. El correo NO se envió (revisa SMTP); el cliente sí la ve en su cuenta y en Rastrear pedido.`;
+  } else if (accion === "entregado") {
+    pedido.entregado = new Date().toISOString();
+    aviso = `${pedido.referencia}: marcado como entregado.`;
+  } else {
+    return responderAdmin(res, paginaAdmin(req, "Error: acción desconocida"));
+  }
+  guardarPedido(archivo, pedido);
+  responderAdmin(res, paginaAdmin(req, aviso));
 });
 
 // Optional: look up the tracking number in Syscom by itself (SYSCOM_GUIAS_AUTO=si).
