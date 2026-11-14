@@ -31,6 +31,7 @@ const CATJSON =
 const SITE = process.env.SITE || "http://127.0.0.1:5500";                              // your site's address
 const CARPETA_PEDIDOS = process.env.CARPETA_PEDIDOS || "C:/Users/jg477/Documents/pedidos-solutelecom"; // outside your website folder
 fs.mkdirSync(CARPETA_PEDIDOS, { recursive: true });
+console.log("Carpeta de pedidos:", path.resolve(CARPETA_PEDIDOS));
 
 // Same price rules as the page
 const MARGEN = 0.02;
@@ -523,6 +524,7 @@ function buscarValor(o, clave) {
 }
 
 const cacheCotizaciones = new Map(); // same cart + address for 10 minutes -> same quote
+let ultimaCotizacion = null;
 
 // Asks Syscom for the shipping cost, trying each fletera until one covers the CP
 async function cotizarEnvio(lineas, cliente, estadoSat) {
@@ -544,15 +546,14 @@ async function cotizarEnvio(lineas, cliente, estadoSat) {
     );
     const err = errorSyscom(s);
 
-    // keep the last answer so you can check the field names
+    // keep the last answer so you can check the field names (also at /admin/ultima-cotizacion)
+    ultimaCotizacion = { fecha: new Date().toISOString(), fletera, status: s.status, respuesta: s.data };
     try {
-      fs.writeFileSync(
-        path.join(CARPETA_PEDIDOS, "ultima-cotizacion-syscom.json"),
-        JSON.stringify({ fecha: new Date().toISOString(), fletera, status: s.status, respuesta: s.data }, null, 2)
-      );
+      fs.writeFileSync(path.join(CARPETA_PEDIDOS, "ultima-cotizacion-syscom.json"), JSON.stringify(ultimaCotizacion, null, 2));
     } catch (e) {
-      // not important
+      console.error("No se pudo guardar ultima-cotizacion-syscom.json:", e.message);
     }
+    if (s.data && s.data.totales) console.log(`Cotización Syscom (${fletera}):`, JSON.stringify(s.data.totales));
 
     if (err) {
       ultimoError = err;
@@ -1601,6 +1602,20 @@ app.post("/webhook-mp", (req, res) => {
   procesarPagoAprobado(String(dataId)).catch((e) =>
     console.error("Error procesando el pago:", e.message)
   );
+});
+
+// See Syscom's last shipping quote: https://api.solutelecom.mx/admin/ultima-cotizacion?clave=ADMIN_KEY
+app.get("/admin/ultima-cotizacion", (req, res) => {
+  if (!process.env.ADMIN_KEY || req.query.clave !== process.env.ADMIN_KEY) return res.sendStatus(403);
+  let datos = ultimaCotizacion;
+  if (!datos) {
+    try {
+      datos = JSON.parse(fs.readFileSync(path.join(CARPETA_PEDIDOS, "ultima-cotizacion-syscom.json"), "utf8"));
+    } catch (e) {
+      // none yet
+    }
+  }
+  res.json(datos || { aviso: "Todavía no hay cotizaciones. Calcula un envío en la tienda y vuelve a abrir esta página." });
 });
 
 // Retry the Syscom order for a paid order by hand: open in your browser
