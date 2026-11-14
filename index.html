@@ -14,6 +14,7 @@
   <link rel="preconnect" href="https://ftp3.syscom.mx">
   <link rel="stylesheet" href="index.css">
   <link rel="stylesheet" href="modals.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://solutelecom.mx/#empresa","name":"SoluTelecom","url":"https://solutelecom.mx/","logo":"https://solutelecom.mx/photos/solutelecom-logo-transparent.png","image":"https://solutelecom.mx/photos/solutelecom-logo-transparent.png","description":"Diseño, construcción y mantenimiento de redes de fibra óptica G-PON, CCTV y telecomunicaciones en 17 estados de México. Tienda en línea de equipo.","telephone":"+52 33 2186 5821","email":"solutelecom2025@gmail.com","foundingDate":"2017","numberOfEmployees":{"@type":"QuantitativeValue","value":205},"address":{"@type":"PostalAddress","addressLocality":"Monterrey","addressRegion":"Nuevo León","postalCode":"64420","streetAddress":"Col. Progreso","addressCountry":"MX"},"areaServed":{"@type":"Country","name":"México"},"knowsAbout":["Fibra óptica","G-PON","CCTV","Telecomunicaciones","Obra civil","Perforación direccional"]}</script>
 </head>
 <body id="top">
 
@@ -97,6 +98,7 @@
         <svg class="wave-bg hero-waves"><use href="#waves"></use></svg>
         <div class="hero-floor"></div>
       </div>
+      <div class="hero-video" id="heroVideo" aria-hidden="true" hidden></div>
 
       <div class="wrap hero-grid">
         <div class="hero-content">
@@ -108,6 +110,10 @@
             <a href="#productos" class="btn">Ver productos</a>
             <a href="#servicios" class="btn btn-outline">Ver servicios</a>
           </div>
+          <a class="hero-perfil" href="perfil-solutelecom.pdf" download>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg>
+            Descargar perfil de empresa (PDF)
+          </a>
         </div>
 
         <!-- 3D PRODUCT CAROUSEL (filled by index.js with featured products) -->
@@ -168,10 +174,10 @@
           <a href="#servicios" class="btn btn-outline">Conoce nuestros servicios</a>
         </div>
         <div class="about-stats">
-          <div class="about-stat"><strong data-count="205">0</strong><span>Colaboradores</span></div>
-          <div class="about-stat"><strong data-count="83">0</strong><span>Cuadrillas en operación</span></div>
-          <div class="about-stat"><strong data-count="32" data-suffix="%">0%</strong><span>Crecimiento anual en infraestructura</span></div>
-          <div class="about-stat"><strong data-count="17">0</strong><span>Estados con presencia activa</span></div>
+          <div class="about-stat"><strong data-count="205">205</strong><span>Colaboradores</span></div>
+          <div class="about-stat"><strong data-count="83">83</strong><span>Cuadrillas en operación</span></div>
+          <div class="about-stat"><strong data-count="32" data-suffix="%">32%</strong><span>Crecimiento anual en infraestructura</span></div>
+          <div class="about-stat"><strong data-count="17">17</strong><span>Estados con presencia activa</span></div>
         </div>
       </div>
     </section>
@@ -239,6 +245,31 @@
       </div>
     </section>
 
+    <!-- SEGURIDAD Y CALIDAD (se muestra cuando contenido.js tiene seguridad.mostrar: true) -->
+    <section class="hse" id="seguridad" hidden>
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="tag">Seguridad y calidad</span>
+          <h2>Trabajo seguro, entrega verificable.</h2>
+          <p>Cada cuadrilla sigue protocolos de seguridad y cada entrega queda documentada.</p>
+        </div>
+        <div class="hse-grid" id="hseGrid"></div>
+      </div>
+    </section>
+
+    <!-- PROYECTOS: galería de fotos de campo + casos de éxito -->
+    <section class="proyectos" id="proyectos" hidden>
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="tag">Proyectos</span>
+          <h2>Trabajo real en campo.</h2>
+          <p>Fotos de nuestras cuadrillas e instalaciones. Haz clic en una foto para verla en grande.</p>
+        </div>
+        <div class="casos" id="casosGrid" hidden></div>
+        <div class="galeria" id="galeriaGrid"></div>
+      </div>
+    </section>
+
     <!-- COBERTURA -->
     <section id="cobertura">
       <div class="wrap coverage-grid">
@@ -253,6 +284,8 @@
           </ul>
           <p class="coverage-legend"><i class="pulse-dot"></i> Ciudad principal</p>
         </div>
+
+        <div class="mapa-mx reveal" id="mapaMx" aria-label="Mapa de estados con presencia"></div>
 
         <div class="regions">
           <article class="region">
@@ -306,13 +339,35 @@
              con el nombre de abajo (SVG o PNG con fondo transparente). Se muestran en blanco.
              Mientras no exista el archivo, se ve el nombre en texto. -->
         <ul class="client-grid">
-          <li class="client"><img src="photos/clientes/megacable.svg" alt="Megacable" loading="lazy" onerror="this.replaceWith(this.alt)"></li>
-          <li class="client"><img src="photos/clientes/cfe.svg" alt="CFE" loading="lazy" onerror="this.replaceWith(this.alt)"></li>
+          <li class="client"><img src="photos/Megacable.webp" alt="Megacable" loading="lazy" onerror="this.replaceWith(this.alt)"></li>
+          <li class="client"><img src="photos/cfe.webp" alt="CFE" loading="lazy" onerror="this.replaceWith(this.alt)"></li>
           <li class="client"><img src="photos/MetroCarrier.webp" alt="MetroCarrier" loading="lazy" onerror="this.replaceWith(this.alt)"></li>
           <li class="client"><img src="photos/red_jalisco-.webp" alt="Red Jalisco" loading="lazy" onerror="this.replaceWith(this.alt)"></li>
           <li class="client"><img src="photos/zte.webp" alt="ZTE" loading="lazy" onerror="this.replaceWith(this.alt)"></li>
           <li class="client"><img class="logo-con-fondo" src="photos/axtel.webp" alt="Axtel" loading="lazy" onerror="this.replaceWith(this.alt)"></li>
         </ul>
+      </div>
+    </section>
+
+    <!-- TESTIMONIOS (se muestran cuando contenido.js tiene testimonios) -->
+    <section class="testimonios" id="testimonios" hidden>
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="tag">Testimonios</span>
+          <h2>Lo que dicen nuestros clientes.</h2>
+        </div>
+        <div class="testi-grid" id="testiGrid"></div>
+      </div>
+    </section>
+
+    <!-- CERTIFICACIONES (se muestran cuando contenido.js tiene certificaciones) -->
+    <section class="certs" id="certificaciones" hidden>
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="tag">Respaldos</span>
+          <h2>Certificaciones y registros.</h2>
+        </div>
+        <ul class="cert-grid" id="certGrid"></ul>
       </div>
     </section>
 
@@ -332,13 +387,27 @@
       </div>
     </section>
 
+    <!-- EQUIPO (se muestra cuando contenido.js tiene equipo) -->
+    <section class="equipo" id="equipo" hidden>
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="tag">Equipo</span>
+          <h2>Las personas detrás de cada proyecto.</h2>
+        </div>
+        <ul class="equipo-grid" id="equipoGrid"></ul>
+      </div>
+    </section>
+
     <!-- CTA BAND -->
     <section class="cta-band">
       <svg class="wave-bg" aria-hidden="true"><use href="#waves"></use></svg>
       <div class="wrap cta-content">
         <h2>¿Tienes un proyecto de red en mente?</h2>
         <p>Cuéntanos la ubicación y el alcance. Te respondemos con una propuesta técnica y económica.</p>
-        <a href="#contacto" class="btn">Solicitar cotización</a>
+        <div class="cta-acciones">
+          <a href="#contacto" class="btn">Solicitar cotización</a>
+          <a href="perfil-solutelecom.pdf" class="btn btn-outline" download>Perfil de empresa (PDF)</a>
+        </div>
       </div>
     </section>
 
@@ -424,6 +493,23 @@
       <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Cuánto tarda en llegar mi pedido?", "acceptedAnswer": {"@type": "Answer", "text": "Preparamos tu pedido después de que se aprueba el pago y suele llegar en 2 a 5 días hábiles, según tu ciudad. Las zonas extendidas pueden tardar más; te avisamos al capturar tu código postal. Cuando sale, te enviamos el número de guía por correo."}}, {"@type": "Question", "name": "¿Puedo pedir factura?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Marca “Necesito factura (CFDI)” al capturar tus datos de entrega y te llega en PDF y XML a tu correo en cuanto se aprueba el pago. Si olvidaste pedirla, escríbenos dentro del mismo mes con tu número de pedido."}}, {"@type": "Question", "name": "¿Qué garantía tienen los productos?", "acceptedAnswer": {"@type": "Answer", "text": "Todos son nuevos, originales y con garantía del fabricante. Si algo falla, escríbenos con tu número de pedido y nosotros hacemos el trámite por ti, sin costo. Consulta la política de garantías."}}, {"@type": "Question", "name": "¿También hacen la instalación?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Instalamos CCTV, redes, fibra óptica, control de acceso y más, en 17 estados. Pide tu cotización en el formulario de abajo o por WhatsApp y te enviamos una propuesta."}}, {"@type": "Question", "name": "¿Tienen precios de mayoreo o para proyectos?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Para compras por volumen o proyectos completos, descarga la cotización desde tu carrito o escríbenos: te hacemos una propuesta especial."}}, {"@type": "Question", "name": "¿Cómo pago por transferencia o en efectivo?", "acceptedAnswer": {"@type": "Answer", "text": "Al pagar con Mercado Pago elige transferencia SPEI o efectivo (OXXO y otras tiendas). Tu pedido se surte en cuanto Mercado Pago confirma el pago, normalmente el mismo día."}}]}</script>
     </section>
 
+    <!-- BOLSA DE TRABAJO -->
+    <section class="empleo" id="empleo" hidden>
+      <div class="wrap empleo-box reveal">
+        <div>
+          <span class="tag">Bolsa de trabajo</span>
+          <h2>Únete a la cuadrilla.</h2>
+          <p>Buscamos personal con experiencia en campo para proyectos en todo el país.</p>
+          <ul class="empleo-puestos" id="empleoPuestos"></ul>
+        </div>
+        <div class="empleo-cta">
+          <a class="btn" id="empleoWa" href="https://wa.me/523335034338?text=Hola%2C%20me%20interesa%20trabajar%20con%20SoluTelecom." target="_blank" rel="noopener">Enviar mi CV por WhatsApp</a>
+          <a class="btn btn-outline" href="mailto:solutelecom2025@gmail.com?subject=Solicitud%20de%20empleo">O por correo</a>
+          <small>Incluye tu ciudad, puesto de interés y años de experiencia.</small>
+        </div>
+      </div>
+    </section>
+
     <!-- CONTACTO -->
     <section class="contact" id="contacto">
       <div class="wrap contact-grid">
@@ -444,45 +530,96 @@
           </div>
         </div>
 
-        <form id="contactForm">
-          <div class="form-grid">
-            <div>
-              <label for="nombre">Nombre</label>
-              <input type="text" id="nombre" autocomplete="name" required>
+        <form id="contactForm" class="cotizador" novalidate>
+          <ol class="cz-pasos" aria-label="Pasos">
+            <li class="activo">Servicio</li><li>Ubicación</li><li>Alcance</li><li>Fecha</li><li>Contacto</li>
+          </ol>
+          <div class="cz-barra"><span id="czBarra"></span></div>
+
+          <!-- 1. Servicio -->
+          <fieldset class="cz-paso" data-paso="1">
+            <legend>¿Qué servicio necesitas?</legend>
+            <div class="cz-chips">
+                <label class="cz-chip"><input type="radio" name="servicio" value="Fibra óptica / red G-PON" required><span>Fibra óptica / red G-PON</span></label>
+                <label class="cz-chip"><input type="radio" name="servicio" value="CCTV empresarial o residencial"><span>CCTV empresarial o residencial</span></label>
+                <label class="cz-chip"><input type="radio" name="servicio" value="Telecomunicaciones"><span>Telecomunicaciones</span></label>
+                <label class="cz-chip"><input type="radio" name="servicio" value="Instalación y mantenimiento"><span>Instalación y mantenimiento</span></label>
+                <label class="cz-chip"><input type="radio" name="servicio" value="Domótica"><span>Domótica</span></label>
+                <label class="cz-chip"><input type="radio" name="servicio" value="Soluciones de TI"><span>Soluciones de TI</span></label>
+                <label class="cz-chip"><input type="radio" name="servicio" value="Otro"><span>Otro</span></label>
             </div>
-            <div>
-              <label for="empresa">Empresa (opcional)</label>
-              <input type="text" id="empresa" autocomplete="organization">
+          </fieldset>
+
+          <!-- 2. Ubicación -->
+          <fieldset class="cz-paso" data-paso="2" hidden>
+            <legend>¿Dónde es el proyecto?</legend>
+            <div class="form-grid">
+              <div>
+                <label for="czEstado">Estado</label>
+                <select id="czEstado" required><option value="">Elige un estado</option><option>Aguascalientes</option><option>Baja California</option><option>Baja California Sur</option><option>Campeche</option><option>Chiapas</option><option>Chihuahua</option><option>Ciudad de México</option><option>Coahuila</option><option>Colima</option><option>Durango</option><option>Estado de México</option><option>Guanajuato</option><option>Guerrero</option><option>Hidalgo</option><option>Jalisco</option><option>Michoacán</option><option>Morelos</option><option>Nayarit</option><option>Nuevo León</option><option>Oaxaca</option><option>Puebla</option><option>Querétaro</option><option>Quintana Roo</option><option>San Luis Potosí</option><option>Sinaloa</option><option>Sonora</option><option>Tabasco</option><option>Tamaulipas</option><option>Tlaxcala</option><option>Veracruz</option><option>Yucatán</option><option>Zacatecas</option><option>Varios estados</option></select>
+              </div>
+              <div>
+                <label for="czCiudad">Ciudad o municipio</label>
+                <input type="text" id="czCiudad" autocomplete="address-level2" required>
+              </div>
             </div>
-            <div>
-              <label for="correo">Correo</label>
-              <input type="email" id="correo" autocomplete="email" required>
+          </fieldset>
+
+          <!-- 3. Alcance -->
+          <fieldset class="cz-paso" data-paso="3" hidden>
+            <legend>¿De qué tamaño es?</legend>
+            <div class="cz-chips cz-chips-2">
+              <label class="cz-chip"><input type="radio" name="alcance" value="Pequeño (casa, oficina o local)" required><span>Pequeño<small>Casa, oficina o local</small></span></label>
+              <label class="cz-chip"><input type="radio" name="alcance" value="Mediano (edificio, plaza o varias sucursales)"><span>Mediano<small>Edificio, plaza o varias sucursales</small></span></label>
+              <label class="cz-chip"><input type="radio" name="alcance" value="Grande (km de red, ciudad o varios sitios)"><span>Grande<small>Kilómetros de red, ciudad o varios sitios</small></span></label>
+              <label class="cz-chip"><input type="radio" name="alcance" value="No estoy seguro"><span>No estoy seguro<small>Lo vemos juntos</small></span></label>
             </div>
-            <div>
-              <label for="telefono">Teléfono</label>
-              <input type="tel" id="telefono" autocomplete="tel">
+            <label for="mensaje">Cuéntanos más (opcional)</label>
+            <textarea id="mensaje" placeholder="Ej.: 40 cámaras en 3 naves, 12 km de fibra aérea, número de hogares…"></textarea>
+          </fieldset>
+
+          <!-- 4. Fecha -->
+          <fieldset class="cz-paso" data-paso="4" hidden>
+            <legend>¿Para cuándo lo necesitas?</legend>
+            <div class="cz-chips cz-chips-2">
+              <label class="cz-chip"><input type="radio" name="cuando" value="Lo antes posible" required><span>Lo antes posible</span></label>
+              <label class="cz-chip"><input type="radio" name="cuando" value="En el próximo mes"><span>En el próximo mes</span></label>
+              <label class="cz-chip"><input type="radio" name="cuando" value="En 1 a 3 meses"><span>En 1 a 3 meses</span></label>
+              <label class="cz-chip"><input type="radio" name="cuando" value="Solo estoy cotizando"><span>Solo estoy cotizando</span></label>
             </div>
-            <div class="full">
-              <label for="servicio">Servicio de interés</label>
-              <select id="servicio">
-                <option>Fibra óptica / red G-PON</option>
-                <option>CCTV empresarial o residencial</option>
-                <option>Telecomunicaciones</option>
-                <option>Instalación y mantenimiento</option>
-                <option>Domótica</option>
-                <option>Soluciones de TI</option>
-                <option>Otro</option>
-              </select>
+          </fieldset>
+
+          <!-- 5. Contacto -->
+          <fieldset class="cz-paso" data-paso="5" hidden>
+            <legend>¿Cómo te contactamos?</legend>
+            <div class="form-grid">
+              <div>
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" autocomplete="name" required>
+              </div>
+              <div>
+                <label for="empresa">Empresa (opcional)</label>
+                <input type="text" id="empresa" autocomplete="organization">
+              </div>
+              <div>
+                <label for="correo">Correo</label>
+                <input type="email" id="correo" autocomplete="email" required>
+              </div>
+              <div>
+                <label for="telefono">Teléfono</label>
+                <input type="tel" id="telefono" autocomplete="tel">
+              </div>
             </div>
-            <div class="full">
-              <label for="mensaje">Cuéntanos sobre el proyecto</label>
-              <textarea id="mensaje" required placeholder="Ubicación, alcance estimado, tiempos…"></textarea>
-            </div>
-          </div>
+            <div class="cz-resumen" id="czResumen"></div>
+          </fieldset>
+
           <!-- trampa para bots: las personas no ven este campo -->
           <input type="text" name="sitio" id="sitio" class="campo-trampa" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="cz-error" id="czError" role="alert"></p>
           <div class="contacto-acciones">
-            <button type="submit" class="btn" id="contactoEnviar">Enviar solicitud</button>
+            <button type="button" class="btn btn-outline" id="czAtras" hidden>Atrás</button>
+            <button type="button" class="btn" id="czSiguiente">Siguiente</button>
+            <button type="submit" class="btn" id="contactoEnviar" hidden>Enviar solicitud</button>
             <a class="btn btn-wa" id="contactoWa" href="https://wa.me/523335034338" target="_blank" rel="noopener">¿Prefieres WhatsApp?</a>
           </div>
           <p class="form-note" id="contactoMsg" role="status">Te respondemos en menos de 24 horas hábiles.</p>
@@ -526,6 +663,8 @@
           <a href="envios.html">Envíos</a>
           <a href="#facturacion">Facturación</a>
           <a href="#preguntas">Preguntas frecuentes</a>
+          <a href="perfil-solutelecom.pdf" download>Perfil de empresa (PDF)</a>
+          <a href="#empleo" data-empleo-link>Bolsa de trabajo</a>
         </div>
         <div class="footer-col">
           <h5>Contacto</h5>
@@ -538,7 +677,11 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© <span id="year">2025</span> SoluTelecom. Todos los derechos reservados.</span>
+        <span>© <span id="year">2026</span> SoluTelecom. Todos los derechos reservados.</span>
+        <span class="sello-pago">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          Pago seguro con Mercado Pago · Tarjeta, SPEI y OXXO · Sitio cifrado (HTTPS)
+        </span>
       </div>
     </div>
   </footer>
@@ -964,6 +1107,7 @@
   <div id="paginacion" class="pc-pager"></div>
 </section>
 
+  <script src="contenido.js"></script>
   <script src="index.js"></script>
   <script type="module" src="auth.js"></script>
 </body>

@@ -204,57 +204,125 @@ function initLogin(){
 }
 
 /* ---------------------------------------------------------
-   Contact form -> opens the user's email client with a
-   pre-filled message addressed to solutelecom2025@gmail.com
+   Step-by-step quote form (service, location, size, date, contact)
+   Sends to the server's /contacto; if it fails, offers WhatsApp
+   with everything already filled in.
 --------------------------------------------------------- */
 function initContactForm(){
   const form = document.getElementById('contactForm');
   if (!form) return;
-  const val = (id) => (document.getElementById(id)?.value || '').trim();
-  const msg = document.getElementById('contactoMsg');
-  const wa = document.getElementById('contactoWa');
-  const boton = document.getElementById('contactoEnviar');
+  const $ = (id) => document.getElementById(id);
+  const val = (id) => ($(id)?.value || '').trim();
+  const radio = (n) => form.querySelector(`input[name="${n}"]:checked`)?.value || '';
+  const pasos = Array.from(form.querySelectorAll('.cz-paso'));
+  const etiquetas = Array.from(form.querySelectorAll('.cz-pasos li'));
+  const msg = $('contactoMsg'), wa = $('contactoWa'), err = $('czError');
+  const atras = $('czAtras'), sig = $('czSiguiente'), enviar = $('contactoEnviar');
+  let paso = 1;
 
-  // the WhatsApp button carries whatever the visitor already typed
+  const datos = () => ({
+    servicio: radio('servicio'),
+    estado: val('czEstado'), ciudad: val('czCiudad'),
+    alcance: radio('alcance'), detalle: val('mensaje'),
+    cuando: radio('cuando'),
+    nombre: val('nombre'), empresa: val('empresa'), correo: val('correo'), telefono: val('telefono'),
+  });
+  const mensajeCompleto = (d) => [
+    d.ciudad || d.estado ? `Ubicación: ${[d.ciudad, d.estado].filter(Boolean).join(', ')}` : '',
+    d.alcance && `Tamaño: ${d.alcance}`,
+    d.cuando && `Para cuándo: ${d.cuando}`,
+    d.detalle && `Detalles: ${d.detalle}`,
+  ].filter(Boolean).join('\n');
   const textoWa = () => {
-    const partes = [
-      'Hola, quiero cotizar un proyecto.',
-      val('nombre') && 'Nombre: ' + val('nombre'),
-      val('empresa') && 'Empresa: ' + val('empresa'),
-      'Servicio: ' + (document.getElementById('servicio')?.value || ''),
-      val('mensaje'),
-    ].filter(Boolean);
+    const d = datos();
+    const partes = ['Hola, quiero cotizar un proyecto.', d.servicio && 'Servicio: ' + d.servicio, d.nombre && 'Nombre: ' + d.nombre,
+      d.empresa && 'Empresa: ' + d.empresa, mensajeCompleto(d)].filter(Boolean);
     return 'https://wa.me/523335034338?text=' + encodeURIComponent(partes.join('\n'));
   };
+
+  // which fields each step needs
+  const validar = (n) => {
+    const d = datos();
+    if (n === 1 && !d.servicio) return 'Elige un servicio.';
+    if (n === 2 && (!d.estado || !d.ciudad)) return 'Escribe el estado y la ciudad.';
+    if (n === 3 && !d.alcance) return 'Elige el tamaño aproximado.';
+    if (n === 4 && !d.cuando) return 'Elige para cuándo lo necesitas.';
+    if (n === 5) {
+      if (!d.nombre) return 'Escribe tu nombre.';
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.correo)) return 'Revisa tu correo.';
+    }
+    return '';
+  };
+
+  const mostrar = (n) => {
+    paso = n;
+    pasos.forEach((f) => { f.hidden = Number(f.dataset.paso) !== n; });
+    etiquetas.forEach((li, i) => { li.classList.toggle('activo', i === n - 1); li.classList.toggle('hecho', i < n - 1); });
+    $('czBarra').style.width = (n / pasos.length) * 100 + '%';
+    atras.hidden = n === 1;
+    sig.hidden = n === pasos.length;
+    enviar.hidden = n !== pasos.length;
+    err.textContent = '';
+    if (n === pasos.length) {
+      const d = datos();
+      $('czResumen').innerHTML = [['Servicio', d.servicio], ['Ubicación', [d.ciudad, d.estado].filter(Boolean).join(', ')], ['Tamaño', d.alcance], ['Para cuándo', d.cuando]]
+        .map(([k, v]) => `<div><span>${k}</span><strong>${String(v).replace(/[<>&]/g, '')}</strong></div>`).join('');
+    }
+  };
+  const avanzar = () => {
+    const e = validar(paso);
+    if (e) { err.textContent = e; return; }
+    mostrar(paso + 1);
+    pasos[paso - 1].querySelector('input:not([type=radio]), select, textarea')?.focus({ preventScroll: true });
+  };
+  sig.addEventListener('click', avanzar);
+  atras.addEventListener('click', () => mostrar(paso - 1));
+  // picking a chip moves on by itself (steps 1, 4)
+  form.addEventListener('change', (e) => {
+    if (e.target.matches('input[name="servicio"], input[name="cuando"]')) setTimeout(avanzar, 180);
+  });
+  // Enter key = Siguiente (except in the text area)
+  form.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && paso < pasos.length && e.target.tagName !== 'TEXTAREA') { e.preventDefault(); avanzar(); }
+  });
   form.addEventListener('input', () => { if (wa) wa.href = textoWa(); });
+  form.addEventListener('change', () => { if (wa) wa.href = textoWa(); });
+
+  // a service card's "Cotizar" button can pre-pick the service
+  window.cotizarServicio = (nombre) => {
+    const r = Array.from(form.querySelectorAll('input[name="servicio"]')).find((x) => x.value === nombre);
+    if (r) { r.checked = true; mostrar(2); }
+  };
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const datos = {
-      nombre: val('nombre'), empresa: val('empresa'), correo: val('correo'),
-      telefono: val('telefono'), servicio: document.getElementById('servicio')?.value || '',
-      mensaje: val('mensaje'), sitio: val('sitio'),
-    };
-    boton.disabled = true;
-    boton.textContent = 'Enviando…';
+    const fallo = validar(5);
+    if (fallo) { err.textContent = fallo; return; }
+    const d = datos();
+    const cuerpo = { nombre: d.nombre, empresa: d.empresa, correo: d.correo, telefono: d.telefono,
+      servicio: d.servicio, mensaje: mensajeCompleto(d), sitio: val('sitio') };
+    enviar.disabled = true;
+    enviar.textContent = 'Enviando…';
     msg.style.color = '';
     try {
       const r = await fetch(API_PAGOS + '/contacto', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(datos),
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cuerpo),
       });
-      const d = await r.json().catch(() => ({}));
-      if (!r.ok) throw new Error(d.error || 'No se pudo enviar.');
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.error || 'No se pudo enviar.');
       form.reset();
+      mostrar(1);
       msg.style.color = '#7ee787';
       msg.textContent = '¡Gracias! Recibimos tu solicitud y te enviamos una confirmación a tu correo.';
-    } catch (err) {
+    } catch (er) {
       msg.style.color = '#ff9b93';
-      msg.innerHTML = 'No pudimos enviar tu mensaje en este momento. <a href="' + textoWa() + '" target="_blank" rel="noopener" style="color:#25D366;font-weight:600">Envíalo por WhatsApp</a>, ya va con lo que escribiste.';
+      msg.innerHTML = 'No pudimos enviar tu solicitud en este momento. <a href="' + textoWa() + '" target="_blank" rel="noopener" style="color:#25D366;font-weight:600">Envíala por WhatsApp</a>, ya va con lo que escribiste.';
     } finally {
-      boton.disabled = false;
-      boton.textContent = 'Enviar solicitud';
+      enviar.disabled = false;
+      enviar.textContent = 'Enviar solicitud';
     }
   });
+  mostrar(1);
 }
 
 /* ---------------------------------------------------------
@@ -1299,7 +1367,7 @@ function pintarPaginaCarrito() {
               <small id="cpEnvioMsg" class="cp-envio-msg"></small>
               <small class="cp-iva">IVA incluido</small>
               <button type="submit" form="datosForm" class="pc-btn cp-pay" id="cpPagar" disabled>Pagar con Mercado Pago</button>
-              <p class="cp-note">Pago seguro con Mercado Pago: tarjeta, efectivo o transferencia SPEI.</p>
+              <p class="cp-note sello-pago"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Pago seguro con Mercado Pago: tarjeta, efectivo o transferencia SPEI. Tus datos de tarjeta nunca pasan por nuestra página.</p>
               <button type="button" class="cp-back cp-linkbtn" data-cp="volver">← Volver al carrito</button>
             </aside>
           </div>
@@ -3432,4 +3500,212 @@ function pintarVistos() {
   contar();
   const sb = document.getElementById("sbCartCount");
   if (sb) new MutationObserver(contar).observe(sb, { childList: true, characterData: true, subtree: true });
+})();
+
+// =========================================================
+// Content sections filled from contenido.js
+// (gallery, case studies, testimonials, certifications, team,
+//  safety & quality, careers, coverage map, hero video, analytics)
+// Each section stays hidden until it has real content.
+// =========================================================
+(function () {
+  const C = window.CONTENIDO || {};
+  const $ = (id) => document.getElementById(id);
+  const h = (t) => String(t == null ? "" : t).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const lista = (x) => (Array.isArray(x) ? x.filter(Boolean) : []);
+  const mostrar = (id) => { const el = $(id); if (el) el.hidden = false; };
+  const iniciales = (n) => String(n || "").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join("");
+
+  // ---------- gallery + case studies ----------
+  const galeria = lista(C.galeria).filter((g) => g.foto);
+  const casos = lista(C.casos).filter((c) => c.titulo || c.cliente);
+  if (galeria.length || casos.length) {
+    mostrar("proyectos");
+    if (casos.length) {
+      const g = $("casosGrid");
+      g.hidden = false;
+      g.innerHTML = casos.map((c) => `
+        <article class="caso reveal">
+          ${c.foto ? `<img src="${h(c.foto)}" alt="${h(c.titulo)}" loading="lazy">` : ""}
+          <div class="caso-cuerpo">
+            <span class="caso-cliente">${h(c.cliente)}${c.lugar ? " · " + h(c.lugar) : ""}</span>
+            <h3>${h(c.titulo)}</h3>
+            <dl>
+              ${c.problema ? `<dt>Reto</dt><dd>${h(c.problema)}</dd>` : ""}
+              ${c.solucion ? `<dt>Solución</dt><dd>${h(c.solucion)}</dd>` : ""}
+              ${c.resultado ? `<dt>Resultado</dt><dd>${h(c.resultado)}</dd>` : ""}
+            </dl>
+            ${lista(c.cifras).length ? `<ul class="caso-cifras">${lista(c.cifras).map((x) => `<li><strong>${h(x.valor)}</strong><span>${h(x.etiqueta)}</span></li>`).join("")}</ul>` : ""}
+          </div>
+        </article>`).join("");
+    }
+    $("galeriaGrid").innerHTML = galeria.map((f, i) => `
+      <button type="button" class="galeria-item reveal" data-foto="${i}">
+        <img src="${h(f.foto)}" alt="${h(f.titulo)}" loading="lazy">
+        <span><strong>${h(f.titulo)}</strong>${f.lugar ? `<small>${h(f.lugar)}</small>` : ""}</span>
+      </button>`).join("");
+
+    // lightbox
+    const caja = document.createElement("dialog");
+    caja.className = "foto-grande";
+    caja.innerHTML = `<button type="button" class="fg-cerrar" aria-label="Cerrar">&times;</button>
+      <button type="button" class="fg-nav" data-fg="-1" aria-label="Anterior">‹</button>
+      <figure><img alt=""><figcaption></figcaption></figure>
+      <button type="button" class="fg-nav" data-fg="1" aria-label="Siguiente">›</button>`;
+    document.body.appendChild(caja);
+    let actual = 0;
+    const ver = (i) => {
+      actual = (i + galeria.length) % galeria.length;
+      const f = galeria[actual];
+      caja.querySelector("img").src = f.foto;
+      caja.querySelector("img").alt = f.titulo || "";
+      caja.querySelector("figcaption").textContent = [f.titulo, f.lugar].filter(Boolean).join(" · ");
+    };
+    $("galeriaGrid").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-foto]");
+      if (!b) return;
+      ver(Number(b.dataset.foto));
+      caja.showModal();
+    });
+    caja.addEventListener("click", (e) => {
+      if (e.target === caja || e.target.closest(".fg-cerrar")) caja.close();
+      const n = e.target.closest("[data-fg]");
+      if (n) ver(actual + Number(n.dataset.fg));
+    });
+    caja.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") ver(actual + 1);
+      if (e.key === "ArrowLeft") ver(actual - 1);
+    });
+    caja.querySelectorAll(".fg-nav").forEach((b) => (b.hidden = galeria.length < 2));
+  }
+
+  // ---------- testimonials ----------
+  const testi = lista(C.testimonios).filter((t) => t.texto && t.nombre);
+  if (testi.length) {
+    mostrar("testimonios");
+    $("testiGrid").innerHTML = testi.map((t) => `
+      <figure class="testi reveal">
+        <svg class="testi-comillas" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 7H6a2 2 0 0 0-2 2v4h4v4H4M20 7h-4a2 2 0 0 0-2 2v4h4v4h-4"/></svg>
+        <blockquote>${h(t.texto)}</blockquote>
+        <figcaption>
+          ${t.foto ? `<img src="${h(t.foto)}" alt="" loading="lazy">` : `<span class="testi-ini">${h(iniciales(t.nombre))}</span>`}
+          <span><strong>${h(t.nombre)}</strong><small>${h([t.puesto, t.empresa].filter(Boolean).join(" · "))}</small></span>
+        </figcaption>
+      </figure>`).join("");
+  }
+
+  // ---------- certifications ----------
+  const certs = lista(C.certificaciones).filter((c) => c.nombre);
+  if (certs.length) {
+    mostrar("certificaciones");
+    $("certGrid").innerHTML = certs.map((c) => `
+      <li class="cert reveal">
+        ${c.logo ? `<img src="${h(c.logo)}" alt="" loading="lazy">` : `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg>`}
+        <span><strong>${h(c.nombre)}</strong>${c.detalle ? `<small>${h(c.detalle)}</small>` : ""}</span>
+      </li>`).join("");
+  }
+
+  // ---------- team ----------
+  const equipo = lista(C.equipo).filter((p) => p.nombre);
+  if (equipo.length) {
+    mostrar("equipo");
+    $("equipoGrid").innerHTML = equipo.map((p) => `
+      <li class="persona reveal">
+        ${p.foto ? `<img src="${h(p.foto)}" alt="${h(p.nombre)}" loading="lazy">` : `<span class="persona-ini">${h(iniciales(p.nombre))}</span>`}
+        <strong>${h(p.nombre)}</strong><small>${h(p.puesto)}</small>
+      </li>`).join("");
+  }
+
+  // ---------- safety & quality ----------
+  const hse = C.seguridad || {};
+  if (hse.mostrar && lista(hse.puntos).length) {
+    mostrar("seguridad");
+    $("hseGrid").innerHTML = lista(hse.puntos).map((p, i) => `
+      <div class="hse-item reveal"><span class="hse-num">${String(i + 1).padStart(2, "0")}</span><h3>${h(p.titulo)}</h3><p>${h(p.texto)}</p></div>`).join("");
+  }
+
+  // ---------- careers ----------
+  const empleo = C.empleo || {};
+  if (empleo.mostrar) {
+    mostrar("empleo");
+    $("empleoPuestos").innerHTML = lista(empleo.puestos).map((p) => `<li>${h(p)}</li>`).join("");
+  } else {
+    document.querySelectorAll("[data-empleo-link]").forEach((a) => a.remove());
+  }
+
+  // ---------- coverage map (one tile per state) ----------
+  const TILES = [
+    ["BC", "Baja California", 0, 0], ["SON", "Sonora", 1, 0], ["CHH", "Chihuahua", 2, 0], ["COA", "Coahuila", 3, 0], ["NL", "Nuevo León", 4, 0],
+    ["BCS", "Baja California Sur", 0, 1], ["SIN", "Sinaloa", 1, 1], ["DUR", "Durango", 2, 1], ["ZAC", "Zacatecas", 3, 1], ["SLP", "San Luis Potosí", 4, 1], ["TAM", "Tamaulipas", 5, 1],
+    ["NAY", "Nayarit", 1, 2], ["JAL", "Jalisco", 2, 2], ["AGS", "Aguascalientes", 3, 2], ["GTO", "Guanajuato", 4, 2], ["QRO", "Querétaro", 5, 2], ["HGO", "Hidalgo", 6, 2],
+    ["COL", "Colima", 2, 3], ["MIC", "Michoacán", 3, 3], ["MEX", "Estado de México", 4, 3], ["CDMX", "Ciudad de México", 5, 3], ["TLX", "Tlaxcala", 6, 3], ["VER", "Veracruz", 7, 3], ["YUC", "Yucatán", 9, 3],
+    ["GRO", "Guerrero", 3, 4], ["MOR", "Morelos", 4, 4], ["PUE", "Puebla", 5, 4], ["TAB", "Tabasco", 7, 4], ["CAM", "Campeche", 8, 4], ["QROO", "Quintana Roo", 9, 4],
+    ["OAX", "Oaxaca", 5, 5], ["CHP", "Chiapas", 6, 5],
+  ];
+  const CIUDADES = {
+    NL: "Monterrey", COA: "Torreón, Saltillo", DUR: "Durango", BC: "Tijuana", JAL: "Guadalajara", GTO: "León",
+    AGS: "Aguascalientes", SLP: "San Luis Potosí", QRO: "Querétaro", CDMX: "Ciudad de México", PUE: "Puebla",
+    TAM: "Tampico", VER: "Veracruz", TAB: "Villahermosa", YUC: "Mérida",
+  };
+  const PRINCIPALES = ["NL", "COA", "JAL", "GTO"];
+  const activos = new Set(lista(C.estados).map((x) => String(x).toUpperCase()));
+  const mapa = $("mapaMx");
+  if (mapa && activos.size) {
+    const T = 52, G = 6;
+    const svg = TILES.map(([k, nombre, x, y]) => {
+      const on = activos.has(k);
+      const cls = "mx-t" + (on ? " on" : "") + (on && PRINCIPALES.includes(k) ? " main" : "");
+      const tip = nombre + (on ? " · " + (CIUDADES[k] || "Con presencia") : "");
+      return `<g class="${cls}" transform="translate(${x * (T + G)},${y * (T + G)})" tabindex="${on ? 0 : -1}" role="img" aria-label="${h(tip)}">
+        <title>${h(tip)}</title><rect width="${T}" height="${T}" rx="9"/><text x="${T / 2}" y="${T / 2 + 5}">${k}</text></g>`;
+    }).join("");
+    const W = 10 * (T + G) - G, H = 6 * (T + G) - G;
+    mapa.innerHTML = `
+      <div class="mx-cabecera"><strong>${activos.size} estados con presencia</strong>
+        <span class="mx-ley"><i class="on"></i>Presencia <i class="main"></i>Ciudad principal <i></i>Sin cobertura aún</span></div>
+      <svg viewBox="0 0 ${W} ${H}" class="mx-svg">${svg}</svg>
+      <p class="mx-info" id="mxInfo">Pasa el cursor o toca un estado para ver las ciudades.</p>`;
+    const info = $("mxInfo");
+    const describir = (g) => { if (g) info.textContent = g.getAttribute("aria-label"); };
+    mapa.addEventListener("mouseover", (e) => describir(e.target.closest(".mx-t")));
+    mapa.addEventListener("focusin", (e) => describir(e.target.closest(".mx-t")));
+    mapa.addEventListener("click", (e) => describir(e.target.closest(".mx-t")));
+  }
+
+  // ---------- hero video (only if contenido.js has one; skipped on slow/data-saver connections) ----------
+  const vid = C.videoPortada;
+  const ahorro = navigator.connection && (navigator.connection.saveData || /2g/.test(navigator.connection.effectiveType || ""));
+  const quieto = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (vid && !ahorro && !quieto && $("heroVideo")) {
+    const caja = $("heroVideo");
+    const v = document.createElement("video");
+    Object.assign(v, { muted: true, loop: true, autoplay: true, playsInline: true, preload: "metadata" });
+    v.setAttribute("muted", "");
+    v.setAttribute("playsinline", "");
+    v.src = vid;
+    v.addEventListener("error", () => caja.remove());
+    v.addEventListener("loadeddata", () => { caja.hidden = false; document.getElementById("hero")?.classList.add("con-video"); });
+    caja.appendChild(v);
+  }
+
+  // ---------- analytics (off until an ID is set in contenido.js) ----------
+  if (/^G-[A-Z0-9]+$/i.test(C.googleAnalytics || "")) {
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + C.googleAnalytics;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    gtag("js", new Date());
+    gtag("config", C.googleAnalytics);
+  }
+  if (/^\d{6,20}$/.test(C.metaPixel || "")) {
+    !(function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = "2.0"; n.queue = [];
+      t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+    })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+    fbq("init", C.metaPixel);
+    fbq("track", "PageView");
+  }
 })();
