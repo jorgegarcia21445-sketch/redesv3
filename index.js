@@ -1455,6 +1455,25 @@ async function pagarItems(items, btn, cliente) {
       body: JSON.stringify({ items, cliente }),
     });
     const d = await r.json();
+    if (d.precio_cambio) {
+      // a price went up at the supplier: no payment was made; offer WhatsApp with the cart already written
+      const caja = document.getElementById("cpEnvioMsg");
+      const lista = (Array.isArray(items) ? items : []).map((i) => {
+        const p = carrito.find((c) => String(c.id) === String(i.producto_id)) || {};
+        return `${i.cantidad} x ${p.modelo || p.nombre || p.titulo || i.producto_id}`;
+      });
+      const wa = "https://wa.me/523335034338?text=" + encodeURIComponent("Hola, quiero cotizar con el precio de hoy:\n" + lista.join("\n"));
+      const html = `${d.error} <a href="${wa}" target="_blank" rel="noopener" style="color:#25D366;font-weight:700">Escribir por WhatsApp</a>`;
+      if (caja) {
+        caja.innerHTML = html;
+        caja.style.color = "#ffb4a8";
+      } else {
+        alert(d.error);
+      }
+      btn.disabled = false;
+      btn.textContent = texto;
+      return;
+    }
     if (!r.ok || !d.init_point) throw new Error(d.error || "Error");
     window.location.href = d.init_point;
   } catch (err) {

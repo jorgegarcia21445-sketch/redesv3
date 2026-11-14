@@ -29,9 +29,35 @@ const CATJSON =
   process.env.CATJSON ||
   (fs.existsSync(path.join(AQUI, "catjson")) ? path.join(AQUI, "catjson") : "C:/Users/jg477/Documents/Webpage_Redes/catjson");
 const SITE = process.env.SITE || "http://127.0.0.1:5500";                              // your site's address
-const CARPETA_PEDIDOS = process.env.CARPETA_PEDIDOS || "C:/Users/jg477/Documents/pedidos-solutelecom"; // outside your website folder
+// Orders folder. On Hostinger the app runs inside "hbuilds", which can be replaced on every deploy,
+// so if the folder would end up in there it is moved next to hbuilds (and old orders are copied over).
+const CARPETA_PEDIDOS = (() => {
+  const pedida = path.resolve(process.env.CARPETA_PEDIDOS || "C:/Users/jg477/Documents/pedidos-solutelecom");
+  const partes = pedida.split(path.sep);
+  const i = partes.lastIndexOf("hbuilds");
+  if (i <= 0) return pedida;
+  const segura = path.join(partes.slice(0, i).join(path.sep) || path.sep, path.basename(pedida));
+  try {
+    fs.mkdirSync(segura, { recursive: true });
+    if (fs.existsSync(pedida)) {
+      let n = 0;
+      for (const f of fs.readdirSync(pedida)) {
+        const destino = path.join(segura, f);
+        if (f.endsWith(".json") && !fs.existsSync(destino)) {
+          fs.copyFileSync(path.join(pedida, f), destino);
+          n++;
+        }
+      }
+      if (n) console.log(`Pedidos copiados a la carpeta permanente: ${n}`);
+    }
+    return segura;
+  } catch (e) {
+    console.error("No se pudo usar la carpeta permanente, se queda en:", pedida, e.message);
+    return pedida;
+  }
+})();
 fs.mkdirSync(CARPETA_PEDIDOS, { recursive: true });
-console.log("Carpeta de pedidos:", path.resolve(CARPETA_PEDIDOS));
+console.log("Carpeta de pedidos:", CARPETA_PEDIDOS);
 
 // Same price rules as the page
 const MARGEN = 0.02;
@@ -570,7 +596,19 @@ async function cotizarEnvio(lineas, cliente, estadoSat) {
       );
       return { error: "No se pudo calcular el envío" };
     }
-    const r = { fletera, envio: redondear(costo * (ENVIO_SIN_IVA ? 1 + IVA : 1)) };
+    const t = (s.data && s.data.totales) || {};
+    const r = {
+      fletera,
+      envio: redondear(costo * (ENVIO_SIN_IVA ? 1 + IVA : 1)),
+      // what Syscom will charge you (products + shipping, with IVA), for the price check
+      costoSyscom: parseFloat(t.total) || null,
+      costoLineas: (Array.isArray(s.data && s.data.productos) ? s.data.productos : []).map((x) => ({
+        id: String(x.id),
+        modelo: x.modelo,
+        cantidad: Number(x.cantidad) || 0,
+        precio_unitario: parseFloat(x.precio_unitario) || 0,
+      })),
+    };
     cacheCotizaciones.set(clave, { t: Date.now(), r });
     return r;
   }
@@ -1271,6 +1309,10 @@ app.post("/crear-pago", async (req, res) => {
   const q = await cotizarEnvio(c.lineas, k.cliente, e.estadoSat);
   if (q.error) return res.status(400).json({ error: q.error });
 
+  // PRICE SAFETY CHECK: never sell below what Syscom charges today (+ room for the Mercado Pago fee)
+  const precio = revisarMargen(c.lineas, q);
+  if (precio.error) return res.status(409).json({ error: precio.error, precio_cambio: true });
+
   const itemsMP = c.lineas.map((l) => ({
     title: l.titulo,
     unit_price: l.precio_unitario.toFixed(2),
@@ -1757,6 +1799,63 @@ function urlRastreo(fletera, guia) {
   return "";
 }
 
+
+
+// =========================================================
+// Price safety check
+// The catalog is a snapshot, but Syscom's quote has TODAY's cost. If what the customer would pay is not
+// at least that cost + MARGEN_MINIMO (default 8%, covers the Mercado Pago fee), the sale is stopped
+// before the customer pays, and the store is told which product to review.
+// =========================================================
+const MARGEN_MINIMO = (() => {
+  const n = parseFloat(process.env.MARGEN_MINIMO);
+  return isNaN(n) ? 0.08 : n;
+})();
+const alertasPrecio = new Map(); // product -> last warning time (one email per product per day)
+
+function revisarMargen(lineas, q) {
+  if (!q || !q.costoSyscom) return { ok: true }; // Syscom didn't send totals: don't block
+  const cobro = lineas.reduce((s, l) => s + l.precio_unitario * l.cantidad, 0) + (q.envio || 0);
+  const minimo = q.costoSyscom * (1 + MARGEN_MINIMO);
+  if (cobro >= minimo) return { ok: true };
+
+  // which products went up: Syscom's price (+ IVA) vs what we charge
+  const caros = [];
+  for (const l of lineas) {
+    const sys = (q.costoLineas || []).find((x) => x.id === String(l.producto_id) || x.modelo === l.modelo);
+    if (sys && sys.precio_unitario * (1 + IVA) * (1 + MARGEN_MINIMO) > l.precio_unitario) {
+      caros.push({ modelo: l.modelo, titulo: l.titulo, cobramos: l.precio_unitario, costo_con_iva: redondear(sys.precio_unitario * (1 + IVA)) });
+    }
+  }
+  console.warn("PRECIO BLOQUEADO: cobro", redondear(cobro), "· costo Syscom", q.costoSyscom, "·", JSON.stringify(caros));
+  avisarPrecio(caros, cobro, q.costoSyscom).catch(() => {});
+  const nombres = caros.map((x) => x.modelo).filter(Boolean).join(", ");
+  return {
+    error:
+      `El precio ${caros.length === 1 ? "de un producto" : "de algunos productos"}${nombres ? ` (${nombres})` : ""} cambió con nuestro proveedor y lo estamos actualizando. ` +
+      "Escríbenos por WhatsApp y te damos el precio de hoy.",
+  };
+}
+
+async function avisarPrecio(caros, cobro, costo) {
+  const clave = caros.map((x) => x.modelo).join(",") || "carrito";
+  if (Date.now() - (alertasPrecio.get(clave) || 0) < 86400000) return;
+  alertasPrecio.set(clave, Date.now());
+  if (!transporte || !CORREO_VENTAS) return;
+  const filas = caros
+    .map((x) => `<tr><td style="padding:6px">${escHtml(x.modelo)}</td><td style="padding:6px">${escHtml(x.titulo)}</td><td style="padding:6px;text-align:right">${pesos(x.cobramos)}</td><td style="padding:6px;text-align:right"><b>${pesos(x.costo_con_iva)}</b></td></tr>`)
+    .join("");
+  await enviarCorreo({
+    para: CORREO_VENTAS,
+    asunto: "Precio bloqueado en la tienda: revisa el catálogo",
+    html: plantilla(
+      "Una venta se detuvo por precio",
+      `<p>Un cliente intentó pagar <b>${pesos(cobro)}</b>, pero hoy Syscom te cobraría <b>${pesos(costo)}</b> (con IVA y envío). La venta se detuvo antes del pago para que no pierdas dinero.</p>
+       ${filas ? `<table style="width:100%;border-collapse:collapse;font-size:13px"><tr><th align="left" style="padding:6px">Modelo</th><th align="left" style="padding:6px">Producto</th><th align="right" style="padding:6px">Cobramos</th><th align="right" style="padding:6px">Costo hoy</th></tr>${filas}</table>` : ""}
+       <p>Para arreglarlo, vuelve a descargar el catálogo de Syscom y súbelo (node descargar-productos.js todas, node generar-buscador.mjs, git push).</p>`
+    ),
+  });
+}
 
 // =========================================================
 // Delivery estimate and order timeline (customer tracking)
