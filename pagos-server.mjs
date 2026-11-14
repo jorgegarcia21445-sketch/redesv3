@@ -217,15 +217,33 @@ app.use(express.json());
 
 // Only your website may call this server from a browser.
 // ORIGENES: comma-separated, e.g. https://solutelecom.netlify.app,https://www.solutelecom.mx
-const ORIGENES = (process.env.ORIGENES || "")
-  .split(",")
-  .map((o) => o.trim().replace(/\/+$/, ""))
-  .filter(Boolean);
+// The site in SITE (and its www. version) is always allowed, so a typo in ORIGENES can't break the store.
+const limpiarOrigen = (o) => String(o || "").trim().replace(/^["']|["']$/g, "").replace(/\/+$/, "").toLowerCase();
+const ORIGENES = (() => {
+  const lista = (process.env.ORIGENES || "").split(/[,\s]+/).map(limpiarOrigen).filter(Boolean);
+  try {
+    const u = new URL(SITE);
+    if (u.hostname !== "127.0.0.1" && u.hostname !== "localhost") {
+      const sinWww = u.hostname.replace(/^www\./, "");
+      lista.push(`${u.protocol}//${sinWww}`, `${u.protocol}//www.${sinWww}`);
+    }
+  } catch (e) {
+    // SITE is not a full address
+  }
+  return Array.from(new Set(lista));
+})();
+console.log("Sitios permitidos (CORS):", ORIGENES.length ? ORIGENES.join(", ") : "todos (modo local)");
+const rechazados = new Set();
 app.use(
   cors({
     origin: (origen, listo) => {
       if (!origen || !ORIGENES.length) return listo(null, true); // local testing / server-to-server
-      listo(null, ORIGENES.includes(origen));
+      const ok = ORIGENES.includes(limpiarOrigen(origen));
+      if (!ok && !rechazados.has(origen) && rechazados.size < 20) {
+        rechazados.add(origen);
+        console.warn("CORS: sitio rechazado:", origen, "(agrégalo a ORIGENES si es tuyo)");
+      }
+      listo(null, ok);
     },
   })
 );
