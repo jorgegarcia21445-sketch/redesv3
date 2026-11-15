@@ -2160,6 +2160,27 @@ function paginaAdmin(req, aviso) {
     })
     .join("");
 
+  // one payment for everything pending: total + folios for the concepto
+  let resumen = "";
+  if (ver === "pagar" && lista.length) {
+    const conCosto = lista.filter((p) => costoSyscom(p) != null);
+    const total = conCosto.reduce((s, p) => s + costoSyscom(p), 0);
+    const folios = lista.map((p) => (p.syscom && p.syscom.folio_pedido) || "PRUEBA");
+    const concepto = `5888137 Folios ${folios.join(" ")}`;
+    resumen = `<section class="resumen">
+      <div><small>Total a pagar a Syscom (${lista.length} pedido${lista.length === 1 ? "" : "s"})</small><b>${pesos(total)}</b>${
+        conCosto.length < lista.length ? `<small class="err">${lista.length - conCosto.length} pedido(s) sin monto de Syscom: revísalos en syscom.mx</small>` : ""
+      }</div>
+      <div><small>CLABE Syscom (pesos)</small><b class="copiable">012150004455969203</b><small>Referencia <b>5888137</b></small></div>
+      <div><small>Concepto sugerido</small><b class="copiable chico">${escHtml(concepto)}</b><small>${concepto.length > 40 ? "Si tu banco no acepta un concepto tan largo, paga cada pedido por separado." : "&nbsp;"}</small></div>
+      <form method="post" action="/admin/pedidos/todos?ver=pagar" onsubmit="return confirm('¿Ya enviaste ${escHtml(pesos(total))} a Syscom? Se marcarán ${lista.length} pedido(s) como pagados.')">
+        <input type="hidden" name="clave" value="${clave}"><input type="hidden" name="accion" value="pagado_syscom_todos">
+        <input type="hidden" name="refs" value="${escHtml(lista.map((p) => p.referencia).join(","))}">
+        <button>✔ Ya pagué todo esto a Syscom</button>
+      </form>
+    </section>`;
+  }
+
   return `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
 <title>Pedidos · SoluTelecom</title><style>
 :root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0c0c0e;color:#e9e9ee;font:14px/1.45 system-ui,Segoe UI,Arial,sans-serif;padding:20px 16px 60px}
@@ -2172,10 +2193,13 @@ nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}nav a{padding:8px 12p
 .err{color:#ff9b93}.acciones{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid #2a2a31}
 form{display:flex;flex-wrap:wrap;gap:8px;margin:0}input,select{background:#0c0c0e;color:#fff;border:1px solid #33333b;border-radius:6px;padding:8px 10px;font:inherit}input{min-width:200px}
 button{background:#f5b400;color:#111;border:0;border-radius:6px;padding:9px 14px;font-weight:700;cursor:pointer}.vacio{color:#8e8e99}
+.resumen{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;align-items:end;max-width:1100px;margin-bottom:18px;padding:18px;border-radius:10px;background:#2a2410;border:1px solid #6b5410}
+.resumen small{display:block;color:#c9b98a;font-size:12px}.resumen b{display:block;font-size:20px;color:#f5b400}.resumen b.chico{font-size:14px;color:#fff;word-break:break-word}.resumen .copiable{user-select:all}
 </style></head><body>
 <h1>Pedidos</h1><p class="sub">Syscom en modo ${SYSCOM_PRUEBA ? "<b>PRUEBA</b> (no compra nada)" : "<b>REAL</b>"} · No compartas este enlace: contiene tu clave.</p>
 ${aviso ? `<div class="aviso ${aviso.startsWith("Error") ? "mal" : ""}">${escHtml(aviso)}</div>` : ""}
 <nav>${ETAPAS.map(([k, t]) => `<a href="?clave=${clave}&ver=${k}" class="${k === ver ? "on" : ""}">${t}<i>${cuenta[k]}</i></a>`).join("")}</nav>
+${resumen}
 ${tarjetas || '<p class="vacio">No hay pedidos en esta lista.</p>'}
 </body></html>`;
 }
@@ -2195,8 +2219,19 @@ app.get("/admin/pedidos", (req, res) => {
 
 app.post("/admin/pedidos/:ref", async (req, res) => {
   if (!esAdmin(req)) return res.sendStatus(403);
-  const enc = leerPedido(req.params.ref);
   req.query.clave = req.body.clave;
+  if (req.params.ref === "todos" && req.body.accion === "pagado_syscom_todos") {
+    let n = 0;
+    for (const ref of String(req.body.refs || "").split(",")) {
+      const e = leerPedido(ref.trim());
+      if (!e || etapaAdmin(e.pedido) !== "pagar") continue;
+      e.pedido.syscom_pagado = new Date().toISOString();
+      guardarPedido(e.archivo, e.pedido);
+      n++;
+    }
+    return responderAdmin(res, paginaAdmin(req, `${n} pedido(s) marcados como pagados a Syscom.`));
+  }
+  const enc = leerPedido(req.params.ref);
   if (!enc) return responderAdmin(res, paginaAdmin(req, "Error: pedido no encontrado"));
   const { archivo, pedido } = enc;
   let aviso = "";
