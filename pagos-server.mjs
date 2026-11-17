@@ -2291,7 +2291,15 @@ function paginaAdmin(req, aviso) {
     const conCosto = lista.filter((p) => costoSyscom(p) != null);
     const total = conCosto.reduce((s, p) => s + costoSyscom(p), 0);
     const folios = lista.map((p) => (p.syscom && p.syscom.folio_pedido) || "PRUEBA");
-    const concepto = `5888137 Folios ${folios.join(" ")}`;
+    // Mercado Pago / SPEI: only letters, numbers and spaces, max 40 characters
+    // "576-7657347/26-API" -> "576 7657347" (the reference 5888137 goes in "Número de referencia")
+    const limpio = (f) => String(f).split("/")[0].replace(/[^A-Za-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
+    let concepto = folios.length === 1 ? "Folio " : "Folios ";
+    for (const f of folios.map(limpio)) {
+      if ((concepto + f).length > 40) break;
+      concepto += f + " ";
+    }
+    concepto = concepto.trim();
     resumen = `<section class="resumen">
       <div><small>Total a pagar a Syscom (${lista.length} pedido${lista.length === 1 ? "" : "s"})</small><b>${pesos(total)}</b>${
         conCosto.length < lista.length ? `<small class="err">${lista.length - conCosto.length} pedido(s) sin monto de Syscom: revísalos en syscom.mx</small>` : ""
@@ -2354,7 +2362,7 @@ app.post("/admin/pedidos/:ref", async (req, res) => {
       guardarPedido(e.archivo, e.pedido);
       n++;
     }
-    return responderAdmin(res, paginaAdmin(req, `${n} pedido(s) marcados como pagados a Syscom.`));
+    return responderAdmin(res, paginaAdmin(req, n ? `${n} pedido(s) marcados como pagados a Syscom.` : "Ya estaban marcados como pagados a Syscom (revisa la pestaña Esperando guía)."));
   }
   const enc = leerPedido(req.params.ref);
   if (!enc) return responderAdmin(res, paginaAdmin(req, "Error: pedido no encontrado"));
