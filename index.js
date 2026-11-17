@@ -867,7 +867,9 @@ function htmlTarjeta(p) {
         <span class="pc-brand">${esc(p.marca)}</span>
         <h3 class="pc-title">${esc(p.titulo)}</h3>
         <strong class="pc-price">${precio.html}</strong>
-        <span class="pc-stock ${stock > 0 ? "ok" : "no"}">${stock > 0 ? "● " + stock.toLocaleString("es-MX") + " en existencia" : "Sin existencia"}</span>
+        ${stock > 0
+          ? `<button type="button" class="pc-stock ok pc-stock-btn" data-disp="${id}" title="Ver existencias por sucursal">● ${stock.toLocaleString("es-MX")} en existencia <span aria-hidden="true">›</span></button>`
+          : `<span class="pc-stock no">Sin existencia</span>`}
         ${stock > 0 ? htmlLlegaCorto() : ""}
         ${
           stock > 0
@@ -2802,67 +2804,245 @@ async function abrirBusqueda(q) {
   cargar();
 })();
 
-// ----- Stock per branch (state / city) -----
+// ----- Stock per branch, Syscom style: every branch listed, "Mi sucursal" first -----
+// Syscom branches in the same order Syscom shows them (branches it sends that are not here are added at the end)
+const SUCURSALES_SYSCOM = [
+  ["Aguascalientes", "Aguascalientes"], ["Cancún", "Quintana Roo"], ["Cd. Juárez", "Chihuahua"],
+  ["Matriz Chihuahua", "Chihuahua"], ["Chihuahua Norte", "Chihuahua"], ["Culiacán", "Sinaloa"],
+  ["Guadalajara", "Jalisco"], ["Hermosillo", "Sonora"], ["La Paz", "Baja California Sur"], ["León", "Guanajuato"],
+  ["Mérida", "Yucatán"], ["México Norte", "Ciudad de México"], ["México Sureste", "Ciudad de México"],
+  ["Monterrey", "Nuevo León"], ["Monterrey Centro", "Nuevo León"], ["Oaxaca", "Oaxaca"], ["Puebla", "Puebla"],
+  ["Querétaro", "Querétaro"], ["San Luis Potosí", "San Luis Potosí"], ["Tepotzotlán", "Estado de México"],
+  ["Tijuana", "Baja California"], ["Toluca", "Estado de México"], ["Torreón", "Coahuila"],
+  ["Veracruz", "Veracruz"], ["Villahermosa", "Tabasco"],
+];
+// customer's state -> closest Syscom branch (for the "sugerida para ti" branch)
+const SUCURSAL_POR_ESTADO = {
+  "Aguascalientes": "Aguascalientes", "Baja California": "Tijuana", "Baja California Sur": "La Paz", "Campeche": "Mérida",
+  "Chiapas": "Villahermosa", "Chihuahua": "Matriz Chihuahua", "Ciudad de México": "México Norte", "Coahuila": "Torreón",
+  "Colima": "Guadalajara", "Durango": "Torreón", "Estado de México": "Tepotzotlán", "Guanajuato": "León", "Guerrero": "México Sureste",
+  "Hidalgo": "México Norte", "Jalisco": "Guadalajara", "Michoacán": "Guadalajara", "Morelos": "México Sureste", "Nayarit": "Guadalajara",
+  "Nuevo León": "Monterrey", "Oaxaca": "Oaxaca", "Puebla": "Puebla", "Querétaro": "Querétaro", "Quintana Roo": "Cancún",
+  "San Luis Potosí": "San Luis Potosí", "Sinaloa": "Culiacán", "Sonora": "Hermosillo", "Tabasco": "Villahermosa",
+  "Tamaulipas": "Monterrey", "Tlaxcala": "Puebla", "Veracruz": "Veracruz", "Yucatán": "Mérida", "Zacatecas": "Aguascalientes",
+};
+const CLAVE_SUCURSAL = "solutelecom_sucursal";
+const CLAVE_SOLO_TOTAL = "solutelecom_solo_total";
+const PIN_SUC = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+const ESTRELLA = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9z"/></svg>';
+const claveSuc = (t) => sinAcentosQ(t).replace(/\b(cd|matriz|sucursal)\b/g, "").replace(/[^a-z ]/g, "").replace(/\s+/g, " ").trim();
+
+function leerLocal(k) {
+  try { return localStorage.getItem(k) || ""; } catch (e) { return ""; }
+}
+function guardarLocal(k, v) {
+  try { v ? localStorage.setItem(k, v) : localStorage.removeItem(k); } catch (e) { /* storage not available */ }
+}
+// { nombre, sugerida } : the branch the customer picked, or one suggested from their saved address
+function miSucursal() {
+  const elegida = leerLocal(CLAVE_SUCURSAL);
+  if (elegida) return { nombre: elegida, sugerida: false };
+  const estado = (typeof leerDatos === "function" && leerDatos().estado) || "";
+  return SUCURSAL_POR_ESTADO[estado] ? { nombre: SUCURSAL_POR_ESTADO[estado], sugerida: true } : null;
+}
+
+// joins Syscom's data with the full branch list
+function listaCompletaSucursales(sucursales) {
+  const porClave = new Map();
+  for (const s of sucursales || []) porClave.set(claveSuc(s.sucursal), s);
+  const usadas = new Set();
+  const lista = SUCURSALES_SYSCOM.map(([nombre, estado]) => {
+    const k = claveSuc(nombre);
+    const s = porClave.get(k);
+    if (s) usadas.add(k);
+    return { sucursal: nombre, estado, nuevo: s ? s.nuevo || 0 : 0, transito: s ? s.transito || 0 : 0, caja_abierta: s ? s.caja_abierta || 0 : 0 };
+  });
+  for (const [k, s] of porClave) if (!usadas.has(k)) lista.push({ ...s });
+  return lista;
+}
+
+function resumenExistencias(sucursales) {
+  const con = (sucursales || []).filter((s) => s.nuevo > 0);
+  if (!con.length) return "";
+  const estados = new Set(con.map((s) => s.estado || s.sucursal));
+  return `En ${con.length} ${con.length === 1 ? "sucursal" : "sucursales"} de ${estados.size} ${estados.size === 1 ? "estado" : "estados"}`;
+}
+
+// asks the server for one product's branches; tries twice (the server may be waking up)
+async function pedirExistencias(id) {
+  const g = sucursalesCache.get(String(id));
+  if (g && (g.sucursales || []).length) return g;
+  let ultimo;
+  for (let intento = 0; intento < 2; intento++) {
+    try {
+      const r = await fetch(API_PAGOS + "/existencias/" + encodeURIComponent(id));
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw Object.assign(new Error(d.error || "El servidor respondió " + r.status), { definitivo: r.status < 500 });
+      sucursalesCache.set(String(id), d);
+      return d;
+    } catch (e) {
+      ultimo = e;
+      if (e.definitivo) break;
+      await new Promise((ok) => setTimeout(ok, 2500));
+    }
+  }
+  throw new Error(
+    ultimo && ultimo.message === "Failed to fetch"
+      ? "No pudimos consultar las sucursales en este momento (el servidor no respondió)."
+      : (ultimo && ultimo.message) || "No se pudo consultar el desglose."
+  );
+}
+// loads and paints the branch list of product "id" inside "cont"
+async function cargarListaSucursales(cont, id, modelo, alTotal) {
+  if (!cont) return;
+  cont.dataset.id = id;
+  cont.dataset.modelo = modelo || "";
+  cont._reintentar = () => cargarListaSucursales(cont, id, modelo, alTotal);
+  pintarListaSucursales(cont, null);
+  try {
+    const d = await pedirExistencias(id);
+    if (cont.dataset.id !== String(id)) return;
+    if (alTotal && d.total) alTotal(d);
+    pintarListaSucursales(cont, d.sucursales || []);
+    return d;
+  } catch (err) {
+    if (cont.dataset.id === String(id)) pintarListaSucursales(cont, [], err.message);
+  }
+}
+
+// paints the whole block (my-branch bar + table) inside "cont"; sucursales = null while loading
+function pintarListaSucursales(cont, sucursales, aviso) {
+  if (!cont) return;
+  cont._suc = sucursales;
+  cont._aviso = aviso || "";
+  const n = (v) => Number(v || 0).toLocaleString("es-MX");
+  const mia = miSucursal();
+  const soloTotal = leerLocal(CLAVE_SOLO_TOTAL) === "1";
+  const lista = listaCompletaSucursales(sucursales || []);
+  const claveMia = mia ? claveSuc(mia.nombre) : "";
+  const filaMia = lista.find((s) => claveSuc(s.sucursal) === claveMia);
+  const ordenada = filaMia ? [filaMia, ...lista.filter((s) => s !== filaMia)] : lista;
+
+  const barra = `<div class="suc-barra">
+      <span>${mia
+        ? `Mi sucursal: <b>${esc(mia.nombre)}</b>${mia.sugerida ? " <small>(sugerida para ti)</small>" : ""}${
+            filaMia && !soloTotal && sucursales && sucursales.length ? (filaMia.nuevo ? ` · <em class="suc-ok">${n(filaMia.nuevo)} disponibles</em>` : ' · <em class="suc-no">sin piezas aquí</em>') : ""}`
+        : "Elige tu sucursal más cercana"}</span>
+      <span class="suc-links">
+        <button type="button" data-suc="cambiar">${mia ? "Cambiar" : "Elegir"}</button>
+        <button type="button" data-suc="solo">${soloTotal ? "Ver sucursales" : "Solo total"}</button>
+      </span>
+    </div>
+    <div class="suc-elegir" hidden>
+      <div class="suc-elegir-top">
+        <strong>Elige tu sucursal</strong>
+        <button type="button" class="suc-cerrar" data-suc="cerrar" aria-label="Cerrar">&times;</button>
+      </div>
+      <input type="search" class="suc-buscar" placeholder="Buscar ciudad o estado…" aria-label="Buscar sucursal">
+      <div class="suc-opciones">
+        ${lista
+          .map(
+            (s) => `<button type="button" class="suc-op${claveSuc(s.sucursal) === claveMia ? " on" : ""}" data-suc="elegir" data-nombre="${esc(s.sucursal)}" data-buscar="${esc(sinAcentosQ(s.sucursal + " " + (s.estado || "")))}">
+              ${PIN_SUC}<span><b>${esc(s.sucursal)}</b><small>${esc(s.estado || "")}</small></span>
+              ${sucursales && sucursales.length ? (s.nuevo ? `<em class="disp-n">${n(s.nuevo)}</em>` : '<em class="suc-op-cero">0</em>') : ""}
+            </button>`
+          )
+          .join("")}
+      </div>
+    </div>`;
+
+  let cuerpo;
+  if (sucursales === null) cuerpo = '<p class="disp-msg">Consultando existencias…</p>';
+  else if (soloTotal) cuerpo = "";
+  else if (!sucursales.length)
+    cuerpo = `<p class="disp-msg">${esc(aviso || "Syscom no envió el desglose por sucursal de este producto.")}<br><small>El total de existencias sí está actualizado.</small></p>
+      <div class="suc-acciones">${cont.dataset.id ? `<button type="button" class="btn btn-outline" data-suc="reintentar">Reintentar</button>` : ""}
+      <a class="btn btn-outline" href="https://wa.me/${WHATSAPP_VENTAS}?text=${encodeURIComponent("Hola, ¿en qué sucursal tienen el producto " + (cont.dataset.modelo || cont.dataset.id || "") + "?")}" target="_blank" rel="noopener">Preguntar por WhatsApp</a></div>`;
+  else
+    cuerpo = `<div class="suc-tabla" role="table" aria-label="Existencias por sucursal">
+        <div class="suc-fila suc-th" role="row"><span role="columnheader">Sucursal</span><span role="columnheader">Nuevo</span><span role="columnheader">${ICONO_CAMION}En tránsito</span><span role="columnheader">Caja abierta</span></div>
+        ${ordenada
+          .map((s) => {
+            const esMia = claveSuc(s.sucursal) === claveMia;
+            return `<div class="suc-fila${esMia ? " es-mia" : ""}${s.nuevo ? " con" : ""}" role="row">
+              <span class="suc-nombre" role="cell">${PIN_SUC}<span title="${esc(s.estado || "")}">${esc(s.sucursal)}</span>${esMia ? '<i class="suc-tag">Mi sucursal</i>' : ""}
+                <button type="button" class="suc-estrella${esMia ? " on" : ""}" data-suc="estrella" data-nombre="${esc(s.sucursal)}" aria-label="${esMia ? "Es mi sucursal" : "Elegir " + esc(s.sucursal) + " como mi sucursal"}" title="${esMia ? "Mi sucursal" : "Elegir como mi sucursal"}">${ESTRELLA}</button></span>
+              <span role="cell">${s.nuevo ? `<span class="disp-n">${n(s.nuevo)}</span>` : ""}</span>
+              <span role="cell">${s.transito ? `<span class="disp-t">${n(s.transito)}</span>` : ""}</span>
+              <span role="cell">${s.caja_abierta ? `<span class="disp-t">${n(s.caja_abierta)}</span>` : ""}</span>
+            </div>`;
+          })
+          .join("")}
+      </div>`;
+  const resumen = sucursales && sucursales.length && !soloTotal ? resumenExistencias(sucursales) : "";
+  cont.innerHTML = barra + (resumen ? `<p class="suc-resumen">${resumen}</p>` : "") + cuerpo;
+}
+function repintarListasSucursales() {
+  document.querySelectorAll(".suc-comp").forEach((c) => {
+    if (c._suc !== undefined) pintarListaSucursales(c, c._suc, c._aviso);
+  });
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-suc]");
+  if (!b) return;
+  const accion = b.dataset.suc;
+  if (accion === "cambiar" || accion === "cerrar") {
+    const comp = b.closest(".suc-comp");
+    const panel = comp.querySelector(".suc-elegir");
+    const abrir = accion === "cambiar" && panel.hidden;
+    panel.hidden = !abrir;
+    comp.classList.toggle("eligiendo", abrir);
+    if (abrir) {
+      const q = panel.querySelector(".suc-buscar");
+      q.value = "";
+      panel.querySelectorAll(".suc-op").forEach((o) => (o.hidden = false));
+      const on = panel.querySelector(".suc-op.on");
+      if (on) on.scrollIntoView({ block: "nearest" });
+      if (window.matchMedia("(min-width: 700px)").matches) q.focus();
+    }
+  } else if (accion === "elegir") {
+    guardarLocal(CLAVE_SUCURSAL, b.dataset.nombre);
+    repintarListasSucursales();
+  } else if (accion === "solo") {
+    guardarLocal(CLAVE_SOLO_TOTAL, leerLocal(CLAVE_SOLO_TOTAL) === "1" ? "" : "1");
+    repintarListasSucursales();
+  } else if (accion === "reintentar") {
+    const cont = b.closest(".suc-comp");
+    if (cont && cont._reintentar) cont._reintentar();
+  } else if (accion === "estrella") {
+    guardarLocal(CLAVE_SUCURSAL, b.dataset.nombre);
+    repintarListasSucursales();
+  }
+});
+document.addEventListener("input", (e) => {
+  const q = e.target.closest(".suc-buscar");
+  if (!q) return;
+  const t = sinAcentosQ(q.value).trim();
+  q.closest(".suc-elegir").querySelectorAll(".suc-op").forEach((o) => (o.hidden = !!t && !o.dataset.buscar.includes(t)));
+});
+
+// ----- Availability window (opened from the stock line of any product) -----
 (function disponibilidad() {
   const modal = document.getElementById("dispModal");
   if (!modal) return;
   const titulo = document.getElementById("dispTitle");
   const total = document.getElementById("dispTotal");
-  const filas = document.getElementById("dispFilas");
-  const filtro = document.getElementById("dispFiltro");
-  let sucursales = [];
-
-  const PIN = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
-
-  function pintar() {
-    const q = sinAcentosQ(filtro.value);
-    const lista = sucursales.filter((s) => !q || sinAcentosQ(s.sucursal + " " + s.estado).includes(q));
-    filas.innerHTML = lista.length
-      ? lista
-          .map(
-            (s) => `<div class="disp-row" role="row">
-                <span class="disp-suc" role="cell">${PIN}<span>${esc(s.sucursal)}${s.estado ? `<small>${esc(s.estado)}</small>` : ""}</span></span>
-                <span role="cell">${s.nuevo ? `<span class="disp-n">${s.nuevo}</span>` : '<span class="disp-cero">0</span>'}</span>
-                <span role="cell">${s.transito ? `<span class="disp-t">🚚 ${s.transito}</span>` : ""}</span>
-                <span role="cell">${s.caja_abierta ? `<span class="disp-t">${s.caja_abierta}</span>` : ""}</span>
-              </div>`
-          )
-          .join("")
-      : `<p class="disp-msg">${sucursales.length ? "Ninguna sucursal coincide." : "Sin desglose por sucursal para este producto."}</p>`;
-  }
+  const cont = document.getElementById("dispLista");
 
   async function abrir(id) {
     const p = buscarProductoMostrado(id);
     titulo.textContent = "Disponibilidad" + (p && p.modelo ? " · " + p.modelo : "");
-    total.textContent = p ? (Number(p.total_existencia) || 0) + " unidades" : "—";
-    filtro.value = "";
-    sucursales = [];
-    filas.innerHTML = '<p class="disp-msg">Consultando existencias…</p>';
+    total.textContent = p ? (Number(p.total_existencia) || 0).toLocaleString("es-MX") + " unidades" : "—";
     if (!modal.open) modal.showModal();
-
-    try {
-      const r = await fetch(API_PAGOS + "/existencias/" + encodeURIComponent(id));
-      const d = await r.json();
-      if (!r.ok) throw new Error(d.error || "Error");
-      sucursales = d.sucursales || [];
-      if (d.total) total.textContent = d.total.toLocaleString("es-MX") + " unidades";
-      pintar();
-    } catch (err) {
-      // "Ruta no encontrada" means the server is still running an old version
-      const motivo = /Ruta no encontrada/.test(err.message)
-        ? "El servidor tiene una versión anterior: reinícialo para activar esta función."
-        : err.message === "Failed to fetch"
-        ? "No hay conexión con el servidor de la tienda."
-        : err.message;
-      filas.innerHTML = `<p class="disp-msg">${esc(motivo)}<br><small style="color:var(--slate-dim)">El total de existencias de arriba sí está actualizado.</small></p>`;
-    }
+    cargarListaSucursales(cont, String(id), p && p.modelo, (d) => {
+      total.textContent = Number(d.total).toLocaleString("es-MX") + " unidades";
+    });
   }
 
   document.addEventListener("click", (e) => {
     const b = e.target.closest("[data-disp]");
-    if (b) abrir(b.dataset.disp);
+    if (b && b.dataset.disp) abrir(b.dataset.disp);
   });
-  filtro.addEventListener("input", pintar);
   modal.querySelector(".disp-close").addEventListener("click", () => modal.close());
   modal.addEventListener("click", (e) => {
     if (e.target === modal) modal.close();
@@ -3285,6 +3465,7 @@ const WHATSAPP_VENTAS = "523335034338";
   document.addEventListener("click", (e) => {
     const t = e.target.closest("[data-vista]");
     if (!t) return;
+    if (e.target.closest("button[data-disp]")) return;
     if (e.target.closest("button[data-add], button[data-buy]") && !e.target.closest("button[data-vista]")) return;
     e.preventDefault();
     abrir(t.dataset.vista);
@@ -3534,7 +3715,7 @@ function pintarVistos() {
     "click",
     (e) => {
       const t = e.target.closest("[data-vista]");
-      if (t && !e.target.closest("button[data-add], button[data-buy]")) setTimeout(() => recordarVisto(buscarProductoMostrado(t.dataset.vista)), 0);
+      if (t && !e.target.closest("button[data-add], button[data-buy], button[data-disp]")) setTimeout(() => recordarVisto(buscarProductoMostrado(t.dataset.vista)), 0);
     },
     true
   );
@@ -4031,7 +4212,9 @@ function pintarVistos() {
             <h1 class="pp-titulo">${esc(p.titulo)}</h1>
             <span class="qv-modelo">Modelo: ${esc(p.modelo || "—")} · Código ${esc(p.producto_id)}</span>
             <strong class="pc-price pp-precio">${precio.html}</strong>
-            <span class="pc-stock ${stock > 0 ? "ok" : "no"}">${stock > 0 ? "● " + stock.toLocaleString("es-MX") + " en existencia" : "Sin existencia por ahora"}</span>
+            ${stock > 0
+              ? `<button type="button" class="pc-stock ok pc-stock-btn" data-pp="existencias">● ${stock.toLocaleString("es-MX")} en existencia · <u>ver sucursales</u></button>`
+              : `<span class="pc-stock no">Sin existencia por ahora</span>`}
             ${stock > 0 ? `<p class="seg-llega">${esc(textoEntrega(entregaDesdeHoy()))}<small>Si compras hoy · envío a todo México · estimado en días hábiles</small></p>` : ""}
             ${stock > 0
               ? `<div class="qv-comprar">
@@ -4054,6 +4237,13 @@ function pintarVistos() {
           </div>
         </div>
 
+        ${stock > 0
+          ? `<section class="pp-bloque" id="ppExist">
+              <h2>Existencias por sucursal</h2>
+              <div class="suc-comp" id="ppExistLista"></div>
+              <p class="pp-aviso">Existencias de nuestro proveedor en tiempo real. El envío sale de la sucursal más cercana con stock.</p>
+            </section>`
+          : ""}
         ${d.caracteristicas && d.caracteristicas.length
           ? `<section class="pp-bloque"><h2>Características</h2><ul class="pp-carac">${d.caracteristicas.map((c) => `<li>${esc(c)}</li>`).join("")}</ul></section>`
           : ""}
@@ -4073,21 +4263,17 @@ function pintarVistos() {
     cargarRelacionados(String(p.producto_id));
   }
 
+  function pintarExistencias(lista, aviso) {
+    pintarListaSucursales(document.getElementById("ppExistLista"), lista, aviso);
+  }
+
   async function cargarSucursales(id) {
+    const p = buscarProductoMostrado(id);
+    const d = await cargarListaSucursales(document.getElementById("ppExistLista"), id, p && p.modelo);
     const caja = document.getElementById("ppSuc");
-    if (!caja) return;
-    try {
-      let info = sucursalesCache.get(id);
-      if (!info) {
-        const r = await fetch(API_PAGOS + "/existencias/" + encodeURIComponent(id));
-        if (!r.ok) throw new Error();
-        info = await r.json();
-        sucursalesCache.set(id, info);
-      }
-      if (actual === id && document.getElementById("ppSuc")) pintarSucursalesEn(document.getElementById("ppSuc"), info);
-    } catch (e) {
-      if (document.getElementById("ppSuc")) document.getElementById("ppSuc").innerHTML = '<span class="pc-suc-cargando">Desglose no disponible en este momento.</span>';
-    }
+    if (!caja || actual !== id) return;
+    if (d) pintarSucursalesEn(caja, d);
+    else caja.innerHTML = '<span class="pc-suc-cargando">Desglose no disponible en este momento.</span>';
   }
 
   async function cargarRelacionados(id) {
@@ -4181,6 +4367,9 @@ function pintarVistos() {
         prompt("Copia este enlace:", url);
       }
       setTimeout(() => b.querySelector("span") && (b.querySelector("span").textContent = "Copiar enlace"), 2500);
+    } else if (accion === "existencias") {
+      const bloque = document.getElementById("ppExist");
+      if (bloque) bloque.scrollIntoView({ behavior: "smooth", block: "start" });
     } else if (accion === "menos" || accion === "mas") {
       const campo = document.getElementById("ppCant");
       const max = Number(campo.max) || 1;

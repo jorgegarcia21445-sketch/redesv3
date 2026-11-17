@@ -281,8 +281,12 @@ app.get("/ping", (req, res) => res.send("pong"));
 const cacheCP = new Map();
 
 async function syscomGet(ruta) {
+  // 15 s limit: if Syscom hangs, the customer gets a clear answer instead of a cut connection
   const r = await fetch(`${SYSCOM_API}${ruta}`, {
     headers: { Authorization: `Bearer ${SYSCOM_TOKEN}`, Accept: "application/json" },
+    signal: AbortSignal.timeout(15000),
+  }).catch((e) => {
+    throw new Error(e && e.name === "TimeoutError" ? "Syscom tardó demasiado en responder" : "Sin conexión con Syscom");
   });
   if (!r.ok) throw new Error(`Syscom ${r.status} en ${ruta}`);
   return r.json();
@@ -1029,6 +1033,7 @@ const ESTADO_SUCURSAL = [
   ["reynosa", "Tamaulipas"], ["obregon", "Sonora"], ["mazatlan", "Sinaloa"], ["acapulco", "Guerrero"],
   ["pachuca", "Hidalgo"], ["cuernavaca", "Morelos"], ["tepic", "Nayarit"], ["colima", "Colima"],
   ["campeche", "Campeche"], ["chetumal", "Quintana Roo"], ["tlaxcala", "Tlaxcala"], ["xalapa", "Veracruz"],
+  ["tepotzotlan", "Estado de México"], ["cdmx", "CDMX / Edo. Méx."], ["matriz", "Chihuahua"],
 ];
 function estadoDeSucursal(nombre) {
   const n = sinAcento(nombre).replace(/[_-]+/g, " ");
@@ -1058,8 +1063,20 @@ const conAcentos = (t) =>
 
 // Syscom's existencia.detalle -> [{ sucursal, estado, nuevo, transito, caja_abierta }]
 // Written to accept the shapes Syscom uses (list of rows, or an object per warehouse).
-function sucursalesDe(existencia) {
-  const det = existencia && existencia.detalle;
+// keys of Syscom's existencia object that are NOT branches
+const NO_SUCURSAL = /^(nuevo|total|asterisco|usado|caja_abierta|transito|en_transito|reservado|apartado|disponible|detalle|a|b|c|d)$/i;
+const pareceSucursal = (k) => !NO_SUCURSAL.test(k) && (!!estadoDeSucursal(k) || /^(cd|matriz|monterrey|mexico)/i.test(sinAcento(k)));
+function sucursalesDe(existencia, producto) {
+  let det = existencia && existencia.detalle;
+  // Syscom may send the branches in another field, or directly inside "existencia"
+  if (!det || (typeof det === "object" && !Object.keys(det).length)) {
+    const p = producto || {};
+    det = p.inventario || p.inventarios || p.existencias || p.almacenes || p.sucursales || null;
+    if (!det && existencia && typeof existencia === "object") {
+      const directas = Object.entries(existencia).filter(([k]) => pareceSucursal(k));
+      if (directas.length) det = Object.fromEntries(directas);
+    }
+  }
   const filas = [];
   const agregar = (nombre, info) => {
     if (!nombre) return;
@@ -1123,7 +1140,7 @@ app.get("/existencias/:id", async (req, res) => {
     } catch (e) {
       // not important
     }
-    const sucursales = sucursalesDe(d.existencia);
+    const sucursales = sucursalesDe(d.existencia, d);
     const total = numero(d.total_existencia) || sucursales.reduce((s, f) => s + f.nuevo, 0);
     const salida = { id, total, sucursales };
     cacheExistencias.set(id, { t: Date.now(), d: salida });
@@ -1206,6 +1223,25 @@ app.get("/producto/:id", async (req, res) => {
 
 // Stock per branch for many products at once (one Syscom call for the whole page)
 // GET /existencias-lote?ids=1,2,3   ->  { "1": { total, sucursales: [...] }, ... }
+// Admin: see exactly what Syscom sends for one product's stock (to check the branch breakdown)
+//   https://api.solutelecom.mx/admin/existencia-cruda/227541?clave=ADMIN_KEY
+app.get("/admin/existencia-cruda/:id", async (req, res) => {
+  if (!process.env.ADMIN_KEY || req.query.clave !== process.env.ADMIN_KEY) return res.sendStatus(403);
+  const id = String(req.params.id || "");
+  if (!/^\d{1,10}$/.test(id)) return res.status(400).json({ error: "id inválido" });
+  try {
+    const d = await syscomGet(`/productos/${id}?inventarios=true`);
+    const p = Array.isArray(d) ? d[0] : d;
+    const extra = {};
+    for (const [k, v] of Object.entries(p || {})) {
+      if (/exist|invent|almac|sucurs|stock/i.test(k)) extra[k] = v;
+    }
+    res.json({ campos_del_producto: Object.keys(p || {}), stock: extra, sucursales_leidas: sucursalesDe(p && p.existencia, p) });
+  } catch (e) {
+    res.status(502).json({ error: e.message });
+  }
+});
+
 app.get("/existencias-lote", async (req, res) => {
   if (demasiadas(req, "existencias-lote", 40)) return res.status(429).json({ error: "Demasiadas consultas" });
   if (!SYSCOM_TOKEN) return res.status(503).json({ error: "Falta SYSCOM_TOKEN en el servidor." });
@@ -1228,7 +1264,7 @@ app.get("/existencias-lote", async (req, res) => {
       for (const p of d) {
         const id = String(p && p.producto_id);
         if (!faltan.includes(id)) continue;
-        const sucursales = sucursalesDe(p.existencia);
+        const sucursales = sucursalesDe(p.existencia, p);
         const total = numero(p.total_existencia) || sucursales.reduce((s, f) => s + f.nuevo, 0);
         const info = { id, total, sucursales };
         cacheExistencias.set(id, { t: Date.now(), d: info });
@@ -2357,6 +2393,9 @@ async function buscarGuiasSyscom() {
 setInterval(buscarGuiasSyscom, 60 * 60 * 1000);
 
 // Always answer with JSON, and print the real error in this window
+// Quick check that the server is up: https://api.solutelecom.mx/salud
+app.get("/salud", (req, res) => res.json({ ok: true, catalogo: catalogoListo, productos: productos.size, hora: new Date().toISOString() }));
+
 app.use((req, res) => res.status(404).json({ error: "Ruta no encontrada" }));
 app.use((err, req, res, next) => {
   console.error("Error del servidor:", err);
