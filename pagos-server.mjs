@@ -1063,6 +1063,14 @@ const conAcentos = (t) =>
 
 // Syscom's existencia.detalle -> [{ sucursal, estado, nuevo, transito, caja_abierta }]
 // Written to accept the shapes Syscom uses (list of rows, or an object per warehouse).
+// Syscom's branch keys -> the names Syscom shows on its site
+const NOMBRE_SUCURSAL = {
+  chihuahua: "Matriz Chihuahua", chihuahua_cedi: "Chihuahua Norte", mexico: "México Norte", mexico_sur: "México Sureste",
+  mexico_sureste: "México Sureste", mexico_norte: "México Norte", cd_juarez: "Cd. Juárez", juarez: "Cd. Juárez",
+  monterrey_centro: "Monterrey Centro", san_luis_potosi: "San Luis Potosí", la_paz: "La Paz", tepotzotlan: "Tepotzotlán",
+};
+const nombreSucursal = (k) => NOMBRE_SUCURSAL[sinAcento(String(k)).toLowerCase().trim().replace(/[\s-]+/g, "_")] || conAcentos(bonito(k));
+
 // keys of Syscom's existencia object that are NOT branches
 const NO_SUCURSAL = /^(nuevo|total|asterisco|usado|caja_abierta|transito|en_transito|reservado|apartado|disponible|detalle|a|b|c|d)$/i;
 const pareceSucursal = (k) => !NO_SUCURSAL.test(k) && (!!estadoDeSucursal(k) || /^(cd|matriz|monterrey|mexico)/i.test(sinAcento(k)));
@@ -1077,6 +1085,23 @@ function sucursalesDe(existencia, producto) {
       if (directas.length) det = Object.fromEntries(directas);
     }
   }
+  // Real Syscom shape: detalle = { nuevo: { puebla: 7, monterrey: 40, ... }, (transito / caja abierta the same way) }
+  // -> turn it into one entry per branch: { puebla: { nuevo: 7, transito: 0, caja_abierta: 0 }, ... }
+  if (det && !Array.isArray(det) && typeof det === "object" &&
+      Object.entries(det).some(([k, v]) => /^(nuevo|transito|en_transito|caja_abierta|asterisco|usado)$/i.test(k) && v && typeof v === "object")) {
+    const porSucursal = new Map();
+    for (const [tipo, lista] of Object.entries(det)) {
+      if (!lista || typeof lista !== "object") continue;
+      const campo = /transito/i.test(tipo) ? "transito" : /^nuevo$/i.test(tipo) ? "nuevo" : "caja_abierta";
+      for (const [suc, v] of Object.entries(lista)) {
+        const cant = v && typeof v === "object" ? Object.values(v).reduce((t, x) => t + numero(x), 0) : numero(v);
+        const fila = porSucursal.get(suc) || { nuevo: 0, transito: 0, caja_abierta: 0 };
+        fila[campo] += cant;
+        porSucursal.set(suc, fila);
+      }
+    }
+    det = Object.fromEntries(porSucursal);
+  }
   const filas = [];
   const agregar = (nombre, info) => {
     if (!nombre) return;
@@ -1090,7 +1115,7 @@ function sucursalesDe(existencia, producto) {
         caja += v && typeof v === "object" ? Object.values(v).reduce((s, x) => s + numero(x), 0) : numero(v);
       }
     }
-    filas.push({ sucursal: conAcentos(bonito(nombre)), estado: estadoDeSucursal(nombre), nuevo, transito, caja_abierta: caja });
+    filas.push({ sucursal: nombreSucursal(nombre), estado: estadoDeSucursal(nombre), nuevo, transito, caja_abierta: caja });
   };
 
   if (Array.isArray(det)) {
