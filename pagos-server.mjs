@@ -2271,6 +2271,7 @@ function paginaAdmin(req, aviso) {
           <div><small>Cobrado al cliente</small><b>${pesos(cobrado)}</b><br><small>Envío ${pesos(p.envio)} · ${escHtml(NOMBRE_FLETERA[p.fletera] || p.fletera || "")}</small></div>
           <div class="pagar"><small>Pagar a Syscom</small><b>${costo != null ? pesos(costo) : "—"}</b><br><small>Folio <b>${escHtml(folio)}</b>${costo != null ? ` · margen aprox. ${pesos(cobrado - costo)} antes de comisión MP` : ""}</small></div>
         </div>
+        ${etapaAdmin(p) === "sin-pago" && p.mp_order_id ? `<p class="err">Todavía no se confirma el pago. Si el cliente ya pagó: <a href="/reintentar/${escHtml(p.referencia)}?clave=${clave}">Revisar pago con Mercado Pago</a></p>` : ""}
         ${p.syscom && p.syscom.error ? `<p class="err">Syscom: ${escHtml(p.syscom.error.mensaje || JSON.stringify(p.syscom.error))} · <a href="/reintentar/${escHtml(p.referencia)}?clave=${clave}">Reintentar pedido a Syscom</a></p>` : ""}
         ${p.guia && p.guia.numero ? `<p>Guía: <b>${escHtml(p.guia.fletera)} ${escHtml(p.guia.numero)}</b> ${p.guia.url ? `<a href="${escHtml(p.guia.url)}" target="_blank" rel="noopener">rastrear</a>` : ""} · ${p.correo_envio ? "correo enviado al cliente" : "<span class=err>correo NO enviado</span>"}</p>` : ""}
         <div class="acciones">
