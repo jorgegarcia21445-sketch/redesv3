@@ -2422,6 +2422,10 @@ setInterval(buscarGuiasSyscom, 60 * 60 * 1000);
 app.get("/salud", (req, res) => res.json({ ok: true, catalogo: catalogoListo, productos: productos.size, hora: new Date().toISOString() }));
 
 app.use((req, res) => res.status(404).json({ error: "Ruta no encontrada" }));
+// Safety net: an unexpected error is written to the logs instead of stopping the whole server
+process.on("unhandledRejection", (e) => console.error("Error sin atrapar (el servidor sigue funcionando):", e && e.stack ? e.stack : e));
+process.on("uncaughtException", (e) => console.error("Excepción sin atrapar (el servidor sigue funcionando):", e && e.stack ? e.stack : e));
+
 app.use((err, req, res, next) => {
   console.error("Error del servidor:", err);
   res.status(500).json({ error: "Error del servidor" });
