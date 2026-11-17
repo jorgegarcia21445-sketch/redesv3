@@ -41,6 +41,8 @@ for (const f of fs.readdirSync(CARPETA)) {
       Math.round(Number(p.total_existencia) || 0),
       img.startsWith(BASE_IMG) ? img.slice(BASE_IMG.length) : img ? "!" + img : "",
       [cat],
+      pr.precio_map != null ? Number(pr.precio_map) : null,
+      pr.precio_descuento != null ? Number(pr.precio_descuento) : null,
     ]);
   }
 }
@@ -49,7 +51,7 @@ const salida = {
   v: 1,
   generado: new Date().toISOString(),
   base: BASE_IMG,
-  // [id, titulo, marca, modelo, precio_lista, precio_especial, existencia, foto, [categorias]]
+  // [id, titulo, marca, modelo, precio_lista, precio_especial, existencia, foto, [categorias], precio_map, precio_descuento]
   p: Array.from(filas.values()),
 };
 fs.writeFileSync(SALIDA, JSON.stringify(salida));

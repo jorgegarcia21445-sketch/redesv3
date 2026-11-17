@@ -60,22 +60,94 @@ fs.mkdirSync(CARPETA_PEDIDOS, { recursive: true });
 console.log("Carpeta de pedidos:", CARPETA_PEDIDOS);
 
 // Same price rules as the page
-const MARGEN = 0.02;
+const MARGEN = 0; // extra % on top of the price rule (must match index.js; the rule is in calcularPrecio)
 const DESCUENTO = 0;
 const IVA = 0.16;
 const PRECIO_CAMPO = "precio_lista";
 // Promo price field from Syscom (must be the same in index.js). Empty = promos off.
 // Only used when it is LOWER than the list price.
-const PRECIO_PROMO_CAMPO = process.env.PRECIO_PROMO_CAMPO || "";
+const PRECIO_PROMO_CAMPO = process.env.PRECIO_PROMO_CAMPO ?? "precio_especial";
 
-// USD base price of a product: the promo price when there is a real promo, otherwise the list price
-function precioBaseUSD(p) {
+// ----- Sales calendar: promos.js (the same file the site loads) -----
+// read at start and again every 5 minutes, so a git push of promos.js is enough
+const FECHA_OK = /^\d{4}-\d{2}-\d{2}$/;
+let CAMPANAS = [];
+function leerCampanas() {
+  try {
+    const src = fs.readFileSync(path.join(AQUI, "promos.js"), "utf8");
+    const i = src.indexOf("window.PROMOS");
+    const json = src.slice(src.indexOf("=", i) + 1).trim().replace(/;\s*$/, "");
+    const d = JSON.parse(json);
+    CAMPANAS = (d.campanas || []).filter((c) => c && Number(c.descuento) > 0 && FECHA_OK.test(c.inicio || "") && FECHA_OK.test(c.fin || ""));
+  } catch (e) {
+    if (e.code !== "ENOENT") console.error("promos.js no se pudo leer (revisa comillas y comas):", e.message);
+    CAMPANAS = [];
+  }
+}
+leerCampanas();
+setInterval(leerCampanas, 5 * 60 * 1000).unref();
+const inicioCampana = (c) => Date.parse(c.inicio + "T00:00:00-06:00");
+const finCampana = (c) => Date.parse(c.fin + "T23:59:59-06:00");
+const pctCampana = (c) => Math.min(50, Math.max(0, Number(c.descuento) || 0)) / 100;
+function campanaActiva(t) {
+  const ahora = t || Date.now();
+  return CAMPANAS.find((c) => ahora >= inicioCampana(c) && ahora <= finCampana(c)) || null;
+}
+function campanaPara(p) {
+  const c = campanaActiva();
+  if (!c) return null;
+  const marca = String((p && p.marca) || "").toUpperCase().trim();
+  const lista = (a) => (Array.isArray(a) ? a : []).map((x) => String(x).toUpperCase().trim()).filter(Boolean);
+  const solo = lista(c.marcas);
+  if (solo.length && !solo.includes(marca)) return null;
+  if (lista(c.excluir).includes(marca)) return null;
+  return c;
+}
+
+// ---------- PRICING RULE (identical in index.js and pagos-server.mjs) ----------
+// Normal price = Syscom's MAP price (precio_map: the lowest price brands allow to advertise,
+// usually ~25% over your Syscom cost). It is NEVER below the "floor": your cost + Mercado Pago's
+// fee + GANANCIA_MINIMA, and at least cost + 8%. So no sale loses money.
+const GANANCIA_MINIMA = 40;  // MXN you keep at least on each unit, after Mercado Pago and Syscom
+const COMISION_MP = 0.0349;  // Mercado Pago: 3.49% + $4, both + IVA
+const FIJO_MP = 4;
+const numPrecio = (v) => {
+  const n = parseFloat(v);
+  return isNaN(n) ? NaN : n;
+};
+// lowest USD price (before IVA) that still leaves GANANCIA_MINIMA after all costs
+function pisoUSD(costo, tc) {
+  const costoIva = costo * tc * (1 + IVA);
+  const conIva = Math.max(costoIva * 1.08, (costoIva + FIJO_MP * (1 + IVA) + GANANCIA_MINIMA) / (1 - COMISION_MP * (1 + IVA)));
+  return conIva / (1 + IVA) / tc;
+}
+function calcularPrecio(p, tc) {
   const pr = (p && p.precios) || {};
-  const lista = parseFloat(pr[PRECIO_CAMPO]);
-  const promo = PRECIO_PROMO_CAMPO ? parseFloat(pr[PRECIO_PROMO_CAMPO]) : NaN;
-  if (isNaN(lista)) return { usd: NaN, antes: null };
-  if (!isNaN(promo) && promo > 0 && promo < lista) return { usd: promo, antes: lista };
-  return { usd: lista, antes: null };
+  const lista = numPrecio(pr.precio_lista);
+  const especialRaw = numPrecio(pr.precio_especial);
+  const map = numPrecio(pr.precio_map);
+  const costo = numPrecio(pr.precio_descuento);
+  if (!(lista > 0)) return { usd: NaN, antes: null, campana: null, especial: NaN, lista: NaN, normal: NaN };
+  const especial = especialRaw > 0 && especialRaw < lista ? especialRaw : lista;
+  const piso = costo > 0 ? pisoUSD(costo, tc) : 0;
+  const normal = Math.max(map > 0 ? map : especial, piso);
+  let usd = normal;
+  let campana = campanaPara(p);
+  if (campana) {
+    // by default a campaign never goes below MAP (brand rule); "respetar_map": false allows it, down to the floor
+    const minimo = campana.respetar_map === false ? piso : Math.max(piso, map > 0 ? map : 0);
+    usd = Math.max(minimo, normal * (1 - pctCampana(campana)));
+    if (usd >= normal - 1e-9) {
+      usd = normal;
+      campana = null; // no real extra discount on this product: don't label it
+    }
+  }
+  return { usd, antes: usd < lista - 1e-9 ? lista : null, campana, especial, lista, normal };
+}
+
+// USD base price of a product (uses the server's exchange rate)
+function precioBaseUSD(p) {
+  return calcularPrecio(p, leerTipoCambio());
 }
 const TIPO_CAMBIO_RESPALDO = 18.5;
 
@@ -1259,7 +1331,7 @@ app.get("/admin/existencia-cruda/:id", async (req, res) => {
     const p = Array.isArray(d) ? d[0] : d;
     const extra = {};
     for (const [k, v] of Object.entries(p || {})) {
-      if (/exist|invent|almac|sucurs|stock/i.test(k)) extra[k] = v;
+      if (/exist|invent|almac|sucurs|stock|precio/i.test(k)) extra[k] = v;
     }
     res.json({ campos_del_producto: Object.keys(p || {}), stock: extra, sucursales_leidas: sucursalesDe(p && p.existencia, p) });
   } catch (e) {

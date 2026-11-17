@@ -342,7 +342,7 @@ function initYear(){
 const CARPETA = "catjson";
 const PRECIO_CAMPO = "precio_lista"; // others: precio_1, precio_especial, precio_descuento, precio_map
 const IVA = 0.16;                    // Mexico VAT; set to 0 to show prices without IVA
-const MARGEN = 0.02;                 // price increase: 0.02 = +2%
+const MARGEN = 0;                    // extra % on top of the price rule (0 = none; the rule is in calcularPrecio)
 const DESCUENTO = 0;                 // discount for later: 0.10 = -10% (0 = none)
 // delivery estimate shown before buying: business days (keep equal to DIAS_ENTREGA on the server)
 const DIAS_ENTREGA_WEB = [2, 5];
@@ -443,7 +443,7 @@ function obtenerListaProductos() {
           titulo: f[1],
           marca: f[2],
           modelo: f[3],
-          precios: { precio_lista: f[4], precio_especial: f[5] },
+          precios: { precio_lista: f[4], precio_especial: f[5], precio_map: f[9], precio_descuento: f[10] },
           total_existencia: f[6],
           img_portada: !f[7] ? "" : f[7][0] === "!" ? f[7].slice(1) : d.base + f[7],
           _cats: f[8] || [],
@@ -686,16 +686,121 @@ function iconoCategoria(nombre) {
 /* ---------- Prices (USD from Syscom -> MXN with IVA) ---------- */
 // Promo price field from Syscom (must be the same as PRECIO_PROMO_CAMPO on the server).
 // Empty = no promos. It is only used when it is LOWER than the list price.
-const PRECIO_PROMO_CAMPO = "";
+const PRECIO_PROMO_CAMPO = "precio_especial";
 
-// USD base price: the promo price when there is a real promo, otherwise the list price
-function precioBase(p) {
+/* ---------- Sales calendar (promos.js: Buen Fin, Hot Sale, ...) — same rules as the server ---------- */
+const FECHA_OK = /^\d{4}-\d{2}-\d{2}$/;
+const CAMPANAS = ((window.PROMOS && window.PROMOS.campanas) || []).filter(
+  (c) => c && Number(c.descuento) > 0 && FECHA_OK.test(c.inicio || "") && FECHA_OK.test(c.fin || "")
+);
+// Mexico City is UTC-6 all year (no daylight saving since 2022)
+const inicioCampana = (c) => Date.parse(c.inicio + "T00:00:00-06:00");
+const finCampana = (c) => Date.parse(c.fin + "T23:59:59-06:00");
+const pctCampana = (c) => Math.min(50, Math.max(0, Number(c.descuento) || 0)) / 100;
+function campanaActiva(t) {
+  const ahora = t || Date.now();
+  return CAMPANAS.find((c) => ahora >= inicioCampana(c) && ahora <= finCampana(c)) || null;
+}
+function campanaPara(p) {
+  const c = campanaActiva();
+  if (!c) return null;
+  const marca = String((p && p.marca) || "").toUpperCase().trim();
+  const lista = (a) => (Array.isArray(a) ? a : []).map((x) => String(x).toUpperCase().trim()).filter(Boolean);
+  const solo = lista(c.marcas);
+  if (solo.length && !solo.includes(marca)) return null;
+  if (lista(c.excluir).includes(marca)) return null;
+  return c;
+}
+
+// ---------- PRICING RULE (identical in index.js and pagos-server.mjs) ----------
+// Normal price = Syscom's MAP price (precio_map: the lowest price brands allow to advertise,
+// usually ~25% over your Syscom cost). It is NEVER below the "floor": your cost + Mercado Pago's
+// fee + GANANCIA_MINIMA, and at least cost + 8%. So no sale loses money.
+const GANANCIA_MINIMA = 40;  // MXN you keep at least on each unit, after Mercado Pago and Syscom
+const COMISION_MP = 0.0349;  // Mercado Pago: 3.49% + $4, both + IVA
+const FIJO_MP = 4;
+const numPrecio = (v) => {
+  const n = parseFloat(v);
+  return isNaN(n) ? NaN : n;
+};
+// lowest USD price (before IVA) that still leaves GANANCIA_MINIMA after all costs
+function pisoUSD(costo, tc) {
+  const costoIva = costo * tc * (1 + IVA);
+  const conIva = Math.max(costoIva * 1.08, (costoIva + FIJO_MP * (1 + IVA) + GANANCIA_MINIMA) / (1 - COMISION_MP * (1 + IVA)));
+  return conIva / (1 + IVA) / tc;
+}
+function calcularPrecio(p, tc) {
   const pr = (p && p.precios) || {};
-  const lista = parseFloat(pr[PRECIO_CAMPO]);
-  const promo = PRECIO_PROMO_CAMPO ? parseFloat(pr[PRECIO_PROMO_CAMPO]) : NaN;
-  if (isNaN(lista)) return { usd: NaN, antes: null };
-  if (!isNaN(promo) && promo > 0 && promo < lista) return { usd: promo, antes: lista };
-  return { usd: lista, antes: null };
+  const lista = numPrecio(pr.precio_lista);
+  const especialRaw = numPrecio(pr.precio_especial);
+  const map = numPrecio(pr.precio_map);
+  const costo = numPrecio(pr.precio_descuento);
+  if (!(lista > 0)) return { usd: NaN, antes: null, campana: null, especial: NaN, lista: NaN, normal: NaN };
+  const especial = especialRaw > 0 && especialRaw < lista ? especialRaw : lista;
+  const piso = costo > 0 ? pisoUSD(costo, tc) : 0;
+  const normal = Math.max(map > 0 ? map : especial, piso);
+  let usd = normal;
+  let campana = campanaPara(p);
+  if (campana) {
+    // by default a campaign never goes below MAP (brand rule); "respetar_map": false allows it, down to the floor
+    const minimo = campana.respetar_map === false ? piso : Math.max(piso, map > 0 ? map : 0);
+    usd = Math.max(minimo, normal * (1 - pctCampana(campana)));
+    if (usd >= normal - 1e-9) {
+      usd = normal;
+      campana = null; // no real extra discount on this product: don't label it
+    }
+  }
+  return { usd, antes: usd < lista - 1e-9 ? lista : null, campana, especial, lista, normal };
+}
+
+// USD base price of a product (uses the page's exchange rate)
+function precioBase(p) {
+  return calcularPrecio(p, typeof tipoCambio === "number" ? tipoCambio : 18.5);
+}
+
+// IVA breakdown of a price that already includes IVA
+function desgloseIva(totalConIva) {
+  const iva = typeof IVA === "number" ? IVA : 0.16;
+  const sinIva = Math.round((totalConIva / (1 + iva)) * 100) / 100;
+  return { sinIva, iva: Math.round((totalConIva - sinIva) * 100) / 100 };
+}
+
+// Big price box (quick view + product page), like Syscom's:
+// list price crossed out, special price, final price, and the IVA breakdown.
+// Prices are shown WITH IVA (in Mexico the consumer price must include taxes).
+function htmlCajaPrecio(p) {
+  const b = precioBase(p);
+  if (isNaN(b.usd)) return '<div class="pcj"><div class="pcj-final">Consultar precio</div></div>';
+  const final = precioUnitario(b.usd);
+  const lista = precioUnitario(b.lista);
+  const especial = precioUnitario(b.especial);
+  const { sinIva, iva } = desgloseIva(final);
+  const pct = (a, z) => Math.round((1 - z / a) * 100);
+  const hayEspecial = especial < lista - 0.5 && especial > final + 0.5;
+  let filas = "";
+  if (b.antes) filas += `<div class="pcj-lista">Precio de lista <s>${dinero(lista)}</s></div>`;
+  // like Syscom: special price in green (not crossed out), then the price you pay in big
+  if (hayEspecial) filas += `<div class="pcj-esp">Precio especial: ${dinero(especial)} <span>MXN</span></div>`;
+  if (b.antes) {
+    if (b.campana) filas += `<div class="pcj-campana">Precio ${esc(b.campana.nombre)} · -${pct(lista, final)}%</div>`;
+    else if (!hayEspecial) filas += `<div class="pcj-esp">Precio en línea · ahorras ${dinero(lista - final)} (-${pct(lista, final)}%)</div>`;
+  }
+  return `<div class="pcj">
+      ${filas}
+      <div class="pcj-final">${dinero(final)} <span>MXN</span></div>
+      <div class="pcj-iva">IVA incluido · ${dinero(sinIva)} + IVA ${dinero(iva)}</div>
+      <details class="pcj-ayuda">
+        <summary>¿Cómo funcionan nuestros precios?</summary>
+        <ul>
+          <li><b>Precio de lista:</b> precio de referencia del fabricante; casi nadie lo paga.</li>
+          <li><b>Precio especial:</b> precio regular de distribuidor al público.</li>
+          <li><b>Precio en línea:</b> nuestro precio comprando en esta tienda, más bajo que los dos anteriores.</li>
+          ${b.campana ? `<li><b>Precio ${esc(b.campana.nombre)}:</b> descuento extra de temporada, hasta el ${esc(b.campana.fin.split("-").reverse().join("/"))}.</li>` : ""}
+          <li><b>Lo que pagas:</b> el precio grande, con IVA (16%) incluido. El envío se calcula con tu código postal antes de pagar.</li>
+          <li>¿Compras por volumen o para un proyecto? <a href="#contacto">Pide una cotización</a> y te damos precio especial.</li>
+        </ul>
+      </details>
+    </div>`;
 }
 
 function precioUSD(p) {
@@ -710,9 +815,14 @@ function htmlPrecio(p) {
   const ahora = dinero(precioUnitario(b.usd));
   if (!b.antes) return { html: "MXN " + ahora + " <small>IVA incluido</small>", descuento: 0 };
   const descuento = Math.round((1 - b.usd / b.antes) * 100);
+  const etiqueta = b.campana ? "Precio " + esc(b.campana.nombre) : "Precio en línea";
   return {
-    html: "<s>MXN " + dinero(precioUnitario(b.antes)) + "</s>MXN " + ahora + " <small>IVA incluido</small>",
+    html:
+      `<span class="pr-lista">Precio de lista <s>MXN ${dinero(precioUnitario(b.antes))}</s></span>` +
+      `<span class="pr-esp${b.campana ? " pr-campana" : ""}">${etiqueta}${descuento > 0 ? ` · -${descuento}%` : ""}</span>` +
+      `MXN ${ahora} <small>IVA incluido</small>`,
     descuento,
+    campana: b.campana,
   };
 }
 
@@ -861,7 +971,7 @@ function htmlTarjeta(p) {
     <article class="pc-card" data-vista="${id}" tabindex="0" role="button" aria-label="Ver ${esc(p.titulo)}">
       <div class="pc-img">
         <img src="${esc(p.img_portada)}" alt="" loading="lazy" decoding="async" onerror="this.style.visibility='hidden'">
-        ${precio.descuento > 0 ? `<span class="pc-badge">-${precio.descuento}%</span>` : ""}
+        ${precio.descuento > 0 ? `<span class="pc-badge${precio.campana ? " pc-badge-campana" : ""}">${precio.campana ? esc(precio.campana.nombre) + " " : ""}-${precio.descuento}%</span>` : ""}
       </div>
       <div class="pc-body">
         <span class="pc-brand">${esc(p.marca)}</span>
@@ -1386,6 +1496,8 @@ function pintarPaginaCarrito() {
               ${lineas}
               <div class="cp-line"><span>Envío</span><span id="cpEnvio">Completa tu dirección</span></div>
               <p class="cp-llega" id="cpLlega" hidden></p>
+              <div class="cp-line cp-iva-linea"><span>Subtotal sin IVA</span><span id="cpSinIva">${dinero(desgloseIva(subtotal).sinIva)}</span></div>
+              <div class="cp-line cp-iva-linea"><span>IVA (16%)</span><span id="cpIvaMonto">${dinero(desgloseIva(subtotal).iva)}</span></div>
               <div class="cp-total"><span>Total</span><strong id="cpTotal" data-subtotal="${subtotal}">${dinero(subtotal)}</strong></div>
               <small id="cpEnvioMsg" class="cp-envio-msg"></small>
               <small class="cp-iva">IVA incluido</small>
@@ -1449,8 +1561,10 @@ function pintarPaginaCarrito() {
             <div class="cp-line"><span>Productos (${unidades})</span><span>${dinero(subtotal)}</span></div>
             <div class="cp-line"><span>Envío</span><span>Se calcula con tu dirección</span></div>
             <p class="cp-llega">${ICONO_CAMION}<span>${esc(textoEntrega(entregaDesdeHoy()))} <small>(si compras hoy)</small></span></p>
+            <div class="cp-line cp-iva-linea"><span>Subtotal sin IVA</span><span>${dinero(desgloseIva(subtotal).sinIva)}</span></div>
+            <div class="cp-line cp-iva-linea"><span>IVA (16%)</span><span>${dinero(desgloseIva(subtotal).iva)}</span></div>
             <div class="cp-total"><span>Subtotal</span><strong>${dinero(subtotal)}</strong></div>
-            <small class="cp-iva">IVA incluido</small>
+            <small class="cp-iva">IVA incluido · el envío se calcula con tu dirección</small>
             <button type="button" class="pc-btn cp-pay" data-cp="continuar" ${elegidos.length ? "" : "disabled"}>Continuar compra</button>
             ${HTML_CONFIANZA}
             <button type="button" class="cp-linkbtn cp-cot" data-cp="cotizacion" ${elegidos.length ? "" : "disabled"}>Descargar cotización (PDF)</button>
@@ -1994,6 +2108,13 @@ function pintarEnvio(estado, texto) {
     celda.textContent = estado === "cargando" ? "Calculando…" : "—";
     total.textContent = dinero(subtotal);
   }
+  // IVA breakdown of the whole total (shipping already includes IVA too)
+  const totalConIva = estado === "ok" ? Math.round((subtotal + envioActual.envio) * 100) / 100 : subtotal;
+  const d = desgloseIva(totalConIva);
+  const sinIvaEl = document.getElementById("cpSinIva");
+  const ivaEl = document.getElementById("cpIvaMonto");
+  if (sinIvaEl) sinIvaEl.textContent = dinero(d.sinIva);
+  if (ivaEl) ivaEl.textContent = dinero(d.iva);
   if (msg) msg.textContent = estado === "error" ? texto : "";
   if (pagar) pagar.disabled = estado !== "ok";
 }
@@ -3341,7 +3462,7 @@ const WHATSAPP_VENTAS = "523335034338";
         <span class="pc-brand" id="qvMarca"></span>
         <h3 id="qvTitulo"></h3>
         <span class="qv-modelo" id="qvModelo"></span>
-        <strong class="pc-price qv-precio" id="qvPrecio"></strong>
+        <div class="qv-precio" id="qvPrecio"></div>
         <span class="pc-stock" id="qvStock"></span>
         <p class="seg-llega qv-llega" id="qvLlega" hidden></p>
         <div class="qv-comprar" id="qvComprar">
@@ -3436,7 +3557,7 @@ const WHATSAPP_VENTAS = "523335034338";
     $q("qvMarca").textContent = p.marca || "";
     $q("qvTitulo").textContent = p.titulo || "";
     $q("qvModelo").textContent = "Modelo: " + (p.modelo || "—");
-    $q("qvPrecio").innerHTML = precio.html;
+    $q("qvPrecio").innerHTML = htmlCajaPrecio(p);
     $q("qvStock").className = "pc-stock " + (stock > 0 ? "ok" : "no");
     $q("qvStock").textContent = stock > 0 ? "● " + stock.toLocaleString("es-MX") + " en existencia" : "Sin existencia por ahora";
     $q("qvComprar").hidden = stock <= 0;
@@ -4211,7 +4332,7 @@ function pintarVistos() {
             <span class="pc-brand">${esc(p.marca)}</span>
             <h1 class="pp-titulo">${esc(p.titulo)}</h1>
             <span class="qv-modelo">Modelo: ${esc(p.modelo || "—")} · Código ${esc(p.producto_id)}</span>
-            <strong class="pc-price pp-precio">${precio.html}</strong>
+            <div class="pp-precio">${htmlCajaPrecio(p)}</div>
             ${stock > 0
               ? `<button type="button" class="pc-stock ok pc-stock-btn" data-pp="existencias">● ${stock.toLocaleString("es-MX")} en existencia · <u>ver sucursales</u></button>`
               : `<span class="pc-stock no">Sin existencia por ahora</span>`}
@@ -4387,4 +4508,39 @@ function pintarVistos() {
     document.getElementById("ppAgregar").dataset.qty = n;
     document.getElementById("ppComprar").dataset.qty = n;
   });
+})();
+
+
+// =========================================================
+// Sale banner (Buen Fin, Hot Sale, ...) with a countdown — from promos.js
+// =========================================================
+(function bannerCampana() {
+  const c = campanaActiva();
+  const header = document.querySelector("body > header");
+  // prices are already at Syscom's MAP: a campaign that respects MAP gives no real discount,
+  // so no banner (never advertise a discount the customer doesn't get)
+  if (!c || !header || c.respetar_map !== false) return;
+  const barra = document.createElement("div");
+  barra.className = "promo-barra";
+  barra.setAttribute("role", "status");
+  barra.innerHTML = `<span class="promo-fuego" aria-hidden="true">🔥</span>
+    <b>${esc(c.nombre)}</b><span class="promo-sep">·</span><span>${esc(c.mensaje || Math.round(pctCampana(c) * 100) + "% de descuento")}</span>
+    <span class="promo-reloj">Termina en <time id="promoReloj">—</time></span>`;
+  header.prepend(barra);
+  const reloj = barra.querySelector("#promoReloj");
+  const dos = (n) => String(n).padStart(2, "0");
+  const tic = () => {
+    const falta = finCampana(c) - Date.now();
+    if (falta <= 0) {
+      barra.remove();
+      return location.reload();
+    }
+    const d = Math.floor(falta / 86400000);
+    const h = Math.floor((falta % 86400000) / 3600000);
+    const m = Math.floor((falta % 3600000) / 60000);
+    const sg = Math.floor((falta % 60000) / 1000);
+    reloj.textContent = (d ? d + "d " : "") + dos(h) + ":" + dos(m) + ":" + dos(sg);
+    setTimeout(tic, 1000);
+  };
+  tic();
 })();

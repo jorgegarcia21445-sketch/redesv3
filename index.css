@@ -3693,3 +3693,56 @@ body.vista-producto #productoPage{ display:block; }
   .suc-opciones, #ppExistLista .suc-opciones{ grid-template-columns:1fr; max-height:52vh; }
   .suc-elegir{ padding:12px; }
 }
+
+/* =====================================================================
+   SALE PRICES (Syscom special price + campaigns from promos.js)
+   ===================================================================== */
+.pr-lista{ display:block; font-size:.78rem; font-weight:400; color:#9a9aa0; line-height:1.3; }
+.pr-lista s{ display:inline; font-size:inherit; color:inherit; }
+.pr-esp{ display:block; margin:2px 0 1px; font-size:.8rem; font-weight:700; color:#7ee787; line-height:1.3; }
+.pr-esp.pr-campana{ color:#ff6b5e; }
+.pc-price s{ display:inline; }
+.qv-precio .pr-lista, .pp-precio .pr-lista{ font-size:14px; }
+.qv-precio .pr-esp, .pp-precio .pr-esp{ font-size:14.5px; margin:3px 0 4px; }
+.pc-badge-campana{ background:#e5322d; color:#fff; }
+
+/* campaign banner at the very top */
+.promo-barra{
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:4px 10px;
+  padding:8px 16px; background:linear-gradient(90deg, #b3171c, #e5322d 50%, #b3171c);
+  color:#fff; font-size:14px; line-height:1.35; text-align:center;
+}
+.promo-barra b{ font-weight:800; letter-spacing:.02em; text-transform:uppercase; }
+.promo-sep{ opacity:.6; }
+.promo-reloj{ margin-left:6px; padding:2px 10px; border-radius:99px; background:rgba(0,0,0,.25); font-weight:600; white-space:nowrap; }
+.promo-reloj time{ font-variant-numeric:tabular-nums; }
+@media (max-width:560px){
+  .promo-barra{ font-size:12.5px; padding:6px 10px; }
+  .promo-sep{ display:none; }
+  .promo-reloj{ margin-left:0; }
+}
+
+/* =====================================================================
+   PRICE BOX, SYSCOM STYLE (quick view + product page)
+   ===================================================================== */
+.pcj{ background:var(--ink-950); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:6px 0 4px; }
+.pcj-lista{ font-size:14px; color:var(--slate); }
+.pcj-lista s{ color:var(--slate-dim); margin-left:4px; }
+.pcj-esp{ margin-top:4px; font-size:14.5px; font-weight:600; color:#7ee787; }
+.pcj-campana{ margin-top:4px; font-size:14.5px; font-weight:700; color:#ff6b5e; }
+.pcj-final{ margin-top:6px; font-size:clamp(28px, 3.4vw, 36px); font-weight:800; line-height:1.1; color:var(--white); }
+.pcj-final span{ font-size:15px; font-weight:600; color:var(--slate); }
+.pcj-iva{ margin-top:4px; font-size:13px; color:var(--slate-dim); }
+.pcj-ayuda{ margin-top:12px; padding-top:10px; border-top:1px solid var(--line-soft); font-size:13.5px; }
+.pcj-ayuda summary{ cursor:pointer; color:var(--yellow-300); font-weight:600; list-style:none; }
+.pcj-ayuda summary::-webkit-details-marker{ display:none; }
+.pcj-ayuda summary::after{ content:" ▾"; }
+.pcj-ayuda[open] summary::after{ content:" ▴"; }
+.pcj-ayuda ul{ margin:10px 0 0; padding-left:18px; color:var(--paper); display:grid; gap:6px; line-height:1.45; }
+.pcj-ayuda a{ color:var(--yellow-300); }
+.qv-precio .pcj{ margin-top:10px; }
+.cp-iva-linea{ font-size:13.5px; color:var(--slate); padding:3px 0; }
+.pcj-lista s{ text-decoration-color:var(--slate); }
+.pcj-esp{ font-weight:500; }
+.pcj-esp span{ font-size:12px; font-weight:600; opacity:.85; }
+.pcj-final{ margin-top:8px; }
