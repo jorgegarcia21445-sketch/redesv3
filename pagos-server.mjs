@@ -2309,7 +2309,7 @@ function leerTodosLosPedidos() {
 }
 
 function paginaAdmin(req, aviso) {
-  const clave = escHtml(req.query.clave || req.body.clave || "");
+  const clave = escHtml((req.query && req.query.clave) || (req.body && req.body.clave) || "");
   const ver = ETAPAS.some(([k]) => k === req.query.ver) ? req.query.ver : "pagar";
   const todos = leerTodosLosPedidos().filter((p) => etapaAdmin(p) !== "sin-pago" || Date.now() - Date.parse(p.fecha) < 86400000);
   const cuenta = Object.fromEntries(ETAPAS.map(([k]) => [k, k === "todos" ? todos.length : todos.filter((p) => etapaAdmin(p) === k).length]));
@@ -2420,6 +2420,7 @@ app.get("/admin/pedidos", (req, res) => {
 });
 
 app.post("/admin/pedidos/:ref", async (req, res) => {
+  req.body = req.body || {};
   if (!esAdmin(req)) return irA(res, "/admin");
   req.query.clave = req.body.clave;
   if (req.params.ref === "todos" && req.body.accion === "pagado_syscom_todos") {
