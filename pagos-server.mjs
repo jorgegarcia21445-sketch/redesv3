@@ -1251,7 +1251,7 @@ app.get("/producto/:id", async (req, res) => {
 // Admin: see exactly what Syscom sends for one product's stock (to check the branch breakdown)
 //   https://api.solutelecom.mx/admin/existencia-cruda/227541?clave=ADMIN_KEY
 app.get("/admin/existencia-cruda/:id", async (req, res) => {
-  if (!process.env.ADMIN_KEY || req.query.clave !== process.env.ADMIN_KEY) return res.sendStatus(403);
+  if (!esAdmin(req)) return res.sendStatus(403);
   const id = String(req.params.id || "");
   if (!/^\d{1,10}$/.test(id)) return res.status(400).json({ error: "id inválido" });
   try {
@@ -1772,7 +1772,7 @@ app.post("/webhook-mp", (req, res) => {
 
 // See Syscom's last shipping quote: https://api.solutelecom.mx/admin/ultima-cotizacion?clave=ADMIN_KEY
 app.get("/admin/ultima-cotizacion", (req, res) => {
-  if (!process.env.ADMIN_KEY || req.query.clave !== process.env.ADMIN_KEY) return res.sendStatus(403);
+  if (!esAdmin(req)) return res.sendStatus(403);
   let datos = ultimaCotizacion;
   if (!datos) {
     try {
@@ -1787,7 +1787,7 @@ app.get("/admin/ultima-cotizacion", (req, res) => {
 // Retry the Syscom order for a paid order by hand: open in your browser
 //   http://localhost:3001/reintentar/web-123...?clave=YOUR_ADMIN_KEY
 app.get("/reintentar/:ref", async (req, res) => {
-  if (!process.env.ADMIN_KEY || req.query.clave !== process.env.ADMIN_KEY) return res.sendStatus(403);
+  if (!esAdmin(req)) return res.sendStatus(403);
   const encontrado = leerPedido(req.params.ref);
   if (!encontrado || !encontrado.pedido.mp_order_id) return res.status(404).json({ error: "Pedido no encontrado" });
   await procesarPagoAprobado(encontrado.pedido.mp_order_id);
@@ -2181,7 +2181,7 @@ app.get("/mis-pedidos", async (req, res) => {
 // Add the tracking number by hand (emails the customer):
 //   http://localhost:3001/admin/guia/web-123...?clave=ADMIN_KEY&fletera=PAQUETEXPRESS&guia=ABC123
 app.get("/admin/guia/:ref", async (req, res) => {
-  if (!process.env.ADMIN_KEY || req.query.clave !== process.env.ADMIN_KEY) return res.sendStatus(403);
+  if (!esAdmin(req)) return res.sendStatus(403);
   const encontrado = leerPedido(req.params.ref);
   if (!encontrado) return res.status(404).json({ error: "Pedido no encontrado" });
   const numero = limpio(req.query.guia, 40);
@@ -2204,7 +2204,71 @@ app.get("/admin/guia/:ref", async (req, res) => {
 // Admin: orders page  https://api.solutelecom.mx/admin/pedidos?clave=ADMIN_KEY
 // What to pay Syscom, tracking numbers, delivered.
 // =========================================================
-const esAdmin = (req) => !!process.env.ADMIN_KEY && (req.query.clave || (req.body && req.body.clave)) === process.env.ADMIN_KEY;
+// You are admin if the link has ?clave=ADMIN_KEY, or if you signed in at /admin (cookie that lasts 30 days)
+const COOKIE_ADMIN = "st_admin";
+function tokenAdmin() {
+  return createHmac("sha256", String(process.env.ADMIN_KEY || "")).update("solutelecom-admin-v1").digest("hex");
+}
+function cookieAdmin(req) {
+  const c = String(req.headers.cookie || "").split(";").map((x) => x.trim()).find((x) => x.startsWith(COOKIE_ADMIN + "="));
+  return c ? decodeURIComponent(c.slice(COOKIE_ADMIN.length + 1)) : "";
+}
+function igualSeguro(a, b) {
+  const x = Buffer.from(String(a)), y = Buffer.from(String(b));
+  return x.length === y.length && timingSafeEqual(x, y);
+}
+function esAdmin(req) {
+  if (!process.env.ADMIN_KEY) return false;
+  const clave = (req.query && req.query.clave) || (req.body && req.body.clave);
+  if (clave && igualSeguro(clave, process.env.ADMIN_KEY)) return true;
+  const c = cookieAdmin(req);
+  return !!c && igualSeguro(c, tokenAdmin());
+}
+function ponerCookieAdmin(req, res, valor, segundos) {
+  const segura = req.secure || String(req.headers["x-forwarded-proto"] || "").includes("https");
+  res.setHeader("Set-Cookie", `${COOKIE_ADMIN}=${encodeURIComponent(valor)}; Path=/; Max-Age=${segundos}; HttpOnly; SameSite=Lax${segura ? "; Secure" : ""}`);
+}
+function irA(res, url) {
+  res.statusCode = 303;
+  res.setHeader("Location", url);
+  res.end();
+}
+function paginaEntrar(error) {
+  return `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Admin · SoluTelecom</title><style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0c0c0e;color:#e9e9ee;font:15px/1.5 system-ui,Segoe UI,Arial,sans-serif;padding:20px}
+form{width:min(380px,100%);background:#17171b;border:1px solid #2a2a31;border-radius:14px;padding:28px}
+h1{font-size:22px;margin:0 0 4px}p{color:#9a9aa5;margin:0 0 20px}label{display:block;font-weight:600;margin-bottom:6px}
+input{width:100%;padding:12px 14px;border-radius:9px;border:1px solid #33333b;background:#0c0c0e;color:#fff;font:inherit}
+input:focus{outline:2px solid #f5b400;border-color:transparent}
+button{width:100%;margin-top:16px;padding:12px;border:0;border-radius:9px;background:#f5b400;color:#111;font:inherit;font-weight:700;cursor:pointer}
+.err{background:#3a1717;border:1px solid #7a2d2d;color:#ffb3ad;padding:9px 12px;border-radius:8px;margin-bottom:14px}
+</style></head><body><form method="post" action="/admin">
+<h1>Pedidos · SoluTelecom</h1><p>Entra con tu clave de administrador. Este navegador la recordará 30 días.</p>
+${error ? `<div class="err">${error}</div>` : ""}
+<label for="clave">Clave (ADMIN_KEY)</label><input id="clave" name="clave" type="password" autocomplete="current-password" autofocus required>
+<button>Entrar</button></form></body></html>`;
+}
+
+// Sign-in page: save https://api.solutelecom.mx/admin as a bookmark
+app.get("/admin", (req, res) => {
+  if (esAdmin(req)) return irA(res, "/admin/pedidos");
+  responderAdmin(res, paginaEntrar(""));
+});
+app.post("/admin", (req, res) => {
+  if (demasiadas(req, "admin-entrar", 8)) return responderAdmin(res.status(429), paginaEntrar("Demasiados intentos. Espera un minuto."));
+  const clave = String((req.body && req.body.clave) || "");
+  if (!process.env.ADMIN_KEY || !igualSeguro(clave, process.env.ADMIN_KEY)) {
+    console.warn("Admin: clave incorrecta desde", req.ip);
+    return responderAdmin(res.status(401), paginaEntrar("Clave incorrecta."));
+  }
+  ponerCookieAdmin(req, res, tokenAdmin(), 30 * 86400);
+  irA(res, "/admin/pedidos");
+});
+app.get("/admin/salir", (req, res) => {
+  ponerCookieAdmin(req, res, "", 0);
+  irA(res, "/admin");
+});
 
 // what Syscom charges you for an order (from Syscom's own answer)
 function costoSyscom(p) {
@@ -2329,7 +2393,7 @@ button{background:#f5b400;color:#111;border:0;border-radius:6px;padding:9px 14px
 .resumen{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;align-items:end;max-width:1100px;margin-bottom:18px;padding:18px;border-radius:10px;background:#2a2410;border:1px solid #6b5410}
 .resumen small{display:block;color:#c9b98a;font-size:12px}.resumen b{display:block;font-size:20px;color:#f5b400}.resumen b.chico{font-size:14px;color:#fff;word-break:break-word}.resumen .copiable{user-select:all}
 </style></head><body>
-<h1>Pedidos</h1><p class="sub">Syscom en modo ${SYSCOM_PRUEBA ? "<b>PRUEBA</b> (no compra nada)" : "<b>REAL</b>"} · No compartas este enlace: contiene tu clave.</p>
+<h1>Pedidos</h1><p class="sub">Syscom en modo ${SYSCOM_PRUEBA ? "<b>PRUEBA</b> (no compra nada)" : "<b>REAL</b>"} · <a href="/admin/salir">Salir</a></p>
 ${aviso ? `<div class="aviso ${aviso.startsWith("Error") ? "mal" : ""}">${escHtml(aviso)}</div>` : ""}
 <nav>${ETAPAS.map(([k, t]) => `<a href="?clave=${clave}&ver=${k}" class="${k === ver ? "on" : ""}">${t}<i>${cuenta[k]}</i></a>`).join("")}</nav>
 ${resumen}
@@ -2346,12 +2410,17 @@ function responderAdmin(res, html) {
 }
 
 app.get("/admin/pedidos", (req, res) => {
-  if (!esAdmin(req)) return res.sendStatus(403);
+  if (!esAdmin(req)) return irA(res, "/admin");
+  // old links with ?clave=...: remember this browser and remove the key from the address bar
+  if (req.query.clave) {
+    ponerCookieAdmin(req, res, tokenAdmin(), 30 * 86400);
+    return irA(res, "/admin/pedidos" + (req.query.ver ? "?ver=" + encodeURIComponent(req.query.ver) : ""));
+  }
   responderAdmin(res, paginaAdmin(req));
 });
 
 app.post("/admin/pedidos/:ref", async (req, res) => {
-  if (!esAdmin(req)) return res.sendStatus(403);
+  if (!esAdmin(req)) return irA(res, "/admin");
   req.query.clave = req.body.clave;
   if (req.params.ref === "todos" && req.body.accion === "pagado_syscom_todos") {
     let n = 0;
