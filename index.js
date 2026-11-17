@@ -344,6 +344,10 @@ const PRECIO_CAMPO = "precio_lista"; // others: precio_1, precio_especial, preci
 const IVA = 0.16;                    // Mexico VAT; set to 0 to show prices without IVA
 const MARGEN = 0.02;                 // price increase: 0.02 = +2%
 const DESCUENTO = 0;                 // discount for later: 0.10 = -10% (0 = none)
+// delivery estimate shown before buying: business days (keep equal to DIAS_ENTREGA on the server)
+const DIAS_ENTREGA_WEB = [2, 5];
+let entregaHoy = null;
+const ICONO_CAMION = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg>';
 const TIPO_CAMBIO_RESPALDO = 18.5;   // used only if the exchange rate file can't be read
 const CORREO_VENTAS = "solutelecom2025@gmail.com";
 const POR_PAGINA = 24;
@@ -864,6 +868,7 @@ function htmlTarjeta(p) {
         <h3 class="pc-title">${esc(p.titulo)}</h3>
         <strong class="pc-price">${precio.html}</strong>
         <span class="pc-stock ${stock > 0 ? "ok" : "no"}">${stock > 0 ? "● " + stock.toLocaleString("es-MX") + " en existencia" : "Sin existencia"}</span>
+        ${stock > 0 ? htmlLlegaCorto() : ""}
         ${
           stock > 0
             ? `<button type="button" class="pc-btn pc-agregar" data-add="${id}">Agregar al carrito</button>`
@@ -937,7 +942,7 @@ function ocultarInicio() {
   if (ocultos.length) return;
   Array.from(document.body.children).forEach((el) => {
     if (["HEADER", "SCRIPT", "STYLE", "LINK", "DIALOG"].includes(el.tagName)) return;
-        if (el.id === "catalogo" || el.id === "prodDrawer" || el.id === "carritoPage") return;
+        if (el.id === "catalogo" || el.id === "prodDrawer" || el.id === "carritoPage" || el.id === "productoPage") return;
     if (el.classList.contains("prod-overlay")) return;
     if (getComputedStyle(el).position === "fixed") return;
     el.classList.add("oculto-catalogo");
@@ -1316,6 +1321,20 @@ function htmlFormulario() {
     </form>`;
 }
 
+// Carrito → Datos de entrega → Pago, shown at the top of the cart pages
+function htmlPasosCompra(n) {
+  const pasos = ["Carrito", "Datos de entrega", "Pago seguro"];
+  return `<ol class="cp-pasos" aria-label="Pasos de compra">${pasos
+    .map((t, i) => `<li class="${i + 1 < n ? "hecho" : i + 1 === n ? "activo" : ""}"${i + 1 === n ? ' aria-current="step"' : ""}><span>${i + 1 < n ? "✓" : i + 1}</span>${t}</li>`)
+    .join("")}</ol>
+    <div class="cp-progreso" aria-hidden="true"><span style="width:${Math.round(((n - 1) / 2) * 100)}%"></span></div>`;
+}
+const HTML_CONFIANZA = `<ul class="cp-confianza">
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Pago seguro con Mercado Pago</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg>Garantía del fabricante</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>Factura CFDI automática</li>
+</ul>`;
+
 function pintarPaginaCarrito() {
   const pagina = document.getElementById("carritoPage");
   if (!pagina) return;
@@ -1356,6 +1375,7 @@ function pintarPaginaCarrito() {
 
       pagina.innerHTML = `
         <div class="cp-wrap">
+          ${htmlPasosCompra(2)}
           <h2>Datos de entrega</h2>
           <div class="cp-layout">
             ${htmlFormulario()}
@@ -1368,6 +1388,7 @@ function pintarPaginaCarrito() {
               <small id="cpEnvioMsg" class="cp-envio-msg"></small>
               <small class="cp-iva">IVA incluido</small>
               <button type="submit" form="datosForm" class="pc-btn cp-pay" id="cpPagar" disabled>Pagar con Mercado Pago</button>
+              ${HTML_CONFIANZA}
               <p class="cp-note sello-pago"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Pago seguro con Mercado Pago: tarjeta, efectivo o transferencia SPEI. Tus datos de tarjeta nunca pasan por nuestra página.</p>
               <button type="button" class="cp-back cp-linkbtn" data-cp="volver">← Volver al carrito</button>
             </aside>
@@ -1409,6 +1430,7 @@ function pintarPaginaCarrito() {
 
     pagina.innerHTML = `
       <div class="cp-wrap">
+        ${htmlPasosCompra(1)}
         <h2>Carrito</h2>
         <div class="cp-layout">
           <div class="cp-list">
@@ -1424,9 +1446,11 @@ function pintarPaginaCarrito() {
             <h3>Resumen de compra</h3>
             <div class="cp-line"><span>Productos (${unidades})</span><span>${dinero(subtotal)}</span></div>
             <div class="cp-line"><span>Envío</span><span>Se calcula con tu dirección</span></div>
+            <p class="cp-llega">${ICONO_CAMION}<span>${esc(textoEntrega(entregaDesdeHoy()))} <small>(si compras hoy)</small></span></p>
             <div class="cp-total"><span>Subtotal</span><strong>${dinero(subtotal)}</strong></div>
             <small class="cp-iva">IVA incluido</small>
             <button type="button" class="pc-btn cp-pay" data-cp="continuar" ${elegidos.length ? "" : "disabled"}>Continuar compra</button>
+            ${HTML_CONFIANZA}
             <button type="button" class="cp-linkbtn cp-cot" data-cp="cotizacion" ${elegidos.length ? "" : "disabled"}>Descargar cotización (PDF)</button>
             <p class="cp-note">Pago seguro con Mercado Pago: tarjeta, efectivo o transferencia SPEI.</p>
             <a class="cp-back" href="#top">← Seguir comprando</a>
@@ -1901,6 +1925,36 @@ function fechaEntrega(iso) {
     return iso;
   }
 }
+// Delivery estimate before buying: business days from today (keep equal to DIAS_ENTREGA on the server)
+function entregaDesdeHoy() {
+  const hoy = new Date().toDateString();
+  if (entregaHoy && entregaHoy.dia === hoy) return entregaHoy.e;
+  const sumar = (n) => {
+    const d = new Date();
+    let k = 0;
+    while (k < n) {
+      d.setDate(d.getDate() + 1);
+      if (d.getDay() !== 0 && d.getDay() !== 6) k++;
+    }
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  };
+  const e = { min: DIAS_ENTREGA_WEB[0], max: DIAS_ENTREGA_WEB[1], desde: sumar(DIAS_ENTREGA_WEB[0]), hasta: sumar(DIAS_ENTREGA_WEB[1]) };
+  entregaHoy = { dia: hoy, e };
+  return e;
+}
+// "mié 19"
+function diaCorto(iso) {
+  try {
+    return new Date(iso + "T12:00:00Z").toLocaleDateString("es-MX", { weekday: "short", day: "numeric", timeZone: "UTC" }).replace(",", "");
+  } catch (e) {
+    return iso;
+  }
+}
+function htmlLlegaCorto() {
+  const e = entregaDesdeHoy();
+  return `<span class="pc-llega">${ICONO_CAMION}Llega ${diaCorto(e.desde)} – ${diaCorto(e.hasta)}</span>`;
+}
+
 function textoEntrega(e) {
   if (!e || !e.desde) return "";
   return e.desde === e.hasta ? `Llega el ${fechaEntrega(e.desde)}` : `Llega entre el ${fechaEntrega(e.desde)} y el ${fechaEntrega(e.hasta)}`;
@@ -1929,7 +1983,7 @@ function pintarEnvio(estado, texto) {
   if (llega) {
     const t = estado === "ok" ? textoEntrega(envioActual.entrega) : "";
     llega.hidden = !t;
-    llega.innerHTML = t ? `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg>${t} <small>(estimado, días hábiles)</small>` : "";
+    llega.innerHTML = t ? `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg><span>${t} <small>(estimado, días hábiles)</small></span>` : "";
   }
   if (estado === "ok") {
     celda.textContent = envioActual.envio > 0 ? dinero(envioActual.envio) : "Gratis";
@@ -3109,6 +3163,7 @@ const WHATSAPP_VENTAS = "523335034338";
         <span class="qv-modelo" id="qvModelo"></span>
         <strong class="pc-price qv-precio" id="qvPrecio"></strong>
         <span class="pc-stock" id="qvStock"></span>
+        <p class="seg-llega qv-llega" id="qvLlega" hidden></p>
         <div class="qv-comprar" id="qvComprar">
           <div class="qv-cant">
             <button type="button" data-qv="menos" aria-label="Menos">−</button>
@@ -3118,6 +3173,7 @@ const WHATSAPP_VENTAS = "523335034338";
           <button type="button" class="btn qv-agregar" id="qvAgregar" data-add="">Agregar al carrito</button>
           <button type="button" class="btn btn-outline" id="qvComprarYa" data-buy="">Comprar ahora</button>
         </div>
+        <a class="qv-pagina" id="qvPagina" href="#">Ver ficha completa: fotos, características y documentos →</a>
         <a class="qv-wa" id="qvWa" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
         <div class="qv-suc">
           <div class="qv-suc-head"><strong>Disponible en</strong><button type="button" class="pc-disp" id="qvTodas" data-disp="">Ver todas las sucursales</button></div>
@@ -3204,6 +3260,10 @@ const WHATSAPP_VENTAS = "523335034338";
     $q("qvStock").className = "pc-stock " + (stock > 0 ? "ok" : "no");
     $q("qvStock").textContent = stock > 0 ? "● " + stock.toLocaleString("es-MX") + " en existencia" : "Sin existencia por ahora";
     $q("qvComprar").hidden = stock <= 0;
+    const llega = $q("qvLlega");
+    llega.hidden = stock <= 0;
+    if (stock > 0) llega.innerHTML = `${esc(textoEntrega(entregaDesdeHoy()))}<small>Si compras hoy · estimado en días hábiles</small>`;
+    $q("qvPagina").href = "#/producto/" + encodeURIComponent(p.producto_id);
     $q("qvCant").max = Math.min(stock || 1, 100);
     $q("qvCant").value = 1;
     $q("qvAgregar").dataset.add = p.producto_id;
@@ -3237,6 +3297,7 @@ const WHATSAPP_VENTAS = "523335034338";
   });
   dlg.addEventListener("click", (e) => {
     if (e.target === dlg) dlg.close();
+    if (e.target.closest("#qvPagina")) dlg.close();
     const b = e.target.closest("[data-qv]");
     if (!b) return;
     $q("qvCant").value = Number($q("qvCant").value || 1) + (b.dataset.qv === "mas" ? 1 : -1);
@@ -3905,4 +3966,236 @@ function pintarVistos() {
       })
       .catch(() => {});
   }
+})();
+
+// =========================================================
+// Product page: #/producto/<id>
+// Large photos, price, stock per branch, delivery estimate, specs, datasheets,
+// related products, and a link to share on WhatsApp.
+// =========================================================
+(function paginaProducto() {
+  const pagina = document.createElement("section");
+  pagina.id = "productoPage";
+  pagina.className = "pp-section";
+  document.body.appendChild(pagina);
+  let actual = null;
+  let pedido = 0;
+
+  const ruta = () => (location.hash.match(/^#\/producto\/(\d{1,10})/) || [])[1] || null;
+
+  async function datosBasicos(id) {
+    let p = buscarProductoMostrado(id);
+    if (p) return p;
+    try {
+      const lista = await obtenerListaProductos();
+      p = (lista || []).find((x) => String(x.producto_id) === String(id)) || null;
+    } catch (e) {
+      p = null;
+    }
+    return p;
+  }
+
+  function htmlGaleria(imgs, titulo) {
+    const lista = imgs.length ? imgs : [""];
+    return `<div class="pp-galeria">
+      <div class="pp-foto"><img id="ppFoto" src="${esc(lista[0])}" alt="${esc(titulo)}" onerror="this.style.visibility='hidden'"></div>
+      ${lista.length > 1
+        ? `<div class="pp-miniaturas">${lista
+            .map((u, i) => `<button type="button" class="${i === 0 ? "on" : ""}" data-pp-foto="${esc(u)}" aria-label="Foto ${i + 1}"><img src="${esc(u)}" alt="" loading="lazy" onerror="this.parentNode.remove()"></button>`)
+            .join("")}</div>`
+        : ""}
+    </div>`;
+  }
+
+  function pintar(p, info) {
+    recordarProducto(p);
+    const d = (info && info.detalle) || {};
+    const stock = Number(p.total_existencia) || 0;
+    const precio = htmlPrecio(p);
+    const url = location.origin + location.pathname + "#/producto/" + p.producto_id;
+    const cats = ((info && info.categorias) || []).slice().sort((a, b) => (a.nivel || 0) - (b.nivel || 0));
+    const compartir = `${p.titulo} (${p.modelo}) en SoluTelecom: ${url}`;
+    const cotizar = `Hola, quiero cotizar: ${p.titulo} (Modelo: ${p.modelo}, ${p.marca}) ${url}`;
+    document.title = `${p.titulo} · SoluTelecom`;
+
+    pagina.innerHTML = `
+      <div class="pp-wrap">
+        <nav class="pp-migas" aria-label="Ruta">
+          <button type="button" class="pp-volver" data-pp="volver">← Volver</button>
+          <a href="#top">Tienda</a>${cats.map((c) => ` <span>›</span> <a href="#/categoria/${esc(c.id)}">${esc(c.nombre)}</a>`).join("")}
+        </nav>
+        <div class="pp-grid">
+          ${htmlGaleria(d.imagenes && d.imagenes.length ? d.imagenes : [p.img_portada].filter(Boolean), p.titulo)}
+          <div class="pp-info">
+            <span class="pc-brand">${esc(p.marca)}</span>
+            <h1 class="pp-titulo">${esc(p.titulo)}</h1>
+            <span class="qv-modelo">Modelo: ${esc(p.modelo || "—")} · Código ${esc(p.producto_id)}</span>
+            <strong class="pc-price pp-precio">${precio.html}</strong>
+            <span class="pc-stock ${stock > 0 ? "ok" : "no"}">${stock > 0 ? "● " + stock.toLocaleString("es-MX") + " en existencia" : "Sin existencia por ahora"}</span>
+            ${stock > 0 ? `<p class="seg-llega">${esc(textoEntrega(entregaDesdeHoy()))}<small>Si compras hoy · envío a todo México · estimado en días hábiles</small></p>` : ""}
+            ${stock > 0
+              ? `<div class="qv-comprar">
+                  <div class="qv-cant">
+                    <button type="button" data-pp="menos" aria-label="Menos">−</button>
+                    <input type="number" id="ppCant" value="1" min="1" max="${Math.min(stock, 100)}" aria-label="Cantidad">
+                    <button type="button" data-pp="mas" aria-label="Más">+</button>
+                  </div>
+                  <button type="button" class="btn qv-agregar" id="ppAgregar" data-add="${esc(p.producto_id)}" data-qty="1">Agregar al carrito</button>
+                  <button type="button" class="btn btn-outline" id="ppComprar" data-buy="${esc(p.producto_id)}" data-qty="1">Comprar ahora</button>
+                </div>`
+              : `<a class="btn" href="https://wa.me/${WHATSAPP_VENTAS}?text=${encodeURIComponent(cotizar)}" target="_blank" rel="noopener">Pedir disponibilidad por WhatsApp</a>`}
+            <div class="pp-acciones">
+              <a class="pp-accion" href="https://wa.me/?text=${encodeURIComponent(compartir)}" target="_blank" rel="noopener">${'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13"/></svg>'}Compartir por WhatsApp</a>
+              <button type="button" class="pp-accion" data-pp="copiar">${'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>'}<span>Copiar enlace</span></button>
+              ${stock > 0 ? `<a class="pp-accion" href="https://wa.me/${WHATSAPP_VENTAS}?text=${encodeURIComponent(cotizar)}" target="_blank" rel="noopener">${'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 0 1-13.5 7.8L3 21l1.2-4.5A9 9 0 1 1 21 12z"/></svg>'}Dudas o volumen: WhatsApp</a>` : ""}
+            </div>
+            ${stock > 0 ? `<div class="qv-suc"><div class="qv-suc-head"><strong>Disponible en</strong></div><div class="pc-suc" id="ppSuc"><span class="pc-suc-cargando">Consultando sucursales…</span></div></div>` : ""}
+            ${HTML_CONFIANZA}
+          </div>
+        </div>
+
+        ${d.caracteristicas && d.caracteristicas.length
+          ? `<section class="pp-bloque"><h2>Características</h2><ul class="pp-carac">${d.caracteristicas.map((c) => `<li>${esc(c)}</li>`).join("")}</ul></section>`
+          : ""}
+        ${d.descripcion && d.descripcion.length
+          ? `<section class="pp-bloque"><h2>Descripción</h2>${d.descripcion.map((l) => `<p>${esc(l)}</p>`).join("")}</section>`
+          : ""}
+        ${d.recursos && d.recursos.length
+          ? `<section class="pp-bloque"><h2>Documentos</h2><ul class="pp-docs">${d.recursos
+              .map((r) => `<li><a href="${esc(r.url)}" target="_blank" rel="noopener">${'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/></svg>'}${esc(r.nombre)}</a></li>`)
+              .join("")}</ul></section>`
+          : ""}
+        ${!info ? `<p class="pp-aviso">Mostrando la información básica. Las fotos adicionales y la ficha técnica se cargan cuando la tienda está en línea.</p>` : ""}
+        <section class="pp-bloque" id="ppRel" hidden><h2>Va bien con</h2><div class="pc-grid pp-rel-grid" id="ppRelGrid"></div></section>
+      </div>`;
+
+    if (stock > 0) cargarSucursales(String(p.producto_id));
+    cargarRelacionados(String(p.producto_id));
+  }
+
+  async function cargarSucursales(id) {
+    const caja = document.getElementById("ppSuc");
+    if (!caja) return;
+    try {
+      let info = sucursalesCache.get(id);
+      if (!info) {
+        const r = await fetch(API_PAGOS + "/existencias/" + encodeURIComponent(id));
+        if (!r.ok) throw new Error();
+        info = await r.json();
+        sucursalesCache.set(id, info);
+      }
+      if (actual === id && document.getElementById("ppSuc")) pintarSucursalesEn(document.getElementById("ppSuc"), info);
+    } catch (e) {
+      if (document.getElementById("ppSuc")) document.getElementById("ppSuc").innerHTML = '<span class="pc-suc-cargando">Desglose no disponible en este momento.</span>';
+    }
+  }
+
+  async function cargarRelacionados(id) {
+    try {
+      const r = await fetch(API_PAGOS + "/relacionados/" + encodeURIComponent(id));
+      if (!r.ok) return;
+      const d = await r.json();
+      const lista = (d.productos || []).slice(0, 8);
+      if (actual !== id || !lista.length) return;
+      document.getElementById("ppRelGrid").innerHTML = lista.map(htmlTarjeta).join("");
+      document.getElementById("ppRel").hidden = false;
+    } catch (e) {
+      // no suggestions when the server is offline
+    }
+  }
+
+  async function abrir(id) {
+    const mio = ++pedido;
+    actual = id;
+    document.body.classList.remove("vista-catalogo", "vista-carrito");
+    ocultarInicio();
+    document.body.classList.add("vista-producto");
+    if (window.cerrarVistaRapida) window.cerrarVistaRapida();
+    window.scrollTo(0, 0);
+    pagina.innerHTML = `<div class="pp-wrap"><div class="pp-grid"><div class="pp-galeria"><div class="pp-foto pc-skel"></div></div><div class="pp-info"><div class="pc-skel" style="height:22px;width:40%"></div><div class="pc-skel" style="height:64px"></div><div class="pc-skel" style="height:34px;width:50%"></div></div></div></div>`;
+
+    let info = null;
+    try {
+      const r = await fetch(API_PAGOS + "/producto/" + encodeURIComponent(id));
+      if (r.ok) info = await r.json();
+    } catch (e) {
+      info = null;
+    }
+    if (mio !== pedido) return;
+    const p = info && info.producto_id ? info : await datosBasicos(id);
+    if (mio !== pedido) return;
+    if (!p) {
+      pagina.innerHTML = `<div class="pp-wrap"><h1 class="pp-titulo">No encontramos este producto</h1><p>Puede que ya no esté disponible. <a href="#top">Volver a la tienda</a></p></div>`;
+      return;
+    }
+    pintar(p, info);
+  }
+
+  function cerrar() {
+    if (!document.body.classList.contains("vista-producto")) return;
+    document.body.classList.remove("vista-producto");
+    actual = null;
+    document.title = TITULO_SITIO;
+    // another page (catalog, search, cart) takes over and keeps the home hidden
+    if (/^#\/(categoria|buscar|carrito)/.test(location.hash)) return;
+    mostrarInicio();
+    const h = location.hash;
+    if (h.length > 1 && !h.startsWith("#/")) {
+      try {
+        const el = document.querySelector(h);
+        if (el) el.scrollIntoView();
+      } catch (e) {
+        // not a valid selector
+      }
+    } else window.scrollTo(0, 0);
+  }
+
+  const TITULO_SITIO = document.title;
+  function revisar() {
+    const id = ruta();
+    if (id) abrir(id);
+    else cerrar();
+  }
+  window.addEventListener("hashchange", revisar);
+  if (ruta()) setTimeout(revisar, 0); // after the other routers ran
+
+  pagina.addEventListener("click", async (e) => {
+    const foto = e.target.closest("[data-pp-foto]");
+    if (foto) {
+      document.getElementById("ppFoto").src = foto.dataset.ppFoto;
+      pagina.querySelectorAll(".pp-miniaturas button").forEach((b) => b.classList.toggle("on", b === foto));
+      return;
+    }
+    const b = e.target.closest("[data-pp]");
+    if (!b) return;
+    const accion = b.dataset.pp;
+    if (accion === "volver") {
+      if (history.length > 1) history.back();
+      else location.hash = "#top";
+    } else if (accion === "copiar") {
+      const url = location.origin + location.pathname + "#/producto/" + actual;
+      try {
+        await navigator.clipboard.writeText(url);
+        b.querySelector("span").textContent = "¡Enlace copiado!";
+      } catch (err) {
+        prompt("Copia este enlace:", url);
+      }
+      setTimeout(() => b.querySelector("span") && (b.querySelector("span").textContent = "Copiar enlace"), 2500);
+    } else if (accion === "menos" || accion === "mas") {
+      const campo = document.getElementById("ppCant");
+      const max = Number(campo.max) || 1;
+      const n = Math.min(Math.max((Number(campo.value) || 1) + (accion === "mas" ? 1 : -1), 1), max);
+      campo.value = n;
+      document.getElementById("ppAgregar").dataset.qty = n;
+      document.getElementById("ppComprar").dataset.qty = n;
+    }
+  });
+  pagina.addEventListener("change", (e) => {
+    if (e.target.id !== "ppCant") return;
+    const max = Number(e.target.max) || 1;
+    const n = Math.min(Math.max(Math.floor(Number(e.target.value) || 1), 1), max);
+    e.target.value = n;
+    document.getElementById("ppAgregar").dataset.qty = n;
+    document.getElementById("ppComprar").dataset.qty = n;
+  });
 })();

@@ -1141,6 +1141,69 @@ app.get("/existencias/:id", async (req, res) => {
   }
 });
 
+
+// =========================================================
+// Product page: catalog price + Syscom's full details (photos, specs, datasheets)
+//   GET /producto/:id   (cached 6 h; if Syscom doesn't answer, the catalog data is sent)
+// =========================================================
+const cacheDetalle = new Map();
+// Syscom's description comes as HTML: keep only the text, one paragraph per line
+function textoPlano(html) {
+  return String(html || "")
+    .replace(/<\s*(br|\/p|\/li|\/div|\/h\d|\/tr)\s*\/?>/gi, "\n")
+    .replace(/<li[^>]*>/gi, "• ")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .split("\n")
+    .map((l) => l.replace(/\s+/g, " ").trim())
+    .filter(Boolean)
+    .slice(0, 40);
+}
+const urlSegura = (u) => (/^https:\/\/[^\s"'<>]+$/i.test(String(u || "")) ? String(u) : "");
+
+app.get("/producto/:id", async (req, res) => {
+  if (demasiadas(req, "producto", 40)) return res.status(429).json({ error: "Demasiadas consultas" });
+  const id = String(req.params.id || "");
+  const base = /^\d{1,10}$/.test(id) ? productos.get(id) : null;
+  if (!base) return res.status(404).json({ error: "Producto no encontrado" });
+  const salida = { ...paraPagina(base), categorias: (base.categorias || []).map((c) => ({ id: String(c.id), nombre: c.nombre, nivel: c.nivel })), detalle: null };
+
+  const g = cacheDetalle.get(id);
+  if (g && Date.now() - g.t < 6 * 3600000) return res.json({ ...salida, detalle: g.d });
+  if (!SYSCOM_TOKEN) return res.json(salida);
+  try {
+    const d = await syscomGet(`/productos/${id}`);
+    const imagenes = (Array.isArray(d.imagenes) ? d.imagenes : [])
+      .slice()
+      .sort((a, b) => (Number(a.orden) || 0) - (Number(b.orden) || 0))
+      .map((x) => urlSegura(x && (x.imagen || x.url)))
+      .filter(Boolean);
+    const detalle = {
+      imagenes: Array.from(new Set([urlSegura(d.img_portada || base.img_portada), ...imagenes].filter(Boolean))).slice(0, 12),
+      caracteristicas: (Array.isArray(d.caracteristicas) ? d.caracteristicas : []).map((c) => String(c).replace(/<[^>]+>/g, "").trim()).filter(Boolean).slice(0, 30),
+      descripcion: textoPlano(d.descripcion),
+      recursos: (Array.isArray(d.recursos) ? d.recursos : [])
+        .map((r) => ({ nombre: String((r && (r.recurso || r.nombre)) || "Documento").slice(0, 80), url: urlSegura(r && (r.path || r.url)) }))
+        .filter((r) => r.url)
+        .slice(0, 8),
+      peso: d.peso || null,
+      marca_logo: urlSegura(d.marca_logo),
+    };
+    cacheDetalle.set(id, { t: Date.now(), d: detalle });
+    if (cacheDetalle.size > 800) cacheDetalle.delete(cacheDetalle.keys().next().value);
+    res.json({ ...salida, detalle });
+  } catch (e) {
+    console.error("Detalle Syscom:", id, e.message);
+    res.json(salida); // the page still works with the catalog data
+  }
+});
+
 // Stock per branch for many products at once (one Syscom call for the whole page)
 // GET /existencias-lote?ids=1,2,3   ->  { "1": { total, sucursales: [...] }, ... }
 app.get("/existencias-lote", async (req, res) => {
