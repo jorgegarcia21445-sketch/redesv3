@@ -4544,3 +4544,71 @@ function pintarVistos() {
   };
   tic();
 })();
+
+// =========================================================
+// Seasonal themes (Navidad, Día de Muertos, Fiestas Patrias, ...) — dates in promos.js "temas"
+// Preview any theme: ?tema=navidad (muertos, patrias, amor, madres, escolar)
+// =========================================================
+(function temaTemporada() {
+  const temas = (window.PROMOS && window.PROMOS.temas) || [];
+  const VALIDOS = ["navidad", "muertos", "patrias", "amor", "madres", "escolar"];
+  let elegido = null;
+  try {
+    const q = new URLSearchParams(location.search).get("tema");
+    if (q && VALIDOS.includes(q)) elegido = temas.find((t) => t.tema === q) || { tema: q, saludo: "" };
+  } catch (e) { /* old browser */ }
+  if (!elegido) {
+    // today's month-day in Mexico City (UTC-6)
+    const mx = new Date(Date.now() - 6 * 3600000);
+    const hoy = String(mx.getUTCMonth() + 1).padStart(2, "0") + "-" + String(mx.getUTCDate()).padStart(2, "0");
+    const MD = /^\d{2}-\d{2}$/;
+    elegido = temas.find((t) => {
+      if (!t || !VALIDOS.includes(t.tema) || !MD.test(t.desde || "") || !MD.test(t.hasta || "")) return false;
+      return t.desde <= t.hasta ? hoy >= t.desde && hoy <= t.hasta : hoy >= t.desde || hoy <= t.hasta;
+    });
+  }
+  if (!elegido) return;
+  const tema = elegido.tema;
+  document.body.classList.add("tema-" + tema);
+
+  const header = document.querySelector("body > header");
+  if (header) {
+    // decorative strip under the header (lights, papel picado, flag colors...)
+    const tira = document.createElement("div");
+    tira.className = "tema-tira";
+    tira.setAttribute("aria-hidden", "true");
+    header.appendChild(tira);
+
+    // greeting bar, only when there is no sale banner; the visitor can close it
+    const clave = "solutelecom_saludo_" + tema + "_" + new Date().getFullYear();
+    let cerrado = false;
+    try { cerrado = localStorage.getItem(clave) === "1"; } catch (e) { /* storage off */ }
+    if (elegido.saludo && !cerrado && !header.querySelector(".promo-barra")) {
+      const bar = document.createElement("div");
+      bar.className = "tema-saludo";
+      bar.innerHTML = `<span>${esc(elegido.saludo)}</span><button type="button" aria-label="Cerrar saludo">&times;</button>`;
+      bar.querySelector("button").addEventListener("click", () => {
+        bar.remove();
+        try { localStorage.setItem(clave, "1"); } catch (e) { /* storage off */ }
+      });
+      header.prepend(bar);
+    }
+  }
+
+  // falling snow (Navidad) or marigold petals (Día de Muertos); off for people who prefer less motion
+  const particulas = { navidad: ["❄", "❅", "❆"], muertos: ["🌼", "✿"] }[tema];
+  const quieto = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (particulas && !quieto) {
+    const capa = document.createElement("div");
+    capa.className = "tema-caen";
+    capa.setAttribute("aria-hidden", "true");
+    const n = window.innerWidth < 700 ? 14 : 28;
+    let html = "";
+    for (let i = 0; i < n; i++) {
+      const dur = 9 + Math.random() * 10;
+      html += `<span style="left:${(Math.random() * 100).toFixed(1)}%;font-size:${(10 + Math.random() * 12).toFixed(0)}px;animation-duration:${dur.toFixed(1)}s,${(3 + Math.random() * 3).toFixed(1)}s;animation-delay:-${(Math.random() * dur).toFixed(1)}s,0s;opacity:${(0.35 + Math.random() * 0.45).toFixed(2)}">${particulas[i % particulas.length]}</span>`;
+    }
+    capa.innerHTML = html;
+    document.body.appendChild(capa);
+  }
+})();

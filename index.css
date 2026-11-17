@@ -3746,3 +3746,43 @@ body.vista-producto #productoPage{ display:block; }
 .pcj-esp{ font-weight:500; }
 .pcj-esp span{ font-size:12px; font-weight:600; opacity:.85; }
 .pcj-final{ margin-top:8px; }
+
+
+/* =====================================================================
+   SEASONAL THEMES (dates in promos.js "temas"; preview with ?tema=navidad)
+   ===================================================================== */
+.tema-tira{ height:14px; background-repeat:repeat-x; background-position:center; }
+.tema-navidad .tema-tira{ background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2760%27%20height%3D%2714%27%3E%3Cpath%20d%3D%27M0%203%20Q15%2011%2030%203%20T60%203%27%20fill%3D%27none%27%20stroke%3D%27%231f6b3a%27%20stroke-width%3D%272%27/%3E%3Ccircle%20cx%3D%278%27%20cy%3D%277.5%27%20r%3D%273%27%20fill%3D%27%23ff3b3b%27/%3E%3Ccircle%20cx%3D%2722%27%20cy%3D%277.5%27%20r%3D%273%27%20fill%3D%27%23ffd23f%27/%3E%3Ccircle%20cx%3D%2738%27%20cy%3D%277.5%27%20r%3D%273%27%20fill%3D%27%233fa7ff%27/%3E%3Ccircle%20cx%3D%2752%27%20cy%3D%277.5%27%20r%3D%273%27%20fill%3D%27%233ddc84%27/%3E%3C/svg%3E"); }
+.tema-muertos .tema-tira{ height:16px; background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27120%27%20height%3D%2716%27%3E%3Cpath%20d%3D%27M0%200h30v10l-7.5%206-7.5-6-7.5%206L0%2010z%27%20fill%3D%27%23ff7a00%27/%3E%3Cpath%20d%3D%27M30%200h30v10l-7.5%206-7.5-6-7.5%206L30%2010z%27%20fill%3D%27%23e8418c%27/%3E%3Cpath%20d%3D%27M60%200h30v10l-7.5%206-7.5-6-7.5%206L60%2010z%27%20fill%3D%27%239b4dca%27/%3E%3Cpath%20d%3D%27M90%200h30v10l-7.5%206-7.5-6-7.5%206L90%2010z%27%20fill%3D%27%232bb3a3%27/%3E%3Ccircle%20cx%3D%2715%27%20cy%3D%275%27%20r%3D%272%27%20fill%3D%27%230c0c0e%27%20opacity%3D%27.35%27/%3E%3Ccircle%20cx%3D%2745%27%20cy%3D%275%27%20r%3D%272%27%20fill%3D%27%230c0c0e%27%20opacity%3D%27.35%27/%3E%3Ccircle%20cx%3D%2775%27%20cy%3D%275%27%20r%3D%272%27%20fill%3D%27%230c0c0e%27%20opacity%3D%27.35%27/%3E%3Ccircle%20cx%3D%27105%27%20cy%3D%275%27%20r%3D%272%27%20fill%3D%27%230c0c0e%27%20opacity%3D%27.35%27/%3E%3C/svg%3E"); background-position:left top; }
+.tema-patrias .tema-tira{ height:6px; background:linear-gradient(90deg, #006847 0 33.33%, #ffffff 0 66.66%, #ce1126 0); }
+.tema-amor .tema-tira{ height:12px; background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2734%27%20height%3D%2712%27%3E%3Cpath%20d%3D%27M17%2011s-6-3.6-6-7.2C11%202%2012.3%201%2013.7%201c1.4%200%202.6%201%203.3%202.2C17.7%202%2018.9%201%2020.3%201%2021.7%201%2023%202%2023%203.8%2023%207.4%2017%2011%2017%2011z%27%20fill%3D%27%23ff4d7d%27/%3E%3C/svg%3E"); }
+.tema-madres .tema-tira{ height:12px; background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2734%27%20height%3D%2712%27%3E%3Cg%20fill%3D%27%23ff8fb1%27%3E%3Ccircle%20cx%3D%2717%27%20cy%3D%273%27%20r%3D%272.4%27/%3E%3Ccircle%20cx%3D%2713.6%27%20cy%3D%276%27%20r%3D%272.4%27/%3E%3Ccircle%20cx%3D%2720.4%27%20cy%3D%276%27%20r%3D%272.4%27/%3E%3Ccircle%20cx%3D%2715%27%20cy%3D%279.4%27%20r%3D%272.4%27/%3E%3Ccircle%20cx%3D%2719%27%20cy%3D%279.4%27%20r%3D%272.4%27/%3E%3C/g%3E%3Ccircle%20cx%3D%2717%27%20cy%3D%276.4%27%20r%3D%271.8%27%20fill%3D%27%23ffd23f%27/%3E%3C/svg%3E"); }
+.tema-escolar .tema-tira{ height:12px; background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2748%27%20height%3D%2712%27%3E%3Crect%20x%3D%272%27%20y%3D%274%27%20width%3D%2728%27%20height%3D%274%27%20rx%3D%271%27%20fill%3D%27%23ffd23f%27/%3E%3Cpath%20d%3D%27M30%204l6%202-6%202z%27%20fill%3D%27%23f5c99b%27/%3E%3Cpath%20d%3D%27M34.5%205.5l1.5.5-1.5.5z%27%20fill%3D%27%23333%27/%3E%3Crect%20x%3D%272%27%20y%3D%274%27%20width%3D%273%27%20height%3D%274%27%20fill%3D%27%23ff7a9c%27/%3E%3C/svg%3E"); }
+
+.tema-saludo{
+  position:relative; display:flex; align-items:center; justify-content:center; gap:10px;
+  padding:7px 44px; font-size:14px; font-weight:600; text-align:center; color:#fff; line-height:1.35;
+}
+.tema-saludo button{
+  position:absolute; right:10px; top:50%; transform:translateY(-50%);
+  background:none; border:0; color:inherit; opacity:.75; font-size:22px; line-height:1; cursor:pointer; padding:2px 6px;
+}
+.tema-saludo button:hover{ opacity:1; }
+.tema-navidad .tema-saludo{ background:linear-gradient(90deg, #0f5132, #1f7a45 50%, #0f5132); }
+.tema-muertos .tema-saludo{ background:linear-gradient(90deg, #6d2a8c, #e8418c 50%, #ff7a00); }
+.tema-patrias .tema-saludo{ background:linear-gradient(90deg, #006847, #0b7d57 40%, #b0101f 100%); }
+.tema-amor .tema-saludo{ background:linear-gradient(90deg, #a3154a, #e23a6e 50%, #a3154a); }
+.tema-madres .tema-saludo{ background:linear-gradient(90deg, #b83f78, #e77fab 50%, #b83f78); }
+.tema-escolar .tema-saludo{ background:linear-gradient(90deg, #1d4ed8, #2563eb 50%, #1d4ed8); }
+
+/* falling snow / petals */
+.tema-caen{ position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:60; }
+.tema-caen span{
+  position:absolute; top:-30px; color:#fff; text-shadow:0 0 6px rgba(255,255,255,.35);
+  animation-name:temaCae, temaVaiven; animation-timing-function:linear, ease-in-out;
+  animation-iteration-count:infinite, infinite; animation-direction:normal, alternate;
+}
+@keyframes temaCae{ to{ transform:translateY(calc(100vh + 60px)); } }
+@keyframes temaVaiven{ from{ margin-left:-14px; } to{ margin-left:14px; } }
+@media (prefers-reduced-motion: reduce){ .tema-caen{ display:none; } }
+@media (max-width:560px){ .tema-saludo{ font-size:12.5px; padding:6px 38px; } }
