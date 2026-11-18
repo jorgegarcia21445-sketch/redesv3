@@ -554,16 +554,20 @@ function errorSyscom(s) {
   };
 }
 
+// removes accents but keeps upper/lower case ("Zúñiga" -> "Zuniga")
+const sinAcentoMayus = (t) => String(t || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
 // "generar pedido" body, exactly as documented by Syscom
 function cuerpoSyscom({ lineas, cliente, estadoSat, fletera, referencia, real }) {
   const cuerpo = {
     tipo_entrega: "domicilio",
     direccion: {
-      atencion_a: cliente.nombre.slice(0, 120),
-      calle: cliente.calle.slice(0, 100),
-      num_ext: cliente.numero.slice(0, 20),
-      colonia: cliente.colonia.slice(0, 100),
-      ciudad: cliente.ciudad.slice(0, 100),
+      // without accents: Syscom's system turns "Zúñiga" into "Z&Uacute;&Ntilde;iga" on the shipping label
+      atencion_a: sinAcentoMayus(cliente.nombre).slice(0, 120),
+      calle: sinAcentoMayus(cliente.calle).slice(0, 100),
+      num_ext: sinAcentoMayus(cliente.numero).slice(0, 20),
+      colonia: sinAcentoMayus(cliente.colonia).slice(0, 100),
+      ciudad: sinAcentoMayus(cliente.ciudad).slice(0, 100),
       estado: estadoSat,
       pais: "MEX",
       codigo_postal: cliente.cp,
