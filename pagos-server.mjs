@@ -2403,7 +2403,7 @@ function paginaAdmin(req, aviso) {
         <header><div><b>${escHtml(p.referencia)}</b><small>${fecha(p.fecha_pago || p.fecha)}</small></div><span class="tag">${escHtml((ETAPAS.find(([k]) => k === etapa) || [, etapa])[1])}</span></header>
         <div class="grid">
           <div><small>Cliente</small>${escHtml(c.nombre)}<br><a href="mailto:${escHtml(c.email)}">${escHtml(c.email)}</a> · ${escHtml(c.telefono)}<br>${escHtml(c.ciudad)}, ${escHtml(c.estado)} · C.P. ${escHtml(c.cp)}</div>
-          <div><small>Productos</small>${(p.productos || []).map((l) => `${l.cantidad} × ${escHtml(l.modelo)}`).join("<br>")}</div>
+          <div><small>Productos</small>${(p.productos || []).map((l) => `<b>${l.cantidad} ×</b> ${escHtml(l.titulo || "")}<br><small>Modelo ${escHtml(l.modelo || "")}</small>`).join("<br>")}</div>
           <div><small>Cobrado al cliente</small><b>${pesos(cobrado)}</b><br><small>Envío ${pesos(p.envio)} · ${escHtml(NOMBRE_FLETERA[p.fletera] || p.fletera || "")}</small></div>
           <div class="pagar"><small>Pagar a Syscom</small><b>${costo != null ? pesos(costo) : "—"}</b><br><small>Folio <b>${escHtml(folio)}</b>${costo != null ? ` · margen aprox. ${pesos(cobrado - costo)} antes de comisión MP` : ""}</small></div>
         </div>
